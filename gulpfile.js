@@ -74,8 +74,8 @@ gulp.task('ng', function () {
         'angular.module(\'jsvat\', [])' +
         '\n\r    .factory(\'VatCheckerFactory\', function () {' +
         '\n\r<%= contents %>' +
+        '\n\r return VatChecker;'+
         '});';
-
 
     return gulp.src(src.jsDir)
         .pipe(wrap(ngWrap))
