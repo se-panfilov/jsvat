@@ -1,10 +1,10 @@
 'use strict';
 
-var gulp = require('gulp'), concat, rename, uglify, sourcemaps, changed, jshint, size, ngAnnotate, buddyjs, gzip;
+var gulp = require('gulp'), rename, uglify, sourcemaps, jshint, size, ngAnnotate, buddyjs, gzip;
 
 var src = {
     jsDir: [
-        'src/**/..js'
+        'src/**/*.js'
     ]
 };
 
@@ -52,41 +52,35 @@ gulp.task('js', function () {
     sourcemaps = sourcemaps || require('gulp-sourcemaps');
     uglify = uglify || require('gulp-uglify');
     rename = rename || require('gulp-rename');
-    ngAnnotate = ngAnnotate || require('gulp-ng-annotate');
-    changed = changed || require('gulp-changed');
-    concat = concat || require('gulp-concat');
     gzip = gzip || require('gulp-gzip');
 
     return gulp.src(src.jsDir)
-        .pipe(changed(dest.dist))
-        .pipe(concat('arexio.js'))
-        .pipe(concat('arexio.js'))
-        .pipe(ngAnnotate({remove: true, add: true, single_quotes: true}))
         .pipe(gulp.dest(dest.dist))
         .pipe(sourcemaps.init())
         .pipe(uglify())
-        .pipe(rename({basename: 'arexio.min'}))
+        .pipe(rename({basename: 'jsvat.min'}))
         .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest(dest.dist))
-        .pipe(gzip())
         .pipe(gulp.dest(dest.dist))
         ;
 });
 
-
-gulp.task('jsvat', function () {
+gulp.task('ng', function () {
     sourcemaps = sourcemaps || require('gulp-sourcemaps');
     uglify = uglify || require('gulp-uglify');
     rename = rename || require('gulp-rename');
-    concat = concat || require('gulp-concat');
+    ngAnnotate = ngAnnotate || require('gulp-ng-annotate');
     gzip = gzip || require('gulp-gzip');
 
-    return gulp.src([
-        'libs/jsvat/ng-jsvat.js'
-    ])
+    return gulp.src(src.jsDir)
+        .pipe(ngAnnotate({remove: true, add: true, single_quotes: true}))
+        .pipe(rename({basename: 'ng-jsvat'}))
+        .pipe(gulp.dest(dest.dist))
+        .pipe(sourcemaps.init())
         .pipe(uglify())
         .pipe(rename({basename: 'ng-jsvat.min'}))
-        .pipe(gulp.dest('libs/jsvat/'))
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest(dest.dist))
+        ;
 });
 
 gulp.task('watch', function () {
@@ -103,6 +97,7 @@ gulp.task('build_vendor', function () {
 
 gulp.task('build', function () {
     gulp.start('js');
+    gulp.start('ng');
 });
 
 gulp.task('default', function () {
