@@ -1,6 +1,6 @@
 'use strict';
 
-var gulp = require('gulp'), rename, uglify, sourcemaps, jshint, size, ngAnnotate, buddyjs, gzip;
+var gulp = require('gulp'), rename, uglify, sourcemaps, jshint, size, ngAnnotate, buddyjs, gzip, todo;
 
 var src = {
     jsDir: [
@@ -83,10 +83,18 @@ gulp.task('ng', function () {
         ;
 });
 
+gulp.task('todo', function () {
+    todo = require('gulp-todo');
+
+    gulp.src('src/**/*.*')
+        .pipe(todo())
+        .pipe(gulp.dest('./'));
+});
+
 gulp.task('watch', function () {
     var watch = require('gulp-watch');
 
-    gulp.watch(src.jsDir, ['js']);
+    gulp.watch(src.jsDir, ['js', 'todo']);
 });
 
 gulp.task('build_vendor', function () {
@@ -98,6 +106,7 @@ gulp.task('build_vendor', function () {
 gulp.task('build', function () {
     gulp.start('js');
     gulp.start('ng');
+    gulp.start('todo');
 });
 
 gulp.task('default', function () {

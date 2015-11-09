@@ -1,17 +1,16 @@
 {
-  "name": "arexio",
+  "name": "jsvat",
   "version": "0.0.1",
-  "description": "Arexio frontend",
+  "description": "Check the validity of the format of an EU VAT number specified",
   "main": "index.html",
   "license": "MIT",
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "gulp-todo": "^4.0.0"
+  },
   "devDependencies": {
-    "fs": "0.0.2",
     "gulp-buddy.js": "^1.0.0",
-    "gulp-concat": "^2.6.0",
     "gulp-filesize": "0.0.6",
-    "gulp-gzip": "^1.2.0",
     "gulp-jshint": "^1.12.0",
     "gulp-ng-annotate": "^1.1.0",
     "gulp-rename": "^1.2.2",
