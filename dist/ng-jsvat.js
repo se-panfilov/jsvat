@@ -61,8 +61,10 @@ angular.module('jsvat', [])
             for (var k in _REGEXP) {
                 if (_REGEXP.hasOwnProperty(k)) {
 
-                    var parsedNum = _REGEXP[k].exec(VATNumber);
-                    if (parsedNum) {
+                    var isMatch = _REGEXP[k].test(VATNumber);
+                    if (isMatch) {
+                        //TODO (S.Panfilov) todo and exec should do the same, but they didn't
+                        var parsedNum = _REGEXP[k].exec(VATNumber);
 
                         var cCode = parsedNum[1];
                         var cNumber = parsedNum[2];
