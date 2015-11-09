@@ -1,6 +1,6 @@
 'use strict';
 
-var gulp = require('gulp'), rename, uglify, sourcemaps, jshint, size, ngAnnotate, buddyjs, gzip, todo;
+var gulp = require('gulp'), rename, uglify, sourcemaps, jshint, size, ngAnnotate, buddyjs, gzip, todo, wrap;
 
 var src = {
     jsDir: [
@@ -52,7 +52,6 @@ gulp.task('js', function () {
     sourcemaps = sourcemaps || require('gulp-sourcemaps');
     uglify = uglify || require('gulp-uglify');
     rename = rename || require('gulp-rename');
-    gzip = gzip || require('gulp-gzip');
 
     return gulp.src(src.jsDir)
         .pipe(gulp.dest(dest.dist))
@@ -69,9 +68,17 @@ gulp.task('ng', function () {
     uglify = uglify || require('gulp-uglify');
     rename = rename || require('gulp-rename');
     ngAnnotate = ngAnnotate || require('gulp-ng-annotate');
-    gzip = gzip || require('gulp-gzip');
+    wrap = wrap || require('gulp-wrap');
+
+    var ngWrap =
+        'angular.module(\'jsvat\', [])' +
+        '\n\r    .factory(\'VatCheckerFactory\', function () {' +
+        '\n\r<%= contents %>' +
+        '});';
+
 
     return gulp.src(src.jsDir)
+        .pipe(wrap(ngWrap))
         .pipe(ngAnnotate({remove: true, add: true, single_quotes: true}))
         .pipe(rename({basename: 'ng-jsvat'}))
         .pipe(gulp.dest(dest.dist))

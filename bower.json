@@ -1,6 +1,6 @@
 {
   "name": "jsvat",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Check the validity of the format of an EU VAT number specified",
   "main": "index.html",
   "scripts": {
@@ -15,6 +15,8 @@
     "url": "https://github.com/se-panfilov/jsvat/issues"
   },
   "keywords": [
+    "jsvat",
+    "EU",
     "vat",
     "VAT",
     "european",
