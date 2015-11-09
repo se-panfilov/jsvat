@@ -17,6 +17,10 @@ describe("VatChecker", function () {
         it("Valid VAT with '-'", function () {
             expect(VatChecker.checkVATNumber('RO-459-491-7')).to.be.true;
         });
+
+        it("Valid for UK (9 digits)", function () {
+            expect(VatChecker.checkVATNumber(123456789)).to.be.true;
+        });
     });
 
     describe("Invalid VAT", function () {

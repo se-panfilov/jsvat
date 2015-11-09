@@ -68,7 +68,7 @@ angular.module('jsvat', [])
 
                         var cCode = parsedNum[1];
                         var cNumber = parsedNum[2];
-                        if (cCode.length == 0) cCode = defCCode;
+                        if (!cCode || cCode.length === 0) cCode = defCCode;
 
                         var checkDigitFunc = _checks[cCode];
                         isValid = checkDigitFunc(cNumber);
