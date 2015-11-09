@@ -50,6 +50,7 @@ var VatChecker = (function () {
 
     var exports = {
         checkVATNumber: function (number) {
+            if (!number) return false;
             var defCCode = "GB";
 
             var VATNumber = number.toString().toUpperCase().replace(/(\s|-|\.)+/g, '');
@@ -993,7 +994,7 @@ var VatChecker = (function () {
         }
     };
 
+    if (typeof module === 'object' && module.exports) module.exports = exports;
+
     return exports;
-
-
 })();

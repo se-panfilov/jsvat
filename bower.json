@@ -1,0 +1,8 @@
+{
+  "name": "jsvat",
+  "version": "0.3.0",
+  "description": "Check the validity of the format of an EU VAT number specified",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true
+}

@@ -22,24 +22,30 @@ describe("VatChecker", function () {
     describe("Invalid VAT", function () {
 
         it("valid invalid VAT", function () {
-            expect(VatChecker.checkVATNumber('RO459491721323')).to.be.false;
+            return expect(VatChecker.checkVATNumber('RO459491721323')).to.be.false;
         });
 
         it("long string number", function () {
-            expect(VatChecker.checkVATNumber('12321323123213456546')).to.be.false;
+            return expect(VatChecker.checkVATNumber('12321323123213456546')).to.be.false;
         });
 
         it("long digit number", function () {
-            expect(VatChecker.checkVATNumber(1123587867867843562321323123213)).to.be.false;
+            return expect(VatChecker.checkVATNumber(1123587867867843562321323123213)).to.be.false;
         });
 
         it("short digit number", function () {
-            expect(VatChecker.checkVATNumber(1)).to.be.false;
+            return expect(VatChecker.checkVATNumber(1)).to.be.false;
+        });
+
+        it("empty value", function () {
+            return expect(VatChecker.checkVATNumber()).to.be.false;
+        });
+
+        it("empty string value", function () {
+            return expect(VatChecker.checkVATNumber("")).to.be.false;
         });
 
     });
-
-
 
 
 });
