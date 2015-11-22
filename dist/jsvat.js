@@ -119,8 +119,8 @@ var VatChecker = (function () {
             }
 
             // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-            expect = vatNum.slice(8, 9);
-            return total === expect;
+            expect = +vatNum.slice(8, 9);
+            return {total: total, expect: expect};
         }
 
         // Juridical entities other than national ones
@@ -141,7 +141,7 @@ var VatChecker = (function () {
 
             // Compare it with the last character of the VAT number. If it's the same, then it's valid.
             expect = vatNum.slice(8, 9);
-            return total === expect;
+            return {total: total, expect: expect};
         }
 
         // Personal number (NIF) (starting with numeric of Y or Z)
@@ -150,13 +150,13 @@ var VatChecker = (function () {
             if (tempnumber.substring(0, 1) === 'Y') tempnumber = tempnumber.replace(/Y/, "1");
             if (tempnumber.substring(0, 1) === 'Z') tempnumber = tempnumber.replace(/Z/, "2");
             expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(+tempnumber.substring(0, 8) % 23);
-            return tempnumber.charAt(8) === expect;
+            return {total: tempnumber.charAt(8), expect: expect};
         }
 
         // Personal number (NIF) (starting with K, L, M, or X)
         else if (esExp[3].test(vatNum)) {
             expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(+vatNum.substring(1, 8) % 23);
-            return vatNum.charAt(8) === expect;
+            return {total: vatNum.charAt(8), expect: expect};
         }
 
         else return false;
@@ -564,7 +564,7 @@ var VatChecker = (function () {
                 total = String.fromCharCode(total + 64);
 
                 // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-                expect = +vatNum.slice(8, 9);
+                expect = vatNum.slice(8, 9);
                 return total === expect;
             }
 
