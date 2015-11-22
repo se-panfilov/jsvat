@@ -1,0 +1,83 @@
+var expect = require('chai').expect;
+var VatChecker = require('../dist/jsvat.js');
+
+describe("Switzerland VAT", function () {
+    it("Valid VAT", function () {
+        expect(VatChecker.checkVatNum('CHE100416306MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE101090265MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE101698805MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE101770851MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE102534916MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE102628670MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE102646900MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE102805222MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE103051537MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE104309655MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE104528536MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE104827884MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE105121077MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE105124868MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE105381951MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE107737562MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE105789849MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE105835768MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE105873496MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE105898444MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE106480461MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE106847076MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE107811419MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE107984669MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE108017588MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE108019245MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE108020917MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE108458018MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE108672988MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE109852725MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE109877518MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE110171891MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE110257191MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE112142015MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE112256297MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE112487804MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE112591732MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE113816425MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE114498799MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE114546487MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE114932413MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE115197811MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE115288187MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE115772649MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE116032762MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE116199020MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE116238111MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE116268856MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE116272898MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE116276850MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE116284625MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE116303292MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE116303553MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE116304475MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE116320362MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE158229508MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE184633358MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE255263366MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE284156502MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE350423893MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE381569736MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE408983125MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE424414541MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE432495116MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE432825998MWST')).to.be.true;
+        expect(VatChecker.checkVatNum('CHE-432.825.99-MWST')).to.be.false;
+        expect(VatChecker.checkVatNum('CHE-432.825.9980-MWST')).to.be.false;
+        expect(VatChecker.checkVatNum('CH-432.825.999-MWST')).to.be.false;
+    });
+
+    it("Valid VAT with spaces", function () {
+        expect(VatChecker.checkVatNum('CHE1 1528 8187 MWST')).to.be.true;
+    });
+
+    it("Valid VAT with '-'", function () {
+        expect(VatChecker.checkVatNum('CHE115-2881-87MWST')).to.be.true;
+    });
+});
