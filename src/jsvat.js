@@ -56,9 +56,9 @@ var VatChecker = (function () {
             var vatNum = number.toString().toUpperCase().replace(/(\s|-|\.)+/g, '');
             var isValid = false;
 
-            console.log(vatNum);
 
             for (var k in _REGEXP) {
+                console.log(k);
                 if (_REGEXP.hasOwnProperty(k)) {
 
                     var isMatch = _REGEXP[k].test(vatNum);
@@ -71,7 +71,8 @@ var VatChecker = (function () {
                         var cNumber = parsedNum[2];
                         if (!cCode || cCode.length === 0) cCode = defCCode;
 
-                        var checkDigitFunc = _checks[cCode];
+                        //TODO (S.Panfilov) refactor it (should call by key from regexp)
+                        var checkDigitFunc = _checks[cCode.toLowerCase()];
                         isValid = checkDigitFunc(cNumber);
                         //TODO (S.Panfilov) debug
                         //isValid = true;
@@ -114,10 +115,11 @@ var VatChecker = (function () {
     }
 
     var _checks = {
-        AT: function (vatNum) {
+        at: function (vatNum) {
             var total = 0;
             var multipliers = [1, 2, 1, 2, 1, 2, 1];
             var temp = 0;
+            var expect;
 
             for (var i = 0; i < 7; i++) {
                 temp = Number(vatNum.charAt(i)) * multipliers[i];
@@ -130,31 +132,45 @@ var VatChecker = (function () {
             total = 10 - (total + 4) % 10;
             if (total === 10) total = 0;
 
-            return total === vatNum.slice(7, 8);
+            expect = +vatNum.slice(7, 8);
+
+            return total === expect;
         },
-        BE: function (vatNum) {
+        be: function (vatNum) {
+            var expect;
             if (vatNum.length === 9) vatNum = "0" + vatNum;
             if (vatNum.slice(1, 2) === 0) return false;
 
             return 97 - vatNum.slice(0, 8) % 97 === vatNum.slice(8, 10);
         },
 
-        BG: function (vatNum) {
+        bg: function (vatNum) {
+            var expect;
+            var multipliers;
+            var temp = 0;
+            var total = 0;
+
             if (vatNum.length === 9) {
-                var total = 0;
-                var temp = 0;
-                for (var i = 0; i < 8; i++) temp += Number(vatNum.charAt(i)) * (i + 1);
+
+                temp = 0;
+                for (var i = 0; i < 8; i++) {
+                    temp += Number(vatNum.charAt(i)) * (i + 1);
+                }
                 total = temp % 11;
                 if (total !== 10) {
-                    return total === vatNum.slice(8);
+                    expect = +vatNum.slice(8);
+                    return total === expect;
                 }
 
-                var temp = 0;
-                for (var i = 0; i < 8; i++) temp += Number(vatNum.charAt(i)) * (i + 3);
+                temp = 0;
+                for (var j = 0; j < 8; j++) {
+                    temp += Number(vatNum.charAt(j)) * (j + 3);
+                }
 
                 total = temp % 11;
                 if (total === 10) total = 0;
-                return total === vatNum.slice(8);
+                expect = vatNum.slice(8);
+                return total === expect;
             }
 
             // 10 digit VAT code - see if it relates to a standard physical person
@@ -165,9 +181,11 @@ var VatChecker = (function () {
                 if ((month > 0 && month < 13) || (month > 20 && month < 33) || (month > 40 && month < 53)) {
 
                     // Extract the next digit and multiply by the counter.
-                    var multipliers = [2, 4, 8, 5, 10, 9, 7, 3, 6];
-                    var total = 0;
-                    for (var i = 0; i < 9; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+                    multipliers = [2, 4, 8, 5, 10, 9, 7, 3, 6];
+                    total = 0;
+                    for (var k = 0; k < 9; k++) {
+                        total += Number(vatNum.charAt(k)) * multipliers[k];
+                    }
 
                     // Establish check digit.
                     total = total % 11;
@@ -181,19 +199,25 @@ var VatChecker = (function () {
             // It doesn't relate to a standard physical person - see if it relates to a foreigner.
 
             // Extract the next digit and multiply by the counter.
-            var multipliers = [21, 19, 17, 13, 11, 9, 7, 3, 1];
-            var total = 0;
-            for (var i = 0; i < 9; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            multipliers = [21, 19, 17, 13, 11, 9, 7, 3, 1];
+            total = 0;
+            for (var l = 0; l < 9; l++) {
+                total += Number(vatNum.charAt(l)) * multipliers[l];
+            }
 
             // Check to see if the check digit given is correct, If not, try next type of person
-            if (total % 10 === vatNum.substr(9, 1)) return true;
+            if (total % 10 === vatNum.substr(9, 1)) {
+                return true;
+            }
 
             // Finally, if not yet identified, see if it conforms to a miscellaneous VAT number
 
             // Extract the next digit and multiply by the counter.
-            var multipliers = [4, 3, 2, 7, 6, 5, 4, 3, 2];
-            var total = 0;
-            for (var i = 0; i < 9; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            multipliers = [4, 3, 2, 7, 6, 5, 4, 3, 2];
+            total = 0;
+            for (var m = 0; m < 9; m++) {
+                total += Number(vatNum.charAt(m)) * multipliers[m];
+            }
 
             // Establish check digit.
             total = 11 - total % 11;
@@ -201,13 +225,12 @@ var VatChecker = (function () {
             if (total === 11) total = 0;
 
             // Check to see if the check digit given is correct, If not, we have an error with the VAT number
-            if (total === vatNum.substr(9, 1))
-                return true;
-            else
-                return false;
+            expect = vatNum.substr(9, 1);
+            return total === expect;
         },
 
-        CHE: function (vatNum) {
+        che: function (vatNum) {
+            var expect;
 
             // Checks the check digits of a Swiss VAT number.
 
@@ -222,10 +245,12 @@ var VatChecker = (function () {
             if (total === 11) total = 0;
 
             // Check to see if the check digit given is correct, If not, we have an error with the VAT number
-            return total === vatNum.substr(8, 1);
+            expect = vatNum.substr(8, 1);
+            return total === expect;
         },
 
-        CY: function (vatNum) {
+        cy: function (vatNum) {
+            var expect;
 
             // Checks the check digits of a Cypriot VAT number.
 
@@ -265,10 +290,12 @@ var VatChecker = (function () {
             total = String.fromCharCode(total + 65);
 
             // Check to see if the check digit given is correct
-            return total === vatNum.substr(8, 1);
+            expect = vatNum.substr(8, 1);
+            return total === expect;
         },
 
-        CZ: function (vatNum) {
+        cz: function (vatNum) {
+            var expect;
 
             // Checks the check digits of a Czech Republic VAT number.
 
@@ -280,7 +307,6 @@ var VatChecker = (function () {
             czexp[1] = (/^[0-5][0-9][0|1|5|6]\d[0-3]\d\d{3}$/);
             czexp[2] = (/^6\d{8}$/);
             czexp[3] = (/^\d{2}[0-3|5-8]\d[0-3]\d\d{4}$/);
-            var i = 0;
 
             // Legal entities
             if (czexp[0].test(vatNum)) {
@@ -294,7 +320,8 @@ var VatChecker = (function () {
                 if (total === 11) total = 1;
 
                 // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-                return total === vatNum.slice(7, 8);
+                expect = vatNum.slice(7, 8);
+                return total === expect;
             }
 
             // Individuals type 1
@@ -316,20 +343,23 @@ var VatChecker = (function () {
 
                 // Convert calculated check digit according to a lookup table;
                 var lookup = [8, 7, 6, 5, 4, 3, 2, 1, 0, 9, 10];
-                return lookup[total - 1] === vatNum.slice(8, 9);
+                expect = vatNum.slice(8, 9);
+                return lookup[total - 1] === expect;
             }
 
             // Individuals type 3
             else if (czexp[3].test(vatNum)) {
                 var temp = Number(vatNum.slice(0, 2)) + Number(vatNum.slice(2, 4)) + Number(vatNum.slice(4, 6)) + Number(vatNum.slice(6, 8)) + Number(vatNum.slice(8));
-                return !!(temp % 11 === 0 && Number(vatNum) % 11 === 0);
+                expect = Number(vatNum) % 11 === 0;
+                return !!(temp % 11 === 0 && expect);
             }
 
             // else error
             return false;
         },
 
-        DE: function (vatNum) {
+        de: function (vatNum) {
+            var expect;
 
             // Checks the check digits of a German VAT number.
 
@@ -355,10 +385,12 @@ var VatChecker = (function () {
 
             // Compare it with the last two characters of the VAT number. If the same, then it is a valid
             // check digit.
-            return checkdigit === vatNum.slice(8, 9);
+            expect = vatNum.slice(8, 9);
+            return checkdigit === expect;
         },
 
-        DK: function (vatNum) {
+        dk: function (vatNum) {
+            var expect = 0;
 
             // Checks the check digits of a Danish VAT number.
 
@@ -372,10 +404,11 @@ var VatChecker = (function () {
             total = total % 11;
 
             // The remainder should be 0 for it to be valid..
-            return total === 0;
+            return total === expect;
         },
 
-        EE: function (vatNum) {
+        ee: function (vatNum) {
+            var expect;
 
             // Checks the check digits of an Estonian VAT number.
 
@@ -390,10 +423,12 @@ var VatChecker = (function () {
             if (total === 10) total = 0;
 
             // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-            return total === vatNum.slice(8, 9);
+            expect = vatNum.slice(8, 9);
+            return total === expect;
         },
 
-        EL: function (vatNum) {
+        el: function (vatNum) {
+            var expect;
 
             // Checks the check digits of a Greek VAT number.
 
@@ -415,10 +450,12 @@ var VatChecker = (function () {
             }
 
             // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-            return total === vatNum.slice(8, 9);
+            expect = vatNum.slice(8, 9);
+            return total === expect;
         },
 
-        ES: function (vatNum) {
+        es: function (vatNum) {
+            var expect;
 
             // Checks the check digits of a Spanish VAT number.
 
@@ -450,7 +487,8 @@ var VatChecker = (function () {
                 }
 
                 // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-                return total === vatNum.slice(8, 9);
+                expect = vatNum.slice(8, 9);
+                return total === expect;
             }
 
             // Juridical entities other than national ones
@@ -470,7 +508,8 @@ var VatChecker = (function () {
                 total = String.fromCharCode(total + 64);
 
                 // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-                return total === vatNum.slice(8, 9);
+                expect = vatNum.slice(8, 9);
+                return total === expect;
             }
 
             // Personal number (NIF) (starting with numeric of Y or Z)
@@ -478,25 +517,28 @@ var VatChecker = (function () {
                 var tempnumber = vatNum;
                 if (tempnumber.substring(0, 1) === 'Y') tempnumber = tempnumber.replace(/Y/, "1");
                 if (tempnumber.substring(0, 1) === 'Z') tempnumber = tempnumber.replace(/Z/, "2");
-                return tempnumber.charAt(8) === 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(Number(tempnumber.substring(0, 8)) % 23);
+                expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(Number(tempnumber.substring(0, 8)) % 23);
+                return tempnumber.charAt(8) === expect;
             }
 
             // Personal number (NIF) (starting with K, L, M, or X)
             else if (esexp[3].test(vatNum)) {
-                return vatNum.charAt(8) === 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(Number(vatNum.substring(1, 8)) % 23);
+                expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(Number(vatNum.substring(1, 8)) % 23);
+                return vatNum.charAt(8) === expect;
             }
 
             else return false;
         },
 
-        EU: function (vatNum) {
+        eu: function () {
 
             // We know little about EU numbers apart from the fact that the first 3 digits represent the
             // country, and that there are nine digits in total.
             return true;
         },
 
-        FI: function (vatNum) {
+        fi: function (vatNum) {
+            var expect;
 
             // Checks the check digits of a Finnish VAT number.
 
@@ -513,14 +555,18 @@ var VatChecker = (function () {
             }
 
             // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-            return total === vatNum.slice(7, 8);
+            expect= vatNum.slice(7, 8);
+            return total === expect;
         },
 
-        FR: function (vatNum) {
+        fr: function (vatNum) {
+            var expect;
 
             // Checks the check digits of a French VAT number.
 
-            if (!(/^\d{11}$/).test(vatNum)) return true;
+            if (!(/^\d{11}$/).test(vatNum)) {
+                return true;
+            }
 
             // Extract the last nine digits as an integer.
             var total = vatNum.substring(2);
@@ -529,10 +575,12 @@ var VatChecker = (function () {
             total = (total * 100 + 12) % 97;
 
             // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-            return total === vatNum.slice(0, 2);
+            expect= vatNum.slice(0, 2);
+            return total === expect;
         },
 
-        GB: function (vatNum) {
+        gb: function (vatNum) {
+            var expect;
 
             // Checks the check digits of a UK VAT number.
 
@@ -540,12 +588,14 @@ var VatChecker = (function () {
 
             // Government departments
             if (vatNum.substr(0, 2) === 'GD') {
-                return vatNum.substr(2, 3) < 500;
+                expect = 500;
+                return vatNum.substr(2, 3) < expect;
             }
 
             // Health authorities
             if (vatNum.substr(0, 2) === 'HA') {
-                return vatNum.substr(2, 3) > 499;
+                expect = 499;
+                return vatNum.substr(2, 3) > expect;
             }
 
             // Standard and commercial numbers
@@ -564,26 +614,28 @@ var VatChecker = (function () {
             // VAT number could use either system, so we check it against both.
 
             // Establish check digits by subtracting 97 from total until negative.
-            var cd = total;
-            while (cd > 0) {
-                cd = cd - 97;
+            var checkDigit = total;
+            while (checkDigit > 0) {
+                checkDigit = checkDigit - 97;
             }
 
             // Get the absolute value and compare it with the last two characters of the VAT number. If the
             // same, then it is a valid traditional check digit. However, even then the number must fit within
             // certain specified ranges.
-            cd = Math.abs(cd);
-            if (cd === vatNum.slice(7, 9) && no < 9990001 && (no < 100000 || no > 999999) && (no < 9490001 || no > 9700000)) return true;
+            checkDigit = Math.abs(checkDigit);
+            if (checkDigit === vatNum.slice(7, 9) && no < 9990001 && (no < 100000 || no > 999999) && (no < 9490001 || no > 9700000)) return true;
 
             // Now try the new method by subtracting 55 from the check digit if we can - else add 42
-            if (cd >= 55)
-                cd = cd - 55;
+            if (checkDigit >= 55)
+                checkDigit = checkDigit - 55;
             else
-                cd = cd + 42;
-            return !!(cd === vatNum.slice(7, 9) && no > 1000000);
+                checkDigit = checkDigit + 42;
+            expect = vatNum.slice(7, 9);
+            return !!(checkDigit === expect && no > 1000000);
         },
 
-        HR: function (vatNum) {
+        hr: function (vatNum) {
+            var expect;
 
             // Checks the check digits of a Croatian VAT number using ISO 7064, MOD 11-10 for check digit.
 
@@ -603,10 +655,12 @@ var VatChecker = (function () {
             }
 
             // Now check that we have the right check digit
-            return (product + vatNum.slice(10, 11) * 1) % 10 === 1;
+            expect = vatNum.slice(10, 11) * 1;
+            return (product + expect) % 10 === 1;
         },
 
-        HU: function (vatNum) {
+        hu: function (vatNum) {
+            var expect;
 
             // Checks the check digits of a Hungarian VAT number.
 
@@ -621,10 +675,12 @@ var VatChecker = (function () {
             if (total === 10) total = 0;
 
             // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-            return total === vatNum.slice(7, 8);
+            expect= vatNum.slice(7, 8);
+            return total === expect;
         },
 
-        IE: function (vatNum) {
+        ie: function (vatNum) {
+            var expect;
 
             // Checks the check digits of an Irish VAT number.
 
@@ -655,10 +711,12 @@ var VatChecker = (function () {
                 total = String.fromCharCode(total + 64);
 
             // Compare it with the eighth character of the VAT number. If it's the same, then it's valid.
-            return total === vatNum.slice(7, 8);
+            expect= vatNum.slice(7, 8);
+            return total === expect;
         },
 
-        IT: function (vatNum) {
+        it: function (vatNum) {
+            var expect;
 
             // Checks the check digits of an Italian VAT number.
 
@@ -667,9 +725,13 @@ var VatChecker = (function () {
             var temp;
 
             // The last three digits are the issuing office, and cannot exceed more 201, unless 999 or 888
-            if (Number(vatNum.slice(0, 7)) === 0) return false;
+            if (Number(vatNum.slice(0, 7)) === 0) {
+                return false;
+            }
             temp = Number(vatNum.slice(7, 10));
-            if ((temp < 1) || (temp > 201) && temp !== 999 && temp !== 888) return false;
+            if ((temp < 1) || (temp > 201) && temp !== 999 && temp !== 888) {
+                return false;
+            }
 
             // Extract the next digit and multiply by the appropriate
             for (var i = 0; i < 10; i++) {
@@ -687,10 +749,14 @@ var VatChecker = (function () {
             }
 
             // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-            return total === vatNum.slice(10, 11);
+            expect= vatNum.slice(10, 11);
+            return total === expect;
         },
 
-        LT: function (vatNum) {
+        lt: function (vatNum) {
+            var total;
+            var multipliers;
+            var expect;
 
             // Checks the check digits of a Lithuanian VAT number.
 
@@ -701,14 +767,18 @@ var VatChecker = (function () {
                 if (!(/^\d{7}1/).test(vatNum)) return false;
 
                 // Extract the next digit and multiply by the counter+1.
-                var total = 0;
-                for (var i = 0; i < 8; i++) total += Number(vatNum.charAt(i)) * (i + 1);
+                 total = 0;
+                for (var i = 0; i < 8; i++) {
+                    total += Number(vatNum.charAt(i)) * (i + 1);
+                }
 
                 // Can have a double check digit calculation!
                 if (total % 11 === 10) {
-                    var multipliers = [3, 4, 5, 6, 7, 8, 9, 1];
+                     multipliers = [3, 4, 5, 6, 7, 8, 9, 1];
                     total = 0;
-                    for (i = 0; i < 8; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+                    for (var j = 0; j < 8; j++) {
+                        total += Number(vatNum.charAt(j)) * multipliers[j];
+                    }
                 }
 
                 // Establish check digit.
@@ -718,7 +788,8 @@ var VatChecker = (function () {
                 }
 
                 // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-                return total === vatNum.slice(8, 9);
+                expect= vatNum.slice(8, 9);
+                return total === expect;
             }
 
             // 12 character VAT numbers are for temporarily registered taxpayers
@@ -728,15 +799,19 @@ var VatChecker = (function () {
                 if (!(/^\d{10}1/).test(vatNum)) return false;
 
                 // Extract the next digit and multiply by the counter+1.
-                var total = 0;
-                var multipliers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2];
-                for (var i = 0; i < 11; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+                 total = 0;
+                 multipliers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2];
+                for (var k = 0; k < 11; k++) {
+                    total += Number(vatNum.charAt(k)) * multipliers[k];
+                }
 
                 // Can have a double check digit calculation!
                 if (total % 11 === 10) {
-                    var multipliers = [3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4];
+                     multipliers = [3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4];
                     total = 0;
-                    for (i = 0; i < 11; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+                    for (var l = 0; l < 11; l++) {
+                        total += Number(vatNum.charAt(l)) * multipliers[l];
+                    }
                 }
 
                 // Establish check digit.
@@ -746,18 +821,21 @@ var VatChecker = (function () {
                 }
 
                 // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-                return total === vatNum.slice(11, 12);
+                expect= vatNum.slice(11, 12);
+                return total === expect;
             }
         },
 
-        LU: function (vatNum) {
+        lu: function (vatNum) {
+            var expect;
 
             // Checks the check digits of a Luxembourg VAT number.
 
             return vatNum.slice(0, 6) % 89 === vatNum.slice(6, 8);
         },
 
-        LV: function (vatNum) {
+        lv: function (vatNum) {
+            var expect;
 
             // Checks the check digits of a Latvian VAT number.
 
@@ -789,7 +867,8 @@ var VatChecker = (function () {
             }
         },
 
-        MT: function (vatNum) {
+        mt: function (vatNum) {
+            var expect;
 
             // Checks the check digits of a Maltese VAT number.
 
@@ -806,7 +885,8 @@ var VatChecker = (function () {
             return total === vatNum.slice(6, 8) * 1;
         },
 
-        NL: function (vatNum) {
+        nl: function (vatNum) {
+            var expect;
 
             // Checks the check digits of a Dutch VAT number.
 
@@ -826,7 +906,8 @@ var VatChecker = (function () {
             return total === vatNum.slice(8, 9);
         },
 
-        NO: function (vatNum) {
+        no: function (vatNum) {
+            var expect;
 
             // Checks the check digits of a Norwegian VAT number.
             // See http://www.brreg.no/english/coordination/number.html
@@ -849,7 +930,8 @@ var VatChecker = (function () {
             }
         },
 
-        PL: function (vatNum) {
+        pl: function (vatNum) {
+            var expect;
 
             // Checks the check digits of a Polish VAT number.
 
@@ -869,7 +951,8 @@ var VatChecker = (function () {
             return total === vatNum.slice(9, 10);
         },
 
-        PT: function (vatNum) {
+        pt: function (vatNum) {
+            var expect;
 
             // Checks the check digits of a Portugese VAT number.
 
@@ -889,7 +972,8 @@ var VatChecker = (function () {
             return total === vatNum.slice(8, 9);
         },
 
-        RO: function (vatNum) {
+        ro: function (vatNum) {
+            var expect;
 
             // Checks the check digits of a Romanian VAT number.
 
@@ -911,7 +995,8 @@ var VatChecker = (function () {
             return total === vatNum.slice(vatNum.length - 1, vatNum.length);
         },
 
-        RS: function (vatNum) {
+        rs: function (vatNum) {
+            var expect;
 
             // Checks the check digits of a Serbian VAT number using ISO 7064, MOD 11-10 for check digit.
 
@@ -933,7 +1018,8 @@ var VatChecker = (function () {
             return (product + vatNum.slice(8, 9) * 1) % 10 === 1;
         },
 
-        RU: function (vatNum) {
+        ru: function (vatNum) {
+            var expect;
 
             // Checks the check digits of a Russian INN number
             // See http://russianpartner.biz/test_inn.html for algorithm
@@ -945,6 +1031,7 @@ var VatChecker = (function () {
                 for (var i = 0; i < 10; i++) {
                     total += Number(vatNum.charAt(i)) * multipliers[i];
                 }
+
                 total = total % 11;
                 if (total > 9) {
                     total = total % 10
@@ -960,13 +1047,19 @@ var VatChecker = (function () {
                 var total2 = 0;
                 var multipliers2 = [3, 7, 2, 4, 10, 3, 5, 9, 4, 6, 8, 0];
 
-                for (var i = 0; i < 11; i++) total1 += Number(vatNum.charAt(i)) * multipliers1[i];
+                for (var i = 0; i < 11; i++) {
+                    total1 += Number(vatNum.charAt(i)) * multipliers1[i];
+                }
+
                 total1 = total1 % 11;
                 if (total1 > 9) {
                     total1 = total1 % 10
                 }
 
-                for (var i = 0; i < 11; i++) total2 += Number(vatNum.charAt(i)) * multipliers2[i];
+                for (var j = 0; j < 11; j++) {
+                    total2 += Number(vatNum.charAt(j)) * multipliers2[j];
+                }
+
                 total2 = total2 % 11;
                 if (total2 > 9) {
                     total2 = total2 % 10
@@ -978,7 +1071,8 @@ var VatChecker = (function () {
             }
         },
 
-        SE: function (vatNum) {
+        se: function (vatNum) {
+            var expect;
 
             // Calculate R where R = R1 + R3 + R5 + R7 + R9, and Ri = INT(Ci/5) + (Ci*2) modulo 10
             var R = 0;
@@ -990,16 +1084,20 @@ var VatChecker = (function () {
 
             // Calculate S where S = C2 + C4 + C6 + C8
             var S = 0;
-            for (var i = 1; i < 9; i = i + 2) S += Number(vatNum.charAt(i));
+            for (var j = 1; j < 9; j = j + 2) {
+                S += Number(vatNum.charAt(j));
+            }
 
-            // Calculate the Check Digit
-            var cd = (10 - (R + S) % 10) % 10;
+            var checkDigit = (10 - (R + S) % 10) % 10;
 
             // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-            return cd === vatNum.slice(9, 10);
+            expect = vatNum.slice(9, 10);
+
+            return checkDigit === expect;
         },
 
-        SI: function (vatNum) {
+        si: function (vatNum) {
+            var expect;
 
             // Checks the check digits of a Slovenian VAT number.
 
@@ -1020,12 +1118,10 @@ var VatChecker = (function () {
             return !!(total !== 11 && total === vatNum.slice(7, 8));
         },
 
-        SK: function (vatNum) {
-
+        sk: function (vatNum) {
             // Checks the check digits of a Slovakian VAT number.
-
             // Check that the modulus of the whole VAT number is 0 - else error
-            return Number(vatNum % 11) === 0;
+            return (vatNum % 11) === 0;
         }
     };
 
