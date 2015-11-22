@@ -55,10 +55,10 @@ describe("Sweden VAT", function () {
     });
 
     it("Valid VAT with spaces", function () {
-        expect(VatChecker.checkVatNum('QQQQQQQ')).to.be.true;
+        expect(VatChecker.checkVatNum('SE5561 8884 0401')).to.be.true;
     });
 
     it("Valid VAT with '-'", function () {
-        expect(VatChecker.checkVatNum('QQQQQQQ')).to.be.true;
+        expect(VatChecker.checkVatNum('SE556-1888-40401')).to.be.true;
     });
 });

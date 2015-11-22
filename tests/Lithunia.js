@@ -63,10 +63,10 @@ describe("Lithunia VAT", function () {
     });
 
     it("Valid VAT with spaces", function () {
-        expect(VatChecker.checkVatNum('QQQQQQQ')).to.be.true;
+        expect(VatChecker.checkVatNum('LT 2582 23515')).to.be.true;
     });
 
     it("Valid VAT with '-'", function () {
-        expect(VatChecker.checkVatNum('QQQQQQQ')).to.be.true;
+        expect(VatChecker.checkVatNum('LT2-5822-3515')).to.be.true;
     });
 });

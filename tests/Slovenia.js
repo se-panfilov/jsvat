@@ -50,10 +50,10 @@ describe("Slovenia VAT", function () {
     });
 
     it("Valid VAT with spaces", function () {
-        expect(VatChecker.checkVatNum('QQQQQQQ')).to.be.true;
+        expect(VatChecker.checkVatNum('SI2 9664373')).to.be.true;
     });
 
     it("Valid VAT with '-'", function () {
-        expect(VatChecker.checkVatNum('QQQQQQQ')).to.be.true;
+        expect(VatChecker.checkVatNum('SI2-966-4373')).to.be.true;
     });
 });

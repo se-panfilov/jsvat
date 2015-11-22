@@ -58,10 +58,10 @@ describe("Hungary VAT", function () {
     });
 
     it("Valid VAT with spaces", function () {
-        expect(VatChecker.checkVatNum('QQQQQQQ')).to.be.true;
+        expect(VatChecker.checkVatNum('HU1 18793 18')).to.be.true;
     });
 
     it("Valid VAT with '-'", function () {
-        expect(VatChecker.checkVatNum('QQQQQQQ')).to.be.true;
+        expect(VatChecker.checkVatNum('HU11-879-318')).to.be.true;
     });
 });
