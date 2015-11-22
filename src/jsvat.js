@@ -87,20 +87,79 @@ var VatChecker = (function () {
 
     //TODO (S.Panfilov) debug
     function check(vatNum) {
-
         var expect;
-        var check;
-        if (vatNum.length === 9) vatNum = "0" + vatNum;
-        if (vatNum.slice(1, 2) === 0) return false;
 
-        check = +(97 - vatNum.slice(0, 8) % 97);
-        expect = +vatNum.slice(8, 10);
+        // Checks the check digits of a Spanish VAT number.
 
+        var total = 0;
+        var temp = 0;
+        var multipliers = [2, 1, 2, 1, 2, 1, 2];
+        var esExp = [];
+        esExp[0] = (/^[A-H|J|U|V]\d{8}$/);
+        esExp[1] = (/^[A-H|N-S|W]\d{7}[A-J]$/);
+        esExp[2] = (/^[0-9|Y|Z]\d{7}[A-Z]$/);
+        esExp[3] = (/^[K|L|M|X]\d{7}[A-Z]$/);
+        var i = 0;
 
-        return {
-            check: check,
-            expect: expect
+        // National juridical entities
+        if (esExp[0].test(vatNum)) {
+
+            // Extract the next digit and multiply by the counter.
+            for (i = 0; i < 7; i++) {
+                temp = vatNum.charAt(i + 1) * multipliers[i];
+                if (temp > 9)
+                    total += Math.floor(temp / 10) + temp % 10;
+                else
+                    total += temp;
+            }
+            // Now calculate the check digit itself.
+            total = 10 - total % 10;
+            if (total === 10) {
+                total = 0;
+            }
+
+            // Compare it with the last character of the VAT number. If it's the same, then it's valid.
+            expect = vatNum.slice(8, 9);
+            return total === expect;
         }
+
+        // Juridical entities other than national ones
+        else if (esExp[1].test(vatNum)) {
+
+            // Extract the next digit and multiply by the counter.
+            for (i = 0; i < 7; i++) {
+                temp = vatNum.charAt(i + 1) * multipliers[i];
+                if (temp > 9)
+                    total += Math.floor(temp / 10) + temp % 10;
+                else
+                    total += temp;
+            }
+
+            // Now calculate the check digit itself.
+            total = 10 - total % 10;
+            total = String.fromCharCode(total + 64);
+
+            // Compare it with the last character of the VAT number. If it's the same, then it's valid.
+            expect = vatNum.slice(8, 9);
+            return total === expect;
+        }
+
+        // Personal number (NIF) (starting with numeric of Y or Z)
+        else if (esExp[2].test(vatNum)) {
+            var tempnumber = vatNum;
+            if (tempnumber.substring(0, 1) === 'Y') tempnumber = tempnumber.replace(/Y/, "1");
+            if (tempnumber.substring(0, 1) === 'Z') tempnumber = tempnumber.replace(/Z/, "2");
+            expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(+tempnumber.substring(0, 8) % 23);
+            return tempnumber.charAt(8) === expect;
+        }
+
+        // Personal number (NIF) (starting with K, L, M, or X)
+        else if (esExp[3].test(vatNum)) {
+            expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(+vatNum.substring(1, 8) % 23);
+            return vatNum.charAt(8) === expect;
+        }
+
+        else return false;
 
     }
 
@@ -112,7 +171,7 @@ var VatChecker = (function () {
             var expect;
 
             for (var i = 0; i < 7; i++) {
-                temp = Number(vatNum.charAt(i)) * multipliers[i];
+                temp = +vatNum.charAt(i) * multipliers[i];
                 if (temp > 9)
                     total += Math.floor(temp / 10) + temp % 10;
                 else
@@ -130,9 +189,9 @@ var VatChecker = (function () {
             var expect;
             var check;
             if (vatNum.length === 9) vatNum = "0" + vatNum;
-            if (vatNum.slice(1, 2) === 0) return false;
+            if (+vatNum.slice(1, 2) === 0) return false;
 
-            check = +(97 - vatNum.slice(0, 8) % 97);
+            check = +(97 - +vatNum.slice(0, 8) % 97);
             expect = +vatNum.slice(8, 10);
             return check === expect;
         },
@@ -147,7 +206,7 @@ var VatChecker = (function () {
 
                 temp = 0;
                 for (var i = 0; i < 8; i++) {
-                    temp += Number(vatNum.charAt(i)) * (i + 1);
+                    temp += +vatNum.charAt(i) * (i + 1);
                 }
                 total = temp % 11;
                 if (total !== 10) {
@@ -157,7 +216,7 @@ var VatChecker = (function () {
 
                 temp = 0;
                 for (var j = 0; j < 8; j++) {
-                    temp += Number(vatNum.charAt(j)) * (j + 3);
+                    temp += +vatNum.charAt(j) * (j + 3);
                 }
 
                 total = temp % 11;
@@ -177,7 +236,7 @@ var VatChecker = (function () {
                     multipliers = [2, 4, 8, 5, 10, 9, 7, 3, 6];
                     total = 0;
                     for (var k = 0; k < 9; k++) {
-                        total += Number(vatNum.charAt(k)) * multipliers[k];
+                        total += +vatNum.charAt(k) * multipliers[k];
                     }
 
                     // Establish check digit.
@@ -185,7 +244,7 @@ var VatChecker = (function () {
                     if (total === 10) total = 0;
 
                     // Check to see if the check digit given is correct, If not, try next type of person
-                    if (total === vatNum.substr(9, 1)) return true;
+                    if (total === +vatNum.substr(9, 1)) return true;
                 }
             }
 
@@ -195,11 +254,11 @@ var VatChecker = (function () {
             multipliers = [21, 19, 17, 13, 11, 9, 7, 3, 1];
             total = 0;
             for (var l = 0; l < 9; l++) {
-                total += Number(vatNum.charAt(l)) * multipliers[l];
+                total += +vatNum.charAt(l) * multipliers[l];
             }
 
             // Check to see if the check digit given is correct, If not, try next type of person
-            if (total % 10 === vatNum.substr(9, 1)) {
+            if (total % 10 === +vatNum.substr(9, 1)) {
                 return true;
             }
 
@@ -209,7 +268,7 @@ var VatChecker = (function () {
             multipliers = [4, 3, 2, 7, 6, 5, 4, 3, 2];
             total = 0;
             for (var m = 0; m < 9; m++) {
-                total += Number(vatNum.charAt(m)) * multipliers[m];
+                total += +vatNum.charAt(m) * multipliers[m];
             }
 
             // Establish check digit.
@@ -218,7 +277,7 @@ var VatChecker = (function () {
             if (total === 11) total = 0;
 
             // Check to see if the check digit given is correct, If not, we have an error with the VAT number
-            expect = vatNum.substr(9, 1);
+            expect = +vatNum.substr(9, 1);
             return total === expect;
         },
 
@@ -230,7 +289,7 @@ var VatChecker = (function () {
             // Extract the next digit and multiply by the counter.
             var multipliers = [5, 4, 3, 2, 7, 6, 5, 4];
             var total = 0;
-            for (var i = 0; i < 8; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            for (var i = 0; i < 8; i++) total += +vatNum.charAt(i) * multipliers[i];
 
             // Establish check digit.
             total = 11 - total % 11;
@@ -238,7 +297,7 @@ var VatChecker = (function () {
             if (total === 11) total = 0;
 
             // Check to see if the check digit given is correct, If not, we have an error with the VAT number
-            expect = vatNum.substr(8, 1);
+            expect = +vatNum.substr(8, 1);
             return total === expect;
         },
 
@@ -253,7 +312,7 @@ var VatChecker = (function () {
             // Extract the next digit and multiply by the counter.
             var total = 0;
             for (var i = 0; i < 8; i++) {
-                var temp = Number(vatNum.charAt(i));
+                var temp = +vatNum.charAt(i);
                 if (i % 2 === 0) {
                     switch (temp) {
                         case 0:
@@ -306,7 +365,7 @@ var VatChecker = (function () {
 
                 // Extract the next digit and multiply by the counter.
                 for (var i = 0; i < 7; i++) {
-                    total += Number(vatNum.charAt(i)) * multipliers[i];
+                    total += +vatNum.charAt(i) * multipliers[i];
                 }
 
                 // Establish check digit.
@@ -330,7 +389,7 @@ var VatChecker = (function () {
 
                 // Extract the next digit and multiply by the counter.
                 for (var j = 0; j < 7; j++) {
-                    total += Number(vatNum.charAt(j + 1)) * multipliers[j];
+                    total += +vatNum.charAt(j + 1) * multipliers[j];
                 }
 
                 // Establish check digit.
@@ -366,7 +425,7 @@ var VatChecker = (function () {
             for (var i = 0; i < 8; i++) {
 
                 // Extract the next digit and implement peculiar algorithm!.
-                sum = (Number(vatNum.charAt(i)) + product) % 10;
+                sum = (+vatNum.charAt(i) + product) % 10;
                 if (sum === 0) {
                     sum = 10
                 }
@@ -395,7 +454,7 @@ var VatChecker = (function () {
             var multipliers = [2, 7, 6, 5, 4, 3, 2, 1];
 
             // Extract the next digit and multiply by the counter.
-            for (var i = 0; i < 8; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            for (var i = 0; i < 8; i++) total += +vatNum.charAt(i) * multipliers[i];
 
             // Establish check digit.
             total = total % 11;
@@ -413,7 +472,7 @@ var VatChecker = (function () {
             var multipliers = [3, 7, 1, 3, 7, 1, 3, 7];
 
             // Extract the next digit and multiply by the counter.
-            for (var i = 0; i < 8; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            for (var i = 0; i < 8; i++) total += +vatNum.charAt(i) * multipliers[i];
 
             // Establish check digits using modulus 10.
             total = 10 - total % 10;
@@ -438,7 +497,7 @@ var VatChecker = (function () {
             }
 
             // Extract the next digit and multiply by the counter.
-            for (var i = 0; i < 8; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            for (var i = 0; i < 8; i++) total += +vatNum.charAt(i) * multipliers[i];
 
             // Establish check digit.
             total = total % 11;
@@ -471,7 +530,7 @@ var VatChecker = (function () {
 
                 // Extract the next digit and multiply by the counter.
                 for (i = 0; i < 7; i++) {
-                    temp = Number(vatNum.charAt(i + 1)) * multipliers[i];
+                    temp = vatNum.charAt(i + 1) * multipliers[i];
                     if (temp > 9)
                         total += Math.floor(temp / 10) + temp % 10;
                     else
@@ -493,7 +552,7 @@ var VatChecker = (function () {
 
                 // Extract the next digit and multiply by the counter.
                 for (i = 0; i < 7; i++) {
-                    temp = Number(vatNum.charAt(i + 1)) * multipliers[i];
+                    temp = vatNum.charAt(i + 1) * multipliers[i];
                     if (temp > 9)
                         total += Math.floor(temp / 10) + temp % 10;
                     else
@@ -514,13 +573,13 @@ var VatChecker = (function () {
                 var tempnumber = vatNum;
                 if (tempnumber.substring(0, 1) === 'Y') tempnumber = tempnumber.replace(/Y/, "1");
                 if (tempnumber.substring(0, 1) === 'Z') tempnumber = tempnumber.replace(/Z/, "2");
-                expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(Number(tempnumber.substring(0, 8)) % 23);
+                expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(+tempnumber.substring(0, 8) % 23);
                 return tempnumber.charAt(8) === expect;
             }
 
             // Personal number (NIF) (starting with K, L, M, or X)
             else if (esExp[3].test(vatNum)) {
-                expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(Number(vatNum.substring(1, 8)) % 23);
+                expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(+vatNum.substring(1, 8) % 23);
                 return vatNum.charAt(8) === expect;
             }
 
@@ -543,7 +602,7 @@ var VatChecker = (function () {
             var multipliers = [7, 9, 10, 5, 8, 4, 2];
 
             // Extract the next digit and multiply by the counter.
-            for (var i = 0; i < 7; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            for (var i = 0; i < 7; i++) total += +vatNum.charAt(i) * multipliers[i];
 
             // Establish check digit.
             total = 11 - total % 11;
@@ -566,7 +625,7 @@ var VatChecker = (function () {
             }
 
             // Extract the last nine digits as an integer.
-            var total = vatNum.substring(2);
+            var total = +vatNum.substring(2);
 
             // Establish check digit.
             total = (total * 100 + 12) % 97;
@@ -605,7 +664,7 @@ var VatChecker = (function () {
             var no = +vatNum.slice(0, 7);
 
             // Extract the next digit and multiply by the counter.
-            for (var i = 0; i < 7; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            for (var i = 0; i < 7; i++) total += +vatNum.charAt(i) * multipliers[i];
 
             // Old numbers use a simple 97 modulus, but new numbers use an adaptation of that (less 55). Our
             // VAT number could use either system, so we check it against both.
@@ -642,7 +701,7 @@ var VatChecker = (function () {
             for (var i = 0; i < 10; i++) {
 
                 // Extract the next digit and implement the algorithm
-                sum = (Number(vatNum.charAt(i)) + product) % 10;
+                sum = (+vatNum.charAt(i) + product) % 10;
                 if (sum === 0) {
                     sum = 10
                 }
@@ -651,7 +710,7 @@ var VatChecker = (function () {
             }
 
             // Now check that we have the right check digit
-            expect = +vatNum.slice(10, 11) * 1;
+            expect = +vatNum.slice(10, 11);
             return (product + expect) % 10 === 1;
         },
 
@@ -664,7 +723,7 @@ var VatChecker = (function () {
             var multipliers = [9, 7, 3, 1, 9, 7, 3];
 
             // Extract the next digit and multiply by the counter.
-            for (var i = 0; i < 7; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            for (var i = 0; i < 7; i++) total += +vatNum.charAt(i) * multipliers[i];
 
             // Establish check digit.
             total = 10 - total % 10;
@@ -684,16 +743,16 @@ var VatChecker = (function () {
             var multipliers = [8, 7, 6, 5, 4, 3, 2];
 
             // If the code is type 1 format, we need to convert it to the new before performing the validation.
-            if (/^\d[A-Z\*\+]/.test(vatNum)) vatNum = "0" + vatNum.substring(2, 7) + vatNum.substring(0, 1) + vatNum.substring(7, 8);
+            if (/^\d[A-Z\*\+]/.test(vatNum)) vatNum = "0" + +vatNum.substring(2, 7) + +vatNum.substring(0, 1) + +vatNum.substring(7, 8);
 
             // Extract the next digit and multiply by the counter.
-            for (var i = 0; i < 7; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            for (var i = 0; i < 7; i++) total += +vatNum.charAt(i) * multipliers[i];
 
             // If the number is type 3 then we need to include the trailing A or H in the calculation
             if (/^\d{7}[A-Z][AH]$/.test(vatNum)) {
 
                 // Add in a multiplier for the character A (1*9=9) or H (8*9=72)
-                if (vatNum.charAt(8) === 'H')
+                if (+vatNum.charAt(8) === 'H')
                     total += 72;
                 else
                     total += 9;
@@ -707,7 +766,7 @@ var VatChecker = (function () {
                 total = String.fromCharCode(total + 64);
 
             // Compare it with the eighth character of the VAT number. If it's the same, then it's valid.
-            expect = +vatNum.slice(7, 8);
+            expect = vatNum.slice(7, 8);
             return total === expect;
         },
 
@@ -732,7 +791,7 @@ var VatChecker = (function () {
 
             // Extract the next digit and multiply by the appropriate
             for (var i = 0; i < 10; i++) {
-                temp = Number(vatNum.charAt(i)) * multipliers[i];
+                temp = +vatNum.charAt(i) * multipliers[i];
                 if (temp > 9)
                     total += Math.floor(temp / 10) + temp % 10;
                 else
@@ -766,7 +825,7 @@ var VatChecker = (function () {
                 // Extract the next digit and multiply by the counter+1.
                 total = 0;
                 for (var i = 0; i < 8; i++) {
-                    total += Number(vatNum.charAt(i)) * (i + 1);
+                    total += +vatNum.charAt(i) * (i + 1);
                 }
 
                 // Can have a double check digit calculation!
@@ -774,7 +833,7 @@ var VatChecker = (function () {
                     multipliers = [3, 4, 5, 6, 7, 8, 9, 1];
                     total = 0;
                     for (var j = 0; j < 8; j++) {
-                        total += Number(vatNum.charAt(j)) * multipliers[j];
+                        total += +vatNum.charAt(j) * multipliers[j];
                     }
                 }
 
@@ -799,7 +858,7 @@ var VatChecker = (function () {
                 total = 0;
                 multipliers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2];
                 for (var k = 0; k < 11; k++) {
-                    total += Number(vatNum.charAt(k)) * multipliers[k];
+                    total += +vatNum.charAt(k) * multipliers[k];
                 }
 
                 // Can have a double check digit calculation!
@@ -807,7 +866,7 @@ var VatChecker = (function () {
                     multipliers = [3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4];
                     total = 0;
                     for (var l = 0; l < 11; l++) {
-                        total += Number(vatNum.charAt(l)) * multipliers[l];
+                        total += +vatNum.charAt(l) * multipliers[l];
                     }
                 }
 
@@ -825,7 +884,7 @@ var VatChecker = (function () {
 
         lu: function (vatNum) {
             var expect = +vatNum.slice(6, 8);
-            var checkDigit = +vatNum.slice(0, 6);
+            var checkDigit = +vatNum.slice(0, 6) % 89;
             // Checks the check digits of a Luxembourg VAT number.
 
             return checkDigit === expect;
@@ -846,7 +905,7 @@ var VatChecker = (function () {
                 var multipliers = [9, 1, 4, 8, 3, 10, 2, 5, 7, 6];
 
                 // Extract the next digit and multiply by the counter.
-                for (var i = 0; i < 10; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+                for (var i = 0; i < 10; i++) total += +vatNum.charAt(i) * multipliers[i];
 
                 // Establish check digits by getting modulus 11.
                 if (total % 11 === 4 && vatNum[0] === 9) total = total - 45;
@@ -872,7 +931,7 @@ var VatChecker = (function () {
             var multipliers = [3, 4, 6, 7, 8, 9];
 
             // Extract the next digit and multiply by the counter.
-            for (var i = 0; i < 6; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            for (var i = 0; i < 6; i++) total += +vatNum.charAt(i) * multipliers[i];
 
             // Establish check digits by getting modulus 37.
             total = 37 - total % 37;
@@ -891,7 +950,7 @@ var VatChecker = (function () {
             var multipliers = [9, 8, 7, 6, 5, 4, 3, 2];
 
             // Extract the next digit and multiply by the counter.
-            for (var i = 0; i < 8; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            for (var i = 0; i < 8; i++) total += +vatNum.charAt(i) * multipliers[i];
 
             // Establish check digits by getting modulus 11.
             total = total % 11;
@@ -914,7 +973,7 @@ var VatChecker = (function () {
             var multipliers = [3, 2, 7, 6, 5, 4, 3, 2];
 
             // Extract the next digit and multiply by the counter.
-            for (var i = 0; i < 8; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            for (var i = 0; i < 8; i++) total += +vatNum.charAt(i) * multipliers[i];
 
             // Establish check digits by getting modulus 11. Check digits > 9 are invalid
             total = 11 - total % 11;
@@ -938,7 +997,7 @@ var VatChecker = (function () {
             var multipliers = [6, 5, 7, 2, 3, 4, 5, 6, 7];
 
             // Extract the next digit and multiply by the counter.
-            for (var i = 0; i < 9; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            for (var i = 0; i < 9; i++) total += +vatNum.charAt(i) * multipliers[i];
 
             // Establish check digits subtracting modulus 11 from 11.
             total = total % 11;
@@ -960,7 +1019,7 @@ var VatChecker = (function () {
             var multipliers = [9, 8, 7, 6, 5, 4, 3, 2];
 
             // Extract the next digit and multiply by the counter.
-            for (var i = 0; i < 8; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            for (var i = 0; i < 8; i++) total += +vatNum.charAt(i) * multipliers[i];
 
             // Establish check digits subtracting modulus 11 from 11.
             total = 11 - total % 11;
@@ -981,11 +1040,11 @@ var VatChecker = (function () {
             var multipliers = [7, 5, 3, 2, 1, 7, 5, 3, 2];
 
             // Extract the next digit and multiply by the counter.
-            var VATlen = vatNum.length;
-            multipliers = +multipliers.slice(10 - VATlen);
+            var vatLength = vatNum.length;
+            multipliers = multipliers.slice(10 - vatLength);
             var total = 0;
             for (var i = 0; i < vatNum.length - 1; i++) {
-                total += Number(vatNum.charAt(i)) * multipliers[i];
+                total += +vatNum.charAt(i) * multipliers[i];
             }
 
             // Establish check digits by getting modulus 11.
@@ -1009,7 +1068,7 @@ var VatChecker = (function () {
             for (var i = 0; i < 8; i++) {
 
                 // Extract the next digit and implement the algorithm
-                sum = (Number(vatNum.charAt(i)) + product) % 10;
+                sum = (+vatNum.charAt(i) + product) % 10;
                 if (sum === 0) {
                     sum = 10
                 }
@@ -1018,7 +1077,7 @@ var VatChecker = (function () {
 
             // Now check that we have the right check digit
             expect = 1;
-            checkDigit = (product + +vatNum.slice(8, 9) * 1) % 10;
+            checkDigit = (product + +vatNum.slice(8, 9)) % 10;
             return checkDigit === expect;
         },
 
@@ -1034,7 +1093,7 @@ var VatChecker = (function () {
                 var total = 0;
                 var multipliers = [2, 4, 10, 3, 5, 9, 4, 6, 8, 0];
                 for (var i = 0; i < 10; i++) {
-                    total += Number(vatNum.charAt(i)) * multipliers[i];
+                    total += +vatNum.charAt(i) * multipliers[i];
                 }
 
                 total = total % 11;
@@ -1054,7 +1113,7 @@ var VatChecker = (function () {
                 var multipliers2 = [3, 7, 2, 4, 10, 3, 5, 9, 4, 6, 8, 0];
 
                 for (var j = 0; j < 11; j++) {
-                    total1 += Number(vatNum.charAt(j)) * multipliers1[j];
+                    total1 += +vatNum.charAt(j) * multipliers1[j];
                 }
 
                 total1 = total1 % 11;
@@ -1063,7 +1122,7 @@ var VatChecker = (function () {
                 }
 
                 for (var k = 0; k < 11; k++) {
-                    total2 += Number(vatNum.charAt(k)) * multipliers2[k];
+                    total2 += +vatNum.charAt(k) * multipliers2[k];
                 }
 
                 total2 = total2 % 11;
@@ -1086,14 +1145,14 @@ var VatChecker = (function () {
             var R = 0;
             var digit;
             for (var i = 0; i < 9; i = i + 2) {
-                digit = Number(vatNum.charAt(i));
+                digit = +vatNum.charAt(i);
                 R += Math.floor(digit / 5) + ((digit * 2) % 10);
             }
 
             // Calculate S where S = C2 + C4 + C6 + C8
             var S = 0;
             for (var j = 1; j < 9; j = j + 2) {
-                S += Number(vatNum.charAt(j));
+                S += +vatNum.charAt(j);
             }
 
             var checkDigit = (10 - (R + S) % 10) % 10;
@@ -1113,7 +1172,7 @@ var VatChecker = (function () {
             var multipliers = [8, 7, 6, 5, 4, 3, 2];
 
             // Extract the next digit and multiply by the counter.
-            for (var i = 0; i < 7; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            for (var i = 0; i < 7; i++) total += +vatNum.charAt(i) * multipliers[i];
 
             // Establish check digits using modulus 11
             total = 11 - total % 11;

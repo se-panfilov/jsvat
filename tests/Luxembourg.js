@@ -59,10 +59,10 @@ describe("Luxembourg VAT", function () {
     });
 
     it("Valid VAT with spaces", function () {
-        expect(VatChecker.checkVatNum('QQQQQQQ')).to.be.true;
+        expect(VatChecker.checkVatNum('LU 0000 0404')).to.be.true;
     });
 
     it("Valid VAT with '-'", function () {
-        expect(VatChecker.checkVatNum('QQQQQQQ')).to.be.true;
+        expect(VatChecker.checkVatNum('LU000-004-04')).to.be.true;
     });
 });

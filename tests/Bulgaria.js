@@ -89,10 +89,10 @@ describe("Bulgaria VAT", function () {
     });
 
     it("Valid VAT with spaces", function () {
-        expect(VatChecker.checkVatNum('BG 1234 567 893')).to.be.true;
+        expect(VatChecker.checkVatNum('BG8 31144 533')).to.be.true;
     });
 
     it("Valid VAT with '-'", function () {
-        expect(VatChecker.checkVatNum('BG12-3456-7893')).to.be.true;
+        expect(VatChecker.checkVatNum('BG831-144-533')).to.be.true;
     });
 });
