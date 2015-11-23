@@ -98,7 +98,7 @@ var VatChecker = (function () {
                     }
                 }
             }
-            return false
+            return false;
 
         }
     };
@@ -341,7 +341,7 @@ var VatChecker = (function () {
 
             // Individuals type 3
             else if (czExp[3].test(vat)) {
-                var temp = +vat.slice(0, 2) + +vat.slice(2, 4) + +vat.slice(4, 6) + +vat.slice(6, 8) + +vat.slice(8);
+                var temp = +vat.slice(0, 2) + vat.slice(2, 4) + vat.slice(4, 6) + vat.slice(6, 8) + vat.slice(8);
                 expect = +vat % 11 === 0;
                 return !!(temp % 11 === 0 && expect);
             }
@@ -362,16 +362,16 @@ var VatChecker = (function () {
                 // Extract the next digit and implement peculiar algorithm!.
                 sum = (+vat.charAt(i) + product) % 10;
                 if (sum === 0) {
-                    sum = 10
+                    sum = 10;
                 }
                 product = (2 * sum) % 11;
             }
 
             // Establish check digit.
             if (11 - product === 10) {
-                checkDigit = 0
+                checkDigit = 0;
             } else {
-                checkDigit = 11 - product
+                checkDigit = 11 - product;
             }
 
             // Compare it with the last two characters of the VAT number. If the same, then it is a valid
@@ -425,7 +425,7 @@ var VatChecker = (function () {
 
             //eight character numbers should be prefixed with an 0.
             if (vat.length === 8) {
-                vat = "0" + vat
+                vat = "0" + vat;
             }
 
             // Extract the next digit and multiply by the counter.
@@ -629,7 +629,7 @@ var VatChecker = (function () {
                 // Extract the next digit and implement the algorithm
                 sum = (+vat.charAt(i) + product) % 10;
                 if (sum === 0) {
-                    sum = 10
+                    sum = 10;
                 }
 
                 product = (2 * sum) % 11;
@@ -988,14 +988,14 @@ var VatChecker = (function () {
                 // Extract the next digit and implement the algorithm
                 sum = (+vat.charAt(i) + product) % 10;
                 if (sum === 0) {
-                    sum = 10
+                    sum = 10;
                 }
                 product = (2 * sum) % 11;
             }
 
             // Now check that we have the right check digit
             expect = 1;
-            checkDigit = (product + +vat.slice(8, 9)) % 10;
+            checkDigit = (product + (+vat.slice(8, 9))) % 10;
             return checkDigit === expect;
         },
         russia: function (vat) {
@@ -1015,7 +1015,7 @@ var VatChecker = (function () {
 
                 total = total % 11;
                 if (total > 9) {
-                    total = total % 10
+                    total = total % 10;
                 }
 
                 // Compare it with the last character of the VAT number. If it is the same, then it's valid
@@ -1035,7 +1035,7 @@ var VatChecker = (function () {
 
                 total1 = total1 % 11;
                 if (total1 > 9) {
-                    total1 = total1 % 10
+                    total1 = total1 % 10;
                 }
 
                 for (var k = 0; k < 11; k++) {
@@ -1044,7 +1044,7 @@ var VatChecker = (function () {
 
                 total2 = total2 % 11;
                 if (total2 > 9) {
-                    total2 = total2 % 10
+                    total2 = total2 % 10;
                 }
 
                 // Compare the first check with the 11th character and the second check with the 12th and last

@@ -100,7 +100,7 @@ angular.module('jsvat', [])
                     }
                 }
             }
-            return false
+            return false;
 
         }
     };
@@ -318,8 +318,8 @@ angular.module('jsvat', [])
 
             // Individuals type 1
             else if (czExp[1].test(vat)) {
-                if (temp = +vat.slice(0, 2) > 53) return false;
-                return true;
+                return !(temp = +vat.slice(0, 2) > 53);
+
             }
 
             // Individuals type 2
@@ -343,7 +343,7 @@ angular.module('jsvat', [])
 
             // Individuals type 3
             else if (czExp[3].test(vat)) {
-                var temp = +vat.slice(0, 2) + +vat.slice(2, 4) + +vat.slice(4, 6) + +vat.slice(6, 8) + +vat.slice(8);
+                var temp = +vat.slice(0, 2) + vat.slice(2, 4) + vat.slice(4, 6) + vat.slice(6, 8) + vat.slice(8);
                 expect = +vat % 11 === 0;
                 return !!(temp % 11 === 0 && expect);
             }
