@@ -27,12 +27,12 @@
     "tax",
     "value added tax identification number"
   ],
-  "ignore": {
-  },
+  "ignore": {},
   "author": "S.Panfilov <se-panfilov@ya.ru> (https://se-panfilov.github.io)",
   "private": false,
   "dependencies": {},
   "devDependencies": {
+    "chai": "^3.4.1",
     "gulp-buddy.js": "^1.0.0",
     "gulp-filesize": "0.0.6",
     "gulp-jshint": "^1.12.0",
@@ -43,6 +43,7 @@
     "gulp-uglify": "^1.4.2",
     "gulp-watch": "^4.3.5",
     "gulp-wrap": "^0.11.0",
-    "jshint-stylish": "^2.0.1"
+    "jshint-stylish": "^2.0.1",
+    "mocha": "^2.3.4"
   }
 }
