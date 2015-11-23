@@ -1,7 +1,7 @@
 var expect = require('chai').expect;
 var VatChecker = require('../dist/jsvat.js');
 
-describe("France 1 VAT", function () {
+describe("France VAT", function () {
     it("Valid VAT", function () {
         expect(VatChecker.checkVatNum('FR00000000190')).to.be.true;
         expect(VatChecker.checkVatNum('FR00300076965')).to.be.true;
