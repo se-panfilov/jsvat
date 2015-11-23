@@ -3,7 +3,7 @@ angular.module('jsvat', [])
 var VatChecker = (function () {
     'use strict';
 
-    var _REGEXP = {
+    var _REGEXP_LIST = {
         austria: /^(AT)U(\d{8})$/,
         belgium: /^(BE)(0?\d{9})$/,
         bulgaria: /^(BG)(\d{9,10})$/,
@@ -14,32 +14,40 @@ angular.module('jsvat', [])
         denmark: /^(DK)(\d{8})$/,
         estonia: /^(EE)(10\d{7})$/,
         greece: /^(EL)(\d{9})$/,
-        spain_national: /^(ES)([A-Z]\d{8})$/,
-        spain_other: /^(ES)([A-HN-SW]\d{7}[A-J])$/,
-        spain_personal_1: /^(ES)([0-9YZ]\d{7}[A-Z])$/,
-        spain_personal_2: /^(ES)([KLMX]\d{7}[A-Z])$/,
-        eu_type: /^(EU)(\d{9})$/,
+        spain: [
+            /^(ES)([A-Z]\d{8})$/,
+            /^(ES)([A-HN-SW]\d{7}[A-J])$/,
+            /^(ES)([0-9YZ]\d{7}[A-Z])$/,
+            /^(ES)([KLMX]\d{7}[A-Z])$/
+        ],
+        europe: /^(EU)(\d{9})$/,
         finland: /^(FI)(\d{8})$/,
-        france_1: /^(FR)(\d{11})$/,
-        france_2: /^(FR)([A-HJ-NP-Z]\d{10})$/,
-        france_3: /^(FR)(\d[A-HJ-NP-Z]\d{9})$/,
-        france_4: /^(FR)([A-HJ-NP-Z]{2}\d{9})$/,
-        uk_standard: /^(GB)?(\d{9})$/,
-        uk_branches: /^(GB)?(\d{12})$/,
-        uk_government: /^(GB)?(GD\d{3})$/,
-        uk_health_authority: /^(GB)?(HA\d{3})$/,
+        france: [
+            /^(FR)(\d{11})$/,
+            /^(FR)([A-HJ-NP-Z]\d{10})$/,
+            /^(FR)(\d[A-HJ-NP-Z]\d{9})$/,
+            /^(FR)([A-HJ-NP-Z]{2}\d{9})$/
+        ],
+        united_kingdom: [
+            /^(GB)?(\d{9})$/,
+            /^(GB)?(\d{12})$/,
+            /^(GB)?(GD\d{3})$/,
+            /^(GB)?(HA\d{3})$/
+        ],
         croatia: /^(HR)(\d{11})$/,
         hungary: /^(HU)(\d{8})$/,
-        ireland_1: /^(IE)(\d{7}[A-W])$/,
-        ireland_2: /^(IE)([7-9][A-Z\*\+)]\d{5}[A-W])$/,
-        ireland_3: /^(IE)(\d{7}[A-W][AH])$/,
+        ireland: [
+            /^(IE)(\d{7}[A-W])$/,
+            /^(IE)([7-9][A-Z\*\+)]\d{5}[A-W])$/,
+            /^(IE)(\d{7}[A-W][AH])$/
+        ],
         italy: /^(IT)(\d{11})$/,
         latvia: /^(LV)(\d{11})$/,
         lithunia: /^(LT)(\d{9}|\d{12})$/,
         luxembourg: /^(LU)(\d{8})$/,
         malta: /^(MT)([1-9]\d{7})$/,
         netherlands: /^(NL)(\d{9})B\d{2}$/,
-        norway_not_EU: /^(NO)(\d{9})$/,
+        norway: /^(NO)(\d{9})$/,
         poland: /^(PL)(\d{10})$/,
         portugal: /^(PT)(\d{9})$/,
         romania: /^(RO)([1-9]\d{1,9})$/,
@@ -50,45 +58,62 @@ angular.module('jsvat', [])
         sweden: /^(SE)(\d{10}01)$/
     };
 
+    function _validateRegexp(vatNum, regexp) {
+        return regexp.test(vatNum);
+    }
+
+    function _validateRules(vatNum, regexp, countryName) {
+        var parsedNum = regexp.exec(vatNum);
+
+        //var cCode = parsedNum[1];
+        var cNumber = parsedNum[2];
+        //if (!cCode || cCode.length === 0) cCode = defCCode;
+
+        var checkDigitFunc = _checks[countryName];
+        console.log(cNumber);
+        console.log(checkDigitFunc(cNumber));
+        return checkDigitFunc(cNumber);
+    }
+
+    function _validate(vatNum, regexp, countryName) {
+        var result = false;
+        if (_validateRegexp(vatNum, regexp)) {
+            result = _validateRules(vatNum, regexp, countryName);
+        }
+
+        if (countryName === 'austria') console.log(result);
+
+        return result;
+    }
+
     var exports = {
         checkVatNum: function (number) {
+            var result = false;
             if (!number) return false;
             var defCCode = "GB";
 
             var vatNum = number.toString().toUpperCase().replace(/(\s|-|\.)+/g, '');
-            var isValid = false;
 
+            for (var countryName in _REGEXP_LIST) {
+                if (_REGEXP_LIST.hasOwnProperty(countryName)) {
+                    var regexp = _REGEXP_LIST[countryName];
 
-            for (var k in _REGEXP) {
-                if (_REGEXP.hasOwnProperty(k)) {
-
-                    var isMatch = _REGEXP[k].test(vatNum);
-
-                    if (isMatch) {
-                        //TODO (S.Panfilov) todo and exec should do the same, but they didn't
-                        var parsedNum = _REGEXP[k].exec(vatNum);
-
-                        var cCode = parsedNum[1];
-                        var cNumber = parsedNum[2];
-                        if (!cCode || cCode.length === 0) cCode = defCCode;
-
-                        //TODO (S.Panfilov) refactor it (should call by key from regexp)
-                        var checkDigitFunc = _checks[cCode.toLowerCase()];
-                        isValid = checkDigitFunc(cNumber);
-                        //TODO (S.Panfilov) debug
-                        //isValid = true;
-
-                        break;
+                    if (Array.isArray(regexp)) {
+                        for (var i = 0; i < regexp.length; i++) {
+                            result = _validate(vatNum, regexp[i], countryName);
+                        }
+                    } else {
+                        result = _validate(vatNum, regexp, countryName);
                     }
                 }
             }
-
-            return isValid;
+            if (countryName === 'austria') console.log(result);
+            return result;
         }
     };
 
     var _checks = {
-        at: function (vatNum) {
+        austria: function (vatNum) {
             var total = 0;
             var multipliers = [1, 2, 1, 2, 1, 2, 1];
             var temp = 0;
@@ -109,7 +134,7 @@ angular.module('jsvat', [])
 
             return total === expect;
         },
-        be: function (vatNum) {
+        belgium: function (vatNum) {
             var expect;
             var check;
             if (vatNum.length === 9) vatNum = "0" + vatNum;
@@ -119,8 +144,7 @@ angular.module('jsvat', [])
             expect = +vatNum.slice(8, 10);
             return check === expect;
         },
-
-        bg: function (vatNum) {
+        bulgaria: function (vatNum) {
             var expect;
             var multipliers;
             var temp = 0;
@@ -204,8 +228,7 @@ angular.module('jsvat', [])
             expect = +vatNum.substr(9, 1);
             return total === expect;
         },
-
-        che: function (vatNum) {
+        switzerland: function (vatNum) {
             var expect;
 
             // Checks the check digits of a Swiss VAT number.
@@ -224,8 +247,7 @@ angular.module('jsvat', [])
             expect = +vatNum.substr(8, 1);
             return total === expect;
         },
-
-        cy: function (vatNum) {
+        cyprus: function (vatNum) {
             var expect;
 
             // Checks the check digits of a Cypriot VAT number.
@@ -269,8 +291,7 @@ angular.module('jsvat', [])
             expect = vatNum.substr(8, 1);
             return total === expect;
         },
-
-        cz: function (vatNum) {
+        czech_republic: function (vatNum) {
             var expect;
 
             // Checks the check digits of a Czech Republic VAT number.
@@ -337,8 +358,7 @@ angular.module('jsvat', [])
             // else error
             return false;
         },
-
-        de: function (vatNum) {
+        germany: function (vatNum) {
             var expect;
 
             // Checks the check digits of a German VAT number.
@@ -368,8 +388,7 @@ angular.module('jsvat', [])
             expect = +vatNum.slice(8, 9);
             return checkDigit === expect;
         },
-
-        dk: function (vatNum) {
+        denmark: function (vatNum) {
             var expect = 0;
 
             // Checks the check digits of a Danish VAT number.
@@ -386,8 +405,7 @@ angular.module('jsvat', [])
             // The remainder should be 0 for it to be valid..
             return total === expect;
         },
-
-        ee: function (vatNum) {
+        estonia: function (vatNum) {
             var expect;
 
             // Checks the check digits of an Estonian VAT number.
@@ -406,8 +424,7 @@ angular.module('jsvat', [])
             expect = +vatNum.slice(8, 9);
             return total === expect;
         },
-
-        el: function (vatNum) {
+        greece: function (vatNum) {
             var expect;
 
             // Checks the check digits of a Greek VAT number.
@@ -433,8 +450,7 @@ angular.module('jsvat', [])
             expect = +vatNum.slice(8, 9);
             return total === expect;
         },
-
-        es: function (vatNum) {
+        spain: function (vatNum) {
             var expect;
 
             // Checks the check digits of a Spanish VAT number.
@@ -509,15 +525,13 @@ angular.module('jsvat', [])
 
             else return false;
         },
-
-        eu: function () {
+        europe: function () {
 
             // We know little about EU numbers apart from the fact that the first 3 digits represent the
             // country, and that there are nine digits in total.
             return true;
         },
-
-        fi: function (vatNum) {
+        finland: function (vatNum) {
             var expect;
 
             // Checks the check digits of a Finnish VAT number.
@@ -538,8 +552,7 @@ angular.module('jsvat', [])
             expect = +vatNum.slice(7, 8);
             return total === expect;
         },
-
-        fr: function (vatNum) {
+        france: function (vatNum) {
             var expect;
 
             // Checks the check digits of a French VAT number.
@@ -558,8 +571,7 @@ angular.module('jsvat', [])
             expect = +vatNum.slice(0, 2);
             return total === expect;
         },
-
-        gb: function (vatNum) {
+        united_kingdom: function (vatNum) {
             var expect;
 
             // Checks the check digits of a UK VAT number.
@@ -613,8 +625,7 @@ angular.module('jsvat', [])
             expect = +vatNum.slice(7, 9);
             return !!(checkDigit === expect && no > 1000000);
         },
-
-        hr: function (vatNum) {
+        croatia: function (vatNum) {
             var expect;
 
             // Checks the check digits of a Croatian VAT number using ISO 7064, MOD 11-10 for check digit.
@@ -637,8 +648,7 @@ angular.module('jsvat', [])
             expect = +vatNum.slice(10, 11);
             return (product + expect) % 10 === 1;
         },
-
-        hu: function (vatNum) {
+        hungary: function (vatNum) {
             var expect;
 
             // Checks the check digits of a Hungarian VAT number.
@@ -657,8 +667,7 @@ angular.module('jsvat', [])
             expect = +vatNum.slice(7, 8);
             return total === expect;
         },
-
-        ie: function (vatNum) {
+        ireland: function (vatNum) {
             var expect;
 
             // Checks the check digits of an Irish VAT number.
@@ -667,39 +676,38 @@ angular.module('jsvat', [])
             var multipliers = [8, 7, 6, 5, 4, 3, 2];
 
             // If the code is type 1 format, we need to convert it to the new before performing the validation.
-        if (/^\d[A-Z\*\+]/.test(vatNum)) {
-            vatNum = "0" + vatNum.substring(2, 7) + vatNum.substring(0, 1) + vatNum.substring(7, 8);
-        }
+            if (/^\d[A-Z\*\+]/.test(vatNum)) {
+                vatNum = "0" + vatNum.substring(2, 7) + vatNum.substring(0, 1) + vatNum.substring(7, 8);
+            }
 
             // Extract the next digit and multiply by the counter.
-        for (var i = 0; i < 7; i++) {
-            total += +vatNum.charAt(i) * multipliers[i];
-        }
+            for (var i = 0; i < 7; i++) {
+                total += +vatNum.charAt(i) * multipliers[i];
+            }
 
             // If the number is type 3 then we need to include the trailing A or H in the calculation
             if (/^\d{7}[A-Z][AH]$/.test(vatNum)) {
                 // Add in a multiplier for the character A (1*9=9) or H (8*9=72)
-            if (vatNum.charAt(8) === 'H') {
+                if (vatNum.charAt(8) === 'H') {
                     total += 72;
-            } else {
+                } else {
                     total += 9;
+                }
             }
-        }
 
             // Establish check digit using modulus 23, and translate to char. equivalent.
             total = total % 23;
-        if (total === 0) {
+            if (total === 0) {
                 total = "W";
-        } else {
+            } else {
                 total = String.fromCharCode(total + 64);
-        }
+            }
 
             // Compare it with the eighth character of the VAT number. If it's the same, then it's valid.
             expect = vatNum.slice(7, 8);
             return total === expect;
         },
-
-        it: function (vatNum) {
+        italy: function (vatNum) {
             var expect;
 
             // Checks the check digits of an Italian VAT number.
@@ -737,8 +745,7 @@ angular.module('jsvat', [])
             expect = +vatNum.slice(10, 11);
             return total === expect;
         },
-
-        lt: function (vatNum) {
+        latvia: function (vatNum) {
             var total;
             var multipliers;
             var expect;
@@ -810,16 +817,14 @@ angular.module('jsvat', [])
                 return total === expect;
             }
         },
-
-        lu: function (vatNum) {
+        lithunia: function (vatNum) {
             var expect = +vatNum.slice(6, 8);
             var checkDigit = +vatNum.slice(0, 6) % 89;
             // Checks the check digits of a Luxembourg VAT number.
 
             return checkDigit === expect;
         },
-
-        lv: function (vatNum) {
+        luxembourg: function (vatNum) {
             var expect;
 
             // Checks the check digits of a Latvian VAT number.
@@ -850,8 +855,7 @@ angular.module('jsvat', [])
                 return total === expect;
             }
         },
-
-        mt: function (vatNum) {
+        malta: function (vatNum) {
             var expect;
 
             // Checks the check digits of a Maltese VAT number.
@@ -869,8 +873,7 @@ angular.module('jsvat', [])
             expect = +vatNum.slice(6, 8);
             return total === expect;
         },
-
-        nl: function (vatNum) {
+        netherlands: function (vatNum) {
             var expect;
 
             // Checks the check digits of a Dutch VAT number.
@@ -891,8 +894,7 @@ angular.module('jsvat', [])
             expect = +vatNum.slice(8, 9);
             return total === expect;
         },
-
-        no: function (vatNum) {
+        norway: function (vatNum) {
             var expect;
 
             // Checks the check digits of a Norwegian VAT number.
@@ -916,8 +918,7 @@ angular.module('jsvat', [])
                 return total === expect;
             }
         },
-
-        pl: function (vatNum) {
+        poland: function (vatNum) {
             var expect;
 
             // Checks the check digits of a Polish VAT number.
@@ -938,8 +939,7 @@ angular.module('jsvat', [])
             expect = +vatNum.slice(9, 10);
             return total === expect;
         },
-
-        pt: function (vatNum) {
+        portugal: function (vatNum) {
             var expect;
 
             // Checks the check digits of a Portugese VAT number.
@@ -960,8 +960,7 @@ angular.module('jsvat', [])
             expect = +vatNum.slice(8, 9);
             return total === expect;
         },
-
-        ro: function (vatNum) {
+        romania: function (vatNum) {
             var expect;
 
             // Checks the check digits of a Romanian VAT number.
@@ -984,8 +983,7 @@ angular.module('jsvat', [])
             expect = +vatNum.slice(vatNum.length - 1, vatNum.length);
             return total === expect;
         },
-
-        rs: function (vatNum) {
+        serbia: function (vatNum) {
             var expect;
 
             // Checks the check digits of a Serbian VAT number using ISO 7064, MOD 11-10 for check digit.
@@ -1009,8 +1007,7 @@ angular.module('jsvat', [])
             checkDigit = (product + +vatNum.slice(8, 9)) % 10;
             return checkDigit === expect;
         },
-
-        ru: function (vatNum) {
+        russia: function (vatNum) {
             var expect;
             var expect2;
 
@@ -1066,8 +1063,7 @@ angular.module('jsvat', [])
                 return (expect) && (expect2);
             }
         },
-
-        se: function (vatNum) {
+        sweden: function (vatNum) {
             var expect;
 
             // Calculate R where R = R1 + R3 + R5 + R7 + R9, and Ri = INT(Ci/5) + (Ci*2) modulo 10
@@ -1091,8 +1087,7 @@ angular.module('jsvat', [])
 
             return checkDigit === expect;
         },
-
-        si: function (vatNum) {
+        slovenia: function (vatNum) {
             var expect;
 
             // Checks the check digits of a Slovenian VAT number.
@@ -1114,8 +1109,7 @@ angular.module('jsvat', [])
             expect = +vatNum.slice(7, 8);
             return !!(total !== 11 && total === expect);
         },
-
-        sk: function (vatNum) {
+        slovakia_republic: function (vatNum) {
             var expect = 0;
             var checkDigit = (vatNum % 11);
             // Checks the check digits of a Slovakian VAT number.
