@@ -5,6 +5,7 @@
 
 #jsvat
 
+Demo: http://se-panfilov.github.io/jsvat
 
 Check the validity of the format of an EU VAT number specified. 
 
