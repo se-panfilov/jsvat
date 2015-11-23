@@ -69,8 +69,7 @@ angular.module('jsvat', [])
         var number = parsedNum[2];
         //if (!code || code.length === 0) code = 'GB';
 
-        var checkDigitFunc = _checks[countryName];
-        return checkDigitFunc(number);
+        return _checks[countryName](number);
     }
 
     function _validate(vat, regexp, countryName) {
@@ -109,11 +108,11 @@ angular.module('jsvat', [])
         austria: function (vat) {
             var total = 0;
             var multipliers = [1, 2, 1, 2, 1, 2, 1];
-            var temp = 0;
+            var temp;
             var expect;
 
             for (var i = 0; i < 7; i++) {
-                temp = +vat.charAt(i) * multipliers[i];
+                temp = vat.charAt(i) * multipliers[i];
                 if (temp > 9)
                     total += Math.floor(temp / 10) + temp % 10;
                 else
@@ -133,22 +132,23 @@ angular.module('jsvat', [])
             if (vat.length === 9) vat = "0" + vat;
             if (+vat.slice(1, 2) === 0) return false;
 
-            check = +(97 - +vat.slice(0, 8) % 97);
+            check = (97 - +vat.slice(0, 8) % 97);
             expect = +vat.slice(8, 10);
             return check === expect;
         },
         bulgaria: function (vat) {
             var expect;
             var multipliers;
-            var temp = 0;
-            var total = 0;
+            var temp;
+            var total;
 
-            if (vat.length === 9) {
+            var checkNineLengthVat = function () {
 
                 temp = 0;
                 for (var i = 0; i < 8; i++) {
                     temp += +vat.charAt(i) * (i + 1);
                 }
+
                 total = temp % 11;
                 if (total !== 10) {
                     expect = +vat.slice(8);
@@ -163,63 +163,77 @@ angular.module('jsvat', [])
                 total = temp % 11;
                 if (total === 10) total = 0;
                 expect = +vat.slice(8);
+
                 return total === expect;
-            }
+            };
 
-            // 10 digit VAT code - see if it relates to a standard physical person
-            if ((/^\d\d[0-5]\d[0-3]\d\d{4}$/).test(vat)) {
+            var isPhysicalPerson = function () {
+                // 10 digit VAT code - see if it relates to a standard physical person
+                if ((/^\d\d[0-5]\d[0-3]\d\d{4}$/).test(vat)) {
+                    // Check month
+                    var month = +vat.slice(2, 4);
+                    if ((month > 0 && month < 13) || (month > 20 && month < 33) || (month > 40 && month < 53)) {
 
-                // Check month
-                var month = +vat.slice(2, 4);
-                if ((month > 0 && month < 13) || (month > 20 && month < 33) || (month > 40 && month < 53)) {
+                        // Extract the next digit and multiply by the counter.
+                        multipliers = [2, 4, 8, 5, 10, 9, 7, 3, 6];
+                        total = 0;
+                        for (var k = 0; k < 9; k++) {
+                            total += +vat.charAt(k) * multipliers[k];
+                        }
+                        // Establish check digit.
+                        total = total % 11;
+                        if (total === 10) total = 0;
 
-                    // Extract the next digit and multiply by the counter.
-                    multipliers = [2, 4, 8, 5, 10, 9, 7, 3, 6];
-                    total = 0;
-                    for (var k = 0; k < 9; k++) {
-                        total += +vat.charAt(k) * multipliers[k];
+                        // Check to see if the check digit given is correct, If not, try next type of person
+                        if (total === +vat.substr(9, 1)) return true;
                     }
-
-                    // Establish check digit.
-                    total = total % 11;
-                    if (total === 10) total = 0;
-
-                    // Check to see if the check digit given is correct, If not, try next type of person
-                    if (total === +vat.substr(9, 1)) return true;
                 }
-            }
+
+                return false;
+
+            };
 
             // It doesn't relate to a standard physical person - see if it relates to a foreigner.
+            var isForeigner = function () {
+                // Extract the next digit and multiply by the counter.
+                multipliers = [21, 19, 17, 13, 11, 9, 7, 3, 1];
+                total = 0;
+                for (var l = 0; l < 9; l++) {
+                    total += +vat.charAt(l) * multipliers[l];
+                }
 
-            // Extract the next digit and multiply by the counter.
-            multipliers = [21, 19, 17, 13, 11, 9, 7, 3, 1];
-            total = 0;
-            for (var l = 0; l < 9; l++) {
-                total += +vat.charAt(l) * multipliers[l];
+                // Check to see if the check digit given is correct, If not, try next type of person
+                if (total % 10 === +vat.substr(9, 1)) {
+                    return true;
+                }
+            };
+
+            var miscellaneousVAT = function () {
+                // Finally, if not yet identified, see if it conforms to a miscellaneous VAT number
+
+                // Extract the next digit and multiply by the counter.
+                multipliers = [4, 3, 2, 7, 6, 5, 4, 3, 2];
+                total = 0;
+                for (var m = 0; m < 9; m++) {
+                    total += +vat.charAt(m) * multipliers[m];
+                }
+
+                // Establish check digit.
+                total = 11 - total % 11;
+                if (total === 10) return false;
+                if (total === 11) total = 0;
+
+                // Check to see if the check digit given is correct, If not, we have an error with the VAT number
+                expect = +vat.substr(9, 1);
+                return total === expect;
+            };
+
+            if (vat.length === 9) {
+                return checkNineLengthVat();
+            } else {
+                return isPhysicalPerson() || isForeigner() || miscellaneousVAT();
             }
 
-            // Check to see if the check digit given is correct, If not, try next type of person
-            if (total % 10 === +vat.substr(9, 1)) {
-                return true;
-            }
-
-            // Finally, if not yet identified, see if it conforms to a miscellaneous VAT number
-
-            // Extract the next digit and multiply by the counter.
-            multipliers = [4, 3, 2, 7, 6, 5, 4, 3, 2];
-            total = 0;
-            for (var m = 0; m < 9; m++) {
-                total += +vat.charAt(m) * multipliers[m];
-            }
-
-            // Establish check digit.
-            total = 11 - total % 11;
-            if (total === 10) return false;
-            if (total === 11) total = 0;
-
-            // Check to see if the check digit given is correct, If not, we have an error with the VAT number
-            expect = +vat.substr(9, 1);
-            return total === expect;
         },
         switzerland: function (vat) {
             var expect;
@@ -317,10 +331,11 @@ angular.module('jsvat', [])
             }
 
             // Individuals type 1
-            else if (czExp[1].test(vat)) {
-                return !(temp = +vat.slice(0, 2) > 53);
-
-            }
+            //else if (czExp[1].test(vat)) {
+            //TODO (S.Panfilov) It's seems to be an error
+            //    return !(temp = +vat.slice(0, 2) > 53);
+            //
+            //}
 
             // Individuals type 2
             else if (czExp[2].test(vat)) {
@@ -364,16 +379,16 @@ angular.module('jsvat', [])
                 // Extract the next digit and implement peculiar algorithm!.
                 sum = (+vat.charAt(i) + product) % 10;
                 if (sum === 0) {
-                    sum = 10
+                    sum = 10;
                 }
                 product = (2 * sum) % 11;
             }
 
             // Establish check digit.
             if (11 - product === 10) {
-                checkDigit = 0
+                checkDigit = 0;
             } else {
-                checkDigit = 11 - product
+                checkDigit = 11 - product;
             }
 
             // Compare it with the last two characters of the VAT number. If the same, then it is a valid
@@ -382,21 +397,12 @@ angular.module('jsvat', [])
             return checkDigit === expect;
         },
         denmark: function (vat) {
-            var expect = 0;
-
-            // Checks the check digits of a Danish VAT number.
-
             var total = 0;
             var multipliers = [2, 7, 6, 5, 4, 3, 2, 1];
 
-            // Extract the next digit and multiply by the counter.
             for (var i = 0; i < 8; i++) total += +vat.charAt(i) * multipliers[i];
 
-            // Establish check digit.
-            total = total % 11;
-
-            // The remainder should be 0 for it to be valid..
-            return total === expect;
+            return total % 11 === 0;
         },
         estonia: function (vat) {
             var expect;
@@ -427,7 +433,7 @@ angular.module('jsvat', [])
 
             //eight character numbers should be prefixed with an 0.
             if (vat.length === 8) {
-                vat = "0" + vat
+                vat = "0" + vat;
             }
 
             // Extract the next digit and multiply by the counter.
@@ -631,7 +637,7 @@ angular.module('jsvat', [])
                 // Extract the next digit and implement the algorithm
                 sum = (+vat.charAt(i) + product) % 10;
                 if (sum === 0) {
-                    sum = 10
+                    sum = 10;
                 }
 
                 product = (2 * sum) % 11;
@@ -990,14 +996,14 @@ angular.module('jsvat', [])
                 // Extract the next digit and implement the algorithm
                 sum = (+vat.charAt(i) + product) % 10;
                 if (sum === 0) {
-                    sum = 10
+                    sum = 10;
                 }
                 product = (2 * sum) % 11;
             }
 
             // Now check that we have the right check digit
             expect = 1;
-            checkDigit = (product + +vat.slice(8, 9)) % 10;
+            checkDigit = (product + (+vat.slice(8, 9))) % 10;
             return checkDigit === expect;
         },
         russia: function (vat) {
@@ -1017,7 +1023,7 @@ angular.module('jsvat', [])
 
                 total = total % 11;
                 if (total > 9) {
-                    total = total % 10
+                    total = total % 10;
                 }
 
                 // Compare it with the last character of the VAT number. If it is the same, then it's valid
@@ -1037,7 +1043,7 @@ angular.module('jsvat', [])
 
                 total1 = total1 % 11;
                 if (total1 > 9) {
-                    total1 = total1 % 10
+                    total1 = total1 % 10;
                 }
 
                 for (var k = 0; k < 11; k++) {
@@ -1046,7 +1052,7 @@ angular.module('jsvat', [])
 
                 total2 = total2 % 11;
                 if (total2 > 9) {
-                    total2 = total2 % 10
+                    total2 = total2 % 10;
                 }
 
                 // Compare the first check with the 11th character and the second check with the 12th and last
