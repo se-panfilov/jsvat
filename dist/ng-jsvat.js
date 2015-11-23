@@ -4,50 +4,50 @@ angular.module('jsvat', [])
     'use strict';
 
     var _REGEXP = {
-        austria: /^(AT)U(\d{8})$/,
-        belgium: /^(BE)(0?\d{9})$/,
-        bulgaria: /^(BG)(\d{9,10})$/,
-        switzerland: /^(CHE)(\d{9})(MWST)?$/,
-        cyprus: /^(CY)([0-59]\d{7}[A-Z])$/,
-        czech_republic: /^(CZ)(\d{8,10})(\d{3})?$/,
-        germany: /^(DE)([1-9]\d{8})$/,
-        denmark: /^(DK)(\d{8})$/,
-        estonia: /^(EE)(10\d{7})$/,
-        greece: /^(EL)(\d{9})$/,
-        spain_national: /^(ES)([A-Z]\d{8})$/,
-        spain_other: /^(ES)([A-HN-SW]\d{7}[A-J])$/,
-        spain_personal_1: /^(ES)([0-9YZ]\d{7}[A-Z])$/,
-        spain_personal_2: /^(ES)([KLMX]\d{7}[A-Z])$/,
-        eu_type: /^(EU)(\d{9})$/,
-        finland: /^(FI)(\d{8})$/,
-        france_1: /^(FR)(\d{11})$/,
-        france_2: /^(FR)([A-HJ-NP-Z]\d{10})$/,
-        france_3: /^(FR)(\d[A-HJ-NP-Z]\d{9})$/,
-        france_4: /^(FR)([A-HJ-NP-Z]{2}\d{9})$/,
-        uk_standard: /^(GB)?(\d{9})$/,
-        uk_branches: /^(GB)?(\d{12})$/,
-        uk_government: /^(GB)?(GD\d{3})$/,
-        uk_health_authority: /^(GB)?(HA\d{3})$/,
-        croatia: /^(HR)(\d{11})$/,
-        hungary: /^(HU)(\d{8})$/,
-        ireland_1: /^(IE)(\d{7}[A-W])$/,
-        ireland_2: /^(IE)([7-9][A-Z\*\+)]\d{5}[A-W])$/,
-        ireland_3: /^(IE)(\d{7}[A-W][AH])$/,
-        italy: /^(IT)(\d{11})$/,
-        latvia: /^(LV)(\d{11})$/,
-        lithunia: /^(LT)(\d{9}|\d{12})$/,
-        luxembourg: /^(LU)(\d{8})$/,
-        malta: /^(MT)([1-9]\d{7})$/,
-        netherlands: /^(NL)(\d{9})B\d{2}$/,
-        norway_not_EU: /^(NO)(\d{9})$/,
-        poland: /^(PL)(\d{10})$/,
-        portugal: /^(PT)(\d{9})$/,
-        romania: /^(RO)([1-9]\d{1,9})$/,
-        russia: /^(RU)(\d{10}|\d{12})$/,
-        serbia: /^(RS)(\d{9})$/,
-        slovenia: /^(SI)([1-9]\d{7})$/,
-        slovakia_republic: /^(SK)([1-9]\d[2346-9]\d{7})$/,
-        sweden: /^(SE)(\d{10}01)$/
+        //austria: /^(AT)U(\d{8})$/,
+        //belgium: /^(BE)(0?\d{9})$/,
+        //bulgaria: /^(BG)(\d{9,10})$/,
+        //switzerland: /^(CHE)(\d{9})(MWST)?$/,
+        //cyprus: /^(CY)([0-59]\d{7}[A-Z])$/,
+        //czech_republic: /^(CZ)(\d{8,10})(\d{3})?$/,
+        //germany: /^(DE)([1-9]\d{8})$/,
+        //denmark: /^(DK)(\d{8})$/,
+        //estonia: /^(EE)(10\d{7})$/,
+        //greece: /^(EL)(\d{9})$/,
+        //spain_national: /^(ES)([A-Z]\d{8})$/,
+        spain_other: /^(ES)([A-HN-SW]\d{7}[A-J])$///,
+        //spain_personal_1: /^(ES)([0-9YZ]\d{7}[A-Z])$/,
+        //spain_personal_2: /^(ES)([KLMX]\d{7}[A-Z])$/,
+        //eu_type: /^(EU)(\d{9})$/,
+        //finland: /^(FI)(\d{8})$/,
+        //france_1: /^(FR)(\d{11})$/,
+        //france_2: /^(FR)([A-HJ-NP-Z]\d{10})$/,
+        //france_3: /^(FR)(\d[A-HJ-NP-Z]\d{9})$/,
+        //france_4: /^(FR)([A-HJ-NP-Z]{2}\d{9})$/,
+        //uk_standard: /^(GB)?(\d{9})$/,
+        //uk_branches: /^(GB)?(\d{12})$/,
+        //uk_government: /^(GB)?(GD\d{3})$/,
+        //uk_health_authority: /^(GB)?(HA\d{3})$/,
+        //croatia: /^(HR)(\d{11})$/,
+        //hungary: /^(HU)(\d{8})$/,
+        //ireland_1: /^(IE)(\d{7}[A-W])$/,
+        //ireland_2: /^(IE)([7-9][A-Z\*\+)]\d{5}[A-W])$/,
+        //ireland_3: /^(IE)(\d{7}[A-W][AH])$/,
+        //italy: /^(IT)(\d{11})$/,
+        //latvia: /^(LV)(\d{11})$/,
+        //lithunia: /^(LT)(\d{9}|\d{12})$/,
+        //luxembourg: /^(LU)(\d{8})$/,
+        //malta: /^(MT)([1-9]\d{7})$/,
+        //netherlands: /^(NL)(\d{9})B\d{2}$/,
+        //norway_not_EU: /^(NO)(\d{9})$/,
+        //poland: /^(PL)(\d{10})$/,
+        //portugal: /^(PT)(\d{9})$/,
+        //romania: /^(RO)([1-9]\d{1,9})$/,
+        //russia: /^(RU)(\d{10}|\d{12})$/,
+        //serbia: /^(RS)(\d{9})$/,
+        //slovenia: /^(SI)([1-9]\d{7})$/,
+        //slovakia_republic: /^(SK)([1-9]\d[2346-9]\d{7})$/,
+        //sweden: /^(SE)(\d{10}01)$/
     };
 
     var exports = {
@@ -60,7 +60,6 @@ angular.module('jsvat', [])
 
 
             for (var k in _REGEXP) {
-                console.log(k);
                 if (_REGEXP.hasOwnProperty(k)) {
 
                     var isMatch = _REGEXP[k].test(vatNum);
@@ -90,29 +89,79 @@ angular.module('jsvat', [])
 
     //TODO (S.Panfilov) debug
     function check(vatNum) {
+        var expect;
+
+        // Checks the check digits of a Spanish VAT number.
 
         var total = 0;
-        var multipliers = [1, 2, 1, 2, 1, 2, 1];
         var temp = 0;
+        var multipliers = [2, 1, 2, 1, 2, 1, 2];
+        var esExp = [];
+        esExp[0] = (/^[A-H|J|U|V]\d{8}$/);
+        esExp[1] = (/^[A-H|N-S|W]\d{7}[A-J]$/);
+        esExp[2] = (/^[0-9|Y|Z]\d{7}[A-Z]$/);
+        esExp[3] = (/^[K|L|M|X]\d{7}[A-Z]$/);
+        var i = 0;
 
-        for (var i = 0; i < 7; i++) {
-            temp = Number(vatNum.charAt(i)) * multipliers[i];
-            if (temp > 9)
-                total += Math.floor(temp / 10) + temp % 10;
-            else
-                total += temp;
+        // National juridical entities
+        if (esExp[0].test(vatNum)) {
+
+            // Extract the next digit and multiply by the counter.
+            for (i = 0; i < 7; i++) {
+                temp = vatNum.charAt(i + 1) * multipliers[i];
+                if (temp > 9)
+                    total += Math.floor(temp / 10) + temp % 10;
+                else
+                    total += temp;
+            }
+            // Now calculate the check digit itself.
+            total = 10 - total % 10;
+            if (total === 10) {
+                total = 0;
+            }
+
+            // Compare it with the last character of the VAT number. If it's the same, then it's valid.
+            expect = +vatNum.slice(8, 9);
+            return {total: total, expect: expect};
         }
 
-        total = 10 - (total + 4) % 10;
-        if (total === 10) total = 0;
+        // Juridical entities other than national ones
+        else if (esExp[1].test(vatNum)) {
 
-        //return total === vatNum.slice(7, 8);
+            // Extract the next digit and multiply by the counter.
+            for (i = 0; i < 7; i++) {
+                temp = vatNum.charAt(i + 1) * multipliers[i];
+                if (temp > 9)
+                    total += Math.floor(temp / 10) + temp % 10;
+                else
+                    total += temp;
+            }
 
+            // Now calculate the check digit itself.
+            total = 10 - total % 10;
+            total = String.fromCharCode(total + 64);
 
-        return {
-            total: total,
-            expect: vatNum.slice(7, 8)
+            // Compare it with the last character of the VAT number. If it's the same, then it's valid.
+            expect = vatNum.slice(8, 9);
+            return {total: total, expect: expect};
         }
+
+        // Personal number (NIF) (starting with numeric of Y or Z)
+        else if (esExp[2].test(vatNum)) {
+            var tempnumber = vatNum;
+            if (tempnumber.substring(0, 1) === 'Y') tempnumber = tempnumber.replace(/Y/, "1");
+            if (tempnumber.substring(0, 1) === 'Z') tempnumber = tempnumber.replace(/Z/, "2");
+            expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(+tempnumber.substring(0, 8) % 23);
+            return {total: tempnumber.charAt(8), expect: expect};
+        }
+
+        // Personal number (NIF) (starting with K, L, M, or X)
+        else if (esExp[3].test(vatNum)) {
+            expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(+vatNum.substring(1, 8) % 23);
+            return {total: vatNum.charAt(8), expect: expect};
+        }
+
+        else return false;
 
     }
 
@@ -124,7 +173,7 @@ angular.module('jsvat', [])
             var expect;
 
             for (var i = 0; i < 7; i++) {
-                temp = Number(vatNum.charAt(i)) * multipliers[i];
+                temp = +vatNum.charAt(i) * multipliers[i];
                 if (temp > 9)
                     total += Math.floor(temp / 10) + temp % 10;
                 else
@@ -140,10 +189,13 @@ angular.module('jsvat', [])
         },
         be: function (vatNum) {
             var expect;
+            var check;
             if (vatNum.length === 9) vatNum = "0" + vatNum;
-            if (vatNum.slice(1, 2) === 0) return false;
+            if (+vatNum.slice(1, 2) === 0) return false;
 
-            return 97 - vatNum.slice(0, 8) % 97 === vatNum.slice(8, 10);
+            check = +(97 - +vatNum.slice(0, 8) % 97);
+            expect = +vatNum.slice(8, 10);
+            return check === expect;
         },
 
         bg: function (vatNum) {
@@ -156,7 +208,7 @@ angular.module('jsvat', [])
 
                 temp = 0;
                 for (var i = 0; i < 8; i++) {
-                    temp += Number(vatNum.charAt(i)) * (i + 1);
+                    temp += +vatNum.charAt(i) * (i + 1);
                 }
                 total = temp % 11;
                 if (total !== 10) {
@@ -166,12 +218,12 @@ angular.module('jsvat', [])
 
                 temp = 0;
                 for (var j = 0; j < 8; j++) {
-                    temp += Number(vatNum.charAt(j)) * (j + 3);
+                    temp += +vatNum.charAt(j) * (j + 3);
                 }
 
                 total = temp % 11;
                 if (total === 10) total = 0;
-                expect = vatNum.slice(8);
+                expect = +vatNum.slice(8);
                 return total === expect;
             }
 
@@ -179,14 +231,14 @@ angular.module('jsvat', [])
             if ((/^\d\d[0-5]\d[0-3]\d\d{4}$/).test(vatNum)) {
 
                 // Check month
-                var month = Number(vatNum.slice(2, 4));
+                var month = +vatNum.slice(2, 4);
                 if ((month > 0 && month < 13) || (month > 20 && month < 33) || (month > 40 && month < 53)) {
 
                     // Extract the next digit and multiply by the counter.
                     multipliers = [2, 4, 8, 5, 10, 9, 7, 3, 6];
                     total = 0;
                     for (var k = 0; k < 9; k++) {
-                        total += Number(vatNum.charAt(k)) * multipliers[k];
+                        total += +vatNum.charAt(k) * multipliers[k];
                     }
 
                     // Establish check digit.
@@ -194,7 +246,7 @@ angular.module('jsvat', [])
                     if (total === 10) total = 0;
 
                     // Check to see if the check digit given is correct, If not, try next type of person
-                    if (total === vatNum.substr(9, 1)) return true;
+                    if (total === +vatNum.substr(9, 1)) return true;
                 }
             }
 
@@ -204,11 +256,11 @@ angular.module('jsvat', [])
             multipliers = [21, 19, 17, 13, 11, 9, 7, 3, 1];
             total = 0;
             for (var l = 0; l < 9; l++) {
-                total += Number(vatNum.charAt(l)) * multipliers[l];
+                total += +vatNum.charAt(l) * multipliers[l];
             }
 
             // Check to see if the check digit given is correct, If not, try next type of person
-            if (total % 10 === vatNum.substr(9, 1)) {
+            if (total % 10 === +vatNum.substr(9, 1)) {
                 return true;
             }
 
@@ -218,7 +270,7 @@ angular.module('jsvat', [])
             multipliers = [4, 3, 2, 7, 6, 5, 4, 3, 2];
             total = 0;
             for (var m = 0; m < 9; m++) {
-                total += Number(vatNum.charAt(m)) * multipliers[m];
+                total += +vatNum.charAt(m) * multipliers[m];
             }
 
             // Establish check digit.
@@ -227,7 +279,7 @@ angular.module('jsvat', [])
             if (total === 11) total = 0;
 
             // Check to see if the check digit given is correct, If not, we have an error with the VAT number
-            expect = vatNum.substr(9, 1);
+            expect = +vatNum.substr(9, 1);
             return total === expect;
         },
 
@@ -239,7 +291,7 @@ angular.module('jsvat', [])
             // Extract the next digit and multiply by the counter.
             var multipliers = [5, 4, 3, 2, 7, 6, 5, 4];
             var total = 0;
-            for (var i = 0; i < 8; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            for (var i = 0; i < 8; i++) total += +vatNum.charAt(i) * multipliers[i];
 
             // Establish check digit.
             total = 11 - total % 11;
@@ -247,7 +299,7 @@ angular.module('jsvat', [])
             if (total === 11) total = 0;
 
             // Check to see if the check digit given is correct, If not, we have an error with the VAT number
-            expect = vatNum.substr(8, 1);
+            expect = +vatNum.substr(8, 1);
             return total === expect;
         },
 
@@ -257,12 +309,12 @@ angular.module('jsvat', [])
             // Checks the check digits of a Cypriot VAT number.
 
             // Not allowed to start with '12'
-            if (Number(vatNum.slice(0, 2) === 12)) return false;
+            if (+vatNum.slice(0, 2) === 12) return false;
 
             // Extract the next digit and multiply by the counter.
             var total = 0;
             for (var i = 0; i < 8; i++) {
-                var temp = Number(vatNum.charAt(i));
+                var temp = +vatNum.charAt(i);
                 if (i % 2 === 0) {
                     switch (temp) {
                         case 0:
@@ -315,7 +367,7 @@ angular.module('jsvat', [])
 
                 // Extract the next digit and multiply by the counter.
                 for (var i = 0; i < 7; i++) {
-                    total += Number(vatNum.charAt(i)) * multipliers[i];
+                    total += +vatNum.charAt(i) * multipliers[i];
                 }
 
                 // Establish check digit.
@@ -324,13 +376,13 @@ angular.module('jsvat', [])
                 if (total === 11) total = 1;
 
                 // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-                expect = vatNum.slice(7, 8);
+                expect = +vatNum.slice(7, 8);
                 return total === expect;
             }
 
             // Individuals type 1
             else if (czExp[1].test(vatNum)) {
-                if (temp = Number(vatNum.slice(0, 2)) > 53) return false;
+                if (temp = +vatNum.slice(0, 2) > 53) return false;
                 return true;
             }
 
@@ -339,7 +391,7 @@ angular.module('jsvat', [])
 
                 // Extract the next digit and multiply by the counter.
                 for (var j = 0; j < 7; j++) {
-                    total += Number(vatNum.charAt(j + 1)) * multipliers[j];
+                    total += +vatNum.charAt(j + 1) * multipliers[j];
                 }
 
                 // Establish check digit.
@@ -349,14 +401,14 @@ angular.module('jsvat', [])
 
                 // Convert calculated check digit according to a lookup table;
                 var lookup = [8, 7, 6, 5, 4, 3, 2, 1, 0, 9, 10];
-                expect = vatNum.slice(8, 9);
+                expect = +vatNum.slice(8, 9);
                 return lookup[total - 1] === expect;
             }
 
             // Individuals type 3
             else if (czExp[3].test(vatNum)) {
-                var temp = Number(vatNum.slice(0, 2)) + Number(vatNum.slice(2, 4)) + Number(vatNum.slice(4, 6)) + Number(vatNum.slice(6, 8)) + Number(vatNum.slice(8));
-                expect = Number(vatNum) % 11 === 0;
+                var temp = +vatNum.slice(0, 2) + +vatNum.slice(2, 4) + +vatNum.slice(4, 6) + +vatNum.slice(6, 8) + +vatNum.slice(8);
+                expect = +vatNum % 11 === 0;
                 return !!(temp % 11 === 0 && expect);
             }
 
@@ -371,11 +423,11 @@ angular.module('jsvat', [])
 
             var product = 10;
             var sum = 0;
-            var checkdigit = 0;
+            var checkDigit = 0;
             for (var i = 0; i < 8; i++) {
 
                 // Extract the next digit and implement peculiar algorithm!.
-                sum = (Number(vatNum.charAt(i)) + product) % 10;
+                sum = (+vatNum.charAt(i) + product) % 10;
                 if (sum === 0) {
                     sum = 10
                 }
@@ -384,15 +436,15 @@ angular.module('jsvat', [])
 
             // Establish check digit.
             if (11 - product === 10) {
-                checkdigit = 0
+                checkDigit = 0
             } else {
-                checkdigit = 11 - product
+                checkDigit = 11 - product
             }
 
             // Compare it with the last two characters of the VAT number. If the same, then it is a valid
             // check digit.
-            expect = vatNum.slice(8, 9);
-            return checkdigit === expect;
+            expect = +vatNum.slice(8, 9);
+            return checkDigit === expect;
         },
 
         dk: function (vatNum) {
@@ -404,7 +456,7 @@ angular.module('jsvat', [])
             var multipliers = [2, 7, 6, 5, 4, 3, 2, 1];
 
             // Extract the next digit and multiply by the counter.
-            for (var i = 0; i < 8; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            for (var i = 0; i < 8; i++) total += +vatNum.charAt(i) * multipliers[i];
 
             // Establish check digit.
             total = total % 11;
@@ -422,14 +474,14 @@ angular.module('jsvat', [])
             var multipliers = [3, 7, 1, 3, 7, 1, 3, 7];
 
             // Extract the next digit and multiply by the counter.
-            for (var i = 0; i < 8; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            for (var i = 0; i < 8; i++) total += +vatNum.charAt(i) * multipliers[i];
 
             // Establish check digits using modulus 10.
             total = 10 - total % 10;
             if (total === 10) total = 0;
 
             // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-            expect = vatNum.slice(8, 9);
+            expect = +vatNum.slice(8, 9);
             return total === expect;
         },
 
@@ -447,7 +499,7 @@ angular.module('jsvat', [])
             }
 
             // Extract the next digit and multiply by the counter.
-            for (var i = 0; i < 8; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            for (var i = 0; i < 8; i++) total += +vatNum.charAt(i) * multipliers[i];
 
             // Establish check digit.
             total = total % 11;
@@ -456,7 +508,7 @@ angular.module('jsvat', [])
             }
 
             // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-            expect = vatNum.slice(8, 9);
+            expect = +vatNum.slice(8, 9);
             return total === expect;
         },
 
@@ -480,7 +532,7 @@ angular.module('jsvat', [])
 
                 // Extract the next digit and multiply by the counter.
                 for (i = 0; i < 7; i++) {
-                    temp = Number(vatNum.charAt(i + 1)) * multipliers[i];
+                    temp = vatNum.charAt(i + 1) * multipliers[i];
                     if (temp > 9)
                         total += Math.floor(temp / 10) + temp % 10;
                     else
@@ -493,7 +545,7 @@ angular.module('jsvat', [])
                 }
 
                 // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-                expect = vatNum.slice(8, 9);
+                expect = +vatNum.slice(8, 9);
                 return total === expect;
             }
 
@@ -502,7 +554,7 @@ angular.module('jsvat', [])
 
                 // Extract the next digit and multiply by the counter.
                 for (i = 0; i < 7; i++) {
-                    temp = Number(vatNum.charAt(i + 1)) * multipliers[i];
+                    temp = vatNum.charAt(i + 1) * multipliers[i];
                     if (temp > 9)
                         total += Math.floor(temp / 10) + temp % 10;
                     else
@@ -523,13 +575,13 @@ angular.module('jsvat', [])
                 var tempnumber = vatNum;
                 if (tempnumber.substring(0, 1) === 'Y') tempnumber = tempnumber.replace(/Y/, "1");
                 if (tempnumber.substring(0, 1) === 'Z') tempnumber = tempnumber.replace(/Z/, "2");
-                expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(Number(tempnumber.substring(0, 8)) % 23);
+                expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(+tempnumber.substring(0, 8) % 23);
                 return tempnumber.charAt(8) === expect;
             }
 
             // Personal number (NIF) (starting with K, L, M, or X)
             else if (esExp[3].test(vatNum)) {
-                expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(Number(vatNum.substring(1, 8)) % 23);
+                expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(+vatNum.substring(1, 8) % 23);
                 return vatNum.charAt(8) === expect;
             }
 
@@ -552,7 +604,7 @@ angular.module('jsvat', [])
             var multipliers = [7, 9, 10, 5, 8, 4, 2];
 
             // Extract the next digit and multiply by the counter.
-            for (var i = 0; i < 7; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            for (var i = 0; i < 7; i++) total += +vatNum.charAt(i) * multipliers[i];
 
             // Establish check digit.
             total = 11 - total % 11;
@@ -561,7 +613,7 @@ angular.module('jsvat', [])
             }
 
             // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-            expect = vatNum.slice(7, 8);
+            expect = +vatNum.slice(7, 8);
             return total === expect;
         },
 
@@ -575,13 +627,13 @@ angular.module('jsvat', [])
             }
 
             // Extract the last nine digits as an integer.
-            var total = vatNum.substring(2);
+            var total = +vatNum.substring(2);
 
             // Establish check digit.
             total = (total * 100 + 12) % 97;
 
             // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-            expect = vatNum.slice(0, 2);
+            expect = +vatNum.slice(0, 2);
             return total === expect;
         },
 
@@ -608,13 +660,13 @@ angular.module('jsvat', [])
             var total = 0;
 
             // 0 VAT numbers disallowed!
-            if (Number(vatNum.slice(0)) === 0) return false;
+            if (+vatNum.slice(0) === 0) return false;
 
             // Check range is OK for modulus 97 calculation
-            var no = Number(vatNum.slice(0, 7));
+            var no = +vatNum.slice(0, 7);
 
             // Extract the next digit and multiply by the counter.
-            for (var i = 0; i < 7; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            for (var i = 0; i < 7; i++) total += +vatNum.charAt(i) * multipliers[i];
 
             // Old numbers use a simple 97 modulus, but new numbers use an adaptation of that (less 55). Our
             // VAT number could use either system, so we check it against both.
@@ -629,14 +681,14 @@ angular.module('jsvat', [])
             // same, then it is a valid traditional check digit. However, even then the number must fit within
             // certain specified ranges.
             checkDigit = Math.abs(checkDigit);
-            if (checkDigit === vatNum.slice(7, 9) && no < 9990001 && (no < 100000 || no > 999999) && (no < 9490001 || no > 9700000)) return true;
+            if (checkDigit === +vatNum.slice(7, 9) && no < 9990001 && (no < 100000 || no > 999999) && (no < 9490001 || no > 9700000)) return true;
 
             // Now try the new method by subtracting 55 from the check digit if we can - else add 42
             if (checkDigit >= 55)
                 checkDigit = checkDigit - 55;
             else
                 checkDigit = checkDigit + 42;
-            expect = vatNum.slice(7, 9);
+            expect = +vatNum.slice(7, 9);
             return !!(checkDigit === expect && no > 1000000);
         },
 
@@ -651,7 +703,7 @@ angular.module('jsvat', [])
             for (var i = 0; i < 10; i++) {
 
                 // Extract the next digit and implement the algorithm
-                sum = (Number(vatNum.charAt(i)) + product) % 10;
+                sum = (+vatNum.charAt(i) + product) % 10;
                 if (sum === 0) {
                     sum = 10
                 }
@@ -660,7 +712,7 @@ angular.module('jsvat', [])
             }
 
             // Now check that we have the right check digit
-            expect = vatNum.slice(10, 11) * 1;
+            expect = +vatNum.slice(10, 11);
             return (product + expect) % 10 === 1;
         },
 
@@ -673,14 +725,14 @@ angular.module('jsvat', [])
             var multipliers = [9, 7, 3, 1, 9, 7, 3];
 
             // Extract the next digit and multiply by the counter.
-            for (var i = 0; i < 7; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            for (var i = 0; i < 7; i++) total += +vatNum.charAt(i) * multipliers[i];
 
             // Establish check digit.
             total = 10 - total % 10;
             if (total === 10) total = 0;
 
             // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-            expect = vatNum.slice(7, 8);
+            expect = +vatNum.slice(7, 8);
             return total === expect;
         },
 
@@ -693,16 +745,16 @@ angular.module('jsvat', [])
             var multipliers = [8, 7, 6, 5, 4, 3, 2];
 
             // If the code is type 1 format, we need to convert it to the new before performing the validation.
-            if (/^\d[A-Z\*\+]/.test(vatNum)) vatNum = "0" + vatNum.substring(2, 7) + vatNum.substring(0, 1) + vatNum.substring(7, 8);
+            if (/^\d[A-Z\*\+]/.test(vatNum)) vatNum = "0" + +vatNum.substring(2, 7) + +vatNum.substring(0, 1) + +vatNum.substring(7, 8);
 
             // Extract the next digit and multiply by the counter.
-            for (var i = 0; i < 7; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            for (var i = 0; i < 7; i++) total += +vatNum.charAt(i) * multipliers[i];
 
             // If the number is type 3 then we need to include the trailing A or H in the calculation
             if (/^\d{7}[A-Z][AH]$/.test(vatNum)) {
 
                 // Add in a multiplier for the character A (1*9=9) or H (8*9=72)
-                if (vatNum.charAt(8) === 'H')
+                if (+vatNum.charAt(8) === 'H')
                     total += 72;
                 else
                     total += 9;
@@ -730,17 +782,18 @@ angular.module('jsvat', [])
             var temp;
 
             // The last three digits are the issuing office, and cannot exceed more 201, unless 999 or 888
-            if (Number(vatNum.slice(0, 7)) === 0) {
+            if (+vatNum.slice(0, 7) === 0) {
                 return false;
             }
-            temp = Number(vatNum.slice(7, 10));
+
+            temp = +vatNum.slice(7, 10);
             if ((temp < 1) || (temp > 201) && temp !== 999 && temp !== 888) {
                 return false;
             }
 
             // Extract the next digit and multiply by the appropriate
             for (var i = 0; i < 10; i++) {
-                temp = Number(vatNum.charAt(i)) * multipliers[i];
+                temp = +vatNum.charAt(i) * multipliers[i];
                 if (temp > 9)
                     total += Math.floor(temp / 10) + temp % 10;
                 else
@@ -754,7 +807,7 @@ angular.module('jsvat', [])
             }
 
             // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-            expect = vatNum.slice(10, 11);
+            expect = +vatNum.slice(10, 11);
             return total === expect;
         },
 
@@ -774,7 +827,7 @@ angular.module('jsvat', [])
                 // Extract the next digit and multiply by the counter+1.
                 total = 0;
                 for (var i = 0; i < 8; i++) {
-                    total += Number(vatNum.charAt(i)) * (i + 1);
+                    total += +vatNum.charAt(i) * (i + 1);
                 }
 
                 // Can have a double check digit calculation!
@@ -782,7 +835,7 @@ angular.module('jsvat', [])
                     multipliers = [3, 4, 5, 6, 7, 8, 9, 1];
                     total = 0;
                     for (var j = 0; j < 8; j++) {
-                        total += Number(vatNum.charAt(j)) * multipliers[j];
+                        total += +vatNum.charAt(j) * multipliers[j];
                     }
                 }
 
@@ -793,7 +846,7 @@ angular.module('jsvat', [])
                 }
 
                 // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-                expect = vatNum.slice(8, 9);
+                expect = +vatNum.slice(8, 9);
                 return total === expect;
             }
 
@@ -807,7 +860,7 @@ angular.module('jsvat', [])
                 total = 0;
                 multipliers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2];
                 for (var k = 0; k < 11; k++) {
-                    total += Number(vatNum.charAt(k)) * multipliers[k];
+                    total += +vatNum.charAt(k) * multipliers[k];
                 }
 
                 // Can have a double check digit calculation!
@@ -815,7 +868,7 @@ angular.module('jsvat', [])
                     multipliers = [3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4];
                     total = 0;
                     for (var l = 0; l < 11; l++) {
-                        total += Number(vatNum.charAt(l)) * multipliers[l];
+                        total += +vatNum.charAt(l) * multipliers[l];
                     }
                 }
 
@@ -826,14 +879,14 @@ angular.module('jsvat', [])
                 }
 
                 // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-                expect = vatNum.slice(11, 12);
+                expect = +vatNum.slice(11, 12);
                 return total === expect;
             }
         },
 
         lu: function (vatNum) {
-            var expect = vatNum.slice(6, 8);
-            var checkDigit = vatNum.slice(0, 6);
+            var expect = +vatNum.slice(6, 8);
+            var checkDigit = +vatNum.slice(0, 6) % 89;
             // Checks the check digits of a Luxembourg VAT number.
 
             return checkDigit === expect;
@@ -854,7 +907,7 @@ angular.module('jsvat', [])
                 var multipliers = [9, 1, 4, 8, 3, 10, 2, 5, 7, 6];
 
                 // Extract the next digit and multiply by the counter.
-                for (var i = 0; i < 10; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+                for (var i = 0; i < 10; i++) total += +vatNum.charAt(i) * multipliers[i];
 
                 // Establish check digits by getting modulus 11.
                 if (total % 11 === 4 && vatNum[0] === 9) total = total - 45;
@@ -866,7 +919,7 @@ angular.module('jsvat', [])
                     total = 3 - total % 11;
 
                 // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-                expect = vatNum.slice(10, 11);
+                expect = +vatNum.slice(10, 11);
                 return total === expect;
             }
         },
@@ -880,13 +933,13 @@ angular.module('jsvat', [])
             var multipliers = [3, 4, 6, 7, 8, 9];
 
             // Extract the next digit and multiply by the counter.
-            for (var i = 0; i < 6; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            for (var i = 0; i < 6; i++) total += +vatNum.charAt(i) * multipliers[i];
 
             // Establish check digits by getting modulus 37.
             total = 37 - total % 37;
 
             // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-            expect = vatNum.slice(6, 8) * 1;
+            expect = +vatNum.slice(6, 8);
             return total === expect;
         },
 
@@ -899,7 +952,7 @@ angular.module('jsvat', [])
             var multipliers = [9, 8, 7, 6, 5, 4, 3, 2];
 
             // Extract the next digit and multiply by the counter.
-            for (var i = 0; i < 8; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            for (var i = 0; i < 8; i++) total += +vatNum.charAt(i) * multipliers[i];
 
             // Establish check digits by getting modulus 11.
             total = total % 11;
@@ -908,7 +961,7 @@ angular.module('jsvat', [])
             }
 
             // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-            expect = vatNum.slice(8, 9);
+            expect = +vatNum.slice(8, 9);
             return total === expect;
         },
 
@@ -922,7 +975,7 @@ angular.module('jsvat', [])
             var multipliers = [3, 2, 7, 6, 5, 4, 3, 2];
 
             // Extract the next digit and multiply by the counter.
-            for (var i = 0; i < 8; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            for (var i = 0; i < 8; i++) total += +vatNum.charAt(i) * multipliers[i];
 
             // Establish check digits by getting modulus 11. Check digits > 9 are invalid
             total = 11 - total % 11;
@@ -932,7 +985,7 @@ angular.module('jsvat', [])
             if (total < 10) {
 
                 // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-                expect = vatNum.slice(8, 9);
+                expect = +vatNum.slice(8, 9);
                 return total === expect;
             }
         },
@@ -946,7 +999,7 @@ angular.module('jsvat', [])
             var multipliers = [6, 5, 7, 2, 3, 4, 5, 6, 7];
 
             // Extract the next digit and multiply by the counter.
-            for (var i = 0; i < 9; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            for (var i = 0; i < 9; i++) total += +vatNum.charAt(i) * multipliers[i];
 
             // Establish check digits subtracting modulus 11 from 11.
             total = total % 11;
@@ -955,7 +1008,7 @@ angular.module('jsvat', [])
             }
 
             // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-            expect = vatNum.slice(9, 10);
+            expect = +vatNum.slice(9, 10);
             return total === expect;
         },
 
@@ -968,7 +1021,7 @@ angular.module('jsvat', [])
             var multipliers = [9, 8, 7, 6, 5, 4, 3, 2];
 
             // Extract the next digit and multiply by the counter.
-            for (var i = 0; i < 8; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            for (var i = 0; i < 8; i++) total += +vatNum.charAt(i) * multipliers[i];
 
             // Establish check digits subtracting modulus 11 from 11.
             total = 11 - total % 11;
@@ -977,7 +1030,7 @@ angular.module('jsvat', [])
             }
 
             // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-            expect = vatNum.slice(8, 9);
+            expect = +vatNum.slice(8, 9);
             return total === expect;
         },
 
@@ -989,11 +1042,11 @@ angular.module('jsvat', [])
             var multipliers = [7, 5, 3, 2, 1, 7, 5, 3, 2];
 
             // Extract the next digit and multiply by the counter.
-            var VATlen = vatNum.length;
-            multipliers = multipliers.slice(10 - VATlen);
+            var vatLength = vatNum.length;
+            multipliers = multipliers.slice(10 - vatLength);
             var total = 0;
             for (var i = 0; i < vatNum.length - 1; i++) {
-                total += Number(vatNum.charAt(i)) * multipliers[i];
+                total += +vatNum.charAt(i) * multipliers[i];
             }
 
             // Establish check digits by getting modulus 11.
@@ -1001,7 +1054,7 @@ angular.module('jsvat', [])
             if (total === 10) total = 0;
 
             // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-            expect = vatNum.slice(vatNum.length - 1, vatNum.length);
+            expect = +vatNum.slice(vatNum.length - 1, vatNum.length);
             return total === expect;
         },
 
@@ -1017,7 +1070,7 @@ angular.module('jsvat', [])
             for (var i = 0; i < 8; i++) {
 
                 // Extract the next digit and implement the algorithm
-                sum = (Number(vatNum.charAt(i)) + product) % 10;
+                sum = (+vatNum.charAt(i) + product) % 10;
                 if (sum === 0) {
                     sum = 10
                 }
@@ -1026,7 +1079,7 @@ angular.module('jsvat', [])
 
             // Now check that we have the right check digit
             expect = 1;
-            checkDigit = (product + vatNum.slice(8, 9) * 1) % 10;
+            checkDigit = (product + +vatNum.slice(8, 9)) % 10;
             return checkDigit === expect;
         },
 
@@ -1042,7 +1095,7 @@ angular.module('jsvat', [])
                 var total = 0;
                 var multipliers = [2, 4, 10, 3, 5, 9, 4, 6, 8, 0];
                 for (var i = 0; i < 10; i++) {
-                    total += Number(vatNum.charAt(i)) * multipliers[i];
+                    total += +vatNum.charAt(i) * multipliers[i];
                 }
 
                 total = total % 11;
@@ -1051,7 +1104,7 @@ angular.module('jsvat', [])
                 }
 
                 // Compare it with the last character of the VAT number. If it is the same, then it's valid
-                expect = vatNum.slice(9, 10);
+                expect = +vatNum.slice(9, 10);
                 return total === expect;
 
                 // 12 digit INN numbers
@@ -1062,7 +1115,7 @@ angular.module('jsvat', [])
                 var multipliers2 = [3, 7, 2, 4, 10, 3, 5, 9, 4, 6, 8, 0];
 
                 for (var j = 0; j < 11; j++) {
-                    total1 += Number(vatNum.charAt(j)) * multipliers1[j];
+                    total1 += +vatNum.charAt(j) * multipliers1[j];
                 }
 
                 total1 = total1 % 11;
@@ -1071,7 +1124,7 @@ angular.module('jsvat', [])
                 }
 
                 for (var k = 0; k < 11; k++) {
-                    total2 += Number(vatNum.charAt(k)) * multipliers2[k];
+                    total2 += +vatNum.charAt(k) * multipliers2[k];
                 }
 
                 total2 = total2 % 11;
@@ -1081,8 +1134,8 @@ angular.module('jsvat', [])
 
                 // Compare the first check with the 11th character and the second check with the 12th and last
                 // character of the VAT number. If they're both the same, then it's valid
-                expect = vatNum.slice(10, 11);
-                expect2 = vatNum.slice(11, 12);
+                expect = +vatNum.slice(10, 11);
+                expect2 = +vatNum.slice(11, 12);
                 return (expect) && (expect2);
             }
         },
@@ -1094,20 +1147,20 @@ angular.module('jsvat', [])
             var R = 0;
             var digit;
             for (var i = 0; i < 9; i = i + 2) {
-                digit = Number(vatNum.charAt(i));
+                digit = +vatNum.charAt(i);
                 R += Math.floor(digit / 5) + ((digit * 2) % 10);
             }
 
             // Calculate S where S = C2 + C4 + C6 + C8
             var S = 0;
             for (var j = 1; j < 9; j = j + 2) {
-                S += Number(vatNum.charAt(j));
+                S += +vatNum.charAt(j);
             }
 
             var checkDigit = (10 - (R + S) % 10) % 10;
 
             // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-            expect = vatNum.slice(9, 10);
+            expect = +vatNum.slice(9, 10);
 
             return checkDigit === expect;
         },
@@ -1121,7 +1174,7 @@ angular.module('jsvat', [])
             var multipliers = [8, 7, 6, 5, 4, 3, 2];
 
             // Extract the next digit and multiply by the counter.
-            for (var i = 0; i < 7; i++) total += Number(vatNum.charAt(i)) * multipliers[i];
+            for (var i = 0; i < 7; i++) total += +vatNum.charAt(i) * multipliers[i];
 
             // Establish check digits using modulus 11
             total = 11 - total % 11;
@@ -1131,7 +1184,7 @@ angular.module('jsvat', [])
 
             // Compare the number with the last character of the VAT number. If it is the
             // same, then it's a valid check digit.
-            expect= vatNum.slice(7, 8);
+            expect = +vatNum.slice(7, 8);
             return !!(total !== 11 && total === expect);
         },
 
