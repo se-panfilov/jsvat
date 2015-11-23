@@ -2,7 +2,7 @@
   "name": "jsvat",
   "version": "0.4.2",
   "description": "Check the validity of the format of an EU VAT number specified",
-  "main": "index.html",
+  "main": "./dist/jsvat.js",
   "scripts": {
     "test": "mocha -R spec ./tests/"
   },
@@ -14,6 +14,8 @@
   "bugs": {
     "url": "https://github.com/se-panfilov/jsvat/issues"
   },
+  "ignore": {
+  },
   "keywords": [
     "jsvat",
     "EU",
@@ -21,6 +23,10 @@
     "VAT",
     "european",
     "euro",
+    "value",
+    "added",
+    "check",
+    "tax",
     "value added tax identification number"
   ],
   "author": "S.Panfilov <se-panfilov@ya.ru> (https://se-panfilov.github.io)",
