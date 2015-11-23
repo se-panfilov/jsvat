@@ -735,7 +735,7 @@ var VatChecker = (function () {
             expect = +vatNum.slice(10, 11);
             return total === expect;
         },
-        latvia: function (vatNum) {
+        lithunia: function (vatNum) {
             var total;
             var multipliers;
             var expect;
@@ -807,14 +807,14 @@ var VatChecker = (function () {
                 return total === expect;
             }
         },
-        lithunia: function (vatNum) {
+        luxembourg: function (vatNum) {
             var expect = +vatNum.slice(6, 8);
             var checkDigit = +vatNum.slice(0, 6) % 89;
             // Checks the check digits of a Luxembourg VAT number.
 
             return checkDigit === expect;
         },
-        luxembourg: function (vatNum) {
+        latvia: function (vatNum) {
             var expect;
 
             // Checks the check digits of a Latvian VAT number.
