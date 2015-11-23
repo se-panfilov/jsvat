@@ -4,50 +4,50 @@ angular.module('jsvat', [])
     'use strict';
 
     var _REGEXP = {
-        //austria: /^(AT)U(\d{8})$/,
-        //belgium: /^(BE)(0?\d{9})$/,
-        //bulgaria: /^(BG)(\d{9,10})$/,
-        //switzerland: /^(CHE)(\d{9})(MWST)?$/,
-        //cyprus: /^(CY)([0-59]\d{7}[A-Z])$/,
-        //czech_republic: /^(CZ)(\d{8,10})(\d{3})?$/,
-        //germany: /^(DE)([1-9]\d{8})$/,
-        //denmark: /^(DK)(\d{8})$/,
-        //estonia: /^(EE)(10\d{7})$/,
-        //greece: /^(EL)(\d{9})$/,
-        //spain_national: /^(ES)([A-Z]\d{8})$/,
-        spain_other: /^(ES)([A-HN-SW]\d{7}[A-J])$///,
-        //spain_personal_1: /^(ES)([0-9YZ]\d{7}[A-Z])$/,
-        //spain_personal_2: /^(ES)([KLMX]\d{7}[A-Z])$/,
-        //eu_type: /^(EU)(\d{9})$/,
-        //finland: /^(FI)(\d{8})$/,
-        //france_1: /^(FR)(\d{11})$/,
-        //france_2: /^(FR)([A-HJ-NP-Z]\d{10})$/,
-        //france_3: /^(FR)(\d[A-HJ-NP-Z]\d{9})$/,
-        //france_4: /^(FR)([A-HJ-NP-Z]{2}\d{9})$/,
-        //uk_standard: /^(GB)?(\d{9})$/,
-        //uk_branches: /^(GB)?(\d{12})$/,
-        //uk_government: /^(GB)?(GD\d{3})$/,
-        //uk_health_authority: /^(GB)?(HA\d{3})$/,
-        //croatia: /^(HR)(\d{11})$/,
-        //hungary: /^(HU)(\d{8})$/,
-        //ireland_1: /^(IE)(\d{7}[A-W])$/,
-        //ireland_2: /^(IE)([7-9][A-Z\*\+)]\d{5}[A-W])$/,
-        //ireland_3: /^(IE)(\d{7}[A-W][AH])$/,
-        //italy: /^(IT)(\d{11})$/,
-        //latvia: /^(LV)(\d{11})$/,
-        //lithunia: /^(LT)(\d{9}|\d{12})$/,
-        //luxembourg: /^(LU)(\d{8})$/,
-        //malta: /^(MT)([1-9]\d{7})$/,
-        //netherlands: /^(NL)(\d{9})B\d{2}$/,
-        //norway_not_EU: /^(NO)(\d{9})$/,
-        //poland: /^(PL)(\d{10})$/,
-        //portugal: /^(PT)(\d{9})$/,
-        //romania: /^(RO)([1-9]\d{1,9})$/,
-        //russia: /^(RU)(\d{10}|\d{12})$/,
-        //serbia: /^(RS)(\d{9})$/,
-        //slovenia: /^(SI)([1-9]\d{7})$/,
-        //slovakia_republic: /^(SK)([1-9]\d[2346-9]\d{7})$/,
-        //sweden: /^(SE)(\d{10}01)$/
+        austria: /^(AT)U(\d{8})$/,
+        belgium: /^(BE)(0?\d{9})$/,
+        bulgaria: /^(BG)(\d{9,10})$/,
+        switzerland: /^(CHE)(\d{9})(MWST)?$/,
+        cyprus: /^(CY)([0-59]\d{7}[A-Z])$/,
+        czech_republic: /^(CZ)(\d{8,10})(\d{3})?$/,
+        germany: /^(DE)([1-9]\d{8})$/,
+        denmark: /^(DK)(\d{8})$/,
+        estonia: /^(EE)(10\d{7})$/,
+        greece: /^(EL)(\d{9})$/,
+        spain_national: /^(ES)([A-Z]\d{8})$/,
+        spain_other: /^(ES)([A-HN-SW]\d{7}[A-J])$/,
+        spain_personal_1: /^(ES)([0-9YZ]\d{7}[A-Z])$/,
+        spain_personal_2: /^(ES)([KLMX]\d{7}[A-Z])$/,
+        eu_type: /^(EU)(\d{9})$/,
+        finland: /^(FI)(\d{8})$/,
+        france_1: /^(FR)(\d{11})$/,
+        france_2: /^(FR)([A-HJ-NP-Z]\d{10})$/,
+        france_3: /^(FR)(\d[A-HJ-NP-Z]\d{9})$/,
+        france_4: /^(FR)([A-HJ-NP-Z]{2}\d{9})$/,
+        uk_standard: /^(GB)?(\d{9})$/,
+        uk_branches: /^(GB)?(\d{12})$/,
+        uk_government: /^(GB)?(GD\d{3})$/,
+        uk_health_authority: /^(GB)?(HA\d{3})$/,
+        croatia: /^(HR)(\d{11})$/,
+        hungary: /^(HU)(\d{8})$/,
+        ireland_1: /^(IE)(\d{7}[A-W])$/,
+        ireland_2: /^(IE)([7-9][A-Z\*\+)]\d{5}[A-W])$/,
+        ireland_3: /^(IE)(\d{7}[A-W][AH])$/,
+        italy: /^(IT)(\d{11})$/,
+        latvia: /^(LV)(\d{11})$/,
+        lithunia: /^(LT)(\d{9}|\d{12})$/,
+        luxembourg: /^(LU)(\d{8})$/,
+        malta: /^(MT)([1-9]\d{7})$/,
+        netherlands: /^(NL)(\d{9})B\d{2}$/,
+        norway_not_EU: /^(NO)(\d{9})$/,
+        poland: /^(PL)(\d{10})$/,
+        portugal: /^(PT)(\d{9})$/,
+        romania: /^(RO)([1-9]\d{1,9})$/,
+        russia: /^(RU)(\d{10}|\d{12})$/,
+        serbia: /^(RS)(\d{9})$/,
+        slovenia: /^(SI)([1-9]\d{7})$/,
+        slovakia_republic: /^(SK)([1-9]\d[2346-9]\d{7})$/,
+        sweden: /^(SE)(\d{10}01)$/
     };
 
     var exports = {
@@ -86,84 +86,6 @@ angular.module('jsvat', [])
             return isValid;
         }
     };
-
-    //TODO (S.Panfilov) debug
-    function check(vatNum) {
-        var expect;
-
-        // Checks the check digits of a Spanish VAT number.
-
-        var total = 0;
-        var temp = 0;
-        var multipliers = [2, 1, 2, 1, 2, 1, 2];
-        var esExp = [];
-        esExp[0] = (/^[A-H|J|U|V]\d{8}$/);
-        esExp[1] = (/^[A-H|N-S|W]\d{7}[A-J]$/);
-        esExp[2] = (/^[0-9|Y|Z]\d{7}[A-Z]$/);
-        esExp[3] = (/^[K|L|M|X]\d{7}[A-Z]$/);
-        var i = 0;
-
-        // National juridical entities
-        if (esExp[0].test(vatNum)) {
-
-            // Extract the next digit and multiply by the counter.
-            for (i = 0; i < 7; i++) {
-                temp = vatNum.charAt(i + 1) * multipliers[i];
-                if (temp > 9)
-                    total += Math.floor(temp / 10) + temp % 10;
-                else
-                    total += temp;
-            }
-            // Now calculate the check digit itself.
-            total = 10 - total % 10;
-            if (total === 10) {
-                total = 0;
-            }
-
-            // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-            expect = +vatNum.slice(8, 9);
-            return {total: total, expect: expect};
-        }
-
-        // Juridical entities other than national ones
-        else if (esExp[1].test(vatNum)) {
-
-            // Extract the next digit and multiply by the counter.
-            for (i = 0; i < 7; i++) {
-                temp = vatNum.charAt(i + 1) * multipliers[i];
-                if (temp > 9)
-                    total += Math.floor(temp / 10) + temp % 10;
-                else
-                    total += temp;
-            }
-
-            // Now calculate the check digit itself.
-            total = 10 - total % 10;
-            total = String.fromCharCode(total + 64);
-
-            // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-            expect = vatNum.slice(8, 9);
-            return {total: total, expect: expect};
-        }
-
-        // Personal number (NIF) (starting with numeric of Y or Z)
-        else if (esExp[2].test(vatNum)) {
-            var tempnumber = vatNum;
-            if (tempnumber.substring(0, 1) === 'Y') tempnumber = tempnumber.replace(/Y/, "1");
-            if (tempnumber.substring(0, 1) === 'Z') tempnumber = tempnumber.replace(/Z/, "2");
-            expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(+tempnumber.substring(0, 8) % 23);
-            return {total: tempnumber.charAt(8), expect: expect};
-        }
-
-        // Personal number (NIF) (starting with K, L, M, or X)
-        else if (esExp[3].test(vatNum)) {
-            expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(+vatNum.substring(1, 8) % 23);
-            return {total: vatNum.charAt(8), expect: expect};
-        }
-
-        else return false;
-
-    }
 
     var _checks = {
         at: function (vatNum) {
@@ -745,27 +667,32 @@ angular.module('jsvat', [])
             var multipliers = [8, 7, 6, 5, 4, 3, 2];
 
             // If the code is type 1 format, we need to convert it to the new before performing the validation.
-            if (/^\d[A-Z\*\+]/.test(vatNum)) vatNum = "0" + +vatNum.substring(2, 7) + +vatNum.substring(0, 1) + +vatNum.substring(7, 8);
+        if (/^\d[A-Z\*\+]/.test(vatNum)) {
+            vatNum = "0" + vatNum.substring(2, 7) + vatNum.substring(0, 1) + vatNum.substring(7, 8);
+        }
 
             // Extract the next digit and multiply by the counter.
-            for (var i = 0; i < 7; i++) total += +vatNum.charAt(i) * multipliers[i];
+        for (var i = 0; i < 7; i++) {
+            total += +vatNum.charAt(i) * multipliers[i];
+        }
 
             // If the number is type 3 then we need to include the trailing A or H in the calculation
             if (/^\d{7}[A-Z][AH]$/.test(vatNum)) {
-
                 // Add in a multiplier for the character A (1*9=9) or H (8*9=72)
-                if (+vatNum.charAt(8) === 'H')
+            if (vatNum.charAt(8) === 'H') {
                     total += 72;
-                else
+            } else {
                     total += 9;
             }
+        }
 
             // Establish check digit using modulus 23, and translate to char. equivalent.
             total = total % 23;
-            if (total === 0)
+        if (total === 0) {
                 total = "W";
-            else
+        } else {
                 total = String.fromCharCode(total + 64);
+        }
 
             // Compare it with the eighth character of the VAT number. If it's the same, then it's valid.
             expect = vatNum.slice(7, 8);
