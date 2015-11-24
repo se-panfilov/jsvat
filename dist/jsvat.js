@@ -1,4 +1,4 @@
-var VatChecker = (function () {
+var jsvat = (function () {
     'use strict';
 
     var _REGEXP_LIST = {
