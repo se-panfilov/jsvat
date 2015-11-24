@@ -23,15 +23,15 @@ Installation
 
 1. Bower
 
-`bower i jsvat --save`
+  `bower i jsvat --save`
 
 2. NPM (node.js)
 
-`npm i jsvat --save`
+  `npm i jsvat --save`
 
 3. Directly download one of the latest releases:
 
-[https://github.com/se-panfilov/jsvat/releases][4]
+  [https://github.com/se-panfilov/jsvat/releases][4]
 
 How does jsvat check the validity?
 ---------
