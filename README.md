@@ -3,17 +3,20 @@
 
 **Under heavy construction**
 
-#jsvat
+jsvat
+-------
 
-Demo: http://se-panfilov.github.io/jsvat
+[Demo and Examples][2]
 
 Check the validity of the format of an EU VAT number specified. 
 
 What is it?
 --------
 
-jsvat is a small library to check validity of European (and few non-eu) VAT number. ([learn][1] more about VAT)
+jsvat is a small library to check validity of European (and few non-eu) VAT number. ([learn more][1] about VAT)
+jsvat use 2-step check (see below) and didn't make any request for external resources.
 
+Each country has own regexp for VAT number and different math-logic of number calculating.
 
 How does jsvat check the validity?
 ---------
@@ -87,6 +90,8 @@ List of supported Countries:
 LICENSE
 -------
 
-MIT: https://github.com/se-panfilov/jsvat/blob/master/LICENSE
+MIT: [https://github.com/se-panfilov/jsvat/blob/master/LICENSE][3]
 
  [1]: https://en.wikipedia.org/wiki/VAT_identification_number
+ [2]: https://se-panfilov.github.io/jsvat
+ [3]: https://github.com/se-panfilov/jsvat/blob/master/LICENSE
