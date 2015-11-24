@@ -47,6 +47,9 @@ describe("Poland VAT", function () {
         expect(VatChecker.checkVAT('PL9512293636')).to.be.true;
         expect(VatChecker.checkVAT('PL9562180153')).to.be.true;
         expect(VatChecker.checkVAT('PL9691068493')).to.be.true;
+    });
+
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('PL7122913628')).to.be.false;
         expect(VatChecker.checkVAT('PL7122913427')).to.be.false;
     });

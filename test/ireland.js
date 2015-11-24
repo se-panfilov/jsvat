@@ -76,6 +76,9 @@ describe("Ireland VAT", function () {
         expect(VatChecker.checkVAT('IE3206791MH')).to.be.true;
         expect(VatChecker.checkVAT('IE3208913KH')).to.be.true;
         expect(VatChecker.checkVAT('IE3214048CH')).to.be.true;
+    });
+
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('IE87654321SA')).to.be.false;
         expect(VatChecker.checkVAT('IE8Z49289A')).to.be.false;
         expect(VatChecker.checkVAT('IE0000002A')).to.be.false;

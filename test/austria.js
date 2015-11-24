@@ -65,7 +65,9 @@ describe("Austria VAT", function () {
         expect(VatChecker.checkVAT('ATU64938189')).to.be.true;
         expect(VatChecker.checkVAT('ATU66664013')).to.be.true;
         expect(VatChecker.checkVAT('ATU66889218')).to.be.true;
+    });
 
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('ATV66889218')).to.be.false;
         expect(VatChecker.checkVAT('ATU10223001')).to.be.false;
         expect(VatChecker.checkVAT('ATU10223002')).to.be.false;

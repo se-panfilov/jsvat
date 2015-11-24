@@ -46,6 +46,9 @@ describe("Croatia VAT", function () {
         expect(VatChecker.checkVAT('HR95976200516')).to.be.true;
         expect(VatChecker.checkVAT('HR96151551854')).to.be.true;
         expect(VatChecker.checkVAT('HR97405527203')).to.be.true;
+    });
+
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('HR9363442948')).to.be.false;
         expect(VatChecker.checkVAT('HR93634429488')).to.be.false;
         expect(VatChecker.checkVAT('HR936344294871')).to.be.false;

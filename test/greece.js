@@ -49,6 +49,9 @@ describe("Greece VAT", function () {
         expect(VatChecker.checkVAT('EL998180212')).to.be.true;
         expect(VatChecker.checkVAT('EL998789236')).to.be.true;
         expect(VatChecker.checkVAT('EL998920231')).to.be.true;
+    });
+
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('EL000000022')).to.be.false;
         expect(VatChecker.checkVAT('EL000000032')).to.be.false;
         expect(VatChecker.checkVAT('EL000000042')).to.be.false;

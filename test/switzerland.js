@@ -68,6 +68,9 @@ describe("Switzerland VAT", function () {
         expect(VatChecker.checkVAT('CHE424414541MWST')).to.be.true;
         expect(VatChecker.checkVAT('CHE432495116MWST')).to.be.true;
         expect(VatChecker.checkVAT('CHE432825998MWST')).to.be.true;
+    });
+
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('CHE-432.825.99-MWST')).to.be.false;
         expect(VatChecker.checkVAT('CHE-432.825.9980-MWST')).to.be.false;
         expect(VatChecker.checkVAT('CH-432.825.999-MWST')).to.be.false;

@@ -47,6 +47,9 @@ describe("Malta VAT", function () {
         expect(VatChecker.checkVAT('MT20250021')).to.be.true;
         expect(VatChecker.checkVAT('MT20390516')).to.be.true;
         expect(VatChecker.checkVAT('MT20973507')).to.be.true;
+    });
+
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('MT2039051')).to.be.false;
         expect(VatChecker.checkVAT('MT20390515')).to.be.false;
     });

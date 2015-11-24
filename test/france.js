@@ -71,6 +71,9 @@ describe("France VAT", function () {
         expect(VatChecker.checkVAT('FRA0123456789')).to.be.true;
         expect(VatChecker.checkVAT('FR0A012345678')).to.be.true;
         expect(VatChecker.checkVAT('FRAB012345678')).to.be.true;
+    });
+
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('FR00300076967')).to.be.false;
         expect(VatChecker.checkVAT('FR90000000027')).to.be.false;
         expect(VatChecker.checkVAT('FR17000000037')).to.be.false;

@@ -62,6 +62,9 @@ describe("UK VAT", function () {
         expect(VatChecker.checkVAT('GB999000005')).to.be.true;
         expect(VatChecker.checkVAT('GB999000047')).to.be.true;
         expect(VatChecker.checkVAT('GBGD103')).to.be.true;
+    });
+
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('GB999000103')).to.be.false;
         expect(VatChecker.checkVAT('GB999000201')).to.be.false;
         expect(VatChecker.checkVAT('GB999000396001')).to.be.false;

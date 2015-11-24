@@ -86,7 +86,6 @@ gulp.task('build_vendor', function () {
 
 gulp.task('build', function () {
     gulp.start('js');
-    gulp.start('ng');
     gulp.start('todo');
 });
 

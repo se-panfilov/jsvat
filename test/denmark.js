@@ -48,6 +48,9 @@ describe("Denmark VAT", function () {
         expect(VatChecker.checkVAT('DK71186911')).to.be.true;
         expect(VatChecker.checkVAT('DK75142412')).to.be.true;
         expect(VatChecker.checkVAT('DK78805218')).to.be.true;
+    });
+
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('DK10000000')).to.be.false;
         expect(VatChecker.checkVAT('DK10000010')).to.be.false;
         expect(VatChecker.checkVAT('DK10000020')).to.be.false;

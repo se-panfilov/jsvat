@@ -43,6 +43,9 @@ describe("Cyprus VAT", function () {
         expect(VatChecker.checkVAT('CY90002066W')).to.be.true;
         expect(VatChecker.checkVAT('CY99000027S')).to.be.true;
         expect(VatChecker.checkVAT('CY99200002N')).to.be.true;
+    });
+
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('CY0')).to.be.false;
         expect(VatChecker.checkVAT('CY00000000W')).to.be.false;
         expect(VatChecker.checkVAT('CY12000000C')).to.be.false;

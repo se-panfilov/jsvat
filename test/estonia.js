@@ -50,6 +50,9 @@ describe("Estonia VAT", function () {
         expect(VatChecker.checkVAT('EE101482239')).to.be.true;
         expect(VatChecker.checkVAT('EE101560290')).to.be.true;
         expect(VatChecker.checkVAT('EE101589064')).to.be.true;
+    });
+
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('EE000207418')).to.be.false;
         expect(VatChecker.checkVAT('EE110207418')).to.be.false;
     });

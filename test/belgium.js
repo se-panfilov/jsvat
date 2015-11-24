@@ -209,6 +209,9 @@ describe("Belgium VAT", function () {
         expect(VatChecker.checkVAT('BE897231786')).to.be.true;
         expect(VatChecker.checkVAT('BE897231885')).to.be.true;
         expect(VatChecker.checkVAT('BE897231984')).to.be.true;
+    });
+
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('BE897221791')).to.be.false;
         expect(VatChecker.checkVAT('BE0897221791')).to.be.false;
         expect(VatChecker.checkVAT('BE1897221789')).to.be.false;

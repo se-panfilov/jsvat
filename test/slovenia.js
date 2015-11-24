@@ -46,6 +46,9 @@ describe("Slovenia VAT", function () {
         expect(VatChecker.checkVAT('SI92351069')).to.be.true;
         expect(VatChecker.checkVAT('SI94314527')).to.be.true;
         expect(VatChecker.checkVAT('SI98511734')).to.be.true;
+    });
+
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('SI05936241')).to.be.false;
     });
 

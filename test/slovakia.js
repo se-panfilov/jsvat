@@ -48,6 +48,9 @@ describe("Slovakia republic VAT", function () {
         expect(VatChecker.checkVAT('SK7020000317')).to.be.true;
         expect(VatChecker.checkVAT('SK7020000427')).to.be.true;
         expect(VatChecker.checkVAT('SK7020000680')).to.be.true;
+    });
+
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('SK5407062531')).to.be.false;
         expect(VatChecker.checkVAT('SK7020001680')).to.be.false;
     });

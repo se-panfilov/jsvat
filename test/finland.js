@@ -47,6 +47,9 @@ describe("Finland VAT", function () {
         expect(VatChecker.checkVAT('FI22975669')).to.be.true;
         expect(VatChecker.checkVAT('FI24498085')).to.be.true;
         expect(VatChecker.checkVAT('FI24710461')).to.be.true;
+    });
+
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('FI09853601')).to.be.false;
         expect(VatChecker.checkVAT('FI00000023')).to.be.false;
         expect(VatChecker.checkVAT('FI00000036')).to.be.false;

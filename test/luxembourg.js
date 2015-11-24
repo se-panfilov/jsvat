@@ -48,6 +48,9 @@ describe("Luxembourg VAT", function () {
         expect(VatChecker.checkVAT('LU24184936')).to.be.true;
         expect(VatChecker.checkVAT('LU24496840')).to.be.true;
         expect(VatChecker.checkVAT('LU25318872')).to.be.true;
+    });
+
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('LU10000350')).to.be.false;
         expect(VatChecker.checkVAT('LU00000200')).to.be.false;
         expect(VatChecker.checkVAT('LU00000300')).to.be.false;

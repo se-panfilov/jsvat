@@ -49,6 +49,9 @@ describe("Portugal VAT", function () {
         expect(VatChecker.checkVAT('PT509626416')).to.be.true;
         expect(VatChecker.checkVAT('PT510765009')).to.be.true;
         expect(VatChecker.checkVAT('PT980405319')).to.be.true;
+    });
+
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('PT502757192')).to.be.false;
         expect(VatChecker.checkVAT('PT100000012')).to.be.false;
         expect(VatChecker.checkVAT('PT100000022')).to.be.false;

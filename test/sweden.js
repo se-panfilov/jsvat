@@ -47,6 +47,9 @@ describe("Sweden VAT", function () {
         expect(VatChecker.checkVAT('SE556576895801')).to.be.true;
         expect(VatChecker.checkVAT('SE556654042201')).to.be.true;
         expect(VatChecker.checkVAT('SE556785615701')).to.be.true;
+    });
+
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('SE556188840301')).to.be.false;
         expect(VatChecker.checkVAT('SE000000002301')).to.be.false;
         expect(VatChecker.checkVAT('SE000000003301')).to.be.false;

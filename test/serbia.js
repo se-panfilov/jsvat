@@ -25,6 +25,9 @@ describe("Serbia VAT", function () {
         expect(VatChecker.checkVAT('RS107382147')).to.be.true;
         expect(VatChecker.checkVAT('RS129391320')).to.be.true;
         expect(VatChecker.checkVAT('RS12939132')).to.be.false;
+    });
+
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('RS1293913201')).to.be.false;
         expect(VatChecker.checkVAT('RS129391321')).to.be.false;
     });

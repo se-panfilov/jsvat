@@ -52,6 +52,9 @@ describe("Norway not EU VAT", function () {
         expect(VatChecker.checkVAT('NO996707415')).to.be.true;
         expect(VatChecker.checkVAT('NO996840506')).to.be.true;
         expect(VatChecker.checkVAT('NO999600476')).to.be.true;
+    });
+
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('NO96220901')).to.be.false;
         expect(VatChecker.checkVAT('NO962209018')).to.be.false;
     });

@@ -56,6 +56,9 @@ describe("Bulgaria VAT", function () {
         expect(VatChecker.checkVAT('BG831144533')).to.be.true;
         expect(VatChecker.checkVAT('BG837107196')).to.be.true;
         expect(VatChecker.checkVAT('BG9902280002')).to.be.true;
+    });
+
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('BG101004509')).to.be.false;
         expect(VatChecker.checkVAT('BG101004507')).to.be.false;
         expect(VatChecker.checkVAT('BG111004500')).to.be.false;

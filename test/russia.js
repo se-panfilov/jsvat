@@ -33,6 +33,9 @@ describe("Russia VAT", function () {
         expect(VatChecker.checkVAT('RU9909161308')).to.be.true;
         expect(VatChecker.checkVAT('RU9909235581')).to.be.true;
         expect(VatChecker.checkVAT('RU9909310782')).to.be.true;
+    });
+
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('RU5027187067')).to.be.false;
         expect(VatChecker.checkVAT('RU524911659')).to.be.false;
         expect(VatChecker.checkVAT('RU77013692931')).to.be.false;

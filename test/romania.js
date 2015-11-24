@@ -61,6 +61,9 @@ describe("Romania VAT", function () {
         expect(VatChecker.checkVAT('RO6727475')).to.be.true;
         expect(VatChecker.checkVAT('RO4594917')).to.be.true;
         expect(VatChecker.checkVAT('RO13499400')).to.be.true;
+    });
+
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('RO11198698')).to.be.false;
         expect(VatChecker.checkVAT('RO99907')).to.be.false;
         expect(VatChecker.checkVAT('RO18')).to.be.false;

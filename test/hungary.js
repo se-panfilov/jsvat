@@ -53,6 +53,9 @@ describe("Hungary VAT", function () {
         expect(VatChecker.checkVAT('HU23474178')).to.be.true;
         expect(VatChecker.checkVAT('HU63731758')).to.be.true;
         expect(VatChecker.checkVAT('HU65730980')).to.be.true;
+    });
+
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('HU65730981')).to.be.false;
         expect(VatChecker.checkVAT('HU65731980')).to.be.false;
     });

@@ -61,6 +61,9 @@ describe("Italy VAT", function () {
         expect(VatChecker.checkVAT('IT13378520152')).to.be.true;
         expect(VatChecker.checkVAT('IT05142860484')).to.be.true;
         expect(VatChecker.checkVAT('IT01709820995')).to.be.true;
+    });
+
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('IT00000010210')).to.be.false;
         expect(VatChecker.checkVAT('IT10000100010')).to.be.false;
         expect(VatChecker.checkVAT('IT10000200010')).to.be.false;

@@ -49,6 +49,9 @@ describe("Netherlands VAT", function () {
         expect(VatChecker.checkVAT('NL822667800B01')).to.be.true;
         expect(VatChecker.checkVAT('NL822754812B01')).to.be.true;
         expect(VatChecker.checkVAT('NL823363247B01')).to.be.true;
+    });
+
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('NL010000445B01')).to.be.false;
         expect(VatChecker.checkVAT('NL000000025B01')).to.be.false;
         expect(VatChecker.checkVAT('NL000000035B01')).to.be.false;

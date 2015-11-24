@@ -43,6 +43,9 @@ describe("Germany VAT", function () {
         expect(VatChecker.checkVAT('DE813232162')).to.be.true;
         expect(VatChecker.checkVAT('DE813261484')).to.be.true;
         expect(VatChecker.checkVAT('DE813495425')).to.be.true;
+    });
+
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('DE111111126')).to.be.false;
         expect(VatChecker.checkVAT('DE111111127')).to.be.false;
         expect(VatChecker.checkVAT('DE111111128')).to.be.false;

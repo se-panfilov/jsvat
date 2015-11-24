@@ -67,6 +67,9 @@ describe("Spain national VAT", function () {
         expect(VatChecker.checkVAT('ESB61979175')).to.be.true;
         expect(VatChecker.checkVAT('ESN8261290D')).to.be.true;
         expect(VatChecker.checkVAT('ESA81626905')).to.be.true;
+    });
+
+    it("Invalid VAT", function () {
         expect(VatChecker.checkVAT('ESA0011012A')).to.be.false;
         expect(VatChecker.checkVAT('ES00000001A')).to.be.false;
         expect(VatChecker.checkVAT('ES00000002A')).to.be.false;
