@@ -17,6 +17,6 @@
   "author": "S.Panfilov <se-panfilov@ya.ru> (https://se-panfilov.github.io)",
   "private": false,
   "dependencies": {
-    "jsvat": "~0.4.5"
+    "jsvat": "~0.4.7"
   }
 }
