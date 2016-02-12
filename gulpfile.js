@@ -78,12 +78,6 @@ gulp.task('watch', function () {
     gulp.watch(src.jsDir, ['js', 'todo']);
 });
 
-gulp.task('build_vendor', function () {
-    gulp.start('vendor_js');
-    gulp.start('vendor_css');
-    gulp.start('purify_css');
-});
-
 gulp.task('build', function () {
     gulp.start('js');
     gulp.start('todo');
