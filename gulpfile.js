@@ -28,6 +28,13 @@ gulp.task('lint', function () {
         .pipe(jshint.reporter('jshint-stylish'));
 });
 
+gulp.task('webstandards', function () {
+    var webstandards = require('gulp-webstandards');
+    
+    return gulp.src(src.jsDir)
+        .pipe(webstandards());
+});
+
 gulp.task('magic_numbers', function () {
     buddyjs = buddyjs || require('gulp-buddy.js');
 
