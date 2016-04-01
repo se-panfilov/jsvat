@@ -14,8 +14,11 @@
   "bugs": {
     "url": "https://github.com/se-panfilov/jsvat/issues"
   },
-  "ignore": {
-  },
+  "ignore": [
+    ".bithoundrc",
+    ".log",
+    ".travis.yml"
+  ],
   "keywords": [
     "jsvat",
     "EU",
