@@ -90,6 +90,7 @@ var CONDITIONS = {
     regex: /^(HU)(\d{8})$/
   },
   ireland: {
+    multipliers: [8, 7, 6, 5, 4, 3, 2],
     regex: [
       /^(IE)(\d{7}[A-W])$/,
       /^(IE)([7-9][A-Z\*\+)]\d{5}[A-W])$/,
@@ -98,42 +99,61 @@ var CONDITIONS = {
 
   },
   italy: {
+    multipliers: [1, 2, 1, 2, 1, 2, 1, 2, 1, 2],
     regex: /^(IT)(\d{11})$/
   },
   latvia: {
+    multipliers: [9, 1, 4, 8, 3, 10, 2, 5, 7, 6],
     regex: /^(LV)(\d{11})$/
   },
   lithunia: {
+    multipliers: {
+      short: [3, 4, 5, 6, 7, 8, 9, 1],
+      med: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2],
+      alt: [3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4]
+    },
     regex: /^(LT)(\d{9}|\d{12})$/
   },
   luxembourg: {
     regex: /^(LU)(\d{8})$/
   },
   malta: {
+    multipliers: [3, 4, 6, 7, 8, 9],
     regex: /^(MT)([1-9]\d{7})$/
   },
   netherlands: {
+    multipliers: [9, 8, 7, 6, 5, 4, 3, 2],
     regex: /^(NL)(\d{9})B\d{2}$/
   },
   norway: {
+    multipliers: [3, 2, 7, 6, 5, 4, 3, 2],
     regex: /^(NO)(\d{9})$/
   },
   poland: {
+    multipliers: [6, 5, 7, 2, 3, 4, 5, 6, 7],
     regex: /^(PL)(\d{10})$/
   },
   portugal: {
+    multipliers: [9, 8, 7, 6, 5, 4, 3, 2],
     regex: /^(PT)(\d{9})$/
   },
   romania: {
+    multipliers: [7, 5, 3, 2, 1, 7, 5, 3, 2],
     regex: /^(RO)([1-9]\d{1,9})$/
   },
   russia: {
+    multipliers: {
+      m_1: [2, 4, 10, 3, 5, 9, 4, 6, 8, 0],
+      m_2: [7, 2, 4, 10, 3, 5, 9, 4, 6, 8, 0],
+      m_3: [3, 7, 2, 4, 10, 3, 5, 9, 4, 6, 8, 0]
+    },
     regex: /^(RU)(\d{10}|\d{12})$/
   },
   serbia: {
     regex: /^(RS)(\d{9})$/
   },
   slovenia: {
+    multipliers: [8, 7, 6, 5, 4, 3, 2],
     regex: /^(SI)([1-9]\d{7})$/
   },
   slovakia_republic: {

@@ -518,15 +518,10 @@ var jsvat = (function () {
       return (product + expect) % 10 === 1;
     },
     hungary: function (vat) {
-
-
-      // Checks the check digits of a Hungarian VAT number.
-
-      
-      var ;
-
       // Extract the next digit and multiply by the counter.
-      for (var i = 0; i < 7; i++) total += +vat.charAt(i) * multipliers[i];
+      for (var i = 0; i < 7; i++) {
+        total += +vat.charAt(i) * CONDITIONS.hungary.multipliers[i];
+      }
 
       // Establish check digit.
       total = 10 - total % 10;
@@ -537,13 +532,6 @@ var jsvat = (function () {
       return total === expect;
     },
     ireland: function (vat) {
-
-
-      // Checks the check digits of an Irish VAT number.
-
-      
-      var multipliers = [8, 7, 6, 5, 4, 3, 2];
-
       // If the code is type 1 format, we need to convert it to the new before performing the validation.
       if (/^\d[A-Z\*\+]/.test(vat)) {
         vat = "0" + vat.substring(2, 7) + vat.substring(0, 1) + vat.substring(7, 8);
@@ -551,7 +539,7 @@ var jsvat = (function () {
 
       // Extract the next digit and multiply by the counter.
       for (var i = 0; i < 7; i++) {
-        total += +vat.charAt(i) * multipliers[i];
+        total += +vat.charAt(i) * CONDITIONS.ireland.multipliers[i];
       }
 
       // If the number is type 3 then we need to include the trailing A or H in the calculation
@@ -577,14 +565,6 @@ var jsvat = (function () {
       return total === expect;
     },
     italy: function (vat) {
-
-
-      // Checks the check digits of an Italian VAT number.
-
-      
-      var multipliers = [1, 2, 1, 2, 1, 2, 1, 2, 1, 2];
-
-
       // The last three digits are the issuing office, and cannot exceed more 201, unless 999 or 888
       if (+vat.slice(0, 7) === 0) {
         return false;
@@ -597,7 +577,7 @@ var jsvat = (function () {
 
       // Extract the next digit and multiply by the appropriate
       for (var i = 0; i < 10; i++) {
-        temp = +vat.charAt(i) * multipliers[i];
+        temp = +vat.charAt(i) * CONDITIONS.italy.multipliers[i];
         if (temp > 9)
           total += Math.floor(temp / 10) + temp % 10;
         else
@@ -615,12 +595,6 @@ var jsvat = (function () {
       return total === expect;
     },
     lithunia: function (vat) {
-      ;
-      var multipliers;
-
-
-      // Checks the check digits of a Lithuanian VAT number.
-
       // 9 character VAT numbers are for legal persons
       if (vat.length === 9) {
 
@@ -635,10 +609,9 @@ var jsvat = (function () {
 
         // Can have a double check digit calculation!
         if (total % 11 === 10) {
-          multipliers = [3, 4, 5, 6, 7, 8, 9, 1];
           total = 0;
           for (var j = 0; j < 8; j++) {
-            total += +vat.charAt(j) * multipliers[j];
+            total += +vat.charAt(j) * CONDITIONS.lithunia.multipliers.short[j];
           }
         }
 
@@ -661,17 +634,15 @@ var jsvat = (function () {
 
         // Extract the next digit and multiply by the counter+1.
         total = 0;
-        multipliers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2];
         for (var k = 0; k < 11; k++) {
-          total += +vat.charAt(k) * multipliers[k];
+          total += +vat.charAt(k) * CONDITIONS.lithunia.multipliers.med[k];
         }
 
         // Can have a double check digit calculation!
         if (total % 11 === 10) {
-          multipliers = [3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4];
           total = 0;
           for (var l = 0; l < 11; l++) {
-            total += +vat.charAt(l) * multipliers[l];
+            total += +vat.charAt(l) * CONDITIONS.lithunia.multipliers.alt[l];
           }
         }
 
@@ -704,11 +675,10 @@ var jsvat = (function () {
         return !!(/^[0-3][0-9][0-1][0-9]/).test(vat);
       } else {
 
-        
-        var multipliers = [9, 1, 4, 8, 3, 10, 2, 5, 7, 6];
-
         // Extract the next digit and multiply by the counter.
-        for (var i = 0; i < 10; i++) total += +vat.charAt(i) * multipliers[i];
+        for (var i = 0; i < 10; i++) {
+          total += +vat.charAt(i) * CONDITIONS.latvia.multipliers[i];
+        }
 
         // Establish check digits by getting modulus 11.
         if (total % 11 === 4 && vat[0] === 9) total = total - 45;
@@ -725,15 +695,10 @@ var jsvat = (function () {
       }
     },
     malta: function (vat) {
-
-
-      // Checks the check digits of a Maltese VAT number.
-
-      
-      var multipliers = [3, 4, 6, 7, 8, 9];
-
       // Extract the next digit and multiply by the counter.
-      for (var i = 0; i < 6; i++) total += +vat.charAt(i) * multipliers[i];
+      for (var i = 0; i < 6; i++) {
+        total += +vat.charAt(i) * CONDITIONS.malta.multipliers[i];
+      }
 
       // Establish check digits by getting modulus 37.
       total = 37 - total % 37;
@@ -744,14 +709,10 @@ var jsvat = (function () {
     },
     netherlands: function (vat) {
 
-
-      // Checks the check digits of a Dutch VAT number.
-
-      
-      var multipliers = [9, 8, 7, 6, 5, 4, 3, 2];
-
       // Extract the next digit and multiply by the counter.
-      for (var i = 0; i < 8; i++) total += +vat.charAt(i) * multipliers[i];
+      for (var i = 0; i < 8; i++) {
+        total += +vat.charAt(i) * CONDITIONS.netherlands.multipliers[i];
+      }
 
       // Establish check digits by getting modulus 11.
       total = total % 11;
@@ -764,16 +725,12 @@ var jsvat = (function () {
       return total === expect;
     },
     norway: function (vat) {
-
-
-      // Checks the check digits of a Norwegian VAT number.
       // See http://www.brreg.no/english/coordination/number.html
 
-      
-      var multipliers = [3, 2, 7, 6, 5, 4, 3, 2];
-
       // Extract the next digit and multiply by the counter.
-      for (var i = 0; i < 8; i++) total += +vat.charAt(i) * multipliers[i];
+      for (var i = 0; i < 8; i++) {
+        total += +vat.charAt(i) * CONDITIONS.norway.multipliers[i];
+      }
 
       // Establish check digits by getting modulus 11. Check digits > 9 are invalid
       total = 11 - total % 11;
@@ -788,15 +745,10 @@ var jsvat = (function () {
       }
     },
     poland: function (vat) {
-
-
-      // Checks the check digits of a Polish VAT number.
-
-      
-      var multipliers = [6, 5, 7, 2, 3, 4, 5, 6, 7];
-
       // Extract the next digit and multiply by the counter.
-      for (var i = 0; i < 9; i++) total += +vat.charAt(i) * multipliers[i];
+      for (var i = 0; i < 9; i++) {
+        total += +vat.charAt(i) * CONDITIONS.poland.multipliers[i];
+      }
 
       // Establish check digits subtracting modulus 11 from 11.
       total = total % 11;
@@ -809,15 +761,10 @@ var jsvat = (function () {
       return total === expect;
     },
     portugal: function (vat) {
-
-
-      // Checks the check digits of a Portugese VAT number.
-
-      
-      var multipliers = [9, 8, 7, 6, 5, 4, 3, 2];
-
       // Extract the next digit and multiply by the counter.
-      for (var i = 0; i < 8; i++) total += +vat.charAt(i) * multipliers[i];
+      for (var i = 0; i < 8; i++) {
+        total += +vat.charAt(i) * CONDITIONS.portugal.multipliers[i];
+      }
 
       // Establish check digits subtracting modulus 11 from 11.
       total = 11 - total % 11;
@@ -830,15 +777,9 @@ var jsvat = (function () {
       return total === expect;
     },
     romania: function (vat) {
-
-
-      // Checks the check digits of a Romanian VAT number.
-
-      var multipliers = [7, 5, 3, 2, 1, 7, 5, 3, 2];
-
       // Extract the next digit and multiply by the counter.
       var vatLength = vat.length;
-      multipliers = multipliers.slice(10 - vatLength);
+      var multipliers = CONDITIONS.romania.multipliers.slice(10 - vatLength);
       
       for (var i = 0; i < vat.length - 1; i++) {
         total += +vat.charAt(i) * multipliers[i];
@@ -886,9 +827,8 @@ var jsvat = (function () {
       // 10 digit INN numbers
       if (vat.length === 10) {
         
-        var multipliers = [2, 4, 10, 3, 5, 9, 4, 6, 8, 0];
         for (var i = 0; i < 10; i++) {
-          total += +vat.charAt(i) * multipliers[i];
+          total += +vat.charAt(i) * CONDITIONS.russia.multipliers.m_1[i];
         }
 
         total = total % 11;
@@ -903,12 +843,10 @@ var jsvat = (function () {
         // 12 digit INN numbers
       } else if (vat.length === 12) {
         var total1 = 0;
-        var multipliers1 = [7, 2, 4, 10, 3, 5, 9, 4, 6, 8, 0];
         var total2 = 0;
-        var multipliers2 = [3, 7, 2, 4, 10, 3, 5, 9, 4, 6, 8, 0];
 
         for (var j = 0; j < 11; j++) {
-          total1 += +vat.charAt(j) * multipliers1[j];
+          total1 += +vat.charAt(j) * CONDITIONS.russia.multipliers.m_2[j];
         }
 
         total1 = total1 % 11;
@@ -917,13 +855,15 @@ var jsvat = (function () {
         }
 
         for (var k = 0; k < 11; k++) {
-          total2 += +vat.charAt(k) * multipliers2[k];
+          total2 += +vat.charAt(k) * CONDITIONS.russia.multipliers.m_3[k];
         }
 
         total2 = total2 % 11;
         if (total2 > 9) {
           total2 = total2 % 10;
         }
+
+        //TODO (S.Panfilov) what a fuck? total1 and total2 never used!!!!!!
 
         // Compare the first check with the 11th character and the second check with the 12th and last
         // character of the VAT number. If they're both the same, then it's valid
@@ -933,8 +873,6 @@ var jsvat = (function () {
       }
     },
     sweden: function (vat) {
-
-
       // Calculate R where R = R1 + R3 + R5 + R7 + R9, and Ri = INT(Ci/5) + (Ci*2) modulo 10
       var R = 0;
       var digit;
@@ -957,15 +895,10 @@ var jsvat = (function () {
       return checkDigit === expect;
     },
     slovenia: function (vat) {
-
-
-      // Checks the check digits of a Slovenian VAT number.
-
-      
-      var multipliers = [8, 7, 6, 5, 4, 3, 2];
-
       // Extract the next digit and multiply by the counter.
-      for (var i = 0; i < 7; i++) total += +vat.charAt(i) * multipliers[i];
+      for (var i = 0; i < 7; i++) {
+        total += +vat.charAt(i) * CONDITIONS.slovenia.multipliers[i];
+      }
 
       // Establish check digits using modulus 11
       total = 11 - total % 11;
