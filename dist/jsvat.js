@@ -27,7 +27,13 @@ var jsvat = (function () {
     czech_republic: {
       multipliers: [8, 7, 6, 5, 4, 3, 2],
       lookup: [8, 7, 6, 5, 4, 3, 2, 1, 0, 9, 10],
-      regex: /^(CZ)(\d{8,10})(\d{3})?$/
+      regex: /^(CZ)(\d{8,10})(\d{3})?$/,
+      additional: [
+        /^\d{8}$/,
+        /^[0-5][0-9][0|1|5|6]\d[0-3]\d\d{3}$/,
+        /^6\d{8}$/,
+        /^\d{2}[0-3|5-8]\d[0-3]\d\d{4}$/
+      ]
     },
     germany: {
       regex: /^(DE)([1-9]\d{8})$/
@@ -392,14 +398,9 @@ var jsvat = (function () {
     },
     czech_republic: function (vat, countryName) {
       var total = 0;
-      var czExp = [];
-      czExp[0] = (/^\d{8}$/);
-      czExp[1] = (/^[0-5][0-9][0|1|5|6]\d[0-3]\d\d{3}$/);
-      czExp[2] = (/^6\d{8}$/);
-      czExp[3] = (/^\d{2}[0-3|5-8]\d[0-3]\d\d{4}$/);
 
       // Legal entities
-      if (czExp[0].test(vat)) {
+      if (CONDITIONS[countryName].additional[0].test(vat)) {
 
         // Extract the next digit and multiply by the counter.
         for (var i = 0; i < 7; i++) {
@@ -417,7 +418,7 @@ var jsvat = (function () {
       }
 
       // Individuals type 2
-      else if (czExp[2].test(vat)) {
+      else if (CONDITIONS[countryName].additional[2].test(vat)) {
 
         // Extract the next digit and multiply by the counter.
         for (var j = 0; j < 7; j++) {
@@ -435,7 +436,7 @@ var jsvat = (function () {
       }
 
       // Individuals type 3
-      else if (czExp[3].test(vat)) {
+      else if (CONDITIONS[countryName].additional[3].test(vat)) {
         var temp = +vat.slice(0, 2) + vat.slice(2, 4) + vat.slice(4, 6) + vat.slice(6, 8) + vat.slice(8);
         expect = +vat % 11 === 0;
         return !!(temp % 11 === 0 && expect);
@@ -1001,43 +1002,6 @@ var jsvat = (function () {
       expect = 1;
       checkDigit = (product + (+vat.slice(8, 9))) % 10;
       return checkDigit === expect;
-    },
-    RU: function (vatnumber) {
-
-      if (vatnumber.length == 10) {
-        var total = 0;
-        var multipliers = [2, 4, 10, 3, 5, 9, 4, 6, 8, 0];
-        for (var i = 0; i < 10; i++) {
-          total += Number(vatnumber.charAt(i)) * multipliers[i];
-        }
-        total = total % 11;
-        if (total > 9) {
-          total = total % 10
-        }
-
-        return total == vatnumber.slice(9, 10);
-
-        // 12 digit INN numbers
-      } else if (vatnumber.length == 12) {
-        var total1 = 0;
-        var multipliers1 = [7, 2, 4, 10, 3, 5, 9, 4, 6, 8, 0];
-        var total2 = 0;
-        var multipliers2 = [3, 7, 2, 4, 10, 3, 5, 9, 4, 6, 8, 0];
-
-        for (var i = 0; i < 11; i++) total1 += Number(vatnumber.charAt(i)) * multipliers1[i];
-        total1 = total1 % 11;
-        if (total1 > 9) {
-          total1 = total1 % 10
-        }
-
-        for (var i = 0; i < 11; i++) total2 += Number(vatnumber.charAt(i)) * multipliers2[i];
-        total2 = total2 % 11;
-        if (total2 > 9) {
-          total2 = total2 % 10
-        }
-
-        return !!((total1 == vatnumber.slice(10, 11)) && (total2 == vatnumber.slice(11, 12)));
-      }
     },
     russia: function (vat, countryName) {
       var total = 0;
