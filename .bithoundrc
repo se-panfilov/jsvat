@@ -1,0 +1,13 @@
+{
+  "ignore": [
+    "**/node_modules/**",
+    "**/**.min.**",
+    "**/dist/**.**"
+  ],
+  "test": [
+    "**/tests/**"
+  ],
+  "critics": {
+    "lint": {"engine": "jshint"}
+  }
+}
