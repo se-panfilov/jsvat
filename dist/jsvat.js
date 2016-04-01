@@ -240,8 +240,11 @@ var jsvat = (function () {
 
       return total === expect;
     },
-    belgium: function (vat, countryName) {
-      if (vat.length === 9) vat = "0" + vat;
+    belgium: function (vat) {
+      if (vat.length === 9) {
+        vat = '0' + vat;
+      }
+
       if (+vat.slice(1, 2) === 0) return false;
 
       var check = (97 - +vat.slice(0, 8) % 97);
@@ -250,7 +253,7 @@ var jsvat = (function () {
     },
     bulgaria: function (vat, countryName) {
       var checkNineLengthVat = function () {
-        var total = 0;
+      var total =0;
         temp = 0;
         for (var i = 0; i < 8; i++) {
           temp += +vat.charAt(i) * (i + 1);
@@ -303,7 +306,6 @@ var jsvat = (function () {
       var isForeigner = function () {
         var total = 0;
         // Extract the next digit and multiply by the counter.
-        total = 0;
         for (var l = 0; l < 9; l++) {
           total += +vat.charAt(l) * CONDITIONS[countryName].multipliers.foreigner[l];
         }
@@ -318,7 +320,6 @@ var jsvat = (function () {
         var total = 0;
         // Finally, if not yet identified, see if it conforms to a miscellaneous VAT number
 
-        total = 0;
         for (var m = 0; m < 9; m++) {
           total += +vat.charAt(m) * CONDITIONS[countryName].multipliers.miscellaneous[m];
         }
@@ -355,7 +356,7 @@ var jsvat = (function () {
       expect = +vat.substr(8, 1);
       return total === expect;
     },
-    cyprus: function (vat, countryName) {
+    cyprus: function (vat) {
       var total = 0;
       // Not allowed to start with '12'
       if (+vat.slice(0, 2) === 12) return false;
@@ -445,7 +446,7 @@ var jsvat = (function () {
       // else error
       return false;
     },
-    germany: function (vat, countryName) {
+    germany: function (vat) {
 
 
       // Checks the check digits of a German VAT number.
@@ -502,7 +503,7 @@ var jsvat = (function () {
       var total = 0;
       //eight character numbers should be prefixed with an 0.
       if (vat.length === 8) {
-        vat = "0" + vat;
+        vat = '0' + vat;
       }
 
       // Extract the next digit and multiply by the counter.
@@ -570,8 +571,8 @@ var jsvat = (function () {
       // Personal number (NIF) (starting with numeric of Y or Z)
       else if (CONDITIONS[countryName].additional[2].test(vat)) {
         var tempnumber = vat;
-        if (tempnumber.substring(0, 1) === 'Y') tempnumber = tempnumber.replace(/Y/, "1");
-        if (tempnumber.substring(0, 1) === 'Z') tempnumber = tempnumber.replace(/Z/, "2");
+        if (tempnumber.substring(0, 1) === 'Y') tempnumber = tempnumber.replace(/Y/, '1');
+        if (tempnumber.substring(0, 1) === 'Z') tempnumber = tempnumber.replace(/Z/, '2');
         expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(+tempnumber.substring(0, 8) % 23);
         return tempnumber.charAt(8) === expect;
       }
@@ -605,8 +606,8 @@ var jsvat = (function () {
       expect = +vat.slice(7, 8);
       return total === expect;
     },
-    france: function (vat, countryName) {
-      var total = 0;
+    france: function (vat) {
+      var total;
       // Checks the check digits of a French VAT number.
       if (!(/^\d{11}$/).test(vat)) {
         return true;
@@ -673,7 +674,7 @@ var jsvat = (function () {
       expect = +vat.slice(7, 9);
       return !!(checkDigit === expect && no > 1000000);
     },
-    croatia: function (vat, countryName) {
+    croatia: function (vat) {
 
 
       // Checks the check digits of a Croatian VAT number using ISO 7064, MOD 11-10 for check digit.
@@ -715,7 +716,7 @@ var jsvat = (function () {
       var total = 0;
       // If the code is type 1 format, we need to convert it to the new before performing the validation.
       if (/^\d[A-Z\*\+]/.test(vat)) {
-        vat = "0" + vat.substring(2, 7) + vat.substring(0, 1) + vat.substring(7, 8);
+        vat = '0' + vat.substring(2, 7) + vat.substring(0, 1) + vat.substring(7, 8);
       }
 
       // Extract the next digit and multiply by the counter.
@@ -736,7 +737,7 @@ var jsvat = (function () {
       // Establish check digit using modulus 23, and translate to char. equivalent.
       total = total % 23;
       if (total === 0) {
-        total = "W";
+        total = 'W';
       } else {
         total = String.fromCharCode(total + 64);
       }
@@ -840,7 +841,7 @@ var jsvat = (function () {
         return total === expect;
       }
     },
-    luxembourg: function (vat, countryName) {
+    luxembourg: function (vat) {
       var expect = +vat.slice(6, 8);
       var checkDigit = +vat.slice(0, 6) % 89;
       // Checks the check digits of a Luxembourg VAT number.
@@ -979,9 +980,7 @@ var jsvat = (function () {
       expect = +vat.slice(vat.length - 1, vat.length);
       return total === expect;
     },
-    serbia: function (vat, countryName) {
-
-
+    serbia: function (vat) {
       // Checks the check digits of a Serbian VAT number using ISO 7064, MOD 11-10 for check digit.
 
       var product = 10;
@@ -1058,7 +1057,7 @@ var jsvat = (function () {
         return (expect) && (expect2);
       }
     },
-    sweden: function (vat, countryName) {
+    sweden: function (vat) {
       // Calculate R where R = R1 + R3 + R5 + R7 + R9, and Ri = INT(Ci/5) + (Ci*2) modulo 10
       var R = 0;
       var digit;
@@ -1098,7 +1097,7 @@ var jsvat = (function () {
       expect = +vat.slice(7, 8);
       return !!(total !== 11 && total === expect);
     },
-    slovakia_republic: function (vat, countryName) {
+    slovakia_republic: function (vat) {
       var expect = 0;
       var checkDigit = (vat % 11);
       // Checks the check digits of a Slovakian VAT number.
