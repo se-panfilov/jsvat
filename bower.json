@@ -1,6 +1,6 @@
 {
   "name": "jsvat",
-  "version": "0.4.7",
+  "version": "0.6.0",
   "description": "Check the validity of the format of an EU VAT number",
   "main": "./dist/jsvat.js",
   "scripts": {
