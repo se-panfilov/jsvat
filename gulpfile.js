@@ -38,14 +38,14 @@ gulp.task('magic_numbers', function () {
         }));
 });
 
-gulp.task('sizes_dist', function () {
-    size = size || require('gulp-filesize');
+gulp.task('sizes', function () {
+    size = size || require('gulp-size');
 
     return gulp.src([
         'dist/**/*.js',
         'dist/**/*.css',
         'dist/**/*.gz'
-    ]).pipe(size());
+    ]).pipe(size({showFiles: true, showTotal: true}));
 });
 
 gulp.task('js', function () {

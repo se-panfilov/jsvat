@@ -39,9 +39,9 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "gulp-buddy.js": "^1.0.0",
-    "gulp-filesize": "0.0.6",
     "gulp-jshint": "^2.0.0",
     "gulp-rename": "^1.2.2",
+    "gulp-size": "^2.1.0",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-todo": "^4.1.0",
     "gulp-uglify": "^1.5.3",
