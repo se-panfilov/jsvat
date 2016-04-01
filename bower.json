@@ -1,6 +1,6 @@
 {
   "name": "demo",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "demo",
   "main": "./dist/jsvat.js",
   "scripts": {},
@@ -17,6 +17,6 @@
   "author": "S.Panfilov <se-panfilov@ya.ru> (https://se-panfilov.github.io)",
   "private": false,
   "dependencies": {
-    "jsvat": "~0.4.7"
+    "jsvat": "~0.6.0"
   }
 }
