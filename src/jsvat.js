@@ -1002,6 +1002,43 @@ var jsvat = (function () {
       checkDigit = (product + (+vat.slice(8, 9))) % 10;
       return checkDigit === expect;
     },
+    RU: function (vatnumber) {
+
+      if (vatnumber.length == 10) {
+        var total = 0;
+        var multipliers = [2, 4, 10, 3, 5, 9, 4, 6, 8, 0];
+        for (var i = 0; i < 10; i++) {
+          total += Number(vatnumber.charAt(i)) * multipliers[i];
+        }
+        total = total % 11;
+        if (total > 9) {
+          total = total % 10
+        }
+
+        return total == vatnumber.slice(9, 10);
+
+        // 12 digit INN numbers
+      } else if (vatnumber.length == 12) {
+        var total1 = 0;
+        var multipliers1 = [7, 2, 4, 10, 3, 5, 9, 4, 6, 8, 0];
+        var total2 = 0;
+        var multipliers2 = [3, 7, 2, 4, 10, 3, 5, 9, 4, 6, 8, 0];
+
+        for (var i = 0; i < 11; i++) total1 += Number(vatnumber.charAt(i)) * multipliers1[i];
+        total1 = total1 % 11;
+        if (total1 > 9) {
+          total1 = total1 % 10
+        }
+
+        for (var i = 0; i < 11; i++) total2 += Number(vatnumber.charAt(i)) * multipliers2[i];
+        total2 = total2 % 11;
+        if (total2 > 9) {
+          total2 = total2 % 10
+        }
+
+        return !!((total1 == vatnumber.slice(10, 11)) && (total2 == vatnumber.slice(11, 12)));
+      }
+    },
     russia: function (vat, countryName) {
       var total = 0;
       var expect2;
@@ -1048,12 +1085,12 @@ var jsvat = (function () {
           total2 = total2 % 10;
         }
 
-        //TODO (S.Panfilov) what a fuck? total1 and total2 never used!!!!!!
-
         // Compare the first check with the 11th character and the second check with the 12th and last
         // character of the VAT number. If they're both the same, then it's valid
-        expect = +vat.slice(10, 11);
-        expect2 = +vat.slice(11, 12);
+        //expect = +vat.slice(10, 11);
+        expect = (total1 === +vat.slice(10, 11));
+        //expect2 = +vat.slice(11, 12);
+        expect2 = (total2 === +vat.slice(11, 12));
         return (expect) && (expect2);
       }
     },
