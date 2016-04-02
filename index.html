@@ -21,26 +21,29 @@
 
         <h1 id="project_title">jsvat</h1>
 
-        <h2 id="project_tagline">Check the validity of the format of an EU VAT number specified</h2>
+        <h2 id="project_tagline">Check the validity of the format of an EU VAT number</h2>
 
-        <section id="downloads">
-            <a class="zip_download_link" href="https://github.com/se-panfilov/jsvat/zipball/master">Download this
-                project as a .zip file</a>
-            <a class="tar_download_link" href="https://github.com/se-panfilov/jsvat/tarball/master">Download this
-                project as a tar.gz file</a>
-        </section>
     </header>
 </div>
 
 <!-- MAIN CONTENT -->
 <div id="main_content_wrap" class="outer">
-    <section id="main_content" class="inner">
-        <p><a href="https://travis-ci.org/se-panfilov/jsvat"><img
-                src="https://travis-ci.org/se-panfilov/jsvat.svg?branch=master" alt="Build Status"></a>
-            <a href="https://david-dm.org/se-panfilov/jsvat#info=devDependencies"><img
-                    src="https://david-dm.org/se-panfilov/jsvat/dev-status.svg" alt="devDependency Status"></a></p>
 
+    <section class="inner">
+        <h1>What is it?</h1>
+
+        <p>
+            jsvat is a small library to check validity of European (and few non-eu) VAT number. (learn more about VAT)
+            jsvat use 2-step check (see below) and didn't make any request for external resources.
+        </p>
+        <p>
+            Each country has own regexp for VAT number and different math-logic of number calculating.
+        </p>
+    </section>
+
+    <section id="main_content" class="inner">
         <h1>Demo</h1>
+
         <label id="test_vat_lbl" for="test_vat_inp">Try VAT:</label>
         <input id="test_vat_inp" type="text"/>
         <button id="check_btn" type="button" onclick="isValid()">Check</button>
@@ -51,34 +54,173 @@
 
         <div>There are few <strong>valid</strong> codes:
             <ul>
-                <li><code>ATU00000024</code></li>
-                <li><code>BE0414445663</code></li>
-                <li><code>RS100182160</code></li>
-                <li><code>RU0274051582</code></li>
+                <li>
+                    <code>ATU00000024</code>
+                    <button type="button" onclick="checkVat('ATU00000024', 'result_1')">Check</button>
+                    <code id="result_1"></code>
+                </li>
+                <li>
+                    <code>BE0414445663</code>
+                    <button type="button" onclick="checkVat('BE0414445663', 'result_2')">Check</button>
+                    <code id="result_2"></code>
+                </li>
+                <li>
+                    <code>RS100182160</code>
+                    <button type="button" onclick="checkVat('RS100182160', 'result_3')">Check</button>
+                    <code id="result_3"></code>
+                </li>
+                <li>
+                    <code>RU0274051582</code>
+                    <button type="button" onclick="checkVat('RU0274051582', 'result_4')">Check</button>
+                    <code id="result_4"></code>
+                </li>
             </ul>
         </div>
 
         <div>There are few <strong>invalid</strong> codes:
             <ul>
-                <li><code>ATU10223001</code></li>
-                <li><code>BE0000200334</code></li>
-                <li><code>RO000099908</code></li>
-                <li><code>RU5027187067</code></li>
+                <li>
+                    <code>ATU10223001</code>
+                    <button type="button" onclick="checkVat('ATU10223001', 'result_5')">Check</button>
+                    <code id="result_5"></code>
+                </li>
+                <li>
+                    <code>BE0000200334</code>
+                    <button type="button" onclick="checkVat('BE0000200334', 'result_6')">Check</button>
+                    <code id="result_6"></code>
+                </li>
+                <li>
+                    <code>RO000099908</code>
+                    <button type="button" onclick="checkVat('RO000099908', 'result_7')">Check</button>
+                    <code id="result_7"></code>
+                </li>
+                <li>
+                    <code>RU5027187067</code>
+                    <button type="button" onclick="checkVat('RU5027187067', 'result_8')">Check</button>
+                    <code id="result_8"></code>
+                </li>
             </ul>
         </div>
+    </section>
 
+    <section class="inner">
         <div>
-            Example of usage:<br/>
+            <h1>Example of usage:</h1>
             <code>
-                 jsvat.checkVAT('ATU00000024');<br/>
+                jsvat.checkVAT('ATU00000024');<br/>
             </code>
         </div>
+    </section>
 
-        <h2>
+    <section class="inner">
+        <h1>Installation</h1>
+
+        <h3>Bower</h3>
+
+        <code>bower i jsvat --save</code>
+
+        <h3>NPM (node.js)</h3>
+
+        <code>npm i jsvat --save</code>
+
+        Directly download one of the latest releases:
+
+        <a href="https://github.com/se-panfilov/jsvat/releases">Go to releases</a>
+    </section>
+
+    <section class="inner">
+        <h1>How it's work?</h1>
+
+        <p>
+            How does jsvat check the validity?<br/>
+            There is 2-step check:<br/>
+        </p>
+
+        <ol>
+            <li>
+                <h7>Compare with list of Regexps;</h7>
+                <p>
+                    For example regexp for austria is <code>/^(AT)U(\d{8})$/</code>.<br/>
+
+                    Looks like <code>ATU99999999</code> is valid (it's successfied the regexp), but actually it's should be
+                    invalid.
+                </p>
+            </li>
+
+
+            <li>
+                <h7>Some magic mathematical counting;</h7>
+
+                <p>
+                    Here we make some mathematical calculation (different for each country). After that we may be sure that
+                    <code>ATU99999999</code> and for example <code>ATV66889218</code> isn't valid, but <code>ATU12011204</code> is valid.
+                </p>
+            </li>
+        </ol>
+    </section>
+
+    <section class="inner">
+        <h1>Source of inspiration:</h1>
+
+        <p>
+            Based on this great work: <a href="http://www.braemoor.co.uk/software/vat.shtml">http://www.braemoor.co.uk/software/vat.shtml</a>
+            <br/>
+            At the moment the code was in public access without any license information.
+            <br/>
+            I'm totally rewrite all the code.
+        </p>
+    </section>
+
+    <section class="inner">
+        <h1>Browsers Supports</h1>
+
+        <p>... (unknown yet, but modern browsers should support it as well)</p>
+    </section>
+
+    <section class="inner">
+        <h1>List of supported Countries:</h1>
+
+        <ul>
+            <li>Austria</li>
+            <li>Belgium</li>
+            <li>Bulgaria</li>
+            <li>Switzerland</li>
+            <li>Cyprus</li>
+            <li>Czech Republic</li>
+            <li>Germany</li>
+            <li>Denmark</li>
+            <li>Greece</li>
+            <li>Spain</li>
+            <li>Europe</li>
+            <li>Finland</li>
+            <li>France</li>
+            <li>United Kingdom</li>
+            <li>Croatia</li>
+            <li>Hungary</li>
+            <li>Ireland</li>
+            <li>Italy</li>
+            <li>Latvia</li>
+            <li>Lithunia</li>
+            <li>Luxembourg</li>
+            <li>Malta</li>
+            <li>Netherlands</li>
+            <li>Norway</li>
+            <li>Poland</li>
+            <li>Portugal</li>
+            <li>Romania</li>
+            <li>Russia Federation</li>
+            <li>Serbia</li>
+            <li>Slovenia</li>
+            <li>Slovakia republic</li>
+            <li>Sweden</li>
+        </ul>
+    </section>
+
+    <section class="inner">
+        <h1>
             <a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>LICENSE
-        </h2>
-
-        <p>MIT: <a href="https://github.com/se-panfilov/jsvat/blob/master/LICENSE">https://github.com/se-panfilov/jsvat/blob/master/LICENSE</a>
+        </h1>
+        <p><strong>MIT</strong>: <a href="https://github.com/se-panfilov/jsvat/blob/master/LICENSE">https://github.com/se-panfilov/jsvat/blob/master/LICENSE</a>
         </p>
     </section>
 </div>
@@ -101,6 +243,14 @@
         result = jsvat.checkVAT(value);
 
         document.getElementById('check_result').innerText = result;
+
+        return result;
+    }
+
+    function checkVat(value, resultElemId) {
+        var result = jsvat.checkVAT(value);
+
+        document.getElementById(resultElemId).innerText = result;
 
         return result;
     }
