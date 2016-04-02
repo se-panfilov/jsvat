@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var bulgaria = function (vat, countryName) {
   var checkNineLengthVat = function () {

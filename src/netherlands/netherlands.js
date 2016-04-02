@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 var netherlands = function (vat, countryName) {
   var total = 0;
   var expect;

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 var luxembourg = function (vat) {
   var expect = +vat.slice(6, 8);
   var checkDigit = +vat.slice(0, 6) % 89;

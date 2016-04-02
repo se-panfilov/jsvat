@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 var romania = function (vat, countryName) {
   var total = 0;
   var expect;

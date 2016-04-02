@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var switzerland = function (vat, countryName) {
   var total = 0;

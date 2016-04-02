@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var lithunia = function (vat, countryName) {
   var total = 0;

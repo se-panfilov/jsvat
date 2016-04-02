@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var slovakia_republic = function (vat) {
   var expect = 0;

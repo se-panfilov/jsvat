@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var germany = function (vat) {
   // Checks the check digits of a German VAT number.

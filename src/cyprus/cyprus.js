@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var cyprus = function (vat) {
   var total = 0;

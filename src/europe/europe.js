@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var europe = function () {
   //TODO (S.Panfilov) wtf?

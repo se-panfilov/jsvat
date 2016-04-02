@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var spain = function (vat, countryName) {
   var i = 0;

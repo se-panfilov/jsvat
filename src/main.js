@@ -1,8 +1,6 @@
 var jsvat = (function () {
   'use strict';
 
-  
-
   function _validateRegex(vat, regex) {
     return regex.test(vat);
   }
@@ -57,6 +55,7 @@ var jsvat = (function () {
     
   };
 
+  //Support of node.js
   if (typeof module === 'object' && module.exports) module.exports = exports;
 
   return exports;

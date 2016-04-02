@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 var serbia = function (vat) {
   // Checks the check digits of a Serbian VAT number using ISO 7064, MOD 11-10 for check digit.
 
