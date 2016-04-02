@@ -1,6 +1,8 @@
 "use strict";
 
 var belgium = function (vat) {
+  var expect;
+  
   if (vat.length === 9) {
     vat = '0' + vat;
   }

@@ -1,6 +1,7 @@
 var czech_republic = function (vat, countryName) {
   var total = 0;
-
+  var expect;
+  
   // Legal entities
   if (CONDITIONS[countryName].additional[0].test(vat)) {
 

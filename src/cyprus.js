@@ -2,6 +2,8 @@
 
 var cyprus = function (vat) {
   var total = 0;
+  var expect;
+  
   // Not allowed to start with '12'
   if (+vat.slice(0, 2) === 12) return false;
 

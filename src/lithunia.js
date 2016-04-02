@@ -2,6 +2,8 @@
 
 var lithunia = function (vat, countryName) {
   var total = 0;
+  var expect;
+  
   // 9 character VAT numbers are for legal persons
   if (vat.length === 9) {
 

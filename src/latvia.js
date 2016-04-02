@@ -1,7 +1,8 @@
 "use strict";
 var latvia = function (vat, countryName) {
   var total = 0;
-
+  var expect;
+  
   // Differentiate between legal entities and natural bodies. For the latter we simply check that
   // the first six digits correspond to valid DDMMYY dates.
   if ((/^[0-3]/).test(vat)) {

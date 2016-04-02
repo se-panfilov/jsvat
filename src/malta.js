@@ -1,6 +1,8 @@
 "use strict";
 var malta = function (vat, countryName) {
   var total = 0;
+  var expect;
+  
   // Extract the next digit and multiply by the counter.
   for (var i = 0; i < 6; i++) {
     total += +vat.charAt(i) * CONDITIONS[countryName].multipliers[i];

@@ -3,7 +3,8 @@
 var austria = function (vat, countryName) {
   var total = 0;
   var temp;
-
+  var expect;
+  
   for (var i = 0; i < 7; i++) {
     temp = vat.charAt(i) * CONDITIONS[countryName].multipliers[i];
     if (temp > 9)

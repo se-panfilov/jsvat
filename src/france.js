@@ -1,5 +1,7 @@
 var france = function (vat) {
   var total;
+  var expect;
+  
   // Checks the check digits of a French VAT number.
   if (!(/^\d{11}$/).test(vat)) {
     return true;

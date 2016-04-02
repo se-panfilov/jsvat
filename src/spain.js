@@ -4,6 +4,7 @@ var spain = function (vat, countryName) {
   var i = 0;
   var total = 0;
   var temp;
+  var expect;
   
   // National juridical entities
   if (CONDITIONS[countryName].additional[0].test(vat)) {

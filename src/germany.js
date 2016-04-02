@@ -5,6 +5,8 @@ var germany = function (vat) {
   var product = 10;
   var sum = 0;
   var checkDigit = 0;
+  var expect;
+  
   for (var i = 0; i < 8; i++) {
 
     // Extract the next digit and implement peculiar algorithm!.

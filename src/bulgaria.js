@@ -4,6 +4,7 @@ var bulgaria = function (vat, countryName) {
   var checkNineLengthVat = function () {
     var total =0;
     var temp;
+    var expect;
     
     temp = 0;
     for (var i = 0; i < 8; i++) {
