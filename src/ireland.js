@@ -1,6 +1,9 @@
 "use strict";
- var ireland = function (vat, countryName) {
+
+var ireland = function (vat, countryName) {
   var total = 0;
+  var expect;
+   
   // If the code is type 1 format, we need to convert it to the new before performing the validation.
   if (/^\d[A-Z\*\+]/.test(vat)) {
     vat = '0' + vat.substring(2, 7) + vat.substring(0, 1) + vat.substring(7, 8);

@@ -1,7 +1,7 @@
 "use strict";
 
-var croatia =function (vat) {
-
+var croatia = function (vat) {
+  var expect;
 
   // Checks the check digits of a Croatian VAT number using ISO 7064, MOD 11-10 for check digit.
 
