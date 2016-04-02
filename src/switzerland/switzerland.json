@@ -1,0 +1,6 @@
+{
+  "switzerland": {
+    "multipliers": [5, 4, 3, 2, 7, 6, 5, 4],
+    "regex": "/^(CHE)(\\d{9})(MWST)?$/"
+  },
+}
