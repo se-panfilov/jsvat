@@ -27,7 +27,7 @@ COUNTRIES.germany = {
     // check digit.
     expect = +vat.slice(8, 9);
     return checkDigit === expect;
-  }, 
+  },
   rules: {
     regex: /^(DE)([1-9]\d{8})$/
   }

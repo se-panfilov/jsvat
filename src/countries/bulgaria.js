@@ -91,7 +91,7 @@ COUNTRIES.bulgaria = {
       return isPhysicalPerson() || isForeigner() || miscellaneousVAT();
     }
 
-  }, 
+  },
   rules: {
     multipliers: {
       physical: [

@@ -15,9 +15,5 @@ COUNTRIES.belgium = {
   rules: {
     regex: /^(BE)(0?\d{9})$/
   }
-}, rules
-:
-{
-}
 }
 ;
