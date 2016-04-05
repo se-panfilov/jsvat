@@ -1,7 +1,6 @@
-'use strict';
-var sweden= function (vat) {
+COUNTRIES.sweden = function (vat) {
   var expect;
-  
+
   // Calculate R where R = R1 + R3 + R5 + R7 + R9, and Ri = INT(Ci/5) + (Ci*2) modulo 10
   var R = 0;
   var digit;
@@ -22,4 +21,9 @@ var sweden= function (vat) {
   expect = +vat.slice(9, 10);
 
   return checkDigit === expect;
-};
+}, rules
+:
+{
+}
+}
+;

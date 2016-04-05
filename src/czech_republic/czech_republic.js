@@ -1,50 +1,52 @@
-var czech_republic = function (vat, countryName) {
-  var total = 0;
-  var expect;
-  
-  // Legal entities
-  if (CONDITIONS[countryName].additional[0].test(vat)) {
+var czech_republic = {
+  calcs: function (vat) {
+    var total = 0;
+    var expect;
 
-    // Extract the next digit and multiply by the counter.
-    for (var i = 0; i < 7; i++) {
-      total += +vat.charAt(i) * CONDITIONS[countryName].multipliers[i];
+    // Legal entities
+    if (this.rules.additional[0].test(vat)) {
+
+      // Extract the next digit and multiply by the counter.
+      for (var i = 0; i < 7; i++) {
+        total += +vat.charAt(i) * this.rules.multipliers[i];
+      }
+
+      // Establish check digit.
+      total = 11 - total % 11;
+      if (total === 10) total = 0;
+      if (total === 11) total = 1;
+
+      // Compare it with the last character of the VAT number. If it's the same, then it's valid.
+      expect = +vat.slice(7, 8);
+      return total === expect;
     }
 
-    // Establish check digit.
-    total = 11 - total % 11;
-    if (total === 10) total = 0;
-    if (total === 11) total = 1;
+    // Individuals type 2
+    else if (this.rules.additional[2].test(vat)) {
 
-    // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-    expect = +vat.slice(7, 8);
-    return total === expect;
-  }
+      // Extract the next digit and multiply by the counter.
+      for (var j = 0; j < 7; j++) {
+        total += +vat.charAt(j + 1) * this.rules.multipliers[j];
+      }
 
-  // Individuals type 2
-  else if (CONDITIONS[countryName].additional[2].test(vat)) {
+      // Establish check digit.
+      total = 11 - total % 11;
+      if (total === 10) total = 0;
+      if (total === 11) total = 1;
 
-    // Extract the next digit and multiply by the counter.
-    for (var j = 0; j < 7; j++) {
-      total += +vat.charAt(j + 1) * CONDITIONS[countryName].multipliers[j];
+      // Convert calculated check digit according to a lookup table;
+      expect = +vat.slice(8, 9);
+      return this.rules.lookup[total - 1] === expect;
     }
 
-    // Establish check digit.
-    total = 11 - total % 11;
-    if (total === 10) total = 0;
-    if (total === 11) total = 1;
+    // Individuals type 3
+    else if (this.rules.additional[3].test(vat)) {
+      var temp = +vat.slice(0, 2) + vat.slice(2, 4) + vat.slice(4, 6) + vat.slice(6, 8) + vat.slice(8);
+      expect = +vat % 11 === 0;
+      return !!(temp % 11 === 0 && expect);
+    }
 
-    // Convert calculated check digit according to a lookup table;
-    expect = +vat.slice(8, 9);
-    return CONDITIONS[countryName].lookup[total - 1] === expect;
-  }
-
-  // Individuals type 3
-  else if (CONDITIONS[countryName].additional[3].test(vat)) {
-    var temp = +vat.slice(0, 2) + vat.slice(2, 4) + vat.slice(4, 6) + vat.slice(6, 8) + vat.slice(8);
-    expect = +vat % 11 === 0;
-    return !!(temp % 11 === 0 && expect);
-  }
-
-  // else error
-  return false;
+    // else error
+    return false;
+  }, rules: {}
 };

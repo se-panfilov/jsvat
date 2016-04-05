@@ -1,6 +1,14 @@
 {
   "austria": {
-    "multipliers": [1, 2, 1, 2, 1, 2, 1],
+    "multipliers": [
+      1,
+      2,
+      1,
+      2,
+      1,
+      2,
+      1
+    ],
     "regex": "/^(AT)U(\\d{8})$/"
   }
 }

@@ -1,6 +1,14 @@
 {
   "united_kingdom": {
-    "multipliers": [8, 7, 6, 5, 4, 3, 2],
+    "multipliers": [
+      8,
+      7,
+      6,
+      5,
+      4,
+      3,
+      2
+    ],
     "regex": [
       "/^(GB)?(\\d{9})$/",
       "/^(GB)?(\\d{12})$/",

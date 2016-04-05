@@ -1,9 +1,9 @@
 'use strict';
 
 var gulp = require('gulp');
-var config = require('./tasks/config.js');
+var config = require('./build/config.js');
 var requireDir = require('require-dir');
-requireDir('./tasks', { recurse: true });
+requireDir('./build', { recurse: true });
 
 gulp.task('default', function () {
     gulp.start('make');

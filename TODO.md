@@ -1,5 +1,6 @@
 ### TODOs
 | Filename | line # | TODO
 |:------|:------:|:------
-| jsvat.js | 207 | (S.Panfilov) this is not cross-browser check
-| jsvat.js | 589 | (S.Panfilov) wtf?
+| main.js | 28 | (S.Panfilov) this is not cross-browser check
+| main.js | 37 | (S.Panfilov) Fixed config and refactor
+| europe/europe.js | 4 | (S.Panfilov) wtf?
