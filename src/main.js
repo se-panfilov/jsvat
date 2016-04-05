@@ -1,122 +1,114 @@
-var jsvat = (function (COUNTRIES) {
-  'use strict';
+var COUNTRIES = {};
 
-  function _validateRegex(vat, regex) {
-    return regex.test(vat);
+function _validateRegex(vat, regex) {
+  return regex.test(vat);
+}
+
+function _validateRules(vat, regex, countryName) {
+  var parsedNum = regex.exec(vat);
+  var number = parsedNum[2];
+
+  return COUNTRIES[countryName](number, countryName);
+}
+
+function _validate(vat, regex, countryName) {
+  var result = false;
+  if (_validateRegex(vat, regex)) {
+    result = _validateRules(vat, regex, countryName);
+  }
+  return result;
+}
+
+function getClearVAT(vat) {
+  return vat.toString().toUpperCase().replace(/(\s|-|\.)+/g, '');
+}
+
+function _makeArr(regex) {
+  //TODO (S.Panfilov) this is not cross-browser check
+  if (!Array.isArray(regex)) {
+    return [regex];
   }
 
-  function _validateRules(vat, regex, countryName) {
-    var parsedNum = regex.exec(vat);
-    var number = parsedNum[2];
+  return regex;
+}
 
-    return COUNTRIES[countryName](number, countryName);
-  }
+var exports = {
+  //TODO (S.Panfilov) Fixed config and refactor
+  config: {
+    austria: true,
+    belgium: true,
+    bulgaria: true,
+    croatia: true,
+    cyprus: true,
+    czech_republic: true,
+    denmark: true,
+    estonia: true,
+    europe: true,
+    finland: true,
+    france: true,
+    germany: true,
+    greece: true,
+    hungary: true,
+    ireland: true,
+    italy: true,
+    latvia: true,
+    lithunia: true,
+    luxembourg: true,
+    malta: true,
+    netherlands: true,
+    norway: true,
+    poland: true,
+    portugal: true,
+    romania: true,
+    russia: true,
+    serbia: true,
+    slovakia_republic: true,
+    slovenia: true,
+    spain: true,
+    sweden: true,
+    switzerland: true,
+    united_kingdom: true
+  },
+  checkVAT: function (vat, isDetailed) {
+    if (!vat) return false;
 
-  function _validate(vat, regex, countryName) {
-    var result = false;
-    if (_validateRegex(vat, regex)) {
-      result = _validateRules(vat, regex, countryName);
-    }
-    return result;
-  }
+    vat = getClearVAT(vat);
 
-  function getClearVAT(vat) {
-    return vat.toString().toUpperCase().replace(/(\s|-|\.)+/g, '');
-  }
+    var result = {
+      isValid: false,
+      countries: []
+    };
 
-  function _makeArr(regex) {
-    //TODO (S.Panfilov) this is not cross-browser check
-    if (!Array.isArray(regex)) {
-      return [regex];
-    }
+    for (var countryName in COUNTRIES) {
+      if (COUNTRIES.hasOwnProperty(countryName)) {
 
-    return regex;
-  }
+        //Make sure country check not skipped in config
+        if (exports[countryName] && exports[countryName] !== false) {
 
-  var exports = {
-    //TODO (S.Panfilov) Fixed config and refactor
-    config: {
-      austria: true,
-      belgium: true,
-      bulgaria: true,
-      croatia: true,
-      cyprus: true,
-      czech_republic: true,
-      denmark: true,
-      estonia: true,
-      europe: true,
-      finland: true,
-      france: true,
-      germany: true,
-      greece: true,
-      hungary: true,
-      ireland: true,
-      italy: true,
-      latvia: true,
-      lithunia: true,
-      luxembourg: true,
-      malta: true,
-      netherlands: true,
-      norway: true,
-      poland: true,
-      portugal: true,
-      romania: true,
-      russia: true,
-      serbia: true,
-      slovakia_republic: true,
-      slovenia: true,
-      spain: true,
-      sweden: true,
-      switzerland: true,
-      united_kingdom: true
-    },
-    checkVAT: function (vat, isDetailed) {
-      if (!vat) return false;
+          var regexArr = _makeArr(COUNTRIES[countryName].regex);
 
-      vat = getClearVAT(vat);
+          for (var i = 0; i < regexArr.length; i++) {
 
-      var result = {
-        isValid: false,
-        countries: []
-      };
+            //If once become a true, shouldn't be a false any more
+            result.isValid = (_validate(vat, regexArr[i], countryName)) ? true : result.isValid;
 
-      for (var countryName in COUNTRIES) {
-        if (COUNTRIES.hasOwnProperty(countryName)) {
-
-          //Make sure country check not skipped in config
-          if (exports[countryName] && exports[countryName] !== false) {
-
-            var regexArr = _makeArr(COUNTRIES[countryName].regex);
-
-            for (var i = 0; i < regexArr.length; i++) {
-
-              //If once become a true, shouldn't be a false any more
-              result.isValid = (_validate(vat, regexArr[i], countryName)) ? true : result.isValid;
-
-              if (result.isValid) {
-                //If not detailed just return bool and exit
-                if (!isDetailed) {
-                  return result.isValid
-                }
-                else {
-                  //if detailed, should fill array of countries
-                  result.push(countryName);
-                }
+            if (result.isValid) {
+              //If not detailed just return bool and exit
+              if (!isDetailed) {
+                return result.isValid
+              }
+              else {
+                //if detailed, should fill array of countries
+                result.push(countryName);
               }
             }
-
           }
+
         }
       }
-
-      return isDetailed ? result : result.isValid;
-
     }
-  };
 
+    return isDetailed ? result : result.isValid;
 
-  //Support of node.js
-  if (typeof module === 'object' && module.exports) module.exports = exports;
-
-  return exports;
-})(COUNTRIES);
+  }
+};
