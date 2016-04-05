@@ -18,5 +18,17 @@ COUNTRIES.slovenia = {
     // same, then it's a valid check digit.
     expect = +vat.slice(7, 8);
     return !!(total !== 11 && total === expect);
-  }, rules: {}
+  },
+  rules: {
+    multipliers: [
+      8,
+      7,
+      6,
+      5,
+      4,
+      3,
+      2
+    ],
+    regex: /^(SI)([1-9]\d{7})$/
+  }
 };

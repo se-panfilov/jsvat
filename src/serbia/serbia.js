@@ -20,5 +20,8 @@ COUNTRIES.serbia = {
     var expect = 1;
     checkDigit = (product + (+vat.slice(8, 9))) % 10;
     return checkDigit === expect;
-  }, rules: {}
+  },
+  rules: {
+    regex: /^(RS)(\d{9})$/
+  }
 };

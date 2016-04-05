@@ -3,5 +3,8 @@ COUNTRIES.slovakia_republic = {
     var expect = 0;
     var checkDigit = (vat % 11);
     return checkDigit === expect;
-  }, rules: {}
+  },
+  rules: {
+    regex: /^(SK)([1-9]\d[2346-9]\d{7})$/
+  }
 };

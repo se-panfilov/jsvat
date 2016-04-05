@@ -51,5 +51,22 @@ COUNTRIES.united_kingdom = {
       checkDigit = checkDigit + 42;
     expect = +vat.slice(7, 9);
     return !!(checkDigit === expect && no > 1000000);
-  }, rules: {}
+  },
+  rules: {
+    multipliers: [
+      8,
+      7,
+      6,
+      5,
+      4,
+      3,
+      2
+    ],
+    regex: [
+      /^(GB)?(\d{9})$/,
+      /^(GB)?(\d{12})$/,
+      /^(GB)?(GD\d{3})$/,
+      /^(GB)?(HA\d{3})$/
+    ]
+  }
 };

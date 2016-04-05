@@ -18,5 +18,19 @@ COUNTRIES.romania = {
     // Compare it with the last character of the VAT number. If it's the same, then it's valid.
     expect = +vat.slice(vat.length - 1, vat.length);
     return total === expect;
-  }, rules: {}
+  },
+  rules: {
+    multipliers: [
+      7,
+      5,
+      3,
+      2,
+      1,
+      7,
+      5,
+      3,
+      2
+    ],
+    regex: /^(RO)([1-9]\d{1,9})$/
+  }
 };

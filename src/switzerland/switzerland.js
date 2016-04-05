@@ -13,5 +13,18 @@ COUNTRIES.switzerland = {
     // Check to see if the check digit given is correct, If not, we have an error with the VAT number
     expect = +vat.substr(8, 1);
     return total === expect;
-  }, rules: {}
+  },
+  rules: {
+    multipliers: [
+      5,
+      4,
+      3,
+      2,
+      7,
+      6,
+      5,
+      4
+    ],
+    regex: /^(CHE)(\d{9})(MWST)?$/
+  }
 };
