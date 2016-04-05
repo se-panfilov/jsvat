@@ -87,13 +87,9 @@ var jsvat = (function() {
         if (COUNTRIES.hasOwnProperty(countryName)) {
 
           //Make sure country check not skipped in config
-          if (countryName === 'austria') {
-            console.log(123);
-            //TODO (S.Panfilov) commented for debug
-            //if (exports[countryName] && exports[countryName] !== false) {
+          if (exports.config[countryName] && exports.config[countryName] !== false) {
 
             var regexArr = _makeArr(COUNTRIES[countryName].rules.regex);
-            console.log(COUNTRIES[countryName].rules.regex);
             for (var i = 0; i < regexArr.length; i++) {
 
               //If once become a true, shouldn't be a false any more
