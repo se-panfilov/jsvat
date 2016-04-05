@@ -20,5 +20,18 @@ COUNTRIES.norway = {
       expect = +vat.slice(8, 9);
       return total === expect;
     }
-  }, rules: {}
+  },
+  rules: {
+    multipliers: [
+      3,
+      2,
+      7,
+      6,
+      5,
+      4,
+      3,
+      2
+    ],
+    regex: /^(NO)(\d{9})$/
+  }
 };

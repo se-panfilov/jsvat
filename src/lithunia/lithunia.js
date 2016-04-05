@@ -64,5 +64,46 @@ COUNTRIES.lithunia = {
       expect = +vat.slice(11, 12);
       return total === expect;
     }
-  }, rules: {}
+  },
+  rules: {
+    multipliers: {
+      "short": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        1
+      ],
+      "med": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        1,
+        2
+      ],
+      "alt": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    regex: /^(LT)(\d{9}|\d{12})$/
+  }
 };

@@ -1,4 +1,4 @@
-var france = {
+COUNTRIES.france = {
   calcs: function (vat) {
     var total;
     var expect;
@@ -17,5 +17,13 @@ var france = {
     // Compare it with the last character of the VAT number. If it's the same, then it's valid.
     expect = +vat.slice(0, 2);
     return total === expect;
-  }, rules: {}
+  },
+  rules: {
+    regex: [
+      /^(FR)(\d{11})$/,
+      /^(FR)([A-HJ-NP-Z]\d{10})$/,
+      /^(FR)(\d[A-HJ-NP-Z]\d{9})$/,
+      /^(FR)([A-HJ-NP-Z]{2}\d{9})$/
+    ]
+  }
 };

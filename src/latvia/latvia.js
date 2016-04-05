@@ -27,5 +27,20 @@ COUNTRIES.latvia = {
       expect = +vat.slice(10, 11);
       return total === expect;
     }
-  }, rules: {}
+  },
+  rules: {
+    multipliers: [
+      9,
+      1,
+      4,
+      8,
+      3,
+      10,
+      2,
+      5,
+      7,
+      6
+    ],
+    regex: /^(LV)(\d{11})$/
+  }
 };

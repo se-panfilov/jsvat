@@ -14,5 +14,16 @@ COUNTRIES.malta = {
     // Compare it with the last character of the VAT number. If it's the same, then it's valid.
     expect = +vat.slice(6, 8);
     return total === expect;
-  }, rules: {}
+  },
+  rules: {
+    multipliers: [
+      3,
+      4,
+      6,
+      7,
+      8,
+      9
+    ],
+    regex: /^(MT)([1-9]\d{7})$/
+  }
 };

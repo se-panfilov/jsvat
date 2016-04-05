@@ -1,5 +1,0 @@
-{
-  "luxembourg": {
-    regex: /^(LU)(\d{8})$/"
-  }
-}

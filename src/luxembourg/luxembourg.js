@@ -5,5 +5,8 @@ COUNTRIES.luxembourg = {
     // Checks the check digits of a Luxembourg VAT number.
 
     return checkDigit === expect;
-  }, rules: {}
+  }, 
+  rules: {
+    regex: /^(LU)(\d{8})$/
+  }
 };

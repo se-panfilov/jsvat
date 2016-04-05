@@ -34,5 +34,21 @@ COUNTRIES.ireland = {
     // Compare it with the eighth character of the VAT number. If it's the same, then it's valid.
     expect = vat.slice(7, 8);
     return total === expect;
-  }, rules: {}
+  },
+  rules: {
+    multipliers: [
+      8,
+      7,
+      6,
+      5,
+      4,
+      3,
+      2
+    ],
+    regex: [
+      /^(IE)(\d{7}[A-W])$/,
+      /^(IE)([7-9][A-Z\*\+)]\d{5}[A-W])$/,
+      /^(IE)(\d{7}[A-W][AH])$/
+    ]
+  }
 };

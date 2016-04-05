@@ -32,5 +32,20 @@ COUNTRIES.italy = {
     // Compare it with the last character of the VAT number. If it's the same, then it's valid.
     expect = +vat.slice(10, 11);
     return total === expect;
-  }, rules: {}
+  },
+  rules: {
+    multipliers: [
+      1,
+      2,
+      1,
+      2,
+      1,
+      2,
+      1,
+      2,
+      1,
+      2
+    ],
+    regex: /^(IT)(\d{11})$/
+  }
 };

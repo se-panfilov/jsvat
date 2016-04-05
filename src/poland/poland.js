@@ -17,5 +17,19 @@ COUNTRIES.poland = {
     // Compare it with the last character of the VAT number. If it's the same, then it's valid.
     expect = +vat.slice(9, 10);
     return total === expect;
-  }, rules: {}
+  },
+  rules: {
+    multipliers: [
+      6,
+      5,
+      7,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    regex: /^(PL)(\d{10})$/
+  }
 };
