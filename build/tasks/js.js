@@ -10,6 +10,7 @@ gulp.task('js', function () {
     const rename = require('gulp-rename');
     const notify = require('gulp-notify');
     const plumber = require('gulp-plumber');
+    const beautify = require('gulp-beautify');
 
     return gulp.src(config.js.src)
         .pipe(plumber({
@@ -21,6 +22,10 @@ gulp.task('js', function () {
             })
         }))
         .pipe(concat(config.projectName + '.js'))
+        .pipe(beautify({
+            indent_size: 2
+        }))
+        .pipe(gulp.dest(config.dest))
         .pipe(sourcemaps.init())
         .pipe(uglify())
         .pipe(rename({basename: config.projectName + '.min'}))
