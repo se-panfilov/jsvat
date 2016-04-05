@@ -1,6 +1,6 @@
 {
   "russia": {
-    "multipliers": {
+    multipliers: {
       "m_1": [
         2,
         4,
@@ -41,6 +41,6 @@
         0
       ]
     },
-    "regex": "/^(RU)(\\d{10}|\\d{12})$/"
+    regex: /^(RU)(\d{10}|\d{12})$/"
   }
 }

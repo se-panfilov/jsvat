@@ -7,5 +7,18 @@ COUNTRIES.denmark = {
     }
 
     return total % 11 === 0;
-  }, rules: {}
+  },
+  rules: {
+    multipliers: [
+      2,
+      7,
+      6,
+      5,
+      4,
+      3,
+      2,
+      1
+    ],
+    regex: /^(DK)(\d{8})$/
+  }
 };

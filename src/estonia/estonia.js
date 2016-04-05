@@ -15,5 +15,18 @@ COUNTRIES.estonia = {
     // Compare it with the last character of the VAT number. If it's the same, then it's valid.
     expect = +vat.slice(8, 9);
     return total === expect;
-  }, rules: {}
+  },
+  rules: {
+    multipliers: [
+      3,
+      7,
+      1,
+      3,
+      7,
+      1,
+      3,
+      7
+    ],
+    regex: /^(EE)(10\d{7})$/
+  }
 };

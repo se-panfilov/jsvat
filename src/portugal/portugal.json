@@ -1,6 +1,6 @@
 {
   "portugal": {
-    "multipliers": [
+    multipliers: [
       9,
       8,
       7,
@@ -10,6 +10,6 @@
       3,
       2
     ],
-    "regex": "/^(PT)(\\d{9})$/"
+    regex: /^(PT)(\d{9})$/"
   }
 }

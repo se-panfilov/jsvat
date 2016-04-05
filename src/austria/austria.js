@@ -18,5 +18,17 @@ COUNTRIES.austria = {
     expect = +vat.slice(7, 8);
 
     return total === expect;
-  }, rules: {}
+  },
+  rules: {
+    multipliers: [
+      1,
+      2,
+      1,
+      2,
+      1,
+      2,
+      1
+    ],
+    regex: /^(AT)U(\d{8})$/
+  }
 };

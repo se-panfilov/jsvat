@@ -1,6 +1,6 @@
 {
   "greece": {
-    "multipliers": [
+    multipliers: [
       256,
       128,
       64,
@@ -10,6 +10,6 @@
       4,
       2
     ],
-    "regex": "/^(EL)(\\d{9})$/"
+    regex: /^(EL)(\d{9})$/"
   }
 }

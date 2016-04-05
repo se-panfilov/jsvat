@@ -1,5 +1,5 @@
 {
   "luxembourg": {
-    "regex": "/^(LU)(\\d{8})$/"
+    regex: /^(LU)(\d{8})$/"
   }
 }

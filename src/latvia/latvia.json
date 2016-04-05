@@ -1,6 +1,6 @@
 {
   "latvia": {
-    "multipliers": [
+    multipliers: [
       9,
       1,
       4,
@@ -12,6 +12,6 @@
       7,
       6
     ],
-    "regex": "/^(LV)(\\d{11})$/"
+    regex: /^(LV)(\d{11})$/"
   }
 }

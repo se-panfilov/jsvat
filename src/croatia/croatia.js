@@ -21,5 +21,8 @@ COUNTRIES.croatia = {
     // Now check that we have the right check digit
     expect = +vat.slice(10, 11);
     return (product + expect) % 10 === 1;
-  }, rules: {}
+  }, 
+  rules: {
+    regex: /^(HR)(\d{11})$/
+  }
 };

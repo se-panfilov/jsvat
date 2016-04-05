@@ -1,6 +1,6 @@
 {
   "netherlands": {
-    "multipliers": [
+    multipliers: [
       9,
       8,
       7,
@@ -10,6 +10,6 @@
       3,
       2
     ],
-    "regex": "/^(NL)(\\d{9})B\\d{2}$/"
+    regex: /^(NL)(\d{9})B\d{2}$/"
   }
 }

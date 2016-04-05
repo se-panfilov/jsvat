@@ -1,6 +1,6 @@
 {
   "lithunia": {
-    "multipliers": {
+    multipliers: {
       "short": [
         3,
         4,
@@ -38,6 +38,6 @@
         4
       ]
     },
-    "regex": "/^(LT)(\\d{9}|\\d{12})$/"
+    regex: /^(LT)(\d{9}|\d{12})$/"
   }
 }

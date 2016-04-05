@@ -41,5 +41,8 @@ COUNTRIES.cyprus = {
     // Check to see if the check digit given is correct
     expect = vat.substr(8, 1);
     return total === expect;
-  }, rules: {}
+  }, 
+  rules: {
+    regex: /^(CY)([0-59]\d{7}[A-Z])$/
+  }
 };

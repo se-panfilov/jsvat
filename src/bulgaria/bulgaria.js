@@ -91,5 +91,43 @@ COUNTRIES.bulgaria = {
       return isPhysicalPerson() || isForeigner() || miscellaneousVAT();
     }
 
-  }, rules: {}
+  }, 
+  rules: {
+    multipliers: {
+      physical: [
+        2,
+        4,
+        8,
+        5,
+        10,
+        9,
+        7,
+        3,
+        6
+      ],
+      foreigner: [
+        21,
+        19,
+        17,
+        13,
+        11,
+        9,
+        7,
+        3,
+        1
+      ],
+      miscellaneous: [
+        4,
+        3,
+        2,
+        7,
+        6,
+        5,
+        4,
+        3,
+        2
+      ]
+    },
+    regex: /^(BG)(\d{9,10})$/
+  }
 };
