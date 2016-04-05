@@ -6,9 +6,9 @@ function _validateRegex(vat, regex) {
 
 function _validateRules(vat, regex, countryName) {
   var parsedNum = regex.exec(vat);
-  var number = parsedNum[2];
+  var vatNum = parsedNum[2];
 
-  return COUNTRIES[countryName](number, countryName);
+  return COUNTRIES[countryName].calcs(vatNum);
 }
 
 function _validate(vat, regex, countryName) {
@@ -83,10 +83,13 @@ var exports = {
       if (COUNTRIES.hasOwnProperty(countryName)) {
 
         //Make sure country check not skipped in config
-        if (exports[countryName] && exports[countryName] !== false) {
+        if (countryName === 'austria') {
+          console.log(123);
+          //TODO (S.Panfilov) commented for debug
+          //if (exports[countryName] && exports[countryName] !== false) {
 
-          var regexArr = _makeArr(COUNTRIES[countryName].regex);
-
+          var regexArr = _makeArr(COUNTRIES[countryName].rules.regex);
+          console.log(COUNTRIES[countryName].rules.regex);
           for (var i = 0; i < regexArr.length; i++) {
 
             //If once become a true, shouldn't be a false any more
