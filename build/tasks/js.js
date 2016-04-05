@@ -24,7 +24,7 @@ gulp.task('js', function () {
         .pipe(sourcemaps.init())
         .pipe(uglify())
         .pipe(rename({basename: config.projectName + '.min'}))
-        .pipe(gulp.dest(config.dest  + config.projectName))
+        .pipe(gulp.dest(config.dest))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(config.dest))
         ;
