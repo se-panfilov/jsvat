@@ -11,7 +11,7 @@ COUNTRIES.switzerland = {
     if (total === 11) total = 0;
 
     // Check to see if the check digit given is correct, If not, we have an error with the VAT number
-    expect = +vat.substr(8, 1);
+    var expect = +vat.substr(8, 1);
     return total === expect;
   },
   rules: {

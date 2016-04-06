@@ -1,4 +1,4 @@
-var czech_republic = {
+COUNTRIES.czech_republic = {
   calcs: function (vat) {
     var total = 0;
     var expect;
