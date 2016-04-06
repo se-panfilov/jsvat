@@ -4,7 +4,7 @@ COUNTRIES.ireland = {
     var expect;
 
     // If the code is type 1 format, we need to convert it to the new before performing the validation.
-    if (/^\d[A-Z\*\+]/.test(vat)) {
+    if (this.rules.typeFormats.first.test(vat)) {
       vat = '0' + vat.substring(2, 7) + vat.substring(0, 1) + vat.substring(7, 8);
     }
 
@@ -14,7 +14,7 @@ COUNTRIES.ireland = {
     }
 
     // If the number is type 3 then we need to include the trailing A or H in the calculation
-    if (/^\d{7}[A-Z][AH]$/.test(vat)) {
+    if (this.rules.typeFormats.third.test(vat)) {
       // Add in a multiplier for the character A (1*9=9) or H (8*9=72)
       if (vat.charAt(8) === 'H') {
         total += 72;
@@ -45,6 +45,10 @@ COUNTRIES.ireland = {
       3,
       2
     ],
+    typeFormats: {
+      first: /^\d[A-Z\*\+]/,
+      third: /^\d{7}[A-Z][AH]$/
+    },
     regex: [
       /^(IE)(\d{7}[A-W])$/,
       /^(IE)([7-9][A-Z\*\+)]\d{5}[A-W])$/,

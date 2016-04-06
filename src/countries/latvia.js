@@ -16,13 +16,15 @@ COUNTRIES.latvia = {
 
       // Establish check digits by getting modulus 11.
       if (total % 11 === 4 && vat[0] === 9) total = total - 45;
-      if (total % 11 === 4)
+      
+      if (total % 11 === 4) {
         total = 4 - total % 11;
-      else if (total % 11 > 4)
+      } else if (total % 11 > 4) {
         total = 14 - total % 11;
-      else if (total % 11 < 4)
+      } else if (total % 11 < 4) {
         total = 3 - total % 11;
-
+      }
+      
       // Compare it with the last character of the VAT number. If it's the same, then it's valid.
       expect = +vat.slice(10, 11);
       return total === expect;

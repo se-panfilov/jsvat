@@ -375,17 +375,15 @@ var jsvat = (function() {
       regex: /^(CY)([0-59]\d{7}[A-Z])$/
     }
   };
-  COUNTRIES.czech_republic = {
-    calcs: function(vat) {
+  COUNTRIES.czech_republic = (function() {
+
+    function _isLegalEntities(vat, rules) {
       var total = 0;
-      var expect;
 
-      // Legal entities
-      if (this.rules.additional[0].test(vat)) {
-
+      if (rules.additional[0].test(vat)) {
         // Extract the next digit and multiply by the counter.
         for (var i = 0; i < 7; i++) {
-          total += +vat.charAt(i) * this.rules.multipliers[i];
+          total += +vat.charAt(i) * rules.multipliers[i];
         }
 
         // Establish check digit.
@@ -394,16 +392,21 @@ var jsvat = (function() {
         if (total === 11) total = 1;
 
         // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-        expect = +vat.slice(7, 8);
+        var expect = +vat.slice(7, 8);
         return total === expect;
       }
 
-      // Individuals type 2
-      else if (this.rules.additional[2].test(vat)) {
+      return false;
+    }
+
+    function _isIndividualType2(vat, rules) {
+      var total = 0;
+
+      if (rules.additional[2].test(vat)) {
 
         // Extract the next digit and multiply by the counter.
         for (var j = 0; j < 7; j++) {
-          total += +vat.charAt(j + 1) * this.rules.multipliers[j];
+          total += +vat.charAt(j + 1) * rules.multipliers[j];
         }
 
         // Establish check digit.
@@ -412,52 +415,65 @@ var jsvat = (function() {
         if (total === 11) total = 1;
 
         // Convert calculated check digit according to a lookup table;
-        expect = +vat.slice(8, 9);
-        return this.rules.lookup[total - 1] === expect;
+        var expect = +vat.slice(8, 9);
+        return rules.lookup[total - 1] === expect;
       }
 
-      // Individuals type 3
-      else if (this.rules.additional[3].test(vat)) {
+      return false;
+    }
+
+    function _isIndividualType3(vat, rules) {
+      if (rules.additional[3].test(vat)) {
         var temp = +vat.slice(0, 2) + vat.slice(2, 4) + vat.slice(4, 6) + vat.slice(6, 8) + vat.slice(8);
-        expect = +vat % 11 === 0;
+        var expect = +vat % 11 === 0;
         return !!(temp % 11 === 0 && expect);
       }
 
-      // else error
       return false;
-    },
-    rules: {
-      multipliers: [
-        8,
-        7,
-        6,
-        5,
-        4,
-        3,
-        2
-      ],
-      "lookup": [
-        8,
-        7,
-        6,
-        5,
-        4,
-        3,
-        2,
-        1,
-        0,
-        9,
-        10
-      ],
-      regex: /^(CZ)(\d{8,10})(\d{3})?$/,
-      additional: [
-        /^\d{8}$/,
-        /^[0-5][0-9][0|1|5|6]\d[0-3]\d\d{3}$/,
-        /^6\d{8}$/,
-        /^\d{2}[0-3|5-8]\d[0-3]\d\d{4}$/
-      ]
     }
-  };
+
+    return {
+      calcs: function(vat) {
+
+        if (_isLegalEntities(vat, this.rules)) return true;
+        if (_isIndividualType2(vat, this.rules)) return true;
+        if (_isIndividualType3(vat, this.rules)) return true;
+
+        return false;
+      },
+      rules: {
+        multipliers: [
+          8,
+          7,
+          6,
+          5,
+          4,
+          3,
+          2
+        ],
+        "lookup": [
+          8,
+          7,
+          6,
+          5,
+          4,
+          3,
+          2,
+          1,
+          0,
+          9,
+          10
+        ],
+        regex: /^(CZ)(\d{8,10})(\d{3})?$/,
+        additional: [
+          /^\d{8}$/,
+          /^[0-5][0-9][0|1|5|6]\d[0-3]\d\d{3}$/,
+          /^6\d{8}$/,
+          /^\d{2}[0-3|5-8]\d[0-3]\d\d{4}$/
+        ]
+      }
+    }
+  })();
   COUNTRIES.denmark = {
     calcs: function(vat) {
       var total = 0;
@@ -694,7 +710,7 @@ var jsvat = (function() {
       var expect;
 
       // If the code is type 1 format, we need to convert it to the new before performing the validation.
-      if (/^\d[A-Z\*\+]/.test(vat)) {
+      if (this.rules.typeFormats.first.test(vat)) {
         vat = '0' + vat.substring(2, 7) + vat.substring(0, 1) + vat.substring(7, 8);
       }
 
@@ -704,7 +720,7 @@ var jsvat = (function() {
       }
 
       // If the number is type 3 then we need to include the trailing A or H in the calculation
-      if (/^\d{7}[A-Z][AH]$/.test(vat)) {
+      if (this.rules.typeFormats.third.test(vat)) {
         // Add in a multiplier for the character A (1*9=9) or H (8*9=72)
         if (vat.charAt(8) === 'H') {
           total += 72;
@@ -735,6 +751,10 @@ var jsvat = (function() {
         3,
         2
       ],
+      typeFormats: {
+        first: /^\d[A-Z\*\+]/,
+        third: /^\d{7}[A-Z][AH]$/
+      },
       regex: [
         /^(IE)(\d{7}[A-W])$/,
         /^(IE)([7-9][A-Z\*\+)]\d{5}[A-W])$/,
@@ -811,12 +831,14 @@ var jsvat = (function() {
 
         // Establish check digits by getting modulus 11.
         if (total % 11 === 4 && vat[0] === 9) total = total - 45;
-        if (total % 11 === 4)
+
+        if (total % 11 === 4) {
           total = 4 - total % 11;
-        else if (total % 11 > 4)
+        } else if (total % 11 > 4) {
           total = 14 - total % 11;
-        else if (total % 11 < 4)
+        } else if (total % 11 < 4) {
           total = 3 - total % 11;
+        }
 
         // Compare it with the last character of the VAT number. If it's the same, then it's valid.
         expect = +vat.slice(10, 11);
@@ -839,115 +861,156 @@ var jsvat = (function() {
       regex: /^(LV)(\d{11})$/
     }
   };
-  COUNTRIES.lithunia = {
-    calcs: function(vat) {
-      var total = 0;
-      var expect;
+  COUNTRIES.lithunia = (function() {
 
+    function _extractDigit(vat, multiplier, key) {
+      return +vat.charAt(key) * multiplier[key];
+    }
+
+
+    function _doubleCheckCalculation(vat, total, rules) {
+      if (total % 11 === 10) {
+        total = 0;
+        for (var i = 0; i < 8; i++) {
+          total += _extractDigit(vat, rules.multipliers.short, i)
+        }
+      }
+
+      return total;
+    }
+
+    function extractDigit(vat, total) {
+      for (var i = 0; i < 8; i++) {
+        total += +vat.charAt(i) * (i + 1);
+      }
+      return total;
+    }
+
+    function checkDigit(total) {
+      total = total % 11;
+      if (total === 10) {
+        total = 0;
+      }
+
+      return total;
+    }
+
+    function _check9DigitVat(vat, rules) {
       // 9 character VAT numbers are for legal persons
+      var total = 0;
       if (vat.length === 9) {
 
         // 8th character must be one
         if (!(/^\d{7}1/).test(vat)) return false;
 
         // Extract the next digit and multiply by the counter+1.
-        total = 0;
-        for (var i = 0; i < 8; i++) {
-          total += +vat.charAt(i) * (i + 1);
-        }
+        total = extractDigit(vat, total);
 
         // Can have a double check digit calculation!
-        if (total % 11 === 10) {
-          total = 0;
-          for (var j = 0; j < 8; j++) {
-            total += +vat.charAt(j) * this.rules.multipliers.short[j];
-          }
-        }
+        total = _doubleCheckCalculation(vat, total, rules);
 
         // Establish check digit.
-        total = total % 11;
-        if (total === 10) {
-          total = 0;
-        }
+        total = checkDigit(total);
 
         // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-        expect = +vat.slice(8, 9);
+        var expect = +vat.slice(8, 9);
         return total === expect;
       }
+      return false;
+    }
+
+    function extractDigit12(vat, total, rules) {
+      for (var k = 0; k < 11; k++) {
+        total += _extractDigit(vat, rules.multipliers.med, k)
+      }
+      return total;
+    }
+
+    function _doubleCheckCalculation12(vat, total, rules) {
+      if (total % 11 === 10) {
+        total = 0;
+        for (var l = 0; l < 11; l++) {
+          total += _extractDigit(vat, rules.multipliers.alt, l)
+        }
+      }
+
+      return total;
+    }
+
+    function _check12DigitVat(vat, rules) {
+      var total = 0;
 
       // 12 character VAT numbers are for temporarily registered taxpayers
-      else {
+      if (vat.length === 12) {
 
         // 11th character must be one
-        if (!(/^\d{10}1/).test(vat)) return false;
+        if (!(rules.check).test(vat)) return false;
 
         // Extract the next digit and multiply by the counter+1.
-        total = 0;
-        for (var k = 0; k < 11; k++) {
-          total += +vat.charAt(k) * this.rules.multipliers.med[k];
-        }
+        total = extractDigit12(vat, total, rules);
 
         // Can have a double check digit calculation!
-        if (total % 11 === 10) {
-          total = 0;
-          for (var l = 0; l < 11; l++) {
-            total += +vat.charAt(l) * this.rules.multipliers.alt[l];
-          }
-        }
+        total = _doubleCheckCalculation12(vat, total, rules);
 
         // Establish check digit.
-        total = total % 11;
-        if (total === 10) {
-          total = 0;
-        }
+        total = checkDigit(total);
 
         // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-        expect = +vat.slice(11, 12);
+        var expect = +vat.slice(11, 12);
         return total === expect;
       }
-    },
-    rules: {
-      multipliers: {
-        "short": [
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9,
-          1
-        ],
-        "med": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9,
-          1,
-          2
-        ],
-        "alt": [
-          3,
-          4,
-          5,
-          6,
-          7,
-          8,
-          9,
-          1,
-          2,
-          3,
-          4
-        ]
-      },
-      regex: /^(LT)(\d{9}|\d{12})$/
+
+      return false;
     }
-  };
+
+    return {
+      calcs: function(vat) {
+        return _check9DigitVat(vat, this.rules) || _check12DigitVat(vat, this.rules);
+      },
+      rules: {
+        multipliers: {
+          "short": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            1
+          ],
+          "med": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            1,
+            2
+          ],
+          "alt": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        check: /^\d{10}1/,
+        regex: /^(LT)(\d{9}|\d{12})$/
+      }
+    };
+  })();
   COUNTRIES.luxembourg = {
     calcs: function(vat) {
       var expect = +vat.slice(6, 8);
@@ -1036,11 +1099,12 @@ var jsvat = (function() {
 
       // Establish check digits by getting modulus 11. Check digits > 9 are invalid
       total = 11 - total % 11;
+
       if (total === 11) {
         total = 0;
       }
-      if (total < 10) {
 
+      if (total < 10) {
         // Compare it with the last character of the VAT number. If it's the same, then it's valid.
         expect = +vat.slice(8, 9);
         return total === expect;
@@ -1165,20 +1229,15 @@ var jsvat = (function() {
       regex: /^(RO)([1-9]\d{1,9})$/
     }
   };
-  COUNTRIES.russia = {
-    calcs: function(vat) {
+  COUNTRIES.russia = (function() {
+
+    function _check10DigitINN(vat, rules) {
       var total = 0;
-      var expect;
-      var expect2;
 
-      // Checks the check digits of a Russian INN number
-      // See http://russianpartner.biz/test_inn.html for algorithm
-
-      // 10 digit INN numbers
       if (vat.length === 10) {
 
         for (var i = 0; i < 10; i++) {
-          total += +vat.charAt(i) * this.rules.multipliers.m_1[i];
+          total += +vat.charAt(i) * rules.multipliers.m_1[i];
         }
 
         total = total % 11;
@@ -1187,25 +1246,31 @@ var jsvat = (function() {
         }
 
         // Compare it with the last character of the VAT number. If it is the same, then it's valid
-        expect = +vat.slice(9, 10);
+        var expect = +vat.slice(9, 10);
         return total === expect;
+      }
 
-        // 12 digit INN numbers
-      } else if (vat.length === 12) {
-        var total1 = 0;
-        var total2 = 0;
+      return false;
+    }
+
+    function _check12DigitINN(vat, rules) {
+      var total1 = 0;
+      var total2 = 0;
+
+      if (vat.length === 12) {
 
         for (var j = 0; j < 11; j++) {
-          total1 += +vat.charAt(j) * this.rules.multipliers.m_2[j];
+          total1 += +vat.charAt(j) * rules.multipliers.m_2[j];
         }
 
         total1 = total1 % 11;
+
         if (total1 > 9) {
           total1 = total1 % 10;
         }
 
         for (var k = 0; k < 11; k++) {
-          total2 += +vat.charAt(k) * this.rules.multipliers.m_3[k];
+          total2 += +vat.charAt(k) * rules.multipliers.m_3[k];
         }
 
         total2 = total2 % 11;
@@ -1215,58 +1280,66 @@ var jsvat = (function() {
 
         // Compare the first check with the 11th character and the second check with the 12th and last
         // character of the VAT number. If they're both the same, then it's valid
-        //expect = +vat.slice(10, 11);
-        expect = (total1 === +vat.slice(10, 11));
-        //expect2 = +vat.slice(11, 12);
-        expect2 = (total2 === +vat.slice(11, 12));
+        var expect = (total1 === +vat.slice(10, 11));
+        var expect2 = (total2 === +vat.slice(11, 12));
         return (expect) && (expect2);
       }
-    },
-    rules: {
-      multipliers: {
-        "m_1": [
-          2,
-          4,
-          10,
-          3,
-          5,
-          9,
-          4,
-          6,
-          8,
-          0
-        ],
-        "m_2": [
-          7,
-          2,
-          4,
-          10,
-          3,
-          5,
-          9,
-          4,
-          6,
-          8,
-          0
-        ],
-        "m_3": [
-          3,
-          7,
-          2,
-          4,
-          10,
-          3,
-          5,
-          9,
-          4,
-          6,
-          8,
-          0
-        ]
-      },
-      regex: /^(RU)(\d{10}|\d{12})$/
+
+      return false;
     }
-  };
+
+
+    return {
+      calcs: function(vat) {
+        // See http://russianpartner.biz/test_inn.html for algorithm
+        return _check10DigitINN(vat, this.rules) || _check12DigitINN(vat, this.rules);
+      },
+      rules: {
+        multipliers: {
+          "m_1": [
+            2,
+            4,
+            10,
+            3,
+            5,
+            9,
+            4,
+            6,
+            8,
+            0
+          ],
+          "m_2": [
+            7,
+            2,
+            4,
+            10,
+            3,
+            5,
+            9,
+            4,
+            6,
+            8,
+            0
+          ],
+          "m_3": [
+            3,
+            7,
+            2,
+            4,
+            10,
+            3,
+            5,
+            9,
+            4,
+            6,
+            8,
+            0
+          ]
+        },
+        regex: /^(RU)(\d{10}|\d{12})$/
+      }
+    };
+  })();
   COUNTRIES.serbia = {
     calcs: function(vat) {
       // Checks the check digits of a Serbian VAT number using ISO 7064, MOD 11-10 for check digit.
