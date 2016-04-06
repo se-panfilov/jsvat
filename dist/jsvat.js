@@ -36,43 +36,16 @@ var jsvat = (function() {
     return regex;
   }
 
+  function isCountryBlocked(config, countryName) {
+    if (!config || Object.keys(config).length === 0) return false; //TODO (S.Panfilov) Object.keys didn't supports by old browsers
+
+    var country = config[countryName];
+
+    return (country === null || country === undefined) ? true : !country;
+  }
+
   var exports = {
-    //TODO (S.Panfilov) Fixed config and refactor
-    config: {
-      austria: true,
-      belgium: true,
-      bulgaria: true,
-      croatia: true,
-      cyprus: true,
-      czech_republic: true,
-      denmark: true,
-      estonia: true,
-      europe: true,
-      finland: true,
-      france: true,
-      germany: true,
-      greece: true,
-      hungary: true,
-      ireland: true,
-      italy: true,
-      latvia: true,
-      lithunia: true,
-      luxembourg: true,
-      malta: true,
-      netherlands: true,
-      norway: true,
-      poland: true,
-      portugal: true,
-      romania: true,
-      russia: true,
-      serbia: true,
-      slovakia_republic: true,
-      slovenia: true,
-      spain: true,
-      sweden: true,
-      switzerland: true,
-      united_kingdom: true
-    },
+    config: {},
     checkVAT: function(vat, isDetailed) {
       if (!vat) return false;
 
@@ -87,7 +60,7 @@ var jsvat = (function() {
         if (COUNTRIES.hasOwnProperty(countryName)) {
 
           //Make sure country check not skipped in config
-          if (exports.config[countryName] && exports.config[countryName] !== false) {
+          if (!isCountryBlocked(exports.config, countryName)) {
 
             var regexArr = _makeArr(COUNTRIES[countryName].rules.regex);
             for (var i = 0; i < regexArr.length; i++) {
