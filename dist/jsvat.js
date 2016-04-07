@@ -76,16 +76,6 @@ var jsvat = (function() {
               if (isValidForCurrCountry) {
                 result.countries.push(countryName);
               }
-
-              // if (result.isValid) {
-              //   //If not detailed just return bool and exit
-              //   if (!isDetailed) {
-              //     return result.isValid
-              //   }
-              //   else {
-              //     //if detailed, should fill array of countries
-              //     result.push(countryName);
-              //   }
             }
 
           }

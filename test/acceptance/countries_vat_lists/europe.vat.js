@@ -3,7 +3,10 @@ module.exports = {
     'EU372000052',
     'EU826001142'
   ],
-  invalid: [ //TODO (S.Panfilov) add more invalid
+  invalid: [
+    'EU123456789',
+    'EU1234567890',
+    'EU826001142123',
     'EU0123'
   ]
 };
