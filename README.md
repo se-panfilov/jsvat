@@ -28,6 +28,40 @@ jsvat use 2-step check (see below) and didn't make any request for external reso
 
 Each country has own regexp for VAT number and different math-logic of number calculating.
 
+What jsvat can?
+--------
+
+Several things:
+
+1. Say is VAT number valid or not:
+
+  ```
+  jsvat.checkVAT('BG131134023'); //true
+  ```
+
+  ```
+  jsvat.checkVAT('BG0433170001'); //false
+  ```
+
+2. Check VAT and return country for this VAT:
+
+  ```
+  jsvat.checkVAT('BG131134023', true); //{isValid: true, countries: ['bulgaria']}
+  ```
+
+  ```
+  jsvat.checkVAT('BG0433170001', true); //{isValid: false, countries: []}
+  ```
+
+3. Validate VAT with only countries from the list:
+
+ ```
+  jsvat.config = {austria: true, belgium: false}; 
+  jsvat.checkVAT('ATU51507409'); //true
+  jsvat.checkVAT('ATU58044146', true); //{isValid: true, countries: ['austria']}
+  jsvat.checkVAT('BG131134023'); //valid VAT, but result would be 'false'
+  ```
+  
 Installation
 ----------
 
