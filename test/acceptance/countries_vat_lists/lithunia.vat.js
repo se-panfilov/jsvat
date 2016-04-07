@@ -57,5 +57,8 @@ module.exports = {
     'LT530091413',
     'LT852320917',
     'LT907560811'
+  ],
+  invalid: [ //TODO (S.Panfilov) add more invalid
+    'LT0123'
   ]
 };
