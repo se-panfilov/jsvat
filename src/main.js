@@ -63,19 +63,31 @@ var exports = {
 
             //If once become a true, shouldn't be a false any more
             result.isValid = (_validate(vat, regexArr[i], countryName)) ? true : result.isValid;
+            
 
-            if (!isDetailed) return result.isValid;
+            if (!isDetailed && result.isValid) return result.isValid;
 
             var isValidForCurrCountry = _validate(vat, regexArr[i], countryName);
 
             if (isValidForCurrCountry) {
               result.countries.push(countryName);
             }
+
+            // if (result.isValid) {
+            //   //If not detailed just return bool and exit
+            //   if (!isDetailed) {
+            //     return result.isValid
+            //   }
+            //   else {
+            //     //if detailed, should fill array of countries
+            //     result.push(countryName);
+            //   }
           }
 
         }
       }
     }
+
     return isDetailed ? result : result.isValid;
 
   }
