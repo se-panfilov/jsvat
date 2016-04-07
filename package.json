@@ -4,7 +4,7 @@
   "description": "Check the validity of the format of an EU VAT number",
   "main": "./dist/jsvat.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha \"test/acceptance/austria.js\""
   },
   "license": "MIT",
   "repository": {
