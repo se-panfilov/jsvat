@@ -82,14 +82,6 @@ module.exports = {
     'IE0000004A',
     'IE0000020A',
     'IE0000006A',
-    'IE0000007A']
-}
-'IE0 00000 8P',
-})
-;
-
-it("Valid VAT with '-'", function () {
-  'IE0-000008-P',
-});
-})
-;
+    'IE0000007A'
+  ]
+};
