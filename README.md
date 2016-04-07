@@ -1,6 +1,3 @@
-
-
-
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/874e7dce623149e18807bdc0a02671c2)](https://www.codacy.com/app/se-panfilov/jsvat)
 [![bitHound Overall Score](https://www.bithound.io/github/se-panfilov/jsvat/badges/score.svg)](https://www.bithound.io/github/se-panfilov/jsvat) [![bitHound Code](https://www.bithound.io/github/se-panfilov/jsvat/badges/code.svg)](https://www.bithound.io/github/se-panfilov/jsvat)
 [![Code Climate](https://codeclimate.com/github/se-panfilov/jsvat/badges/gpa.svg)](https://codeclimate.com/github/se-panfilov/jsvat)
@@ -28,6 +25,40 @@ jsvat use 2-step check (see below) and didn't make any request for external reso
 
 Each country has own regexp for VAT number and different math-logic of number calculating.
 
+What jsvat can?
+--------
+
+Several things:
+
+1. Say is VAT number valid or not:
+
+  ```
+  jsvat.checkVAT('BG131134023'); //true
+  ```
+
+  ```
+  jsvat.checkVAT('BG0433170001'); //false
+  ```
+
+2. Check VAT and return country for this VAT:
+
+  ```
+  jsvat.checkVAT('BG13 113 4023', true); //{isValid: true, countries: ['bulgaria']}
+  ```
+
+  ```
+  jsvat.checkVAT('BG0433170001', true); //{isValid: false, countries: []}
+  ```
+
+3. Validate VAT with only countries from the list:
+
+ ```
+  jsvat.config = {austria: true, belgium: false}; 
+  jsvat.checkVAT('ATU5-150-7409'); //true
+  jsvat.checkVAT('ATU5-804-4146', true); //{isValid: true, countries: ['austria']}
+  jsvat.checkVAT('BG131134023'); //valid VAT, but result would be 'false'
+  ```
+  
 Installation
 ----------
 
@@ -42,6 +73,27 @@ Installation
 3. Directly download one of the latest releases:
 
   [https://github.com/se-panfilov/jsvat/releases][4]
+
+4. Just use `jsvat.chcekVat(vat, isDetailed)` from global scope.
+  If you didn't like global scope - wrap it'
+
+How to use jsvat?
+-----
+It's simple: 
+
+```
+jsvat.chcekVat(vat, isDetailed);  
+```
+
+ - `vat` param means VAT number (`string`), like "BG0433170001". 
+   
+  `vat` can be passed with '-' (`BG0-4331-70001`) or ' ' (space, like `BG 0433 17 0001`) characters;
+
+ - `isDetailed` param is flag (`boolean`, default: `false`). 
+  
+  if `false`, the result of check will be simple boolean (true or false);
+
+  if `true`, the result of check will be an Object: `{isValid: true, countries: ['austria']}`. Countries is a list of countries which accept passed VAT as valid. Normally there should be only one country, but potentially it's can be more than one.
 
 How does jsvat check the validity?
 ---------
