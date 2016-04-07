@@ -1,87 +1,75 @@
-var expect = require('chai').expect;
-var jsvat = require('../dist/jsvat.js');
-
-describe("Italy VAT", function () {
-    it("Valid VAT", function () {
-        expect(jsvat.checkVAT('IT00000010215')).to.be.true;
-        expect(jsvat.checkVAT('IT00079760328')).to.be.true;
-        expect(jsvat.checkVAT('IT00140390501')).to.be.true;
-        expect(jsvat.checkVAT('IT00144659992')).to.be.true;
-        expect(jsvat.checkVAT('IT00224320234')).to.be.true;
-        expect(jsvat.checkVAT('IT00383590486')).to.be.true;
-        expect(jsvat.checkVAT('IT00453840357')).to.be.true;
-        expect(jsvat.checkVAT('IT00488410010')).to.be.true;
-        expect(jsvat.checkVAT('IT00502591209')).to.be.true;
-        expect(jsvat.checkVAT('IT00697300150')).to.be.true;
-        expect(jsvat.checkVAT('IT00754150100')).to.be.true;
-        expect(jsvat.checkVAT('IT00820340966')).to.be.true;
-        expect(jsvat.checkVAT('IT00902170018')).to.be.true;
-        expect(jsvat.checkVAT('IT01021630668')).to.be.true;
-        expect(jsvat.checkVAT('IT01044120358')).to.be.true;
-        expect(jsvat.checkVAT('IT01114601006')).to.be.true;
-        expect(jsvat.checkVAT('IT01219560800')).to.be.true;
-        expect(jsvat.checkVAT('IT01390230462')).to.be.true;
-        expect(jsvat.checkVAT('IT01654960473')).to.be.true;
-        expect(jsvat.checkVAT('IT02118311006')).to.be.true;
-        expect(jsvat.checkVAT('IT02121151001')).to.be.true;
-        expect(jsvat.checkVAT('IT02458160245')).to.be.true;
-        expect(jsvat.checkVAT('IT07234250962')).to.be.true;
-        expect(jsvat.checkVAT('IT03084300171')).to.be.true;
-        expect(jsvat.checkVAT('IT05067600154')).to.be.true;
-        expect(jsvat.checkVAT('IT06363391001')).to.be.true;
-        expect(jsvat.checkVAT('IT06515871009')).to.be.true;
-        expect(jsvat.checkVAT('IT06631330963')).to.be.true;
-        expect(jsvat.checkVAT('IT06895721006')).to.be.true;
-        expect(jsvat.checkVAT('IT07129470014')).to.be.true;
-        expect(jsvat.checkVAT('IT08146570018')).to.be.true;
-        expect(jsvat.checkVAT('IT08792831003')).to.be.true;
-        expect(jsvat.checkVAT('IT10000100015')).to.be.true;
-        expect(jsvat.checkVAT('IT10000200013')).to.be.true;
-        expect(jsvat.checkVAT('IT10000300011')).to.be.true;
-        expect(jsvat.checkVAT('IT10000500016')).to.be.true;
-        expect(jsvat.checkVAT('IT10000600014')).to.be.true;
-        expect(jsvat.checkVAT('IT10000700012')).to.be.true;
-        expect(jsvat.checkVAT('IT10000900018')).to.be.true;
-        expect(jsvat.checkVAT('IT10001000016')).to.be.true;
-        expect(jsvat.checkVAT('IT10001100014')).to.be.true;
-        expect(jsvat.checkVAT('IT10001300010')).to.be.true;
-        expect(jsvat.checkVAT('IT10001400018')).to.be.true;
-        expect(jsvat.checkVAT('IT10001500015')).to.be.true;
-        expect(jsvat.checkVAT('IT10001700011')).to.be.true;
-        expect(jsvat.checkVAT('IT10001708881')).to.be.true;
-        expect(jsvat.checkVAT('IT10001701209')).to.be.true;
-        expect(jsvat.checkVAT('IT10001701217')).to.be.true;
-        expect(jsvat.checkVAT('IT10001709996')).to.be.true;
-        expect(jsvat.checkVAT('IT10001800019')).to.be.true;
-        expect(jsvat.checkVAT('IT10001900017')).to.be.true;
-        expect(jsvat.checkVAT('IT11005760159')).to.be.true;
-        expect(jsvat.checkVAT('IT12066470159')).to.be.true;
-        expect(jsvat.checkVAT('IT12286350157')).to.be.true;
-        expect(jsvat.checkVAT('IT12683790153')).to.be.true;
-        expect(jsvat.checkVAT('IT13378520152')).to.be.true;
-        expect(jsvat.checkVAT('IT05142860484')).to.be.true;
-        expect(jsvat.checkVAT('IT01709820995')).to.be.true;
-    });
-
-    it("Invalid VAT", function () {
-        expect(jsvat.checkVAT('IT00000010210')).to.be.false;
-        expect(jsvat.checkVAT('IT10000100010')).to.be.false;
-        expect(jsvat.checkVAT('IT10000200010')).to.be.false;
-        expect(jsvat.checkVAT('IT0000300010')).to.be.false;
-        expect(jsvat.checkVAT('IT10001900010')).to.be.false;
-        expect(jsvat.checkVAT('IT10000500010')).to.be.false;
-        expect(jsvat.checkVAT('IT10000600010')).to.be.false;
-        expect(jsvat.checkVAT('IT10001708882')).to.be.false;
-        expect(jsvat.checkVAT('IT10001701202')).to.be.false;
-        expect(jsvat.checkVAT('IT10001701216')).to.be.false;
-        expect(jsvat.checkVAT('IT10001709997')).to.be.false;
-    });
-
-    it("Valid VAT with spaces", function () {
-        expect(jsvat.checkVAT('IT00 90217 0018')).to.be.true;
-    });
-
-    it("Valid VAT with '-'", function () {
-        expect(jsvat.checkVAT('IT009-02-170018')).to.be.true;
-    });
-});
+module.exports = {
+  valid: [
+    'IT00000010215',
+    'IT00079760328',
+    'IT00140390501',
+    'IT00144659992',
+    'IT00224320234',
+    'IT00383590486',
+    'IT00453840357',
+    'IT00488410010',
+    'IT00502591209',
+    'IT00697300150',
+    'IT00754150100',
+    'IT00820340966',
+    'IT00902170018',
+    'IT01021630668',
+    'IT01044120358',
+    'IT01114601006',
+    'IT01219560800',
+    'IT01390230462',
+    'IT01654960473',
+    'IT02118311006',
+    'IT02121151001',
+    'IT02458160245',
+    'IT07234250962',
+    'IT03084300171',
+    'IT05067600154',
+    'IT06363391001',
+    'IT06515871009',
+    'IT06631330963',
+    'IT06895721006',
+    'IT07129470014',
+    'IT08146570018',
+    'IT08792831003',
+    'IT10000100015',
+    'IT10000200013',
+    'IT10000300011',
+    'IT10000500016',
+    'IT10000600014',
+    'IT10000700012',
+    'IT10000900018',
+    'IT10001000016',
+    'IT10001100014',
+    'IT10001300010',
+    'IT10001400018',
+    'IT10001500015',
+    'IT10001700011',
+    'IT10001708881',
+    'IT10001701209',
+    'IT10001701217',
+    'IT10001709996',
+    'IT10001800019',
+    'IT10001900017',
+    'IT11005760159',
+    'IT12066470159',
+    'IT12286350157',
+    'IT12683790153',
+    'IT13378520152',
+    'IT05142860484',
+    'IT01709820995'
+  ],
+  invalid: [
+    'IT00000010210',
+    'IT10000100010',
+    'IT10000200010',
+    'IT0000300010',
+    'IT10001900010',
+    'IT10000500010',
+    'IT10000600010',
+    'IT10001708882',
+    'IT10001701202',
+    'IT10001701216',
+    'IT10001709997'
+  ]
+};

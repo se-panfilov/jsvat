@@ -1,72 +1,61 @@
-var expect = require('chai').expect;
-var jsvat = require('../dist/jsvat.js');
-
-describe("Lithunia VAT", function () {
-    it("Valid VAT", function () {
-        expect(jsvat.checkVAT('LT100000009017')).to.be.true;
-        expect(jsvat.checkVAT('LT100000031710')).to.be.true;
-        expect(jsvat.checkVAT('LT100001410314')).to.be.true;
-        expect(jsvat.checkVAT('LT100001647810')).to.be.true;
-        expect(jsvat.checkVAT('LT100002247911')).to.be.true;
-        expect(jsvat.checkVAT('LT100002640213')).to.be.true;
-        expect(jsvat.checkVAT('LT100002992518')).to.be.true;
-        expect(jsvat.checkVAT('LT100003099412')).to.be.true;
-        expect(jsvat.checkVAT('LT100003222911')).to.be.true;
-        expect(jsvat.checkVAT('LT100003776115')).to.be.true;
-        expect(jsvat.checkVAT('LT100003806615')).to.be.true;
-        expect(jsvat.checkVAT('LT100004463513')).to.be.true;
-        expect(jsvat.checkVAT('LT100005808219')).to.be.true;
-        expect(jsvat.checkVAT('LT100005772517')).to.be.true;
-        expect(jsvat.checkVAT('LT100005847815')).to.be.true;
-        expect(jsvat.checkVAT('LT100006555419')).to.be.true;
-        expect(jsvat.checkVAT('LT100006615910')).to.be.true;
-        expect(jsvat.checkVAT('LT100006688411')).to.be.true;
-        expect(jsvat.checkVAT('LT100006852615')).to.be.true;
-        expect(jsvat.checkVAT('LT100007390914')).to.be.true;
-        expect(jsvat.checkVAT('LT100008061513')).to.be.true;
-        expect(jsvat.checkVAT('LT100119219')).to.be.true;
-        expect(jsvat.checkVAT('LT104019515')).to.be.true;
-        expect(jsvat.checkVAT('LT108940716')).to.be.true;
-        expect(jsvat.checkVAT('LT115521113')).to.be.true;
-        expect(jsvat.checkVAT('LT105672113')).to.be.true;
-        expect(jsvat.checkVAT('LT115184219')).to.be.true;
-        expect(jsvat.checkVAT('LT119515314')).to.be.true;
-        expect(jsvat.checkVAT('LT119513417')).to.be.true;
-        expect(jsvat.checkVAT('LT119505811')).to.be.true;
-        expect(jsvat.checkVAT('LT119502413')).to.be.true;
-        expect(jsvat.checkVAT('LT119508113')).to.be.true;
-        expect(jsvat.checkVAT('LT119517219')).to.be.true;
-        expect(jsvat.checkVAT('LT120212314')).to.be.true;
-        expect(jsvat.checkVAT('LT120296515')).to.be.true;
-        expect(jsvat.checkVAT('LT205052113')).to.be.true;
-        expect(jsvat.checkVAT('LT205458414')).to.be.true;
-        expect(jsvat.checkVAT('LT208640716')).to.be.true;
-        expect(jsvat.checkVAT('LT210811811')).to.be.true;
-        expect(jsvat.checkVAT('LT213179412')).to.be.true;
-        expect(jsvat.checkVAT('LT238708219')).to.be.true;
-        expect(jsvat.checkVAT('LT239056314')).to.be.true;
-        expect(jsvat.checkVAT('LT243857314')).to.be.true;
-        expect(jsvat.checkVAT('LT245702113')).to.be.true;
-        expect(jsvat.checkVAT('LT246655314')).to.be.true;
-        expect(jsvat.checkVAT('LT254096515')).to.be.true;
-        expect(jsvat.checkVAT('LT258223515')).to.be.true;
-        expect(jsvat.checkVAT('LT290061371314')).to.be.true;
-        expect(jsvat.checkVAT('LT321389515')).to.be.true;
-        expect(jsvat.checkVAT('LT330214917')).to.be.true;
-        expect(jsvat.checkVAT('LT331842113')).to.be.true;
-        expect(jsvat.checkVAT('LT351634917')).to.be.true;
-        expect(jsvat.checkVAT('LT408382716')).to.be.true;
-        expect(jsvat.checkVAT('LT458248716')).to.be.true;
-        expect(jsvat.checkVAT('LT530091413')).to.be.true;
-        expect(jsvat.checkVAT('LT852320917')).to.be.true;
-        expect(jsvat.checkVAT('LT907560811')).to.be.true;
-    });
-
-    it("Valid VAT with spaces", function () {
-        expect(jsvat.checkVAT('LT 2582 23515')).to.be.true;
-    });
-
-    it("Valid VAT with '-'", function () {
-        expect(jsvat.checkVAT('LT2-5822-3515')).to.be.true;
-    });
-});
+module.exports = {
+  valid: [
+    'LT100000009017',
+    'LT100000031710',
+    'LT100001410314',
+    'LT100001647810',
+    'LT100002247911',
+    'LT100002640213',
+    'LT100002992518',
+    'LT100003099412',
+    'LT100003222911',
+    'LT100003776115',
+    'LT100003806615',
+    'LT100004463513',
+    'LT100005808219',
+    'LT100005772517',
+    'LT100005847815',
+    'LT100006555419',
+    'LT100006615910',
+    'LT100006688411',
+    'LT100006852615',
+    'LT100007390914',
+    'LT100008061513',
+    'LT100119219',
+    'LT104019515',
+    'LT108940716',
+    'LT115521113',
+    'LT105672113',
+    'LT115184219',
+    'LT119515314',
+    'LT119513417',
+    'LT119505811',
+    'LT119502413',
+    'LT119508113',
+    'LT119517219',
+    'LT120212314',
+    'LT120296515',
+    'LT205052113',
+    'LT205458414',
+    'LT208640716',
+    'LT210811811',
+    'LT213179412',
+    'LT238708219',
+    'LT239056314',
+    'LT243857314',
+    'LT245702113',
+    'LT246655314',
+    'LT254096515',
+    'LT258223515',
+    'LT290061371314',
+    'LT321389515',
+    'LT330214917',
+    'LT331842113',
+    'LT351634917',
+    'LT408382716',
+    'LT458248716',
+    'LT530091413',
+    'LT852320917',
+    'LT907560811'
+  ]
+};

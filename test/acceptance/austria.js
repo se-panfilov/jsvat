@@ -321,13 +321,13 @@ describe("Austria VAT.", function () {
 
       before(function () {
         var otherCountries = ['sweden', 'russia', 'united_kingdom'];
-        
+
         jsvat.config = {};
-        
+
         if (countryName === 'sweden') otherCountries[0] = 'austria';
         if (countryName === 'russia') otherCountries[1] = 'austria';
         if (countryName === 'united_kingdom') otherCountries[2] = 'austria';
-        
+
         jsvat.config[otherCountries[0]] = true;
         jsvat.config[otherCountries[1]] = false;
         jsvat.config[otherCountries[2]] = true;

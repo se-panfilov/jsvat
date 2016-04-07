@@ -1,67 +1,55 @@
-var expect = require('chai').expect;
-var jsvat = require('../dist/jsvat.js');
-
-describe("Sweden VAT", function () {
-    it("Valid VAT", function () {
-        expect(jsvat.checkVAT('SE000000002601')).to.be.true;
-        expect(jsvat.checkVAT('SE000000003401')).to.be.true;
-        expect(jsvat.checkVAT('SE000000004201')).to.be.true;
-        expect(jsvat.checkVAT('SE000000006701')).to.be.true;
-        expect(jsvat.checkVAT('SE000000007501')).to.be.true;
-        expect(jsvat.checkVAT('SE000000008301')).to.be.true;
-        expect(jsvat.checkVAT('SE000000010901')).to.be.true;
-        expect(jsvat.checkVAT('SE000000011701')).to.be.true;
-        expect(jsvat.checkVAT('SE000000012501')).to.be.true;
-        expect(jsvat.checkVAT('SE000000014101')).to.be.true;
-        expect(jsvat.checkVAT('SE000000015801')).to.be.true;
-        expect(jsvat.checkVAT('SE000000016601')).to.be.true;
-        expect(jsvat.checkVAT('SE000000018201')).to.be.true;
-        expect(jsvat.checkVAT('SE000000019001')).to.be.true;
-        expect(jsvat.checkVAT('SE000000020801')).to.be.true;
-        expect(jsvat.checkVAT('SE502069927701')).to.be.true;
-        expect(jsvat.checkVAT('SE202100281701')).to.be.true;
-        expect(jsvat.checkVAT('SE202100287401')).to.be.true;
-        expect(jsvat.checkVAT('SE202100293201')).to.be.true;
-        expect(jsvat.checkVAT('SE202100297301')).to.be.true;
-        expect(jsvat.checkVAT('SE202100305401')).to.be.true;
-        expect(jsvat.checkVAT('SE202100306201')).to.be.true;
-        expect(jsvat.checkVAT('SE202100309601')).to.be.true;
-        expect(jsvat.checkVAT('SE202100321101')).to.be.true;
-        expect(jsvat.checkVAT('SE202100509101')).to.be.true;
-        expect(jsvat.checkVAT('SE262000119401')).to.be.true;
-        expect(jsvat.checkVAT('SE390806051401')).to.be.true;
-        expect(jsvat.checkVAT('SE502052817901')).to.be.true;
-        expect(jsvat.checkVAT('SE502067960001')).to.be.true;
-        expect(jsvat.checkVAT('SE516403812601')).to.be.true;
-        expect(jsvat.checkVAT('SE516405444601')).to.be.true;
-        expect(jsvat.checkVAT('SE556035133901')).to.be.true;
-        expect(jsvat.checkVAT('SE556101935601')).to.be.true;
-        expect(jsvat.checkVAT('SE556126249301')).to.be.true;
-        expect(jsvat.checkVAT('SE556188840401')).to.be.true;
-        expect(jsvat.checkVAT('SE556263276901')).to.be.true;
-        expect(jsvat.checkVAT('SE556366804401')).to.be.true;
-        expect(jsvat.checkVAT('SE556399449901')).to.be.true;
-        expect(jsvat.checkVAT('SE556464687401')).to.be.true;
-        expect(jsvat.checkVAT('SE556500060001')).to.be.true;
-        expect(jsvat.checkVAT('SE556555952201')).to.be.true;
-        expect(jsvat.checkVAT('SE556576895801')).to.be.true;
-        expect(jsvat.checkVAT('SE556654042201')).to.be.true;
-        expect(jsvat.checkVAT('SE556785615701')).to.be.true;
-    });
-
-    it("Invalid VAT", function () {
-        expect(jsvat.checkVAT('SE556188840301')).to.be.false;
-        expect(jsvat.checkVAT('SE000000002301')).to.be.false;
-        expect(jsvat.checkVAT('SE000000003301')).to.be.false;
-        expect(jsvat.checkVAT('SE000000004301')).to.be.false;
-        expect(jsvat.checkVAT('SE000000006301')).to.be.false;
-    });
-
-    it("Valid VAT with spaces", function () {
-        expect(jsvat.checkVAT('SE5561 8884 0401')).to.be.true;
-    });
-
-    it("Valid VAT with '-'", function () {
-        expect(jsvat.checkVAT('SE556-1888-40401')).to.be.true;
-    });
-});
+module.exports = {
+  valid: [
+    'SE000000002601',
+    'SE000000003401',
+    'SE000000004201',
+    'SE000000006701',
+    'SE000000007501',
+    'SE000000008301',
+    'SE000000010901',
+    'SE000000011701',
+    'SE000000012501',
+    'SE000000014101',
+    'SE000000015801',
+    'SE000000016601',
+    'SE000000018201',
+    'SE000000019001',
+    'SE000000020801',
+    'SE502069927701',
+    'SE202100281701',
+    'SE202100287401',
+    'SE202100293201',
+    'SE202100297301',
+    'SE202100305401',
+    'SE202100306201',
+    'SE202100309601',
+    'SE202100321101',
+    'SE202100509101',
+    'SE262000119401',
+    'SE390806051401',
+    'SE502052817901',
+    'SE502067960001',
+    'SE516403812601',
+    'SE516405444601',
+    'SE556035133901',
+    'SE556101935601',
+    'SE556126249301',
+    'SE556188840401',
+    'SE556263276901',
+    'SE556366804401',
+    'SE556399449901',
+    'SE556464687401',
+    'SE556500060001',
+    'SE556555952201',
+    'SE556576895801',
+    'SE556654042201',
+    'SE556785615701'
+  ],
+  invalid: [
+    'SE556188840301',
+    'SE000000002301',
+    'SE000000003301',
+    'SE000000004301',
+    'SE000000006301'
+  ]
+};

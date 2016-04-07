@@ -1,99 +1,95 @@
-var expect = require('chai').expect;
-var jsvat = require('../dist/jsvat.js');
+module.exports = {
+  valid: [
+    'IE0000002D',
+    'IE0000003F',
+    'IE0000004H',
+    'IE0000020F',
+    'IE0000006L',
+    'IE0000007N',
+    'IE0000008P',
+    'IE0000010C',
+    'IE0000011E',
+    'IE0000012G',
+    'IE0000014K',
+    'IE0000015M',
+    'IE0000016O',
+    'IE0000018S',
+    'IE0000019U',
+    'IE0000020F',
+    'IE0000000W',
+    'IE1409095C',
+    'IE4748790P',
+    'IE4749148U',
+    'IE4816785B',
+    'IE4873338U',
+    'IE6323439A',
+    'IE6336982T',
+    'IE6343933U',
+    'IE6344439R',
+    'IE6346967G',
+    'IE6334989A',
+    'IE6378801A',
+    'IE6387098K',
+    'IE6398832A',
+    'IE6409194V',
+    'IE6411364J',
+    'IE6426706T',
+    'IE6517909Q',
+    'IE6517957E',
+    'IE6555698U',
+    'IE6556973V',
+    'IE6562942T',
+    'IE6570116F',
+    'IE8O47531K',
+    'IE8213349C',
+    'IE8218007W',
+    'IE8223184C',
+    'IE8226748O',
+    'IE8232698L',
+    'IE8252557F',
+    'IE8E86432H',
+    'IE8Z49289F',
+    'IE9578054E',
+    'IE9674450W',
+    'IE9694881P',
+    'IE9698969D',
+    'IE9700053D',
+    'IE9779244F',
+    'IE9800871V',
+    'IE9973740B',
+    'IE9E61585W',
+    'IE9F51232R',
+    'IE9F70164P',
+    'IE2984579BH',
+    'IE1113778LH',
+    'IE1113011UH',
+    'IE1113202EH',
+    'IE1113258IH',
+    'IE1113571MH',
+    'IE2973912UH',
+    'IE2974611LH',
+    'IE2974901UH',
+    'IE3200115LH',
+    'IE3206791MH',
+    'IE3208913KH',
+    'IE3214048CH'
+  ],
+  invalid: [
+    'IE87654321SA',
+    'IE8Z49289A',
+    'IE0000002A',
+    'IE0000003A',
+    'IE0000004A',
+    'IE0000020A',
+    'IE0000006A',
+    'IE0000007A']
+}
+'IE0 00000 8P',
+})
+;
 
-describe("Ireland VAT", function () {
-    it("Valid VAT", function () {
-        expect(jsvat.checkVAT('IE0000002D')).to.be.true;
-        expect(jsvat.checkVAT('IE0000003F')).to.be.true;
-        expect(jsvat.checkVAT('IE0000004H')).to.be.true;
-        expect(jsvat.checkVAT('IE0000020F')).to.be.true;
-        expect(jsvat.checkVAT('IE0000006L')).to.be.true;
-        expect(jsvat.checkVAT('IE0000007N')).to.be.true;
-        expect(jsvat.checkVAT('IE0000008P')).to.be.true;
-        expect(jsvat.checkVAT('IE0000010C')).to.be.true;
-        expect(jsvat.checkVAT('IE0000011E')).to.be.true;
-        expect(jsvat.checkVAT('IE0000012G')).to.be.true;
-        expect(jsvat.checkVAT('IE0000014K')).to.be.true;
-        expect(jsvat.checkVAT('IE0000015M')).to.be.true;
-        expect(jsvat.checkVAT('IE0000016O')).to.be.true;
-        expect(jsvat.checkVAT('IE0000018S')).to.be.true;
-        expect(jsvat.checkVAT('IE0000019U')).to.be.true;
-        expect(jsvat.checkVAT('IE0000020F')).to.be.true;
-        expect(jsvat.checkVAT('IE0000000W')).to.be.true;
-        expect(jsvat.checkVAT('IE1409095C')).to.be.true;
-        expect(jsvat.checkVAT('IE4748790P')).to.be.true;
-        expect(jsvat.checkVAT('IE4749148U')).to.be.true;
-        expect(jsvat.checkVAT('IE4816785B')).to.be.true;
-        expect(jsvat.checkVAT('IE4873338U')).to.be.true;
-        expect(jsvat.checkVAT('IE6323439A')).to.be.true;
-        expect(jsvat.checkVAT('IE6336982T')).to.be.true;
-        expect(jsvat.checkVAT('IE6343933U')).to.be.true;
-        expect(jsvat.checkVAT('IE6344439R')).to.be.true;
-        expect(jsvat.checkVAT('IE6346967G')).to.be.true;
-        expect(jsvat.checkVAT('IE6334989A')).to.be.true;
-        expect(jsvat.checkVAT('IE6378801A')).to.be.true;
-        expect(jsvat.checkVAT('IE6387098K')).to.be.true;
-        expect(jsvat.checkVAT('IE6398832A')).to.be.true;
-        expect(jsvat.checkVAT('IE6409194V')).to.be.true;
-        expect(jsvat.checkVAT('IE6411364J')).to.be.true;
-        expect(jsvat.checkVAT('IE6426706T')).to.be.true;
-        expect(jsvat.checkVAT('IE6517909Q')).to.be.true;
-        expect(jsvat.checkVAT('IE6517957E')).to.be.true;
-        expect(jsvat.checkVAT('IE6555698U')).to.be.true;
-        expect(jsvat.checkVAT('IE6556973V')).to.be.true;
-        expect(jsvat.checkVAT('IE6562942T')).to.be.true;
-        expect(jsvat.checkVAT('IE6570116F')).to.be.true;
-        expect(jsvat.checkVAT('IE8O47531K')).to.be.true;
-        expect(jsvat.checkVAT('IE8213349C')).to.be.true;
-        expect(jsvat.checkVAT('IE8218007W')).to.be.true;
-        expect(jsvat.checkVAT('IE8223184C')).to.be.true;
-        expect(jsvat.checkVAT('IE8226748O')).to.be.true;
-        expect(jsvat.checkVAT('IE8232698L')).to.be.true;
-        expect(jsvat.checkVAT('IE8252557F')).to.be.true;
-        expect(jsvat.checkVAT('IE8E86432H')).to.be.true;
-        expect(jsvat.checkVAT('IE8Z49289F')).to.be.true;
-        expect(jsvat.checkVAT('IE9578054E')).to.be.true;
-        expect(jsvat.checkVAT('IE9674450W')).to.be.true;
-        expect(jsvat.checkVAT('IE9694881P')).to.be.true;
-        expect(jsvat.checkVAT('IE9698969D')).to.be.true;
-        expect(jsvat.checkVAT('IE9700053D')).to.be.true;
-        expect(jsvat.checkVAT('IE9779244F')).to.be.true;
-        expect(jsvat.checkVAT('IE9800871V')).to.be.true;
-        expect(jsvat.checkVAT('IE9973740B')).to.be.true;
-        expect(jsvat.checkVAT('IE9E61585W')).to.be.true;
-        expect(jsvat.checkVAT('IE9F51232R')).to.be.true;
-        expect(jsvat.checkVAT('IE9F70164P')).to.be.true;
-        expect(jsvat.checkVAT('IE2984579BH')).to.be.true;
-        expect(jsvat.checkVAT('IE1113778LH')).to.be.true;
-        expect(jsvat.checkVAT('IE1113011UH')).to.be.true;
-        expect(jsvat.checkVAT('IE1113202EH')).to.be.true;
-        expect(jsvat.checkVAT('IE1113258IH')).to.be.true;
-        expect(jsvat.checkVAT('IE1113571MH')).to.be.true;
-        expect(jsvat.checkVAT('IE2973912UH')).to.be.true;
-        expect(jsvat.checkVAT('IE2974611LH')).to.be.true;
-        expect(jsvat.checkVAT('IE2974901UH')).to.be.true;
-        expect(jsvat.checkVAT('IE3200115LH')).to.be.true;
-        expect(jsvat.checkVAT('IE3206791MH')).to.be.true;
-        expect(jsvat.checkVAT('IE3208913KH')).to.be.true;
-        expect(jsvat.checkVAT('IE3214048CH')).to.be.true;
-    });
-
-    it("Invalid VAT", function () {
-        expect(jsvat.checkVAT('IE87654321SA')).to.be.false;
-        expect(jsvat.checkVAT('IE8Z49289A')).to.be.false;
-        expect(jsvat.checkVAT('IE0000002A')).to.be.false;
-        expect(jsvat.checkVAT('IE0000003A')).to.be.false;
-        expect(jsvat.checkVAT('IE0000004A')).to.be.false;
-        expect(jsvat.checkVAT('IE0000020A')).to.be.false;
-        expect(jsvat.checkVAT('IE0000006A')).to.be.false;
-        expect(jsvat.checkVAT('IE0000007A')).to.be.false;
-    });
-
-    it("Valid VAT with spaces", function () {
-        expect(jsvat.checkVAT('IE0 00000 8P')).to.be.true;
-    });
-
-    it("Valid VAT with '-'", function () {
-        expect(jsvat.checkVAT('IE0-000008-P')).to.be.true;
-    });
+it("Valid VAT with '-'", function () {
+  'IE0-000008-P',
 });
+})
+;

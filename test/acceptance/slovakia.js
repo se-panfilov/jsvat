@@ -1,65 +1,53 @@
-var expect = require('chai').expect;
-var jsvat = require('../dist/jsvat.js');
-
-describe("Slovakia republic VAT", function () {
-    it("Valid VAT", function () {
-        expect(jsvat.checkVAT('SK1025529197')).to.be.true;
-        expect(jsvat.checkVAT('SK2020032377')).to.be.true;
-        expect(jsvat.checkVAT('SK2020073528')).to.be.true;
-        expect(jsvat.checkVAT('SK2020077345')).to.be.true;
-        expect(jsvat.checkVAT('SK2020255787')).to.be.true;
-        expect(jsvat.checkVAT('SK2020261353')).to.be.true;
-        expect(jsvat.checkVAT('SK2020264939')).to.be.true;
-        expect(jsvat.checkVAT('SK2020273893')).to.be.true;
-        expect(jsvat.checkVAT('SK2020278766')).to.be.true;
-        expect(jsvat.checkVAT('SK2020317244')).to.be.true;
-        expect(jsvat.checkVAT('SK2020325109')).to.be.true;
-        expect(jsvat.checkVAT('SK2020325516')).to.be.true;
-        expect(jsvat.checkVAT('SK2020329278')).to.be.true;
-        expect(jsvat.checkVAT('SK2020350332')).to.be.true;
-        expect(jsvat.checkVAT('SK2020351993')).to.be.true;
-        expect(jsvat.checkVAT('SK2020358263')).to.be.true;
-        expect(jsvat.checkVAT('SK2020431710')).to.be.true;
-        expect(jsvat.checkVAT('SK2020527300')).to.be.true;
-        expect(jsvat.checkVAT('SK2020798637')).to.be.true;
-        expect(jsvat.checkVAT('SK2020845255')).to.be.true;
-        expect(jsvat.checkVAT('SK2020845332')).to.be.true;
-        expect(jsvat.checkVAT('SK2021116889')).to.be.true;
-        expect(jsvat.checkVAT('SK2021252827')).to.be.true;
-        expect(jsvat.checkVAT('SK2021776207')).to.be.true;
-        expect(jsvat.checkVAT('SK2021783357')).to.be.true;
-        expect(jsvat.checkVAT('SK2021853504')).to.be.true;
-        expect(jsvat.checkVAT('SK2021885888')).to.be.true;
-        expect(jsvat.checkVAT('SK2021900804')).to.be.true;
-        expect(jsvat.checkVAT('SK2021905776')).to.be.true;
-        expect(jsvat.checkVAT('SK2021947180')).to.be.true;
-        expect(jsvat.checkVAT('SK2022199432')).to.be.true;
-        expect(jsvat.checkVAT('SK2022229374')).to.be.true;
-        expect(jsvat.checkVAT('SK2022441168')).to.be.true;
-        expect(jsvat.checkVAT('SK2022569791')).to.be.true;
-        expect(jsvat.checkVAT('SK2022579152')).to.be.true;
-        expect(jsvat.checkVAT('SK2022832394')).to.be.true;
-        expect(jsvat.checkVAT('SK2023150701')).to.be.true;
-        expect(jsvat.checkVAT('SK2023369381')).to.be.true;
-        expect(jsvat.checkVAT('SK2023386805')).to.be.true;
-        expect(jsvat.checkVAT('SK2022742458')).to.be.true;
-        expect(jsvat.checkVAT('SK7020000119')).to.be.true;
-        expect(jsvat.checkVAT('SK7020000207')).to.be.true;
-        expect(jsvat.checkVAT('SK7020000317')).to.be.true;
-        expect(jsvat.checkVAT('SK7020000427')).to.be.true;
-        expect(jsvat.checkVAT('SK7020000680')).to.be.true;
-    });
-
-    it("Invalid VAT", function () {
-        expect(jsvat.checkVAT('SK5407062531')).to.be.false;
-        expect(jsvat.checkVAT('SK7020001680')).to.be.false;
-    });
-
-    it("Valid VAT with spaces", function () {
-        expect(jsvat.checkVAT('SK20 203 50332')).to.be.true;
-    });
-
-    it("Valid VAT with '-'", function () {
-        expect(jsvat.checkVAT('SK202-035-0332')).to.be.true;
-    });
-});
+module.exports = {
+  valid: [
+    'SK1025529197',
+    'SK2020032377',
+    'SK2020073528',
+    'SK2020077345',
+    'SK2020255787',
+    'SK2020261353',
+    'SK2020264939',
+    'SK2020273893',
+    'SK2020278766',
+    'SK2020317244',
+    'SK2020325109',
+    'SK2020325516',
+    'SK2020329278',
+    'SK2020350332',
+    'SK2020351993',
+    'SK2020358263',
+    'SK2020431710',
+    'SK2020527300',
+    'SK2020798637',
+    'SK2020845255',
+    'SK2020845332',
+    'SK2021116889',
+    'SK2021252827',
+    'SK2021776207',
+    'SK2021783357',
+    'SK2021853504',
+    'SK2021885888',
+    'SK2021900804',
+    'SK2021905776',
+    'SK2021947180',
+    'SK2022199432',
+    'SK2022229374',
+    'SK2022441168',
+    'SK2022569791',
+    'SK2022579152',
+    'SK2022832394',
+    'SK2023150701',
+    'SK2023369381',
+    'SK2023386805',
+    'SK2022742458',
+    'SK7020000119',
+    'SK7020000207',
+    'SK7020000317',
+    'SK7020000427',
+    'SK7020000680'
+  ],
+  invalid: [
+    'SK5407062531',
+    'SK7020001680'
+  ]
+};
