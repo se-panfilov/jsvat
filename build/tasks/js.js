@@ -23,8 +23,6 @@ gulp.task('js', function () {
       '\n\rreturn exports;' +
       '\n\r})();';
 
-  var es3ify = require("gulp-es3ify");
-
   return gulp.src(config.js.src)
       .pipe(plumber({
         errorHandler: notify.onError(function (err) {
@@ -36,7 +34,6 @@ gulp.task('js', function () {
       }))
       .pipe(concat(config.projectName + '.js'))
       .pipe(wrap(moduleWrap))
-      //.pipe(es3ify())
       .pipe(beautify({
         indent_size: 2
       }))
