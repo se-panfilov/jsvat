@@ -48,10 +48,10 @@ module.exports = {
     'CZ699001236',
     'CZ699001510',
     'CZ699002447',
-    'CZ70904901',
-    'CZ699001237'
+    'CZ70904901'
   ],
   invalid: [ //TODO (S.Panfilov) add more invalid
+    'CZ699001237',
     'CZ0123'
   ]
 };
