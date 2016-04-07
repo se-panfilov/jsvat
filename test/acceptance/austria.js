@@ -1,5 +1,3 @@
-var expect = require('chai').expect;
-var jsvat = require('../../dist/jsvat.js');
 var austriaVat = require('./austria.vat.js');
 var utils = require('../utils.js');
 
@@ -9,26 +7,33 @@ describe("Austria VAT.", function () {
 
     describe("Valid VAT.", function () {
       
-      // austriaVat.valid.forEach(function (item) {
-      //   return it("Is VAT valid: " + item, function () {
-      //     return expect(jsvat.checkVAT(item)).to.be.true;
-      //   });
-      // });
-      utils.check(austriaVat.valid, "Is VAT valid", true);
+      describe("Regular valid VAT.", function () {
+        utils.check(austriaVat.valid, "Is VAT valid", true);
+      });
+
+      describe("Valid VAT with \'-\' character.", function () {
+        utils.check(utils.addCharsToVals(austriaVat.valid, '-'), "Is VAT with \'-\' valid", true);
+      });
+
+      describe("Valid VAT with space character.", function () {
+        utils.check(utils.addCharsToVals(austriaVat.valid, ' '), "Is VAT with space valid", true);
+      });
       
     });
 
-    // it("Invalid VAT", function () {
-    //
-    // });
-    //
-    // it("Valid VAT with spaces", function () {
-    //   expect(jsvat.checkVAT('ATU 0000 0024')).to.be.true;
-    // });
-    //
-    // it("Valid VAT with '-'", function () {
-    //   expect(jsvat.checkVAT('ATU-000-00024')).to.be.true;
-    // });
+    describe("Invalid VAT.", function () {
+      describe("Regular VAT.", function () {
+        utils.check(austriaVat.invalid, "Is VAT valid", false);
+      });
+
+      describe("Invalid VAT with \'-\' character.", function () {
+        utils.check(utils.addCharsToVals(austriaVat.invalid, '-'), "Is VAT with \'-\' valid", false);
+      });
+
+      describe("Invalid VAT with space character.", function () {
+        utils.check(utils.addCharsToVals(austriaVat.invalid, ' '), "Is VAT with space valid", false);
+      });
+    });
   });
 
   // describe("Isolated VAT checks", function () {

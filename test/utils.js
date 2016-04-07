@@ -12,5 +12,13 @@ module.exports = {
         }
       });
     });
+  },
+  addCharsToVals: function (arr, char) {
+    return arr.map(function (item) {
+      var val = item.split('');
+      val.splice(3, 0, char);
+      val.splice(7, 0, char);
+      return val.join('');
+    });
   }
 };
