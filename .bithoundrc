@@ -5,7 +5,7 @@
     "**/dist/**.**"
   ],
   "test": [
-    "**/tests/**"
+    "**/tests/**/*.js"
   ],
   "critics": {
     "lint": {"engine": "jshint"}
