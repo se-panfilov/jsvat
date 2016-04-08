@@ -42,7 +42,7 @@ countries.united_kingdom = require('./countries_vat_lists/united_kingdom.vat.js'
 for (var countryName in countries) {
   if (countries.hasOwnProperty(countryName)) {
     var vatList = countries[countryName];
-    makeTests(vatList, countryName)
+    makeTests(vatList, countryName);
   }
 }
 

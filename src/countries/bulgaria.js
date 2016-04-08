@@ -3,7 +3,7 @@ COUNTRIES.bulgaria = (function () {
   function _checkNineLengthVat(vat) {
     var total;
     var temp = 0;
-    var expect;
+    var expect = +vat.slice(8);
 
     for (var i = 0; i < 8; i++) {
       temp += +vat.charAt(i) * (i + 1);
@@ -11,7 +11,6 @@ COUNTRIES.bulgaria = (function () {
 
     total = temp % 11;
     if (total !== 10) {
-      expect = +vat.slice(8);
       return total === expect;
     }
 
@@ -22,7 +21,6 @@ COUNTRIES.bulgaria = (function () {
 
     total = temp % 11;
     if (total === 10) total = 0;
-    expect = +vat.slice(8);
 
     return total === expect;
   }

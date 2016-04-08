@@ -90,22 +90,21 @@ var jsvat = (function() {
     calcs: function(vat) {
       var total = 0;
       var temp;
-      var expect;
 
       for (var i = 0; i < 7; i++) {
         temp = vat.charAt(i) * this.rules.multipliers[i];
-        if (temp > 9)
+
+        if (temp > 9) {
           total += Math.floor(temp / 10) + temp % 10;
-        else
+        } else {
           total += temp;
+        }
       }
 
       total = 10 - (total + 4) % 10;
       if (total === 10) total = 0;
 
-      expect = +vat.slice(7, 8);
-
-      return total === expect;
+      return total === +vat.slice(7, 8);
     },
     rules: {
       multipliers: [
@@ -122,8 +121,6 @@ var jsvat = (function() {
   };
   COUNTRIES.belgium = {
     calcs: function(vat) {
-      var expect;
-
       if (vat.length === 9) {
         vat = '0' + vat;
       }
@@ -131,8 +128,7 @@ var jsvat = (function() {
       if (+vat.slice(1, 2) === 0) return false;
 
       var check = (97 - +vat.slice(0, 8) % 97);
-      expect = +vat.slice(8, 10);
-      return check === expect;
+      return check === +vat.slice(8, 10);
     },
     rules: {
       regex: /^(BE)(0?\d{9})$/
@@ -143,7 +139,7 @@ var jsvat = (function() {
     function _checkNineLengthVat(vat) {
       var total;
       var temp = 0;
-      var expect;
+      var expect = +vat.slice(8);
 
       for (var i = 0; i < 8; i++) {
         temp += +vat.charAt(i) * (i + 1);
@@ -151,7 +147,6 @@ var jsvat = (function() {
 
       total = temp % 11;
       if (total !== 10) {
-        expect = +vat.slice(8);
         return total === expect;
       }
 
@@ -162,7 +157,6 @@ var jsvat = (function() {
 
       total = temp % 11;
       if (total === 10) total = 0;
-      expect = +vat.slice(8);
 
       return total === expect;
     }
