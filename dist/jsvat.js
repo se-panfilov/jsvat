@@ -423,7 +423,7 @@ var jsvat = (function() {
           3,
           2
         ],
-        "lookup": [
+        lookup: [
           8,
           7,
           6,
@@ -941,7 +941,7 @@ var jsvat = (function() {
       },
       rules: {
         multipliers: {
-          "short": [
+          short: [
             3,
             4,
             5,
@@ -951,7 +951,7 @@ var jsvat = (function() {
             9,
             1
           ],
-          "med": [
+          med: [
             1,
             2,
             3,
@@ -964,7 +964,7 @@ var jsvat = (function() {
             1,
             2
           ],
-          "alt": [
+          alt: [
             3,
             4,
             5,
@@ -1268,7 +1268,7 @@ var jsvat = (function() {
       },
       rules: {
         multipliers: {
-          "m_1": [
+          m_1: [
             2,
             4,
             10,
@@ -1280,7 +1280,7 @@ var jsvat = (function() {
             8,
             0
           ],
-          "m_2": [
+          m_2: [
             7,
             2,
             4,
@@ -1293,7 +1293,7 @@ var jsvat = (function() {
             8,
             0
           ],
-          "m_3": [
+          m_3: [
             3,
             7,
             2,

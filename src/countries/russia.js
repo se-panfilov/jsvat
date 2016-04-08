@@ -64,7 +64,7 @@ COUNTRIES.russia = (function () {
     },
     rules: {
       multipliers: {
-        "m_1": [
+        m_1: [
           2,
           4,
           10,
@@ -76,7 +76,7 @@ COUNTRIES.russia = (function () {
           8,
           0
         ],
-        "m_2": [
+        m_2: [
           7,
           2,
           4,
@@ -89,7 +89,7 @@ COUNTRIES.russia = (function () {
           8,
           0
         ],
-        "m_3": [
+        m_3: [
           3,
           7,
           2,

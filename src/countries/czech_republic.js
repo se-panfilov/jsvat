@@ -74,7 +74,7 @@ COUNTRIES.czech_republic = (function () {
         3,
         2
       ],
-      "lookup": [
+      lookup: [
         8,
         7,
         6,

@@ -106,7 +106,7 @@ COUNTRIES.lithunia = (function () {
     },
     rules: {
       multipliers: {
-        "short": [
+        short: [
           3,
           4,
           5,
@@ -116,7 +116,7 @@ COUNTRIES.lithunia = (function () {
           9,
           1
         ],
-        "med": [
+        med: [
           1,
           2,
           3,
@@ -129,7 +129,7 @@ COUNTRIES.lithunia = (function () {
           1,
           2
         ],
-        "alt": [
+        alt: [
           3,
           4,
           5,
