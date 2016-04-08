@@ -2,9 +2,10 @@
 
 const gulp = require('gulp');
 
-gulp.task('sizes', function () {
-  var size = require('gulp-size');
+const size = require('gulp-size');
 
+
+gulp.task('sizes', function () {
   return gulp.src([
     'dist/**/*.js',
     'dist/**/*.gz'

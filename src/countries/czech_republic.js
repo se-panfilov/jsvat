@@ -95,5 +95,5 @@ COUNTRIES.czech_republic = (function () {
         /^\d{2}[0-3|5-8]\d[0-3]\d\d{4}$/
       ]
     }
-  }
+  };
 })();

@@ -2,17 +2,17 @@
 
 const gulp = require('gulp');
 
-gulp.task('js', function () {
-  const config = require('../config');
-  const sourcemaps = require('gulp-sourcemaps');
-  const uglify = require('gulp-uglify');
-  const concat = require('gulp-concat');
-  const rename = require('gulp-rename');
-  const notify = require('gulp-notify');
-  const plumber = require('gulp-plumber');
-  const beautify = require('gulp-beautify');
-  const wrap = require('gulp-wrap');
+const config = require('../config');
+const sourcemaps = require('gulp-sourcemaps');
+const uglify = require('gulp-uglify');
+const concat = require('gulp-concat');
+const rename = require('gulp-rename');
+const notify = require('gulp-notify');
+const plumber = require('gulp-plumber');
+const beautify = require('gulp-beautify');
+const wrap = require('gulp-wrap');
 
+gulp.task('js', function () {
 
   const moduleWrap =
       'var jsvat = (function () {' +

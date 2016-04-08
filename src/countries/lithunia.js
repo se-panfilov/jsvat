@@ -9,7 +9,7 @@ COUNTRIES.lithunia = (function () {
     if (total % 11 === 10) {
       total = 0;
       for (var i = 0; i < 8; i++) {
-        total += _extractDigit(vat, rules.multipliers.short, i)
+        total += _extractDigit(vat, rules.multipliers.short, i);
       }
     }
 
@@ -58,7 +58,7 @@ COUNTRIES.lithunia = (function () {
 
   function extractDigit12(vat, total, rules) {
     for (var k = 0; k < 11; k++) {
-      total += _extractDigit(vat, rules.multipliers.med, k)
+      total += _extractDigit(vat, rules.multipliers.med, k);
     }
     return total;
   }
@@ -67,7 +67,7 @@ COUNTRIES.lithunia = (function () {
     if (total % 11 === 10) {
       total = 0;
       for (var l = 0; l < 11; l++) {
-        total += _extractDigit(vat, rules.multipliers.alt, l)
+        total += _extractDigit(vat, rules.multipliers.alt, l);
       }
     }
 

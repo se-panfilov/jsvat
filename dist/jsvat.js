@@ -444,7 +444,7 @@ var jsvat = (function() {
           /^\d{2}[0-3|5-8]\d[0-3]\d\d{4}$/
         ]
       }
-    }
+    };
   })();
   COUNTRIES.denmark = {
     calcs: function(vat) {
@@ -844,7 +844,7 @@ var jsvat = (function() {
       if (total % 11 === 10) {
         total = 0;
         for (var i = 0; i < 8; i++) {
-          total += _extractDigit(vat, rules.multipliers.short, i)
+          total += _extractDigit(vat, rules.multipliers.short, i);
         }
       }
 
@@ -893,7 +893,7 @@ var jsvat = (function() {
 
     function extractDigit12(vat, total, rules) {
       for (var k = 0; k < 11; k++) {
-        total += _extractDigit(vat, rules.multipliers.med, k)
+        total += _extractDigit(vat, rules.multipliers.med, k);
       }
       return total;
     }
@@ -902,7 +902,7 @@ var jsvat = (function() {
       if (total % 11 === 10) {
         total = 0;
         for (var l = 0; l < 11; l++) {
-          total += _extractDigit(vat, rules.multipliers.alt, l)
+          total += _extractDigit(vat, rules.multipliers.alt, l);
         }
       }
 
