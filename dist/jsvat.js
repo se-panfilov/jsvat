@@ -28,7 +28,6 @@ var jsvat = (function() {
   }
 
   function _makeArr(regex) {
-    //TODO (S.Panfilov) this is not cross-browser check
     if (!Array.isArray(regex)) {
       return [regex];
     }
@@ -37,7 +36,7 @@ var jsvat = (function() {
   }
 
   function isCountryBlocked(config, countryName) {
-    if (!config || Object.keys(config).length === 0) return false; //TODO (S.Panfilov) Object.keys didn't supports by old browsers
+    if (!config || Object.keys(config).length === 0) return false;
 
     var country = config[countryName];
 
@@ -497,7 +496,7 @@ var jsvat = (function() {
     }
   };
   COUNTRIES.europe = {
-    calcs: function(vat) {
+    calcs: function() {
       // We know little about EU numbers apart from the fact that the first 3 digits represent the
       // country, and that there are nine digits in total.
       return true;
