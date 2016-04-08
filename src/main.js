@@ -24,7 +24,6 @@ function getClearVAT(vat) {
 }
 
 function _makeArr(regex) {
-  //TODO (S.Panfilov) this is not cross-browser check
   if (!Array.isArray(regex)) {
     return [regex];
   }
@@ -33,7 +32,7 @@ function _makeArr(regex) {
 }
 
 function isCountryBlocked(config, countryName) {
-  if (!config || Object.keys(config).length === 0) return false; //TODO (S.Panfilov) Object.keys didn't supports by old browsers
+  if (!config || Object.keys(config).length === 0) return false;
 
   var country = config[countryName];
 
