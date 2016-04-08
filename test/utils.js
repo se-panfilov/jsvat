@@ -1,11 +1,17 @@
 var expect = require('chai').expect;
 var jsvat = require('../dist/jsvat.js');
+var argv = require('minimist')(process.argv.slice(2));
+
+var noVerbose = "noverbose";
 
 module.exports = {
   check: function (arr, msg, isTrue) {
     arr.forEach(function (item) {
-      //return it(msg + ': ' + item, function () {
-      return it('c', function () {
+
+      var testMsg = (argv.config !== noVerbose) ? msg + ': ' + item : 'test';
+
+      return it(testMsg, function () {
+      //return it('c', function () {
         if (isTrue) {
           return expect(jsvat.checkVAT(item)).to.be.true;
         } else {
@@ -16,8 +22,10 @@ module.exports = {
   },
   detailedCheck: function (arr, msg, isTrue, countryName) {
     arr.forEach(function (item) {
-      //return it(msg + ': ' + item, function () {
-      return it('c', function () {
+
+      var testMsg = (argv.config !== noVerbose) ? msg + ': ' + item : 'test';
+
+      return it(testMsg, function () {
         var result = jsvat.checkVAT(item, true);
         if (isTrue) {
           expect(result.isValid).to.be.true;

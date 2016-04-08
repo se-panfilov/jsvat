@@ -37,7 +37,7 @@ function isCountryBlocked(config, countryName) {
 
   var country = config[countryName];
 
-  return (country === null || country === undefined) ? true : !country;
+  return (country === null || country === null) ? true : !country;
 }
 
 var exports = {
