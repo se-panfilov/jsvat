@@ -445,7 +445,7 @@ var jsvat = (function() {
         ]
       }
     };
-  })();
+  }());
   COUNTRIES.denmark = {
     calcs: function(vat) {
       var total = 0;
@@ -982,7 +982,7 @@ var jsvat = (function() {
         regex: /^(LT)(\d{9}|\d{12})$/
       }
     };
-  })();
+  }());
   COUNTRIES.luxembourg = {
     calcs: function(vat) {
       var expect = +vat.slice(6, 8);
@@ -1311,7 +1311,7 @@ var jsvat = (function() {
         regex: /^(RU)(\d{10}|\d{12})$/
       }
     };
-  })();
+  }());
   COUNTRIES.serbia = {
     calcs: function(vat) {
       // Checks the check digits of a Serbian VAT number using ISO 7064, MOD 11-10 for check digit.

@@ -107,4 +107,4 @@ COUNTRIES.russia = (function () {
       regex: /^(RU)(\d{10}|\d{12})$/
     }
   };
-})();
+}());

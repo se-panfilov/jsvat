@@ -147,4 +147,4 @@ COUNTRIES.lithunia = (function () {
       regex: /^(LT)(\d{9}|\d{12})$/
     }
   };
-})();
+}());

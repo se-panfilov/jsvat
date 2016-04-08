@@ -96,4 +96,4 @@ COUNTRIES.czech_republic = (function () {
       ]
     }
   };
-})();
+}());
