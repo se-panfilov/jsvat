@@ -33,7 +33,8 @@
         <h1>What is it?</h1>
 
         <p>
-            jsvat is a small library to check validity of European (and few non-eu) VAT number. (learn more about VAT)
+            jsvat is a small library to check validity of European (and few non-eu) VAT number.
+            (<a href="https://en.wikipedia.org/wiki/VAT_identification_number">learn more</a> about VAT)
             jsvat use 2-step check (see below) and didn't make any request for external resources.
         </p>
         <p>
@@ -47,9 +48,10 @@
         <label id="test_vat_lbl" for="test_vat_inp">Try VAT:</label>
         <input id="test_vat_inp" type="text"/>
         <button id="check_btn" type="button" onclick="isValid()">Check</button>
+        <button id="check_btn" type="button" onclick="isValid(true)">Detailed Check</button>
         <div>
             The result is:
-            <span id="check_result"></span>
+            <code><span id="check_result"></span></code>
         </div>
 
         <div>There are few <strong>valid</strong> codes:
@@ -57,21 +59,25 @@
                 <li>
                     <code>ATU00000024</code>
                     <button type="button" onclick="checkVat('ATU00000024', 'result_1')">Check</button>
+                    <button type="button" onclick="deepCheckVat('ATU00000024', 'result_1')">Detailed Check</button>
                     <code id="result_1"></code>
                 </li>
                 <li>
                     <code>BE0414445663</code>
                     <button type="button" onclick="checkVat('BE0414445663', 'result_2')">Check</button>
+                    <button type="button" onclick="deepCheckVat('BE0414445663', 'result_2')">Detailed Check</button>
                     <code id="result_2"></code>
                 </li>
                 <li>
                     <code>RS100182160</code>
                     <button type="button" onclick="checkVat('RS100182160', 'result_3')">Check</button>
+                    <button type="button" onclick="deepCheckVat('RS100182160', 'result_3')">Detailed Check</button>
                     <code id="result_3"></code>
                 </li>
                 <li>
                     <code>RU0274051582</code>
                     <button type="button" onclick="checkVat('RU0274051582', 'result_4')">Check</button>
+                    <button type="button" onclick="deepCheckVat('RU0274051582', 'result_4')">Detailed Check</button>
                     <code id="result_4"></code>
                 </li>
             </ul>
@@ -82,21 +88,25 @@
                 <li>
                     <code>ATU10223001</code>
                     <button type="button" onclick="checkVat('ATU10223001', 'result_5')">Check</button>
+                    <button type="button" onclick="deepCheckVat('ATU10223001', 'result_5')">Detailed Check</button>
                     <code id="result_5"></code>
                 </li>
                 <li>
                     <code>BE0000200334</code>
                     <button type="button" onclick="checkVat('BE0000200334', 'result_6')">Check</button>
+                    <button type="button" onclick="deepCheckVat('BE0000200334', 'result_6')">Detailed Check</button>
                     <code id="result_6"></code>
                 </li>
                 <li>
                     <code>RO000099908</code>
                     <button type="button" onclick="checkVat('RO000099908', 'result_7')">Check</button>
+                    <button type="button" onclick="deepCheckVat('RO000099908', 'result_7')">Detailed Check</button>
                     <code id="result_7"></code>
                 </li>
                 <li>
                     <code>RU5027187067</code>
                     <button type="button" onclick="checkVat('RU5027187067', 'result_8')">Check</button>
+                    <button type="button" onclick="deepCheckVat('RU5027187067', 'result_8')">Detailed Check</button>
                     <code id="result_8"></code>
                 </li>
             </ul>
@@ -113,23 +123,89 @@
     </section>
 
     <section class="inner">
-        <h1>Installation</h1>
+        <h1>What jsvat can?</h1>
 
-        <h3>Bower</h3>
+        <p>Several things:</p>
 
-        <code>bower i jsvat --save</code>
-
-        <h3>NPM (node.js)</h3>
-
-        <code>npm i jsvat --save</code>
-
-        Directly download one of the latest releases:
-
-        <a href="https://github.com/se-panfilov/jsvat/releases">Go to releases</a>
+        <ol>
+            <li>Say is VAT number valid or not:
+                <p>
+                    <code>jsvat.checkVAT('BG131134023'); //true</code>
+                    <br/><br/>
+                    <code>jsvat.checkVAT('BG0433170001'); //false</code>
+                </p>
+            </li>
+            <li>
+                Check VAT and return country for this VAT:
+                <p>
+                    <code>jsvat.checkVAT('BG13 113 4023', true); //{isValid: true, countries: ['bulgaria']}</code>
+                    <br/><br/>
+                    <code>jsvat.checkVAT('BG0433170001', true); //{isValid: false, countries: []}</code>
+                </p>
+            </li>
+            <li>
+                Validate VAT with only countries from the list:
+                <p>
+                    <code>jsvat.config = {austria: true, belgium: false};</code>
+                    <br/><br/>
+                    <code>jsvat.checkVAT('ATU5-150-7409'); //true</code>
+                    <br/><br/>
+                    <code>jsvat.checkVAT('ATU5-804-4146', true); //{isValid: true, countries: ['austria']}</code>
+                    <br/><br/>
+                    <code>jsvat.checkVAT('BG131134023'); //valid VAT, but result would be 'false'</code>
+                </p>
+            </li>
+        </ol>
     </section>
 
     <section class="inner">
-        <h1>How it's work?</h1>
+        <h1>Installation</h1>
+
+        <ul>
+            <li>
+                <h3>Bower</h3>
+
+                <code>bower i jsvat --save</code>
+            </li>
+            <li>
+                <h3>NPM (node.js)</h3>
+
+                <code>npm i jsvat --save</code>
+            </li>
+            <li>
+                <h3>Directly download one of the latest releases:</h3>
+
+                <a href="https://github.com/se-panfilov/jsvat/releases">Go to releases</a>
+            </li>
+        </ul>
+    </section>
+
+    <section class="inner">
+        <h1>How to use jsvat?</h1>
+
+        It's simple:
+
+        <code>jsvat.chcekVat(vat, isDetailed);</code>
+        <ul>
+            <li>
+                <p>vat param means VAT number (string), like <code>BG0433170001</code>.</p>
+
+                <p>vat can be passed with '-' (<code>BG0-4331-70001</code>) or ' ' (space, like <code>BG 0433 17 0001</code>) characters;</p>
+            </li>
+            <li>
+                <p>isDetailed param is flag (<code>boolean</code>, <code>default: false</code>).</p>
+                <p>if false, the result of check will be simple <code>boolean</code> (<code>true</code> or <code>false</code>);</p>
+                <p> if true, the result of check will be an <code>Object</code>: <code>{isValid: true, countries: ['austria']}</code>. Countries
+                    is a list of
+                    countries which accept passed VAT as valid. Normally there should be only one country, but
+                    potentially it's can
+                    be more than one.</p>
+            </li>
+        </ul>
+    </section>
+
+    <section class="inner">
+        <h1>How does jsvat check the validity</h1>
 
         <p>
             How does jsvat check the validity?<br/>
@@ -142,7 +218,8 @@
                 <p>
                     For example regexp for austria is <code>/^(AT)U(\d{8})$/</code>.<br/>
 
-                    Looks like <code>ATU99999999</code> is valid (it's successfied the regexp), but actually it's should be
+                    Looks like <code>ATU99999999</code> is valid (it's successfied the regexp), but actually it's should
+                    be
                     invalid.
                 </p>
             </li>
@@ -152,8 +229,10 @@
                 <h7>Some magic mathematical counting;</h7>
 
                 <p>
-                    Here we make some mathematical calculation (different for each country). After that we may be sure that
-                    <code>ATU99999999</code> and for example <code>ATV66889218</code> isn't valid, but <code>ATU12011204</code> is valid.
+                    Here we make some mathematical calculation (different for each country). After that we may be sure
+                    that
+                    <code>ATU99999999</code> and for example <code>ATV66889218</code> isn't valid, but
+                    <code>ATU12011204</code> is valid.
                 </p>
             </li>
         </ol>
@@ -174,7 +253,7 @@
     <section class="inner">
         <h1>Browsers Supports</h1>
 
-        <p>... (unknown yet, but modern browsers should support it as well)</p>
+        <p>Support all browsers down to IE9 (including IE9).</p>
     </section>
 
     <section class="inner">
@@ -237,10 +316,12 @@
 
 </body>
 <script type="text/javascript">
-    function isValid() {
+    function isValid(isDetailed) {
         var result;
         var value = document.getElementById('test_vat_inp').value;
-        result = jsvat.checkVAT(value);
+        result = jsvat.checkVAT(value, isDetailed);
+
+        result = (isDetailed) ? JSON.stringify(result) : result;
 
         document.getElementById('check_result').innerText = result;
 
@@ -251,6 +332,14 @@
         var result = jsvat.checkVAT(value);
 
         document.getElementById(resultElemId).innerText = result;
+
+        return result;
+    }
+
+    function deepCheckVat(value, resultElemId) {
+        var result = jsvat.checkVAT(value, true);
+
+        document.getElementById(resultElemId).innerText = JSON.stringify(result);
 
         return result;
     }

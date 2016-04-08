@@ -1,6 +1,6 @@
 {
   "name": "jsvat",
-  "version": "0.6.1",
+  "version": "1.0.0",
   "description": "Check the validity of the format of an EU VAT number",
   "main": "./dist/jsvat.js",
   "scripts": {
@@ -14,7 +14,11 @@
   "bugs": {
     "url": "https://github.com/se-panfilov/jsvat/issues"
   },
-  "ignore": {},
+  "ignore": [
+    ".bithoundrc",
+    ".log",
+    ".travis.yml"
+  ],
   "keywords": [
     "jsvat",
     "EU",
@@ -36,13 +40,14 @@
   "author": "S.Panfilov <se-panfilov@ya.ru> (https://se-panfilov.github.io)",
   "private": false,
   "homepage": "https://github.com/se-panfilov/jsvat",
-  "_release": "0.6.1",
+  "_release": "1.0.0",
   "_resolution": {
     "type": "version",
-    "tag": "v0.6.1",
-    "commit": "6b1b60fdb11d3b97238e29026338912c02bd618d"
+    "tag": "v1.0.0",
+    "commit": "2fd98e40a73239ba274593069a1c66e84f59177a"
   },
-  "_source": "git://github.com/se-panfilov/jsvat.git",
-  "_target": "~0.6.1",
-  "_originalSource": "jsvat"
+  "_source": "https://github.com/se-panfilov/jsvat.git",
+  "_target": "^1.0.0",
+  "_originalSource": "jsvat",
+  "_direct": true
 }
