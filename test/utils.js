@@ -11,7 +11,6 @@ module.exports = {
       var testMsg = (argv.config !== noVerbose) ? msg + ': ' + item : 'test';
 
       return it(testMsg, function () {
-      //return it('c', function () {
         if (isTrue) {
           return expect(jsvat.checkVAT(item)).to.be.true;
         } else {

@@ -124,8 +124,7 @@ I'm totally rewrite all the code.
 Browsers Supports
 ---------
 
-...
-(unknown yet, but modern browsers should support it as well) 
+Support all browsers down to IE9 (including IE9).
 
 List of supported Countries:
 ---------
