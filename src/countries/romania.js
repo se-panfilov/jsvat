@@ -31,6 +31,6 @@ COUNTRIES.romania = {
       3,
       2
     ],
-    regex: /^(RO)([1-9]\d{1,9})$/
+    regex: [/^(RO)([1-9]\d{1,9})$/]
   }
 };

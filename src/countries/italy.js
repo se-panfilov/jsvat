@@ -46,6 +46,6 @@ COUNTRIES.italy = {
       1,
       2
     ],
-    regex: /^(IT)(\d{11})$/
+    regex: [/^(IT)(\d{11})$/]
   }
 };

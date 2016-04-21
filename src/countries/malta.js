@@ -24,6 +24,6 @@ COUNTRIES.malta = {
       8,
       9
     ],
-    regex: /^(MT)([1-9]\d{7})$/
+    regex: [/^(MT)([1-9]\d{7})$/]
   }
 };

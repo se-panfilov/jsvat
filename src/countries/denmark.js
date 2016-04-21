@@ -19,6 +19,6 @@ COUNTRIES.denmark = {
       2,
       1
     ],
-    regex: /^(DK)(\d{8})$/
+    regex: [/^(DK)(\d{8})$/]
   }
 };

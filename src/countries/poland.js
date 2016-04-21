@@ -30,6 +30,6 @@ COUNTRIES.poland = {
       6,
       7
     ],
-    regex: /^(PL)(\d{10})$/
+    regex: [/^(PL)(\d{10})$/]
   }
 };

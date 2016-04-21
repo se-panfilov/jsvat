@@ -29,6 +29,6 @@ COUNTRIES.slovenia = {
       3,
       2
     ],
-    regex: /^(SI)([1-9]\d{7})$/
+    regex: [/^(SI)([1-9]\d{7})$/]
   }
 };

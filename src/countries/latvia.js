@@ -43,6 +43,6 @@ COUNTRIES.latvia = {
       7,
       6
     ],
-    regex: /^(LV)(\d{11})$/
+    regex: [/^(LV)(\d{11})$/]
   }
 };

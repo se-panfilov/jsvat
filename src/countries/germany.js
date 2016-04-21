@@ -29,6 +29,6 @@ COUNTRIES.germany = {
     return checkDigit === expect;
   },
   rules: {
-    regex: /^(DE)([1-9]\d{8})$/
+    regex: [/^(DE)([1-9]\d{8})$/]
   }
 };

@@ -34,6 +34,6 @@ COUNTRIES.greece = {
       4,
       2
     ],
-    regex: /^(EL)(\d{9})$/
+    regex: [/^(EL)(\d{9})$/]
   }
 };

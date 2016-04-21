@@ -144,7 +144,7 @@ COUNTRIES.lithunia = (function () {
         ]
       },
       check: /^\d{10}1/,
-      regex: /^(LT)(\d{9}|\d{12})$/
+      regex: [/^(LT)(\d{9}|\d{12})$/]
     }
   };
 }());

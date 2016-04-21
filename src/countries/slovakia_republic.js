@@ -5,6 +5,6 @@ COUNTRIES.slovakia_republic = {
     return checkDigit === expect;
   },
   rules: {
-    regex: /^(SK)([1-9]\d[2346-9]\d{7})$/
+    regex: [/^(SK)([1-9]\d[2346-9]\d{7})$/]
   }
 };

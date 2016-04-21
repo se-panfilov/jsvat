@@ -5,7 +5,7 @@ COUNTRIES.europe = {
     return true;
   },
   rules: {
-    regex: /^(EU)(\d{9})$/
+    regex: [/^(EU)(\d{9})$/]
   }
 }
 ;

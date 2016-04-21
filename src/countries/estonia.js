@@ -27,6 +27,6 @@ COUNTRIES.estonia = {
       3,
       7
     ],
-    regex: /^(EE)(10\d{7})$/
+    regex: [/^(EE)(10\d{7})$/]
   }
 };

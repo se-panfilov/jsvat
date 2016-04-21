@@ -22,6 +22,6 @@ COUNTRIES.serbia = {
     return checkDigit === expect;
   },
   rules: {
-    regex: /^(RS)(\d{9})$/
+    regex: [/^(RS)(\d{9})$/]
   }
 };

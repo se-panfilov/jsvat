@@ -10,7 +10,7 @@ COUNTRIES.belgium = {
     return check === +vat.slice(8, 10);
   },
   rules: {
-    regex: /^(BE)(0?\d{9})$/
+    regex: [/^(BE)(0?\d{9})$/]
   }
 }
 ;

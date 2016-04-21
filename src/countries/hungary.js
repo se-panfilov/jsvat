@@ -26,6 +26,6 @@ COUNTRIES.hungary = {
       7,
       3
     ],
-    regex: /^(HU)(\d{8})$/
+    regex: [/^(HU)(\d{8})$/]
   }
 };

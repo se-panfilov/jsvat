@@ -33,6 +33,6 @@ COUNTRIES.norway = {
       3,
       2
     ],
-    regex: /^(NO)(\d{9})$/
+    regex: [/^(NO)(\d{9})$/]
   }
 };

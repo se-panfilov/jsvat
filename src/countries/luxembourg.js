@@ -7,6 +7,6 @@ COUNTRIES.luxembourg = {
     return checkDigit === expect;
   },
   rules: {
-    regex: /^(LU)(\d{8})$/
+    regex: [/^(LU)(\d{8})$/]
   }
 };

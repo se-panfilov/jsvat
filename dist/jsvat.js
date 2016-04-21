@@ -23,19 +23,11 @@ var jsvat = (function() {
     return result;
   }
 
-  function getClearVAT(vat) {
+  function _getPureVAT(vat) {
     return vat.toString().toUpperCase().replace(/(\s|-|\.)+/g, '');
   }
 
-  function _makeArr(regex) {
-    if (!Array.isArray(regex)) {
-      return [regex];
-    }
-
-    return regex;
-  }
-
-  function isCountryBlocked(config, countryName) {
+  function _isCountryBlocked(config, countryName) {
     if (!config || Object.keys(config).length === 0) return false;
 
     var country = config[countryName];
@@ -43,45 +35,36 @@ var jsvat = (function() {
     return (country === null || country === null) ? true : !country;
   }
 
+  function checkValidity(vat, regexArr) {
+    for (var i = 0; i < regexArr.length; i++) {
+      var isValid = _validate(vat, regexArr[i], countryName);
+      if (isValid) return isValid && !_isCountryBlocked(exports.config, countryName);
+    }
+    return false;
+  }
+
   var exports = {
     config: {},
-    checkVAT: function(vat, isDetailed) {
+    checkVAT: function(vat) {
       if (!vat) return false;
 
-      vat = getClearVAT(vat);
+      vat = _getPureVAT(vat);
 
       var result = {
+        value: vat,
         isValid: false,
-        countries: []
+        country: null
       };
 
       for (var countryName in COUNTRIES) {
         if (COUNTRIES.hasOwnProperty(countryName)) {
 
-          //Make sure country check not skipped in config
-          if (!isCountryBlocked(exports.config, countryName)) {
-
-            var regexArr = _makeArr(COUNTRIES[countryName].rules.regex);
-            for (var i = 0; i < regexArr.length; i++) {
-
-              //If once become a true, shouldn't be a false any more
-              result.isValid = (_validate(vat, regexArr[i], countryName)) ? true : result.isValid;
-
-
-              if (!isDetailed && result.isValid) return result.isValid;
-
-              var isValidForCurrCountry = _validate(vat, regexArr[i], countryName);
-
-              if (isValidForCurrCountry) {
-                result.countries.push(countryName);
-              }
-            }
-
-          }
+          result.isValid = checkValidity(vat, COUNTRIES[countryName].rules.regex);
+          if (result.isValid) return result;
         }
       }
 
-      return isDetailed ? result : result.isValid;
+      return result;
 
     }
   };
@@ -115,7 +98,7 @@ var jsvat = (function() {
         2,
         1
       ],
-      regex: /^(AT)U(\d{8})$/
+      regex: [/^(AT)U(\d{8})$/]
     }
   };
   COUNTRIES.belgium = {
@@ -130,7 +113,7 @@ var jsvat = (function() {
       return check === +vat.slice(8, 10);
     },
     rules: {
-      regex: /^(BE)(0?\d{9})$/
+      regex: [/^(BE)(0?\d{9})$/]
     }
   };
   COUNTRIES.bulgaria = (function() {
@@ -260,7 +243,7 @@ var jsvat = (function() {
             2
           ]
         },
-        regex: /^(BG)(\d{9,10})$/
+        regex: [/^(BG)(\d{9,10})$/]
       }
     };
   })();
@@ -289,7 +272,7 @@ var jsvat = (function() {
       return (product + expect) % 10 === 1;
     },
     rules: {
-      regex: /^(HR)(\d{11})$/
+      regex: [/^(HR)(\d{11})$/]
     }
   };
   COUNTRIES.cyprus = {
@@ -337,7 +320,7 @@ var jsvat = (function() {
       return total === expect;
     },
     rules: {
-      regex: /^(CY)([0-59]\d{7}[A-Z])$/
+      regex: [/^(CY)([0-59]\d{7}[A-Z])$/]
     }
   };
   COUNTRIES.czech_republic = (function() {
@@ -429,7 +412,7 @@ var jsvat = (function() {
           9,
           10
         ],
-        regex: /^(CZ)(\d{8,10})(\d{3})?$/,
+        regex: [/^(CZ)(\d{8,10})(\d{3})?$/],
         additional: [
           /^\d{8}$/,
           /^[0-5][0-9][0|1|5|6]\d[0-3]\d\d{3}$/,
@@ -460,7 +443,7 @@ var jsvat = (function() {
         2,
         1
       ],
-      regex: /^(DK)(\d{8})$/
+      regex: [/^(DK)(\d{8})$/]
     }
   };
   COUNTRIES.estonia = {
@@ -492,7 +475,7 @@ var jsvat = (function() {
         3,
         7
       ],
-      regex: /^(EE)(10\d{7})$/
+      regex: [/^(EE)(10\d{7})$/]
     }
   };
   COUNTRIES.europe = {
@@ -502,7 +485,7 @@ var jsvat = (function() {
       return true;
     },
     rules: {
-      regex: /^(EU)(\d{9})$/
+      regex: [/^(EU)(\d{9})$/]
     }
   };
   COUNTRIES.finland = {
@@ -533,7 +516,7 @@ var jsvat = (function() {
         4,
         2
       ],
-      regex: /^(FI)(\d{8})$/
+      regex: [/^(FI)(\d{8})$/]
     }
   };
   COUNTRIES.france = {
@@ -596,7 +579,7 @@ var jsvat = (function() {
       return checkDigit === expect;
     },
     rules: {
-      regex: /^(DE)([1-9]\d{8})$/
+      regex: [/^(DE)([1-9]\d{8})$/]
     }
   };
   COUNTRIES.greece = {
@@ -635,7 +618,7 @@ var jsvat = (function() {
         4,
         2
       ],
-      regex: /^(EL)(\d{9})$/
+      regex: [/^(EL)(\d{9})$/]
     }
   };
   COUNTRIES.hungary = {
@@ -666,7 +649,7 @@ var jsvat = (function() {
         7,
         3
       ],
-      regex: /^(HU)(\d{8})$/
+      regex: [/^(HU)(\d{8})$/]
     }
   };
   COUNTRIES.ireland = {
@@ -775,7 +758,7 @@ var jsvat = (function() {
         1,
         2
       ],
-      regex: /^(IT)(\d{11})$/
+      regex: [/^(IT)(\d{11})$/]
     }
   };
   COUNTRIES.latvia = {
@@ -823,7 +806,7 @@ var jsvat = (function() {
         7,
         6
       ],
-      regex: /^(LV)(\d{11})$/
+      regex: [/^(LV)(\d{11})$/]
     }
   };
   COUNTRIES.lithunia = (function() {
@@ -972,7 +955,7 @@ var jsvat = (function() {
           ]
         },
         check: /^\d{10}1/,
-        regex: /^(LT)(\d{9}|\d{12})$/
+        regex: [/^(LT)(\d{9}|\d{12})$/]
       }
     };
   }());
@@ -985,7 +968,7 @@ var jsvat = (function() {
       return checkDigit === expect;
     },
     rules: {
-      regex: /^(LU)(\d{8})$/
+      regex: [/^(LU)(\d{8})$/]
     }
   };
   COUNTRIES.malta = {
@@ -1014,7 +997,7 @@ var jsvat = (function() {
         8,
         9
       ],
-      regex: /^(MT)([1-9]\d{7})$/
+      regex: [/^(MT)([1-9]\d{7})$/]
     }
   };
   COUNTRIES.netherlands = {
@@ -1048,7 +1031,7 @@ var jsvat = (function() {
         3,
         2
       ],
-      regex: /^(NL)(\d{9})B\d{2}$/
+      regex: [/^(NL)(\d{9})B\d{2}$/]
     }
   };
   COUNTRIES.norway = {
@@ -1086,7 +1069,7 @@ var jsvat = (function() {
         3,
         2
       ],
-      regex: /^(NO)(\d{9})$/
+      regex: [/^(NO)(\d{9})$/]
     }
   };
   COUNTRIES.poland = {
@@ -1121,7 +1104,7 @@ var jsvat = (function() {
         6,
         7
       ],
-      regex: /^(PL)(\d{10})$/
+      regex: [/^(PL)(\d{10})$/]
     }
   };
   COUNTRIES.portugal = {
@@ -1155,7 +1138,7 @@ var jsvat = (function() {
         3,
         2
       ],
-      regex: /^(PT)(\d{9})$/
+      regex: [/^(PT)(\d{9})$/]
     }
   };
   COUNTRIES.romania = {
@@ -1191,7 +1174,7 @@ var jsvat = (function() {
         3,
         2
       ],
-      regex: /^(RO)([1-9]\d{1,9})$/
+      regex: [/^(RO)([1-9]\d{1,9})$/]
     }
   };
   COUNTRIES.russia = (function() {
@@ -1301,7 +1284,7 @@ var jsvat = (function() {
             0
           ]
         },
-        regex: /^(RU)(\d{10}|\d{12})$/
+        regex: [/^(RU)(\d{10}|\d{12})$/]
       }
     };
   }());
@@ -1329,7 +1312,7 @@ var jsvat = (function() {
       return checkDigit === expect;
     },
     rules: {
-      regex: /^(RS)(\d{9})$/
+      regex: [/^(RS)(\d{9})$/]
     }
   };
   COUNTRIES.slovakia_republic = {
@@ -1339,7 +1322,7 @@ var jsvat = (function() {
       return checkDigit === expect;
     },
     rules: {
-      regex: /^(SK)([1-9]\d[2346-9]\d{7})$/
+      regex: [/^(SK)([1-9]\d[2346-9]\d{7})$/]
     }
   };
   COUNTRIES.slovenia = {
@@ -1373,7 +1356,7 @@ var jsvat = (function() {
         3,
         2
       ],
-      regex: /^(SI)([1-9]\d{7})$/
+      regex: [/^(SI)([1-9]\d{7})$/]
     }
   };
   COUNTRIES.spain = {
@@ -1491,7 +1474,7 @@ var jsvat = (function() {
       return checkDigit === expect;
     },
     rules: {
-      regex: /^(SE)(\d{10}01)$/
+      regex: [/^(SE)(\d{10}01)$/]
     }
   };
   COUNTRIES.switzerland = {
@@ -1521,7 +1504,7 @@ var jsvat = (function() {
         5,
         4
       ],
-      regex: /^(CHE)(\d{9})(MWST)?$/
+      regex: [/^(CHE)(\d{9})(MWST)?$/]
     }
   };
   COUNTRIES.united_kingdom = {

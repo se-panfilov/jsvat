@@ -87,7 +87,7 @@ COUNTRIES.czech_republic = (function () {
         9,
         10
       ],
-      regex: /^(CZ)(\d{8,10})(\d{3})?$/,
+      regex: [/^(CZ)(\d{8,10})(\d{3})?$/],
       additional: [
         /^\d{8}$/,
         /^[0-5][0-9][0|1|5|6]\d[0-3]\d\d{3}$/,

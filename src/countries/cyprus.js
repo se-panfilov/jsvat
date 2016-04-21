@@ -43,6 +43,6 @@ COUNTRIES.cyprus = {
     return total === expect;
   },
   rules: {
-    regex: /^(CY)([0-59]\d{7}[A-Z])$/
+    regex: [/^(CY)([0-59]\d{7}[A-Z])$/]
   }
 };

@@ -25,6 +25,6 @@ COUNTRIES.switzerland = {
       5,
       4
     ],
-    regex: /^(CHE)(\d{9})(MWST)?$/
+    regex: [/^(CHE)(\d{9})(MWST)?$/]
   }
 };

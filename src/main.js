@@ -19,19 +19,11 @@ function _validate(vat, regex, countryName) {
   return result;
 }
 
-function getClearVAT(vat) {
+function _getPureVAT(vat) {
   return vat.toString().toUpperCase().replace(/(\s|-|\.)+/g, '');
 }
 
-function _makeArr(regex) {
-  if (!Array.isArray(regex)) {
-    return [regex];
-  }
-
-  return regex;
-}
-
-function isCountryBlocked(config, countryName) {
+function _isCountryBlocked(config, countryName) {
   if (!config || Object.keys(config).length === 0) return false;
 
   var country = config[countryName];
@@ -39,45 +31,36 @@ function isCountryBlocked(config, countryName) {
   return (country === null || country === null) ? true : !country;
 }
 
+function checkValidity(vat, regexArr) {
+  for (var i = 0; i < regexArr.length; i++) {
+    var isValid = _validate(vat, regexArr[i], countryName);
+    if (isValid) return isValid && !_isCountryBlocked(exports.config, countryName);
+  }
+  return false;
+}
+
 var exports = {
   config: {},
-  checkVAT: function (vat, isDetailed) {
+  checkVAT: function (vat) {
     if (!vat) return false;
 
-    vat = getClearVAT(vat);
+    vat = _getPureVAT(vat);
 
     var result = {
+      value: vat,
       isValid: false,
-      countries: []
+      country: null
     };
 
     for (var countryName in COUNTRIES) {
       if (COUNTRIES.hasOwnProperty(countryName)) {
 
-        //Make sure country check not skipped in config
-        if (!isCountryBlocked(exports.config, countryName)) {
-
-          var regexArr = _makeArr(COUNTRIES[countryName].rules.regex);
-          for (var i = 0; i < regexArr.length; i++) {
-
-            //If once become a true, shouldn't be a false any more
-            result.isValid = (_validate(vat, regexArr[i], countryName)) ? true : result.isValid;
-            
-
-            if (!isDetailed && result.isValid) return result.isValid;
-
-            var isValidForCurrCountry = _validate(vat, regexArr[i], countryName);
-
-            if (isValidForCurrCountry) {
-              result.countries.push(countryName);
-            }
-          }
-
-        }
+        result.isValid = checkValidity(vat, COUNTRIES[countryName].rules.regex);
+        if (result.isValid) return result;
       }
     }
 
-    return isDetailed ? result : result.isValid;
+    return result;
 
   }
 };

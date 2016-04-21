@@ -29,6 +29,6 @@ COUNTRIES.portugal = {
       3,
       2
     ],
-    regex: /^(PT)(\d{9})$/
+    regex: [/^(PT)(\d{9})$/]
   }
 };

@@ -28,6 +28,6 @@ COUNTRIES.austria = {
       2,
       1
     ],
-    regex: /^(AT)U(\d{8})$/
+    regex: [/^(AT)U(\d{8})$/]
   }
 };

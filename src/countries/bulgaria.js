@@ -125,7 +125,7 @@ COUNTRIES.bulgaria = (function () {
           2
         ]
       },
-      regex: /^(BG)(\d{9,10})$/
+      regex: [/^(BG)(\d{9,10})$/]
     }
   };
 })();

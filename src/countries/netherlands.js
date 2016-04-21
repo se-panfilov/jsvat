@@ -29,6 +29,6 @@ COUNTRIES.netherlands = {
       3,
       2
     ],
-    regex: /^(NL)(\d{9})B\d{2}$/
+    regex: [/^(NL)(\d{9})B\d{2}$/]
   }
 };

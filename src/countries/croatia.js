@@ -23,6 +23,6 @@ COUNTRIES.croatia = {
     return (product + expect) % 10 === 1;
   },
   rules: {
-    regex: /^(HR)(\d{11})$/
+    regex: [/^(HR)(\d{11})$/]
   }
 };

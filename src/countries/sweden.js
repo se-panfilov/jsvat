@@ -24,7 +24,7 @@ COUNTRIES.sweden = {
     return checkDigit === expect;
   },
   rules: {
-    regex: /^(SE)(\d{10}01)$/
+    regex: [/^(SE)(\d{10}01)$/]
   }
 }
 ;

@@ -26,6 +26,6 @@ COUNTRIES.finland = {
       4,
       2
     ],
-    regex: /^(FI)(\d{8})$/
+    regex: [/^(FI)(\d{8})$/]
   }
 };
