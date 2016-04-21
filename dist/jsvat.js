@@ -28,15 +28,13 @@ var jsvat = (function() {
   }
 
   function _isCountryBlocked(config, countryName) {
-    if (!config || Object.keys(config).length === 0) return false;
+    if (!config || config.length === 0) return false;
 
-    var country = config[countryName];
-
-    return (country === null || country === null) ? true : !country;
+    return config.indexOf(countryName) === -1;
   }
 
   function checkValidity(vat, countryName) {
-    var regexArr = COUNTRIES[countryName].rules.regex
+    var regexArr = COUNTRIES[countryName].rules.regex;
     for (var i = 0; i < regexArr.length; i++) {
       var isValid = _validate(vat, regexArr[i], countryName);
       if (isValid) return isValid && !_isCountryBlocked(exports.config, countryName);
@@ -45,7 +43,7 @@ var jsvat = (function() {
   }
 
   var exports = {
-    config: {},
+    config: [],
     checkVAT: function(vat) {
       if (!vat) return false;
 
@@ -61,6 +59,7 @@ var jsvat = (function() {
         if (COUNTRIES.hasOwnProperty(countryName)) {
 
           result.isValid = checkValidity(vat, countryName);
+          result.country = countryName;
           if (result.isValid) return result;
         }
       }
