@@ -45,20 +45,18 @@ var jsvat = (function() {
   var exports = {
     config: [],
     checkVAT: function(vat) {
-      if (!vat) return false;
-
-      vat = _getPureVAT(vat);
-
       var result = {
-        value: vat,
+        value: _getPureVAT(vat),
         isValid: false,
         country: null
       };
 
+      if (!vat) return result;
+
       for (var countryName in COUNTRIES) {
         if (COUNTRIES.hasOwnProperty(countryName)) {
 
-          result.isValid = checkValidity(vat, countryName);
+          result.isValid = checkValidity(result.value, countryName);
           result.country = countryName;
           if (result.isValid) return result;
         }
