@@ -35,7 +35,8 @@ var jsvat = (function() {
     return (country === null || country === null) ? true : !country;
   }
 
-  function checkValidity(vat, regexArr) {
+  function checkValidity(vat, countryName) {
+    var regexArr = COUNTRIES[countryName].rules.regex
     for (var i = 0; i < regexArr.length; i++) {
       var isValid = _validate(vat, regexArr[i], countryName);
       if (isValid) return isValid && !_isCountryBlocked(exports.config, countryName);
@@ -59,7 +60,7 @@ var jsvat = (function() {
       for (var countryName in COUNTRIES) {
         if (COUNTRIES.hasOwnProperty(countryName)) {
 
-          result.isValid = checkValidity(vat, COUNTRIES[countryName].rules.regex);
+          result.isValid = checkValidity(vat, countryName);
           if (result.isValid) return result;
         }
       }

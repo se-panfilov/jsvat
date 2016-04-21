@@ -50,64 +50,36 @@ function makeTests(vatList, countryName) {
   describe(countryName + ' VAT.', function () {
     describe('Common checks.', function () {
       describe('Valid VAT.', function () {
+
         describe('Simple checks.', function () {
           describe('Regular valid VAT.', function () {
-            utils.check(vatList.valid, 'Is VAT valid', true);
+            utils.check(vatList.valid, 'Is VAT valid', true, countryName);
           });
 
           describe('Valid VAT with \'-\' character.', function () {
-            utils.check(utils.addCharsToVals(vatList.valid, '-'), 'Is VAT with \'-\' valid', true);
+            utils.check(utils.addCharsToVals(vatList.valid, '-'), 'Is VAT valid', true, countryName);
           });
 
           describe('Valid VAT with space character.', function () {
-            utils.check(utils.addCharsToVals(vatList.valid, ' '), 'Is VAT with space valid', true);
-          });
-        });
-
-        describe('Deep checks.', function () {
-          describe('Regular valid VAT.', function () {
-            utils.detailedCheck(vatList.valid, 'Is VAT valid', true, countryName);
-          });
-
-          describe('Valid VAT with \'-\' character.', function () {
-            utils.detailedCheck(utils.addCharsToVals(vatList.valid, '-'), 'Is VAT valid', true, countryName);
-          });
-
-          describe('Valid VAT with space character.', function () {
-            utils.detailedCheck(utils.addCharsToVals(vatList.valid, ' '), 'Is VAT valid', true, countryName);
+            utils.check(utils.addCharsToVals(vatList.valid, ' '), 'Is VAT valid', true, countryName);
           });
         });
       });
 
       describe('Invalid VAT.', function () {
+
         describe('Simple checks.', function () {
 
-          describe('Regular VAT.', function () {
-            utils.check(vatList.invalid, 'Is VAT valid', false);
-          });
-
-          describe('Invalid VAT with \'-\' character.', function () {
-            utils.check(utils.addCharsToVals(vatList.invalid, '-'), 'Is VAT with \'-\' valid', false);
-          });
-
-          describe('Invalid VAT with space character.', function () {
-            utils.check(utils.addCharsToVals(vatList.invalid, ' '), 'Is VAT with space valid', false);
-          });
-
-        });
-
-        describe('Deep checks.', function () {
-
           describe('Regular valid VAT.', function () {
-            utils.detailedCheck(vatList.invalid, 'Is VAT valid', false, countryName);
+            utils.check(vatList.invalid, 'Is VAT valid', false, countryName);
           });
 
           describe('Valid VAT with \'-\' character.', function () {
-            utils.detailedCheck(utils.addCharsToVals(vatList.invalid, '-'), 'Is VAT valid', false, countryName);
+            utils.check(utils.addCharsToVals(vatList.invalid, '-'), 'Is VAT valid', false, countryName);
           });
 
           describe('Valid VAT with space character.', function () {
-            utils.detailedCheck(utils.addCharsToVals(vatList.invalid, ' '), 'Is VAT valid', false, countryName);
+            utils.check(utils.addCharsToVals(vatList.invalid, ' '), 'Is VAT valid', false, countryName);
           });
 
         });
@@ -125,64 +97,38 @@ function makeTests(vatList, countryName) {
         });
 
         describe('Valid VAT.', function () {
+
           describe('Simple checks.', function () {
+
             describe('Regular valid VAT.', function () {
-              utils.check(vatList.valid, 'Is VAT valid', true);
+              utils.check(vatList.valid, 'Is VAT valid', true, countryName);
             });
 
             describe('Valid VAT with \'-\' character.', function () {
-              utils.check(utils.addCharsToVals(vatList.valid, '-'), 'Is VAT with \'-\' valid', true);
+              utils.check(utils.addCharsToVals(vatList.valid, '-'), 'Is VAT valid', true, countryName);
             });
 
             describe('Valid VAT with space character.', function () {
-              utils.check(utils.addCharsToVals(vatList.valid, ' '), 'Is VAT with space valid', true);
-            });
-          });
-
-          describe('Deep checks.', function () {
-
-            describe('Regular valid VAT.', function () {
-              utils.detailedCheck(vatList.valid, 'Is VAT valid', true, countryName);
-            });
-
-            describe('Valid VAT with \'-\' character.', function () {
-              utils.detailedCheck(utils.addCharsToVals(vatList.valid, '-'), 'Is VAT valid', true, countryName);
-            });
-
-            describe('Valid VAT with space character.', function () {
-              utils.detailedCheck(utils.addCharsToVals(vatList.valid, ' '), 'Is VAT valid', true, countryName);
+              utils.check(utils.addCharsToVals(vatList.valid, ' '), 'Is VAT valid', true, countryName);
             });
 
           });
         });
 
         describe('Invalid VAT.', function () {
+
           describe('Simple checks.', function () {
-            describe('Regular VAT.', function () {
-              utils.check(vatList.invalid, 'Is VAT valid', false);
-            });
-
-            describe('Invalid VAT with \'-\' character.', function () {
-              utils.check(utils.addCharsToVals(vatList.invalid, '-'), 'Is VAT with \'-\' valid', false);
-            });
-
-            describe('Invalid VAT with space character.', function () {
-              utils.check(utils.addCharsToVals(vatList.invalid, ' '), 'Is VAT with space valid', false);
-            });
-          });
-
-          describe('Deep checks.', function () {
 
             describe('Regular valid VAT.', function () {
-              utils.detailedCheck(vatList.invalid, 'Is VAT valid', false, countryName);
+              utils.check(vatList.invalid, 'Is VAT valid', false, countryName);
             });
 
             describe('Valid VAT with \'-\' character.', function () {
-              utils.detailedCheck(utils.addCharsToVals(vatList.invalid, '-'), 'Is VAT valid', false, countryName);
+              utils.check(utils.addCharsToVals(vatList.invalid, '-'), 'Is VAT valid', false, countryName);
             });
 
             describe('Valid VAT with space character.', function () {
-              utils.detailedCheck(utils.addCharsToVals(vatList.invalid, ' '), 'Is VAT valid', false, countryName);
+              utils.check(utils.addCharsToVals(vatList.invalid, ' '), 'Is VAT valid', false, countryName);
             });
 
           });
@@ -202,68 +148,38 @@ function makeTests(vatList, countryName) {
         });
 
         describe('Valid VAT.', function () {
+
           describe('Simple checks.', function () {
+
             describe('Regular valid VAT.', function () {
-              utils.check(vatList.valid, 'Is VAT valid', false);
+              utils.check(vatList.valid, 'Is VAT valid', true, countryName);
             });
 
             describe('Valid VAT with \'-\' character.', function () {
-              utils.check(utils.addCharsToVals(vatList.valid, '-'), 'Is VAT with \'-\' valid', false);
+              utils.check(utils.addCharsToVals(vatList.valid, '-'), 'Is VAT valid', true, countryName);
             });
 
             describe('Valid VAT with space character.', function () {
-              utils.check(utils.addCharsToVals(vatList.valid, ' '), 'Is VAT with space valid', false);
-            });
-
-            after(function () {
-              jsvat.config = {};
-            });
-          });
-
-          describe('Deep checks.', function () {
-
-            describe('Regular valid VAT.', function () {
-              utils.detailedCheck(vatList.valid, 'Is VAT valid', true, countryName);
-            });
-
-            describe('Valid VAT with \'-\' character.', function () {
-              utils.detailedCheck(utils.addCharsToVals(vatList.valid, '-'), 'Is VAT valid', true, countryName);
-            });
-
-            describe('Valid VAT with space character.', function () {
-              utils.detailedCheck(utils.addCharsToVals(vatList.valid, ' '), 'Is VAT valid', true, countryName);
+              utils.check(utils.addCharsToVals(vatList.valid, ' '), 'Is VAT valid', true, countryName);
             });
 
           });
         });
 
         describe('Invalid VAT.', function () {
+
           describe('Simple checks.', function () {
-            describe('Regular VAT.', function () {
-              utils.check(vatList.invalid, 'Is VAT valid', false);
-            });
-
-            describe('Invalid VAT with \'-\' character.', function () {
-              utils.check(utils.addCharsToVals(vatList.invalid, '-'), 'Is VAT with \'-\' valid', false);
-            });
-
-            describe('Invalid VAT with space character.', function () {
-              utils.check(utils.addCharsToVals(vatList.invalid, ' '), 'Is VAT with space valid', false);
-            });
-          });
-
-          describe('Deep checks.', function () {
 
             describe('Regular valid VAT.', function () {
-              utils.detailedCheck(vatList.invalid, 'Is VAT valid', false, countryName);
+              utils.check(vatList.invalid, 'Is VAT valid', false, countryName);
             });
 
             describe('Valid VAT with \'-\' character.', function () {
-              utils.detailedCheck(utils.addCharsToVals(vatList.invalid, '-'), 'Is VAT valid', false, countryName);
+              utils.check(utils.addCharsToVals(vatList.invalid, '-'), 'Is VAT valid', false, countryName);
             });
 
             describe('Valid VAT with space character.', function () {
-              utils.detailedCheck(utils.addCharsToVals(vatList.invalid, ' '), 'Is VAT valid', false, countryName);
+              utils.check(utils.addCharsToVals(vatList.invalid, ' '), 'Is VAT valid', false, countryName);
             });
 
           });
@@ -288,68 +204,38 @@ function makeTests(vatList, countryName) {
         });
 
         describe('Valid VAT.', function () {
+
           describe('Simple checks.', function () {
+
             describe('Regular valid VAT.', function () {
-              utils.check(vatList.valid, 'Is VAT valid', false);
+              utils.check(vatList.valid, 'Is VAT valid', true, countryName);
             });
 
             describe('Valid VAT with \'-\' character.', function () {
-              utils.check(utils.addCharsToVals(vatList.valid, '-'), 'Is VAT with \'-\' valid', false);
+              utils.check(utils.addCharsToVals(vatList.valid, '-'), 'Is VAT valid', true, countryName);
             });
 
             describe('Valid VAT with space character.', function () {
-              utils.check(utils.addCharsToVals(vatList.valid, ' '), 'Is VAT with space valid', false);
-            });
-
-            after(function () {
-              jsvat.config = {};
-            });
-          });
-
-          describe('Deep checks.', function () {
-
-            describe('Regular valid VAT.', function () {
-              utils.detailedCheck(vatList.valid, 'Is VAT valid', true, countryName);
-            });
-
-            describe('Valid VAT with \'-\' character.', function () {
-              utils.detailedCheck(utils.addCharsToVals(vatList.valid, '-'), 'Is VAT valid', true, countryName);
-            });
-
-            describe('Valid VAT with space character.', function () {
-              utils.detailedCheck(utils.addCharsToVals(vatList.valid, ' '), 'Is VAT valid', true, countryName);
+              utils.check(utils.addCharsToVals(vatList.valid, ' '), 'Is VAT valid', true, countryName);
             });
 
           });
         });
 
         describe('Invalid VAT.', function () {
+
           describe('Simple checks.', function () {
-            describe('Regular VAT.', function () {
-              utils.check(vatList.invalid, 'Is VAT valid', false);
-            });
-
-            describe('Invalid VAT with \'-\' character.', function () {
-              utils.check(utils.addCharsToVals(vatList.invalid, '-'), 'Is VAT with \'-\' valid', false);
-            });
-
-            describe('Invalid VAT with space character.', function () {
-              utils.check(utils.addCharsToVals(vatList.invalid, ' '), 'Is VAT with space valid', false);
-            });
-          });
-
-          describe('Deep checks.', function () {
 
             describe('Regular valid VAT.', function () {
-              utils.detailedCheck(vatList.invalid, 'Is VAT valid', false, countryName);
+              utils.check(vatList.invalid, 'Is VAT valid', false, countryName);
             });
 
             describe('Valid VAT with \'-\' character.', function () {
-              utils.detailedCheck(utils.addCharsToVals(vatList.invalid, '-'), 'Is VAT valid', false, countryName);
+              utils.check(utils.addCharsToVals(vatList.invalid, '-'), 'Is VAT valid', false, countryName);
             });
 
             describe('Valid VAT with space character.', function () {
-              utils.detailedCheck(utils.addCharsToVals(vatList.invalid, ' '), 'Is VAT valid', false, countryName);
+              utils.check(utils.addCharsToVals(vatList.invalid, ' '), 'Is VAT valid', false, countryName);
             });
 
           });
@@ -377,68 +263,38 @@ function makeTests(vatList, countryName) {
         });
 
         describe('Valid VAT.', function () {
+
           describe('Simple checks.', function () {
+
             describe('Regular valid VAT.', function () {
-              utils.check(vatList.valid, 'Is VAT valid', false);
+              utils.check(vatList.valid, 'Is VAT valid', true, countryName);
             });
 
             describe('Valid VAT with \'-\' character.', function () {
-              utils.check(utils.addCharsToVals(vatList.valid, '-'), 'Is VAT with \'-\' valid', false);
+              utils.check(utils.addCharsToVals(vatList.valid, '-'), 'Is VAT valid', true, countryName);
             });
 
             describe('Valid VAT with space character.', function () {
-              utils.check(utils.addCharsToVals(vatList.valid, ' '), 'Is VAT with space valid', false);
-            });
-
-            after(function () {
-              jsvat.config = {};
-            });
-          });
-
-          describe('Deep checks.', function () {
-
-            describe('Regular valid VAT.', function () {
-              utils.detailedCheck(vatList.valid, 'Is VAT valid', true, countryName);
-            });
-
-            describe('Valid VAT with \'-\' character.', function () {
-              utils.detailedCheck(utils.addCharsToVals(vatList.valid, '-'), 'Is VAT valid', true, countryName);
-            });
-
-            describe('Valid VAT with space character.', function () {
-              utils.detailedCheck(utils.addCharsToVals(vatList.valid, ' '), 'Is VAT valid', true, countryName);
+              utils.check(utils.addCharsToVals(vatList.valid, ' '), 'Is VAT valid', true, countryName);
             });
 
           });
         });
 
         describe('Invalid VAT.', function () {
+
           describe('Simple checks.', function () {
-            describe('Regular VAT.', function () {
-              utils.check(vatList.invalid, 'Is VAT valid', false);
-            });
-
-            describe('Invalid VAT with \'-\' character.', function () {
-              utils.check(utils.addCharsToVals(vatList.invalid, '-'), 'Is VAT with \'-\' valid', false);
-            });
-
-            describe('Invalid VAT with space character.', function () {
-              utils.check(utils.addCharsToVals(vatList.invalid, ' '), 'Is VAT with space valid', false);
-            });
-          });
-
-          describe('Deep checks.', function () {
 
             describe('Regular valid VAT.', function () {
-              utils.detailedCheck(vatList.invalid, 'Is VAT valid', false, countryName);
+              utils.check(vatList.invalid, 'Is VAT valid', false, countryName);
             });
 
             describe('Valid VAT with \'-\' character.', function () {
-              utils.detailedCheck(utils.addCharsToVals(vatList.invalid, '-'), 'Is VAT valid', false, countryName);
+              utils.check(utils.addCharsToVals(vatList.invalid, '-'), 'Is VAT valid', false, countryName);
             });
 
             describe('Valid VAT with space character.', function () {
-              utils.detailedCheck(utils.addCharsToVals(vatList.invalid, ' '), 'Is VAT valid', false, countryName);
+              utils.check(utils.addCharsToVals(vatList.invalid, ' '), 'Is VAT valid', false, countryName);
             });
 
           });
