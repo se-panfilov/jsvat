@@ -24,6 +24,7 @@ var jsvat = (function() {
   }
 
   function _getPureVAT(vat) {
+    vat = vat || '';
     return vat.toString().toUpperCase().replace(/(\s|-|\.)+/g, '');
   }
 

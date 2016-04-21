@@ -20,6 +20,7 @@ function _validate(vat, regex, countryName) {
 }
 
 function _getPureVAT(vat) {
+  vat = vat || '';
   return vat.toString().toUpperCase().replace(/(\s|-|\.)+/g, '');
 }
 
