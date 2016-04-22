@@ -15,12 +15,15 @@ module.exports = {
         if (isTrue) {
           expect(result.value).to.be.equal(item.toString().toUpperCase().replace(/(\s|-|\.)+/g, ''));
           expect(result.isValid).to.be.true;
+          console.log(11111111111);
+          console.log(result.country);
+          console.log(countryName);
+          console.log(11111111111);
           expect(result.country).to.be.equal(countryName);
         } else {
           expect(result.value).to.be.equal(item.toString().toUpperCase().replace(/(\s|-|\.)+/g, ''));
           expect(result.isValid).to.be.false;
-          // expect(result.countries.length).to.be.equal('');
-          //expect(result.countries).to.be.null;
+          expect(result.country).to.be.null;
         }
       });
     });

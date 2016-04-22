@@ -58,8 +58,11 @@ var jsvat = (function() {
         if (COUNTRIES.hasOwnProperty(countryName)) {
 
           result.isValid = checkValidity(result.value, countryName);
-          result.country = countryName; //TODO (S.Panfilov) BUG with country name in case of isValid===false always UK)
-          if (result.isValid) return result;
+
+          if (result.isValid) {
+            result.country = countryName;
+            return result;
+          }
         }
       }
 
