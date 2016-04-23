@@ -13,7 +13,7 @@
 jsvat
 -------
 
-[Demo and Examples][2]
+[[Demo and Examples]][2]
 
 Check the validity of the format of an EU VAT number. No dependencies.
 
