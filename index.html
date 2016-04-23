@@ -105,48 +105,34 @@
     </section>
 
     <section class="inner">
+        <h1>What jsvat do?</h1>
+
+        <p>Just check is VAT number valid or not and which country this VAT is:</p>
+
+        <code>
+            jsvat.checkVAT('BG131134023'); // {isValid: true, country: 'bulgaria', value: 'BG131134023'}
+            jsvat.checkVAT('BG0433170001'); //{isValid: false, country: null, value: 'BG0433170001'}
+            jsvat.checkVAT('atu5-150-7409'); //{isValid: true, country: 'austria', value: 'ATU51507409'}
+            jsvat.checkVAT('aTU 5 804 4146'); //{isValid: true, country: 'austria', value: 'ATU58044146'}
+        </code>
+
+        <p>You can specify list of allowed countries</p>
+
+        <code>
+            jsvat.config = ['austria', 'belgium']; //All countries except 'austria' and 'belgium' would return false
+            jsvat.checkVAT('BG131134023'); //valid VAT, but result would be 'false'
+        </code>
+
+        <p>To reset config just do jsvat.config = [];</p>
+    </section>
+
+    <section class="inner">
         <div>
             <h1>Example of usage:</h1>
             <code>
                 jsvat.checkVAT('ATU00000024');<br/>
             </code>
         </div>
-    </section>
-
-    <section class="inner">
-        <h1>What jsvat can?</h1>
-
-        <p>Several things:</p>
-
-        <ol>
-            <li>Say is VAT number valid or not:
-                <p>
-                    <code>jsvat.checkVAT('BG131134023'); //true</code>
-                    <br/><br/>
-                    <code>jsvat.checkVAT('BG0433170001'); //false</code>
-                </p>
-            </li>
-            <li>
-                Check VAT and return country for this VAT:
-                <p>
-                    <code>jsvat.checkVAT('BG13 113 4023', true); //{isValid: true, countries: ['bulgaria']}</code>
-                    <br/><br/>
-                    <code>jsvat.checkVAT('BG0433170001', true); //{isValid: false, countries: []}</code>
-                </p>
-            </li>
-            <li>
-                Validate VAT with only countries from the list:
-                <p>
-                    <code>jsvat.config = {austria: true, belgium: false};</code>
-                    <br/><br/>
-                    <code>jsvat.checkVAT('ATU5-150-7409'); //true</code>
-                    <br/><br/>
-                    <code>jsvat.checkVAT('ATU5-804-4146', true); //{isValid: true, countries: ['austria']}</code>
-                    <br/><br/>
-                    <code>jsvat.checkVAT('BG131134023'); //valid VAT, but result would be 'false'</code>
-                </p>
-            </li>
-        </ol>
     </section>
 
     <section class="inner">
@@ -176,21 +162,13 @@
 
         It's simple:
 
-        <code>jsvat.chcekVat(vat, isDetailed);</code>
+        <code>jsvat.chcekVat(vat); //returns Object</code>
         <ul>
             <li>
                 <p>vat param means VAT number (string), like <code>BG0433170001</code>.</p>
 
-                <p>vat can be passed with '-' (<code>BG0-4331-70001</code>) or ' ' (space, like <code>BG 0433 17 0001</code>) characters;</p>
-            </li>
-            <li>
-                <p>isDetailed param is flag (<code>boolean</code>, <code>default: false</code>).</p>
-                <p>if false, the result of check will be simple <code>boolean</code> (<code>true</code> or <code>false</code>);</p>
-                <p> if true, the result of check will be an <code>Object</code>: <code>{isValid: true, countries: ['austria']}</code>. Countries
-                    is a list of
-                    countries which accept passed VAT as valid. Normally there should be only one country, but
-                    potentially it's can
-                    be more than one.</p>
+                <p>vat can be passed with '-' (<code>BG0-4331-70001</code>) or ' ' (space, like <code>BG 0433 17
+                    0001</code>) characters;</p>
             </li>
         </ul>
     </section>
@@ -230,24 +208,6 @@
     </section>
 
     <section class="inner">
-        <h1>Source of inspiration:</h1>
-
-        <p>
-            Based on this great work: <a href="http://www.braemoor.co.uk/software/vat.shtml">http://www.braemoor.co.uk/software/vat.shtml</a>
-            <br/>
-            At the moment the code was in public access without any license information.
-            <br/>
-            I'm totally rewrite all the code.
-        </p>
-    </section>
-
-    <section class="inner">
-        <h1>Browsers Supports</h1>
-
-        <p>Support all browsers down to IE9 (including IE9).</p>
-    </section>
-
-    <section class="inner">
         <h1>List of supported Countries:</h1>
 
         <ul>
@@ -284,6 +244,55 @@
             <li>Slovakia republic</li>
             <li>Sweden</li>
         </ul>
+    </section>
+
+    <section class="inner">
+        <h1>Versions for frameworks:</h1>
+        <ul>
+            <li>
+                <a href="https://github.com/se-panfilov/angular-jsvat">Angular-jsvat</a>
+            </li>
+        </ul>
+
+    </section>
+
+    <section class="inner">
+        <h1>Browsers Supports</h1>
+
+        <p>Support all browsers down to IE9 (including IE9).</p>
+    </section>
+
+    <section class="inner">
+        <h1>Source of inspiration:</h1>
+
+        <p>
+            Based on this great work: <a href="http://www.braemoor.co.uk/software/vat.shtml">http://www.braemoor.co.uk/software/vat.shtml</a>
+            <br/>
+            At the moment the code was in public access without any license information.
+            <br/>
+            I'm totally rewrite all the code.
+        </p>
+    </section>
+
+    <section class="inner">
+        <h1>Changelog</h1>
+        <ul>
+            <li>
+                <h5>1.1.0</h5>
+
+                <ol>
+                    <li>jsvat now always return Object (there is no more just true or false value);
+
+                    </li>
+                    <li>Changed way of jsvat configuretion (instead of object with countries, now you should pass an
+                        array with list of
+                        allowed countries);
+                    </li>
+                </ol>
+
+            </li>
+        </ul>
+
     </section>
 
     <section class="inner">
