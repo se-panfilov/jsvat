@@ -25,39 +25,26 @@ jsvat use 2-step check (see below) and didn't make any request for external reso
 
 Each country has own regexp for VAT number and different math-logic of number calculating.
 
-What jsvat can?
+What jsvat do?
 --------
 
-Several things:
-
-1. Say is VAT number valid or not:
+Just check is VAT number valid or not and which country this VAT is:
 
   ```
-  jsvat.checkVAT('BG131134023'); //true
+  jsvat.checkVAT('BG131134023'); // {isValid: true, country: 'bulgaria', value: 'BG131134023'}
+  jsvat.checkVAT('BG0433170001'); //{isValid: false, country: null, value: 'BG0433170001'}
+  jsvat.checkVAT('atu5-150-7409');  //{isValid: true, country: 'austria', value: 'ATU51507409'}
+  jsvat.checkVAT('aTU 5 804 4146');  //{isValid: true, country: 'austria', value: 'ATU58044146'}
   ```
 
-  ```
-  jsvat.checkVAT('BG0433170001'); //false
-  ```
-
-2. Check VAT and return country for this VAT:
-
-  ```
-  jsvat.checkVAT('BG13 113 4023', true); //{isValid: true, countries: ['bulgaria']}
-  ```
-
-  ```
-  jsvat.checkVAT('BG0433170001', true); //{isValid: false, countries: []}
-  ```
-
-3. Validate VAT with only countries from the list:
+You can specify list of allowed countries
 
  ```
-  jsvat.config = {austria: true, belgium: false}; 
-  jsvat.checkVAT('ATU5-150-7409'); //true
-  jsvat.checkVAT('ATU5-804-4146', true); //{isValid: true, countries: ['austria']}
+  jsvat.config = ['austria', 'belgium']; //All countries except 'austria' and 'belgium' would return false
   jsvat.checkVAT('BG131134023'); //valid VAT, but result would be 'false'
   ```
+  
+To reset config just do `jsvat.config = [];`
   
 Installation
 ----------
@@ -82,18 +69,13 @@ How to use jsvat?
 It's simple: 
 
 ```
-jsvat.chcekVat(vat, isDetailed);  
+jsvat.chcekVat(vat);  //returns Object
 ```
 
  - `vat` param means VAT number (`string`), like "BG0433170001". 
    
   `vat` can be passed with '-' (`BG0-4331-70001`) or ' ' (space, like `BG 0433 17 0001`) characters;
 
- - `isDetailed` param is flag (`boolean`, default: `false`). 
-  
-  if `false`, the result of check will be simple boolean (true or false);
-
-  if `true`, the result of check will be an Object: `{isValid: true, countries: ['austria']}`. Countries is a list of countries which accept passed VAT as valid. Normally there should be only one country, but potentially it's can be more than one.
 
 How does jsvat check the validity?
 ---------
@@ -110,21 +92,6 @@ There is 2-step check:
 
  Here we make some mathematical calculation (different for each country).
  After that we may be sure that `ATU99999999`and for example `ATV66889218` isn't valid, but `ATU12011204` is valid. 
-
-Source of inspiration:
----------
-
-Based on this great work: http://www.braemoor.co.uk/software/vat.shtml
-
-At the moment the code was in public access without any license information.
-
-I'm totally rewrite all the code.
-
-
-Browsers Supports
----------
-
-Support all browsers down to IE9 (including IE9).
 
 List of supported Countries:
 ---------
@@ -162,6 +129,29 @@ List of supported Countries:
  - Slovakia republic
  - Sweden
  
+Versions for frameworks:
+ - [Angular-jsvat][5]
+
+Browsers Supports
+---------
+
+Support all browsers down to IE9 (including IE9).
+
+Source of inspiration:
+---------
+
+Based on this great work: http://www.braemoor.co.uk/software/vat.shtml
+
+At the moment the code was in public access without any license information.
+
+I'm totally rewrite all the code.
+
+Changelog
+--------
+
+#####1.1.0 
+  - jsvat now always return Object (there is no more just true or false value);
+  - Changed way of jsvat configuretion (instead of object with countries, now you should pass an array with list of allowed countries);
 
 LICENSE
 -------
@@ -172,3 +162,4 @@ MIT: [https://github.com/se-panfilov/jsvat/blob/master/LICENSE][3]
  [2]: https://se-panfilov.github.io/jsvat
  [3]: https://github.com/se-panfilov/jsvat/blob/master/LICENSE
  [4]: https://github.com/se-panfilov/jsvat/releases
+ [5]: https://github.com/se-panfilov/angular-jsvat
