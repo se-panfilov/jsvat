@@ -48,7 +48,6 @@
         <label id="test_vat_lbl" for="test_vat_inp">Try VAT:</label>
         <input id="test_vat_inp" type="text"/>
         <button id="check_btn" type="button" onclick="isValid()">Check</button>
-        <button id="check_btn" type="button" onclick="isValid(true)">Detailed Check</button>
         <div>
             The result is:
             <code><span id="check_result"></span></code>
@@ -59,25 +58,21 @@
                 <li>
                     <code>ATU00000024</code>
                     <button type="button" onclick="checkVat('ATU00000024', 'result_1')">Check</button>
-                    <button type="button" onclick="deepCheckVat('ATU00000024', 'result_1')">Detailed Check</button>
                     <code id="result_1"></code>
                 </li>
                 <li>
                     <code>BE0414445663</code>
                     <button type="button" onclick="checkVat('BE0414445663', 'result_2')">Check</button>
-                    <button type="button" onclick="deepCheckVat('BE0414445663', 'result_2')">Detailed Check</button>
                     <code id="result_2"></code>
                 </li>
                 <li>
                     <code>RS100182160</code>
                     <button type="button" onclick="checkVat('RS100182160', 'result_3')">Check</button>
-                    <button type="button" onclick="deepCheckVat('RS100182160', 'result_3')">Detailed Check</button>
                     <code id="result_3"></code>
                 </li>
                 <li>
                     <code>RU0274051582</code>
                     <button type="button" onclick="checkVat('RU0274051582', 'result_4')">Check</button>
-                    <button type="button" onclick="deepCheckVat('RU0274051582', 'result_4')">Detailed Check</button>
                     <code id="result_4"></code>
                 </li>
             </ul>
@@ -88,25 +83,21 @@
                 <li>
                     <code>ATU10223001</code>
                     <button type="button" onclick="checkVat('ATU10223001', 'result_5')">Check</button>
-                    <button type="button" onclick="deepCheckVat('ATU10223001', 'result_5')">Detailed Check</button>
                     <code id="result_5"></code>
                 </li>
                 <li>
                     <code>BE0000200334</code>
                     <button type="button" onclick="checkVat('BE0000200334', 'result_6')">Check</button>
-                    <button type="button" onclick="deepCheckVat('BE0000200334', 'result_6')">Detailed Check</button>
                     <code id="result_6"></code>
                 </li>
                 <li>
                     <code>RO000099908</code>
                     <button type="button" onclick="checkVat('RO000099908', 'result_7')">Check</button>
-                    <button type="button" onclick="deepCheckVat('RO000099908', 'result_7')">Detailed Check</button>
                     <code id="result_7"></code>
                 </li>
                 <li>
                     <code>RU5027187067</code>
                     <button type="button" onclick="checkVat('RU5027187067', 'result_8')">Check</button>
-                    <button type="button" onclick="deepCheckVat('RU5027187067', 'result_8')">Detailed Check</button>
                     <code id="result_8"></code>
                 </li>
             </ul>
@@ -316,12 +307,12 @@
 
 </body>
 <script type="text/javascript">
-    function isValid(isDetailed) {
+    function isValid() {
         var result;
         var value = document.getElementById('test_vat_inp').value;
-        result = jsvat.checkVAT(value, isDetailed);
+        result = jsvat.checkVAT(value);
 
-        result = (isDetailed) ? JSON.stringify(result) : result;
+        result = JSON.stringify(result);
 
         document.getElementById('check_result').innerText = result;
 
@@ -330,14 +321,6 @@
 
     function checkVat(value, resultElemId) {
         var result = jsvat.checkVAT(value);
-
-        document.getElementById(resultElemId).innerText = result;
-
-        return result;
-    }
-
-    function deepCheckVat(value, resultElemId) {
-        var result = jsvat.checkVAT(value, true);
 
         document.getElementById(resultElemId).innerText = JSON.stringify(result);
 
