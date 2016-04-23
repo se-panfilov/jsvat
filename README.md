@@ -130,6 +130,8 @@ List of supported Countries:
  - Sweden
  
 Versions for frameworks:
+--------
+
  - [Angular-jsvat][5]
 
 Browsers Supports
