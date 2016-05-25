@@ -30,7 +30,7 @@ What jsvat do?
 
 Just check is VAT number valid or not and which country this VAT is:
 
-  ```
+  ```javascript
   jsvat.checkVAT('BG131134023'); // {isValid: true, country: 'bulgaria', value: 'BG131134023'}
   jsvat.checkVAT('BG0433170001'); //{isValid: false, country: null, value: 'BG0433170001'}
   jsvat.checkVAT('atu5-150-7409');  //{isValid: true, country: 'austria', value: 'ATU51507409'}
@@ -39,10 +39,10 @@ Just check is VAT number valid or not and which country this VAT is:
 
 You can specify list of allowed countries
 
- ```
+```javascript
   jsvat.config = ['austria', 'belgium']; //All countries except 'austria' and 'belgium' would return false
   jsvat.checkVAT('BG131134023'); //valid VAT, but result would be 'false'
-  ```
+```
   
 To reset config just do `jsvat.config = [];`
   
@@ -68,7 +68,7 @@ How to use jsvat?
 -----
 It's simple: 
 
-```
+```javascript
 jsvat.chcekVat(vat);  //returns Object
 ```
 
