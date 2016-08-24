@@ -48,7 +48,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-size": "^2.1.0",
     "gulp-sourcemaps": "^2.0.0-alpha",
-    "gulp-todo": "^4.1.0",
+    "gulp-todo": "^5.0.0",
     "gulp-uglify": "^2.0.0",
     "gulp-watch": "^4.3.5",
     "gulp-webstandards": "^0.1.1",
