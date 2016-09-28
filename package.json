@@ -38,6 +38,7 @@
   "dependencies": {},
   "devDependencies": {
     "chai": "^3.5.0",
+    "gulp": "^3.9.1",
     "gulp-beautify": "^2.0.0",
     "gulp-buddy.js": "^1.0.0",
     "gulp-concat": "^2.6.0",
