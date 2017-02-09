@@ -139,15 +139,6 @@ Browsers Supports
 
 Support all browsers down to IE9 (including IE9).
 
-Source of inspiration:
----------
-
-Based on this great work: http://www.braemoor.co.uk/software/vat.shtml
-
-At the moment the code was in public access without any license information.
-
-I'm totally rewrite all the code.
-
 Changelog
 --------
 
