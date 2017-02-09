@@ -8,7 +8,6 @@ COUNTRIES.spain = {
 
     // National juridical entities
     if (this.rules.additional[0].test(vat)) {
-
       // Extract the next digit and multiply by the counter.
       for (i = 0; i < 7; i++) {
         temp = vat.charAt(i + 1) * this.rules.multipliers[i]
@@ -30,7 +29,6 @@ COUNTRIES.spain = {
 
     // Juridical entities other than national ones
     else if (this.rules.additional[1].test(vat)) {
-
       // Extract the next digit and multiply by the counter.
       for (i = 0; i < 7; i++) {
         temp = vat.charAt(i + 1) * this.rules.multipliers[i]
@@ -62,9 +60,7 @@ COUNTRIES.spain = {
     else if (this.rules.additional[3].test(vat)) {
       expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(+vat.substring(1, 8) % 23)
       return vat.charAt(8) === expect
-    }
-
-    else return false
+    } else return false
   },
   rules: {
     multipliers: [

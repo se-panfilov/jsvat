@@ -4,7 +4,6 @@ COUNTRIES.lithunia = (function () {
     return +vat.charAt(key) * multiplier[key]
   }
 
-
   function _doubleCheckCalculation (vat, total, rules) {
     if (total % 11 === 10) {
       total = 0
@@ -36,7 +35,6 @@ COUNTRIES.lithunia = (function () {
     // 9 character VAT numbers are for legal persons
     var total = 0
     if (vat.length === 9) {
-
       // 8th character must be one
       if (!(/^\d{7}1/).test(vat)) return false
 
@@ -79,7 +77,6 @@ COUNTRIES.lithunia = (function () {
 
     // 12 character VAT numbers are for temporarily registered taxpayers
     if (vat.length === 12) {
-
       // 11th character must be one
       if (!(rules.check).test(vat)) return false
 

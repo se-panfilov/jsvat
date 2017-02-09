@@ -4,7 +4,7 @@ COUNTRIES.greece = {
     var total = 0
     var expect
 
-    //eight character numbers should be prefixed with an 0.
+    // eight character numbers should be prefixed with an 0.
     if (vat.length === 8) {
       vat = '0' + vat
     }

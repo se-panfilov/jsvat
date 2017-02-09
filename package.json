@@ -5,7 +5,8 @@
   "main": "./dist/jsvat.js",
   "scripts": {
     "test": "mocha \"test/acceptance/test_cases.js\"",
-    "lint": "eslint src --ext .js"
+    "lint": "eslint src --ext .js",
+    "fix": "eslint src --fix .js"
   },
   "license": "MIT",
   "repository": {

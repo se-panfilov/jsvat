@@ -40,7 +40,6 @@ COUNTRIES.bulgaria = (function () {
       // Check month
       var month = +vat.slice(2, 4)
       if ((month > 0 && month < 13) || (month > 20 && month < 33) || (month > 40 && month < 53)) {
-
         var total = _increase2(0, vat, 0, 9, rules.multipliers.physical)
         // Establish check digit.
         total = total % 11

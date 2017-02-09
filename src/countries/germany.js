@@ -8,7 +8,6 @@ COUNTRIES.germany = {
     var expect
 
     for (var i = 0; i < 8; i++) {
-
       // Extract the next digit and implement peculiar algorithm!.
       sum = (+vat.charAt(i) + product) % 10
       if (sum === 0) {

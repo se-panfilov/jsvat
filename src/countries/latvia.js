@@ -9,7 +9,6 @@ COUNTRIES.latvia = {
     if ((/^[0-3]/).test(vat)) {
       return !!(/^[0-3][0-9][0-1][0-9]/).test(vat)
     } else {
-
       // Extract the next digit and multiply by the counter.
       for (var i = 0; i < 10; i++) {
         total += +vat.charAt(i) * this.rules.multipliers[i]

@@ -47,12 +47,12 @@ COUNTRIES.ireland = {
       2
     ],
     typeFormats: {
-      first: /^\d[A-Z\*\+]/,
+      first: /^\d[A-Z*+]/,
       third: /^\d{7}[A-Z][AH]$/
     },
     regex: [
       /^(IE)(\d{7}[A-W])$/,
-      /^(IE)([7-9][A-Z\*\+)]\d{5}[A-W])$/,
+      /^(IE)([7-9][A-Z*+)]\d{5}[A-W])$/,
       /^(IE)(\d{7}[A-W][AH])$/
     ]
   }

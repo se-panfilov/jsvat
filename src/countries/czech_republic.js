@@ -26,7 +26,6 @@ COUNTRIES.czech_republic = (function () {
     var total = 0
 
     if (rules.additional[2].test(vat)) {
-
       // Extract the next digit and multiply by the counter.
       for (var j = 0; j < 7; j++) {
         total += +vat.charAt(j + 1) * rules.multipliers[j]
@@ -57,7 +56,6 @@ COUNTRIES.czech_republic = (function () {
 
   return {
     calcs: function (vat) {
-
       if (_isLegalEntities(vat, this.rules)) return true
       if (_isIndividualType2(vat, this.rules)) return true
       if (_isIndividualType3(vat, this.rules)) return true

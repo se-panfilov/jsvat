@@ -4,7 +4,6 @@ COUNTRIES.russia = (function () {
     var total = 0
 
     if (vat.length === 10) {
-
       for (var i = 0; i < 10; i++) {
         total += +vat.charAt(i) * rules.multipliers.m_1[i]
       }
@@ -27,7 +26,6 @@ COUNTRIES.russia = (function () {
     var total2 = 0
 
     if (vat.length === 12) {
-
       for (var j = 0; j < 11; j++) {
         total1 += +vat.charAt(j) * rules.multipliers.m_2[j]
       }
@@ -56,7 +54,6 @@ COUNTRIES.russia = (function () {
 
     return false
   }
-
 
   return {
     calcs: function (vat) {
