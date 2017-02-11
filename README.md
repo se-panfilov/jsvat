@@ -43,9 +43,9 @@ You can specify list of allowed countries
   jsvat.config = ['austria', 'belgium']; //All countries except 'austria' and 'belgium' would return false
   jsvat.checkVAT('BG131134023'); //valid VAT, but result would be 'false'
 ```
-  
+
 To reset config just do `jsvat.config = [];`
-  
+
 Installation
 ----------
 
@@ -66,14 +66,14 @@ Installation
 
 How to use jsvat?
 -----
-It's simple: 
+It's simple:
 
 ```javascript
-jsvat.chcekVat(vat);  //returns Object
+jsvat.checkVAT(vat);  //returns Object
 ```
 
- - `vat` param means VAT number (`string`), like "BG0433170001". 
-   
+ - `vat` param means VAT number (`string`), like "BG0433170001".
+
   `vat` can be passed with '-' (`BG0-4331-70001`) or ' ' (space, like `BG 0433 17 0001`) characters;
 
 
@@ -85,13 +85,13 @@ There is 2-step check:
 1. Compare with list of Regexps;
 
   For example regexp for austria is `/^(AT)U(\d{8})$/`.
- 
+
  Looks like `ATU99999999` is valid (it's successfied the regexp), but actually it's should be invalid.
 
 2. Some magic mathematical counting;
 
  Here we make some mathematical calculation (different for each country).
- After that we may be sure that `ATU99999999`and for example `ATV66889218` isn't valid, but `ATU12011204` is valid. 
+ After that we may be sure that `ATU99999999`and for example `ATV66889218` isn't valid, but `ATU12011204` is valid.
 
 List of supported Countries:
 ---------
@@ -128,7 +128,7 @@ List of supported Countries:
  - Slovenia
  - Slovakia republic
  - Sweden
- 
+
 Versions for frameworks:
 --------
 
@@ -142,7 +142,7 @@ Support all browsers down to IE9 (including IE9).
 Changelog
 --------
 
-#####1.1.0 
+#####1.1.0
   - jsvat now always return Object (there is no more just true or false value);
   - Changed way of jsvat configuretion (instead of object with countries, now you should pass an array with list of allowed countries);
 
