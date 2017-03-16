@@ -31,8 +31,8 @@ var jsvat = (function() {
     if (!list) return false
 
     for (var i = 0; i < list.length; i++) {
-      var val = list[i]
-      if (val === country.name) return true
+      var val = list[i].toUpperCase()
+      if (val === country.name.toUpperCase()) return true
       if (isValEqToCode(val, country.codes)) return true
     }
 
@@ -41,7 +41,7 @@ var jsvat = (function() {
 
   function isBlocked(country, blocked, allowed) {
     var isBlocked = isInList(blocked, country)
-    if (isBlocked) return true
+    if (isBlocked) return false
     var isAllowed = isInList(allowed, country)
     return allowed.length > 0 && !isAllowed
   }

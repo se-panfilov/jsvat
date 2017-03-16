@@ -12,7 +12,6 @@ module.exports = {
 
       return it(testMsg, () => {
         const result = jsvat.checkVAT(item)
-        // console.info(result)
         if (isTrue) {
           expect(result.value).to.be.equal(item.toString().toUpperCase().replace(/(\s|-|\.)+/g, ''))
           expect(result.isValid).to.be.true
@@ -23,14 +22,13 @@ module.exports = {
         } else {
           expect(result.value).to.be.equal(item.toString().toUpperCase().replace(/(\s|-|\.)+/g, ''))
           expect(result.isValid).to.be.false
-          expect(result.country.name).to.be.null
-          expect(result.country.isoCode).to.be.null
+          // expect(result.country).to.be.undefined
         }
       })
     })
   },
   addCharsToVals (arr, char) {
-    return arr.map(function (item) {
+    return arr.map(item => {
       const val = item.split('')
       val.splice(3, 0, char)
       val.splice(7, 0, char)
