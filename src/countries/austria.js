@@ -1,5 +1,7 @@
 // eslint-disable-next-line no-undef
 COUNTRIES.austria = {
+  name: 'Austria',
+  codes: ['AT', 'AUT', '040'],
   calcs: function (vat) {
     var total = 0
     var temp
@@ -20,15 +22,7 @@ COUNTRIES.austria = {
     return total === +vat.slice(7, 8)
   },
   rules: {
-    multipliers: [
-      1,
-      2,
-      1,
-      2,
-      1,
-      2,
-      1
-    ],
+    multipliers: [1, 2, 1, 2, 1, 2, 1],
     regex: [/^(AT)U(\d{8})$/]
   }
 }

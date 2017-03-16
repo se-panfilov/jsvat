@@ -1,5 +1,7 @@
 // eslint-disable-next-line no-undef
 COUNTRIES.ireland = {
+  name: 'Ireland',
+  codes: ['IE',	'IRL',	'372'],
   calcs: function (vat) {
     var total = 0
     var expect
@@ -37,15 +39,7 @@ COUNTRIES.ireland = {
     return total === expect
   },
   rules: {
-    multipliers: [
-      8,
-      7,
-      6,
-      5,
-      4,
-      3,
-      2
-    ],
+    multipliers: [8, 7, 6, 5, 4, 3, 2],
     typeFormats: {
       first: /^\d[A-Z*+]/,
       third: /^\d{7}[A-Z][AH]$/

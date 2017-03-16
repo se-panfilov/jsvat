@@ -1,5 +1,7 @@
 // eslint-disable-next-line no-undef
 COUNTRIES.italy = {
+  name: 'Italy',
+  codes: ['IT',	'ITA',	'380'],
   calcs: function (vat) {
     var total = 0
     var temp
@@ -35,18 +37,7 @@ COUNTRIES.italy = {
     return total === expect
   },
   rules: {
-    multipliers: [
-      1,
-      2,
-      1,
-      2,
-      1,
-      2,
-      1,
-      2,
-      1,
-      2
-    ],
+    multipliers: [1, 2, 1, 2, 1, 2, 1, 2, 1, 2],
     regex: [/^(IT)(\d{11})$/]
   }
 }

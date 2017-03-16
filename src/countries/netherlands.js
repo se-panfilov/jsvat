@@ -1,5 +1,7 @@
 // eslint-disable-next-line no-undef
 COUNTRIES.netherlands = {
+  name: 'Netherlands',
+  codes: ['NL', 'NLD', '528'],
   calcs: function (vat) {
     var total = 0
     var expect
@@ -20,16 +22,7 @@ COUNTRIES.netherlands = {
     return total === expect
   },
   rules: {
-    multipliers: [
-      9,
-      8,
-      7,
-      6,
-      5,
-      4,
-      3,
-      2
-    ],
+    multipliers: [9, 8, 7, 6, 5, 4, 3, 2],
     regex: [/^(NL)(\d{9})B\d{2}$/]
   }
 }

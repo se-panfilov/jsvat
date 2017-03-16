@@ -1,5 +1,7 @@
 // eslint-disable-next-line no-undef
 COUNTRIES.united_kingdom = {
+  name: 'United Kingdom',
+  codes: ['GB',	'GBR',	'826'],
   calcs: function (vat) {
     var total = 0
     var expect
@@ -53,15 +55,7 @@ COUNTRIES.united_kingdom = {
     return !!(checkDigit === expect && no > 1000000)
   },
   rules: {
-    multipliers: [
-      8,
-      7,
-      6,
-      5,
-      4,
-      3,
-      2
-    ],
+    multipliers: [8, 7, 6, 5, 4, 3, 2],
     regex: [
       /^(GB)?(\d{9})$/,
       /^(GB)?(\d{12})$/,

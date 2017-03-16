@@ -1,5 +1,7 @@
 // eslint-disable-next-line no-undef
 COUNTRIES.spain = {
+  name: 'Spain',
+  codes: ['ES',	'ESP',	'724'],
   calcs: function (vat) {
     var i = 0
     var total = 0
@@ -63,15 +65,7 @@ COUNTRIES.spain = {
     } else return false
   },
   rules: {
-    multipliers: [
-      2,
-      1,
-      2,
-      1,
-      2,
-      1,
-      2
-    ],
+    multipliers: [2, 1, 2, 1, 2, 1, 2],
     regex: [
       /^(ES)([A-Z]\d{8})$/,
       /^(ES)([A-HN-SW]\d{7}[A-J])$/,

@@ -1,5 +1,7 @@
 // eslint-disable-next-line no-undef
 COUNTRIES.norway = {
+  name: 'Norway',
+  codes: ['NO', 'NOR', '578'],
   calcs: function (vat) {
     var total = 0
     var expect
@@ -24,16 +26,7 @@ COUNTRIES.norway = {
     }
   },
   rules: {
-    multipliers: [
-      3,
-      2,
-      7,
-      6,
-      5,
-      4,
-      3,
-      2
-    ],
+    multipliers: [3, 2, 7, 6, 5, 4, 3, 2],
     regex: [/^(NO)(\d{9})$/]
   }
 }

@@ -1,5 +1,7 @@
 // eslint-disable-next-line no-undef
 COUNTRIES.switzerland = {
+  name: 'Switzerland',
+  codes: ['CH',	'CHE',	'756'],
   calcs: function (vat) {
     var total = 0
     for (var i = 0; i < 8; i++) {
@@ -16,16 +18,7 @@ COUNTRIES.switzerland = {
     return total === expect
   },
   rules: {
-    multipliers: [
-      5,
-      4,
-      3,
-      2,
-      7,
-      6,
-      5,
-      4
-    ],
+    multipliers: [5, 4, 3, 2, 7, 6, 5, 4],
     regex: [/^(CHE)(\d{9})(MWST)?$/]
   }
 }

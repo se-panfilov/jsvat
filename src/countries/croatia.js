@@ -1,10 +1,11 @@
 // eslint-disable-next-line no-undef
 COUNTRIES.croatia = {
+  name: 'Croatia',
+  codes: ['HR',	'HRV',	'191'],
   calcs: function (vat) {
     var expect
 
     // Checks the check digits of a Croatian VAT number using ISO 7064, MOD 11-10 for check digit.
-
     var product = 10
     var sum = 0
 

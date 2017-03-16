@@ -1,5 +1,7 @@
 // eslint-disable-next-line no-undef
 COUNTRIES.cyprus = {
+  name: 'Cyprus',
+  codes: ['CY', 'CYP', '196'],
   calcs: function (vat) {
     var total = 0
     var expect

@@ -39,6 +39,12 @@ function checkValidity (vat, countryName) {
   return false
 }
 
+function Country (name, calcFn, rules) {
+  this.name = name
+  this.calcFn = calcFn
+  this.rules = rules
+}
+
 var exports = {
   config: [],
   checkVAT: function (vat) {
@@ -47,13 +53,14 @@ var exports = {
       value: cleanVAT,
       isValid: false,
       country: null,
-      countryCode: null
+      prefix: null,
+      isoCountryCodes: null
     }
 
     if (!vat) return result
 
     var ccArr = (/^([A-z])*/).exec(cleanVAT)
-    if (ccArr && ccArr.length > 0) result.countryCode = ccArr[0].toUpperCase()
+    if (ccArr && ccArr.length > 0) result.prefix = ccArr[0].toUpperCase()
 
     for (var countryName in COUNTRIES) {
       if (COUNTRIES.hasOwnProperty(countryName)) {

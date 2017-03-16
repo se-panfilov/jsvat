@@ -43,6 +43,12 @@ var jsvat = (function() {
     return false
   }
 
+  function Country(name, calcFn, rules) {
+    this.name = name
+    this.calcFn = calcFn
+    this.rules = rules
+  }
+
   var exports = {
     config: [],
     checkVAT: function(vat) {
@@ -51,13 +57,14 @@ var jsvat = (function() {
         value: cleanVAT,
         isValid: false,
         country: null,
-        countryCode: null
+        prefix: null,
+        isoCountryCodes: null
       }
 
       if (!vat) return result
 
       var ccArr = (/^([A-z])*/).exec(cleanVAT)
-      if (ccArr && ccArr.length > 0) result.countryCode = ccArr[0].toUpperCase()
+      if (ccArr && ccArr.length > 0) result.prefix = ccArr[0].toUpperCase()
 
       for (var countryName in COUNTRIES) {
         if (COUNTRIES.hasOwnProperty(countryName)) {
@@ -76,6 +83,8 @@ var jsvat = (function() {
 
   // eslint-disable-next-line no-undef
   COUNTRIES.austria = {
+    name: 'Austria',
+    codes: ['AT', 'AUT', '040'],
     calcs: function(vat) {
       var total = 0
       var temp
@@ -96,21 +105,15 @@ var jsvat = (function() {
       return total === +vat.slice(7, 8)
     },
     rules: {
-      multipliers: [
-        1,
-        2,
-        1,
-        2,
-        1,
-        2,
-        1
-      ],
+      multipliers: [1, 2, 1, 2, 1, 2, 1],
       regex: [/^(AT)U(\d{8})$/]
     }
   }
 
   // eslint-disable-next-line no-undef
   COUNTRIES.belgium = {
+    name: 'Belgium',
+    codes: ['BE', 'BEL', '056'],
     calcs: function(vat) {
       if (vat.length === 9) {
         vat = '0' + vat
@@ -127,139 +130,110 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.bulgaria = (function() {
-    function _increase(value, vat, from, to, incr) {
-      for (var i = from; i < to; i++) {
-        value += +vat.charAt(i) * (i + incr)
+  COUNTRIES.bulgaria = {
+    name: 'Bulgaria',
+    codes: ['BG', 'BGR', '100'],
+    calcs: function(vat) {
+      function _increase(value, vat, from, to, incr) {
+        for (var i = from; i < to; i++) {
+          value += +vat.charAt(i) * (i + incr)
+        }
+        return value
       }
-      return value
-    }
 
-    function _increase2(value, vat, from, to, multipliers) {
-      for (var i = from; i < to; i++) {
-        value += +vat.charAt(i) * multipliers[i]
+      function _increase2(value, vat, from, to, multipliers) {
+        for (var i = from; i < to; i++) {
+          value += +vat.charAt(i) * multipliers[i]
+        }
+        return value
       }
-      return value
-    }
 
-    function _checkNineLengthVat(vat) {
-      var total
-      var temp = 0
-      var expect = +vat.slice(8)
+      function _checkNineLengthVat(vat) {
+        var total
+        var temp = 0
+        var expect = +vat.slice(8)
 
-      temp = _increase(temp, vat, 0, 8, 1)
+        temp = _increase(temp, vat, 0, 8, 1)
 
-      total = temp % 11
-      if (total !== 10) {
+        total = temp % 11
+        if (total !== 10) {
+          return total === expect
+        }
+
+        temp = _increase(0, vat, 0, 8, 3)
+
+        total = temp % 11
+        if (total === 10) total = 0
+
         return total === expect
       }
 
-      temp = _increase(0, vat, 0, 8, 3)
+      function _isPhysicalPerson(vat, rules) {
+        // 10 digit VAT code - see if it relates to a standard physical person
+        if ((/^\d\d[0-5]\d[0-3]\d\d{4}$/).test(vat)) {
+          // Check month
+          var month = +vat.slice(2, 4)
+          if ((month > 0 && month < 13) || (month > 20 && month < 33) || (month > 40 && month < 53)) {
+            var total = _increase2(0, vat, 0, 9, rules.multipliers.physical)
+            // Establish check digit.
+            total = total % 11
+            if (total === 10) total = 0
+            // Check to see if the check digit given is correct, If not, try next type of person
+            if (total === +vat.substr(9, 1)) return true
+          }
+        }
 
-      total = temp % 11
-      if (total === 10) total = 0
+        return false
+      }
 
-      return total === expect
-    }
+      function _isForeigner(vat, rules) {
+        // Extract the next digit and multiply by the counter.
+        var total = _increase2(0, vat, 0, 9, rules.multipliers.foreigner)
 
-    function _isPhysicalPerson(vat, rules) {
-      // 10 digit VAT code - see if it relates to a standard physical person
-      if ((/^\d\d[0-5]\d[0-3]\d\d{4}$/).test(vat)) {
-        // Check month
-        var month = +vat.slice(2, 4)
-        if ((month > 0 && month < 13) || (month > 20 && month < 33) || (month > 40 && month < 53)) {
-          var total = _increase2(0, vat, 0, 9, rules.multipliers.physical)
-          // Establish check digit.
-          total = total % 11
-          if (total === 10) total = 0
-          // Check to see if the check digit given is correct, If not, try next type of person
-          if (total === +vat.substr(9, 1)) return true
+        // Check to see if the check digit given is correct, If not, try next type of person
+        if (total % 10 === +vat.substr(9, 1)) {
+          return true
         }
       }
 
-      return false
-    }
+      function _miscellaneousVAT(vat, rules) {
+        // Finally, if not yet identified, see if it conforms to a miscellaneous VAT number
+        var total = _increase2(0, vat, 0, 9, rules.multipliers.miscellaneous)
 
-    function _isForeigner(vat, rules) {
-      // Extract the next digit and multiply by the counter.
-      var total = _increase2(0, vat, 0, 9, rules.multipliers.foreigner)
+        // Establish check digit.
+        total = 11 - total % 11
+        if (total === 10) return false
+        if (total === 11) total = 0
 
-      // Check to see if the check digit given is correct, If not, try next type of person
-      if (total % 10 === +vat.substr(9, 1)) {
-        return true
+        // Check to see if the check digit given is correct, If not, we have an error with the VAT number
+        var expect = +vat.substr(9, 1)
+        return total === expect
       }
-    }
 
-    function _miscellaneousVAT(vat, rules) {
-      // Finally, if not yet identified, see if it conforms to a miscellaneous VAT number
-      var total = _increase2(0, vat, 0, 9, rules.multipliers.miscellaneous)
-
-      // Establish check digit.
-      total = 11 - total % 11
-      if (total === 10) return false
-      if (total === 11) total = 0
-
-      // Check to see if the check digit given is correct, If not, we have an error with the VAT number
-      var expect = +vat.substr(9, 1)
-      return total === expect
-    }
-
-    return {
-      calcs: function(vat) {
-        if (vat.length === 9) {
-          return _checkNineLengthVat(vat)
-        } else {
-          return _isPhysicalPerson(vat, this.rules) || _isForeigner(vat, this.rules) || _miscellaneousVAT(vat, this.rules)
-        }
+      if (vat.length === 9) {
+        return _checkNineLengthVat(vat)
+      } else {
+        return _isPhysicalPerson(vat, this.rules) || _isForeigner(vat, this.rules) || _miscellaneousVAT(vat, this.rules)
+      }
+    },
+    rules: {
+      multipliers: {
+        physical: [2, 4, 8, 5, 10, 9, 7, 3, 6],
+        foreigner: [21, 19, 17, 13, 11, 9, 7, 3, 1],
+        miscellaneous: [4, 3, 2, 7, 6, 5, 4, 3, 2]
       },
-      rules: {
-        multipliers: {
-          physical: [
-            2,
-            4,
-            8,
-            5,
-            10,
-            9,
-            7,
-            3,
-            6
-          ],
-          foreigner: [
-            21,
-            19,
-            17,
-            13,
-            11,
-            9,
-            7,
-            3,
-            1
-          ],
-          miscellaneous: [
-            4,
-            3,
-            2,
-            7,
-            6,
-            5,
-            4,
-            3,
-            2
-          ]
-        },
-        regex: [/^(BG)(\d{9,10})$/]
-      }
+      regex: [/^(BG)(\d{9,10})$/]
     }
-  })()
+  }
 
   // eslint-disable-next-line no-undef
   COUNTRIES.croatia = {
+    name: 'Croatia',
+    codes: ['HR', 'HRV', '191'],
     calcs: function(vat) {
       var expect
 
       // Checks the check digits of a Croatian VAT number using ISO 7064, MOD 11-10 for check digit.
-
       var product = 10
       var sum = 0
 
@@ -284,6 +258,8 @@ var jsvat = (function() {
 
   // eslint-disable-next-line no-undef
   COUNTRIES.cyprus = {
+    name: 'Cyprus',
+    codes: ['CY', 'CYP', '196'],
     calcs: function(vat) {
       var total = 0
       var expect
@@ -333,105 +309,87 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.czech_republic = (function() {
-    function _isLegalEntities(vat, rules) {
-      var total = 0
+  COUNTRIES.czech_republic = {
+    name: 'Czech Republic',
+    codes: ['CZ', 'CZE', '203'],
+    calcs: function(vat) {
+      function _isLegalEntities(vat, rules) {
+        var total = 0
 
-      if (rules.additional[0].test(vat)) {
-        // Extract the next digit and multiply by the counter.
-        for (var i = 0; i < 7; i++) {
-          total += +vat.charAt(i) * rules.multipliers[i]
+        if (rules.additional[0].test(vat)) {
+          // Extract the next digit and multiply by the counter.
+          for (var i = 0; i < 7; i++) {
+            total += +vat.charAt(i) * rules.multipliers[i]
+          }
+
+          // Establish check digit.
+          total = 11 - total % 11
+          if (total === 10) total = 0
+          if (total === 11) total = 1
+
+          // Compare it with the last character of the VAT number. If it's the same, then it's valid.
+          var expect = +vat.slice(7, 8)
+          return total === expect
         }
-
-        // Establish check digit.
-        total = 11 - total % 11
-        if (total === 10) total = 0
-        if (total === 11) total = 1
-
-        // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-        var expect = +vat.slice(7, 8)
-        return total === expect
-      }
-
-      return false
-    }
-
-    function _isIndividualType2(vat, rules) {
-      var total = 0
-
-      if (rules.additional[2].test(vat)) {
-        // Extract the next digit and multiply by the counter.
-        for (var j = 0; j < 7; j++) {
-          total += +vat.charAt(j + 1) * rules.multipliers[j]
-        }
-
-        // Establish check digit.
-        total = 11 - total % 11
-        if (total === 10) total = 0
-        if (total === 11) total = 1
-
-        // Convert calculated check digit according to a lookup table
-        var expect = +vat.slice(8, 9)
-        return rules.lookup[total - 1] === expect
-      }
-
-      return false
-    }
-
-    function _isIndividualType3(vat, rules) {
-      if (rules.additional[3].test(vat)) {
-        var temp = +vat.slice(0, 2) + vat.slice(2, 4) + vat.slice(4, 6) + vat.slice(6, 8) + vat.slice(8)
-        var expect = +vat % 11 === 0
-        return !!(temp % 11 === 0 && expect)
-      }
-
-      return false
-    }
-
-    return {
-      calcs: function(vat) {
-        if (_isLegalEntities(vat, this.rules)) return true
-        if (_isIndividualType2(vat, this.rules)) return true
-        if (_isIndividualType3(vat, this.rules)) return true
 
         return false
-      },
-      rules: {
-        multipliers: [
-          8,
-          7,
-          6,
-          5,
-          4,
-          3,
-          2
-        ],
-        lookup: [
-          8,
-          7,
-          6,
-          5,
-          4,
-          3,
-          2,
-          1,
-          0,
-          9,
-          10
-        ],
-        regex: [/^(CZ)(\d{8,10})(\d{3})?$/],
-        additional: [
-          /^\d{8}$/,
-          /^[0-5][0-9][0|1|5|6]\d[0-3]\d\d{3}$/,
-          /^6\d{8}$/,
-          /^\d{2}[0-3|5-8]\d[0-3]\d\d{4}$/
-        ]
       }
+
+      function _isIndividualType2(vat, rules) {
+        var total = 0
+
+        if (rules.additional[2].test(vat)) {
+          // Extract the next digit and multiply by the counter.
+          for (var j = 0; j < 7; j++) {
+            total += +vat.charAt(j + 1) * rules.multipliers[j]
+          }
+
+          // Establish check digit.
+          total = 11 - total % 11
+          if (total === 10) total = 0
+          if (total === 11) total = 1
+
+          // Convert calculated check digit according to a lookup table
+          var expect = +vat.slice(8, 9)
+          return rules.lookup[total - 1] === expect
+        }
+
+        return false
+      }
+
+      function _isIndividualType3(vat, rules) {
+        if (rules.additional[3].test(vat)) {
+          var temp = +vat.slice(0, 2) + vat.slice(2, 4) + vat.slice(4, 6) + vat.slice(6, 8) + vat.slice(8)
+          var expect = +vat % 11 === 0
+          return !!(temp % 11 === 0 && expect)
+        }
+
+        return false
+      }
+
+      if (_isLegalEntities(vat, this.rules)) return true
+      if (_isIndividualType2(vat, this.rules)) return true
+      if (_isIndividualType3(vat, this.rules)) return true
+
+      return false
+    },
+    rules: {
+      multipliers: [8, 7, 6, 5, 4, 3, 2],
+      lookup: [8, 7, 6, 5, 4, 3, 2, 1, 0, 9, 10],
+      regex: [/^(CZ)(\d{8,10})(\d{3})?$/],
+      additional: [
+        /^\d{8}$/,
+        /^[0-5][0-9][0|1|5|6]\d[0-3]\d\d{3}$/,
+        /^6\d{8}$/,
+        /^\d{2}[0-3|5-8]\d[0-3]\d\d{4}$/
+      ]
     }
-  }())
+  }
 
   // eslint-disable-next-line no-undef
   COUNTRIES.denmark = {
+    name: 'Denmark',
+    codes: ['DK', 'DNK', '208'],
     calcs: function(vat) {
       var total = 0
 
@@ -442,22 +400,15 @@ var jsvat = (function() {
       return total % 11 === 0
     },
     rules: {
-      multipliers: [
-        2,
-        7,
-        6,
-        5,
-        4,
-        3,
-        2,
-        1
-      ],
+      multipliers: [2, 7, 6, 5, 4, 3, 2, 1],
       regex: [/^(DK)(\d{8})$/]
     }
   }
 
   // eslint-disable-next-line no-undef
   COUNTRIES.estonia = {
+    name: 'Estonia',
+    codes: ['EE', 'EST', '233'],
     calcs: function(vat) {
       var total = 0
       var expect
@@ -476,22 +427,15 @@ var jsvat = (function() {
       return total === expect
     },
     rules: {
-      multipliers: [
-        3,
-        7,
-        1,
-        3,
-        7,
-        1,
-        3,
-        7
-      ],
+      multipliers: [3, 7, 1, 3, 7, 1, 3, 7],
       regex: [/^(EE)(10\d{7})$/]
     }
   }
 
   // eslint-disable-next-line no-undef
   COUNTRIES.europe = {
+    name: 'Europe',
+    codes: [],
     calcs: function() {
       // We know little about EU numbers apart from the fact that the first 3 digits represent the
       // country, and that there are nine digits in total.
@@ -504,6 +448,8 @@ var jsvat = (function() {
 
   // eslint-disable-next-line no-undef
   COUNTRIES.finland = {
+    name: 'Finland',
+    codes: ['FI', 'FIN', '246'],
     calcs: function(vat) {
       var total = 0
       var expect
@@ -522,21 +468,15 @@ var jsvat = (function() {
       return total === expect
     },
     rules: {
-      multipliers: [
-        7,
-        9,
-        10,
-        5,
-        8,
-        4,
-        2
-      ],
+      multipliers: [7, 9, 10, 5, 8, 4, 2],
       regex: [/^(FI)(\d{8})$/]
     }
   }
 
   // eslint-disable-next-line no-undef
   COUNTRIES.france = {
+    name: 'France',
+    codes: ['FR', 'FRA', '250'],
     calcs: function(vat) {
       var total
       var expect
@@ -568,6 +508,8 @@ var jsvat = (function() {
 
   // eslint-disable-next-line no-undef
   COUNTRIES.germany = {
+    name: 'Germany',
+    codes: ['DE', 'DEU', '276'],
     calcs: function(vat) {
       // Checks the check digits of a German VAT number.
       var product = 10
@@ -603,6 +545,8 @@ var jsvat = (function() {
 
   // eslint-disable-next-line no-undef
   COUNTRIES.greece = {
+    name: 'Greece',
+    codes: ['GR', 'GRC', '300'],
     calcs: function(vat) {
       var total = 0
       var expect
@@ -644,6 +588,8 @@ var jsvat = (function() {
 
   // eslint-disable-next-line no-undef
   COUNTRIES.hungary = {
+    name: 'Hungary',
+    codes: ['HU', 'HUN', '348'],
     calcs: function(vat) {
       var total = 0
       var expect
@@ -677,6 +623,8 @@ var jsvat = (function() {
 
   // eslint-disable-next-line no-undef
   COUNTRIES.ireland = {
+    name: 'Ireland',
+    codes: ['IE', 'IRL', '372'],
     calcs: function(vat) {
       var total = 0
       var expect
@@ -714,15 +662,7 @@ var jsvat = (function() {
       return total === expect
     },
     rules: {
-      multipliers: [
-        8,
-        7,
-        6,
-        5,
-        4,
-        3,
-        2
-      ],
+      multipliers: [8, 7, 6, 5, 4, 3, 2],
       typeFormats: {
         first: /^\d[A-Z*+]/,
         third: /^\d{7}[A-Z][AH]$/
@@ -737,6 +677,8 @@ var jsvat = (function() {
 
   // eslint-disable-next-line no-undef
   COUNTRIES.italy = {
+    name: 'Italy',
+    codes: ['IT', 'ITA', '380'],
     calcs: function(vat) {
       var total = 0
       var temp
@@ -772,24 +714,15 @@ var jsvat = (function() {
       return total === expect
     },
     rules: {
-      multipliers: [
-        1,
-        2,
-        1,
-        2,
-        1,
-        2,
-        1,
-        2,
-        1,
-        2
-      ],
+      multipliers: [1, 2, 1, 2, 1, 2, 1, 2, 1, 2],
       regex: [/^(IT)(\d{11})$/]
     }
   }
 
   // eslint-disable-next-line no-undef
   COUNTRIES.latvia = {
+    name: 'Latvia',
+    codes: ['LV', 'LVA', '428'],
     calcs: function(vat) {
       var total = 0
       var expect
@@ -821,172 +754,130 @@ var jsvat = (function() {
       }
     },
     rules: {
-      multipliers: [
-        9,
-        1,
-        4,
-        8,
-        3,
-        10,
-        2,
-        5,
-        7,
-        6
-      ],
+      multipliers: [9, 1, 4, 8, 3, 10, 2, 5, 7, 6],
       regex: [/^(LV)(\d{11})$/]
     }
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.lithunia = (function() {
-    function _extractDigit(vat, multiplier, key) {
-      return +vat.charAt(key) * multiplier[key]
-    }
+  COUNTRIES.lithuania = {
+    name: 'Lithuania',
+    codes: ['LT', 'LTU', '440'],
+    calcs: function(vat) {
+      function _extractDigit(vat, multiplier, key) {
+        return +vat.charAt(key) * multiplier[key]
+      }
 
-    function _doubleCheckCalculation(vat, total, rules) {
-      if (total % 11 === 10) {
-        total = 0
+      function _doubleCheckCalculation(vat, total, rules) {
+        if (total % 11 === 10) {
+          total = 0
+          for (var i = 0; i < 8; i++) {
+            total += _extractDigit(vat, rules.multipliers.short, i)
+          }
+        }
+
+        return total
+      }
+
+      function extractDigit(vat, total) {
         for (var i = 0; i < 8; i++) {
-          total += _extractDigit(vat, rules.multipliers.short, i)
+          total += +vat.charAt(i) * (i + 1)
         }
+        return total
       }
 
-      return total
-    }
-
-    function extractDigit(vat, total) {
-      for (var i = 0; i < 8; i++) {
-        total += +vat.charAt(i) * (i + 1)
-      }
-      return total
-    }
-
-    function checkDigit(total) {
-      total = total % 11
-      if (total === 10) {
-        total = 0
-      }
-
-      return total
-    }
-
-    function _check9DigitVat(vat, rules) {
-      // 9 character VAT numbers are for legal persons
-      var total = 0
-      if (vat.length === 9) {
-        // 8th character must be one
-        if (!(/^\d{7}1/).test(vat)) return false
-
-        // Extract the next digit and multiply by the counter+1.
-        total = extractDigit(vat, total)
-
-        // Can have a double check digit calculation!
-        total = _doubleCheckCalculation(vat, total, rules)
-
-        // Establish check digit.
-        total = checkDigit(total)
-
-        // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-        var expect = +vat.slice(8, 9)
-        return total === expect
-      }
-      return false
-    }
-
-    function extractDigit12(vat, total, rules) {
-      for (var k = 0; k < 11; k++) {
-        total += _extractDigit(vat, rules.multipliers.med, k)
-      }
-      return total
-    }
-
-    function _doubleCheckCalculation12(vat, total, rules) {
-      if (total % 11 === 10) {
-        total = 0
-        for (var l = 0; l < 11; l++) {
-          total += _extractDigit(vat, rules.multipliers.alt, l)
+      function checkDigit(total) {
+        total = total % 11
+        if (total === 10) {
+          total = 0
         }
+
+        return total
       }
 
-      return total
-    }
+      function _check9DigitVat(vat, rules) {
+        // 9 character VAT numbers are for legal persons
+        var total = 0
+        if (vat.length === 9) {
+          // 8th character must be one
+          if (!(/^\d{7}1/).test(vat)) return false
 
-    function _check12DigitVat(vat, rules) {
-      var total = 0
+          // Extract the next digit and multiply by the counter+1.
+          total = extractDigit(vat, total)
 
-      // 12 character VAT numbers are for temporarily registered taxpayers
-      if (vat.length === 12) {
-        // 11th character must be one
-        if (!(rules.check).test(vat)) return false
+          // Can have a double check digit calculation!
+          total = _doubleCheckCalculation(vat, total, rules)
 
-        // Extract the next digit and multiply by the counter+1.
-        total = extractDigit12(vat, total, rules)
+          // Establish check digit.
+          total = checkDigit(total)
 
-        // Can have a double check digit calculation!
-        total = _doubleCheckCalculation12(vat, total, rules)
-
-        // Establish check digit.
-        total = checkDigit(total)
-
-        // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-        var expect = +vat.slice(11, 12)
-        return total === expect
+          // Compare it with the last character of the VAT number. If it's the same, then it's valid.
+          var expect = +vat.slice(8, 9)
+          return total === expect
+        }
+        return false
       }
 
-      return false
-    }
+      function extractDigit12(vat, total, rules) {
+        for (var k = 0; k < 11; k++) {
+          total += _extractDigit(vat, rules.multipliers.med, k)
+        }
+        return total
+      }
 
-    return {
-      calcs: function(vat) {
-        return _check9DigitVat(vat, this.rules) || _check12DigitVat(vat, this.rules)
+      function _doubleCheckCalculation12(vat, total, rules) {
+        if (total % 11 === 10) {
+          total = 0
+          for (var l = 0; l < 11; l++) {
+            total += _extractDigit(vat, rules.multipliers.alt, l)
+          }
+        }
+
+        return total
+      }
+
+      function _check12DigitVat(vat, rules) {
+        var total = 0
+
+        // 12 character VAT numbers are for temporarily registered taxpayers
+        if (vat.length === 12) {
+          // 11th character must be one
+          if (!(rules.check).test(vat)) return false
+
+          // Extract the next digit and multiply by the counter+1.
+          total = extractDigit12(vat, total, rules)
+
+          // Can have a double check digit calculation!
+          total = _doubleCheckCalculation12(vat, total, rules)
+
+          // Establish check digit.
+          total = checkDigit(total)
+
+          // Compare it with the last character of the VAT number. If it's the same, then it's valid.
+          var expect = +vat.slice(11, 12)
+          return total === expect
+        }
+
+        return false
+      }
+
+      return _check9DigitVat(vat, this.rules) || _check12DigitVat(vat, this.rules)
+    },
+    rules: {
+      multipliers: {
+        short: [3, 4, 5, 6, 7, 8, 9, 1],
+        med: [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2],
+        alt: [3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4]
       },
-      rules: {
-        multipliers: {
-          short: [
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            9,
-            1
-          ],
-          med: [
-            1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            9,
-            1,
-            2
-          ],
-          alt: [
-            3,
-            4,
-            5,
-            6,
-            7,
-            8,
-            9,
-            1,
-            2,
-            3,
-            4
-          ]
-        },
-        check: /^\d{10}1/,
-        regex: [/^(LT)(\d{9}|\d{12})$/]
-      }
+      check: /^\d{10}1/,
+      regex: [/^(LT)(\d{9}|\d{12})$/]
     }
-  }())
+  }
 
   // eslint-disable-next-line no-undef
   COUNTRIES.luxembourg = {
+    name: 'Luxembourg',
+    codes: ['LU', 'LUX', '442'],
     calcs: function(vat) {
       var expect = +vat.slice(6, 8)
       var checkDigit = +vat.slice(0, 6) % 89
@@ -1001,6 +892,8 @@ var jsvat = (function() {
 
   // eslint-disable-next-line no-undef
   COUNTRIES.malta = {
+    name: 'Malta',
+    codes: ['MT', 'MLT', '470'],
     calcs: function(vat) {
       var total = 0
       var expect
@@ -1018,20 +911,15 @@ var jsvat = (function() {
       return total === expect
     },
     rules: {
-      multipliers: [
-        3,
-        4,
-        6,
-        7,
-        8,
-        9
-      ],
+      multipliers: [3, 4, 6, 7, 8, 9],
       regex: [/^(MT)([1-9]\d{7})$/]
     }
   }
 
   // eslint-disable-next-line no-undef
   COUNTRIES.netherlands = {
+    name: 'Netherlands',
+    codes: ['NL', 'NLD', '528'],
     calcs: function(vat) {
       var total = 0
       var expect
@@ -1052,22 +940,15 @@ var jsvat = (function() {
       return total === expect
     },
     rules: {
-      multipliers: [
-        9,
-        8,
-        7,
-        6,
-        5,
-        4,
-        3,
-        2
-      ],
+      multipliers: [9, 8, 7, 6, 5, 4, 3, 2],
       regex: [/^(NL)(\d{9})B\d{2}$/]
     }
   }
 
   // eslint-disable-next-line no-undef
   COUNTRIES.norway = {
+    name: 'Norway',
+    codes: ['NO', 'NOR', '578'],
     calcs: function(vat) {
       var total = 0
       var expect
@@ -1092,22 +973,15 @@ var jsvat = (function() {
       }
     },
     rules: {
-      multipliers: [
-        3,
-        2,
-        7,
-        6,
-        5,
-        4,
-        3,
-        2
-      ],
+      multipliers: [3, 2, 7, 6, 5, 4, 3, 2],
       regex: [/^(NO)(\d{9})$/]
     }
   }
 
   // eslint-disable-next-line no-undef
   COUNTRIES.poland = {
+    name: 'Poland',
+    codes: ['PL', 'POL', '616'],
     calcs: function(vat) {
       var total = 0
       var expect
@@ -1128,23 +1002,15 @@ var jsvat = (function() {
       return total === expect
     },
     rules: {
-      multipliers: [
-        6,
-        5,
-        7,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7
-      ],
+      multipliers: [6, 5, 7, 2, 3, 4, 5, 6, 7],
       regex: [/^(PL)(\d{10})$/]
     }
   }
 
   // eslint-disable-next-line no-undef
   COUNTRIES.portugal = {
+    name: 'Portugal',
+    codes: ['PT', 'PRT', '620'],
     calcs: function(vat) {
       var total = 0
       var expect
@@ -1165,22 +1031,15 @@ var jsvat = (function() {
       return total === expect
     },
     rules: {
-      multipliers: [
-        9,
-        8,
-        7,
-        6,
-        5,
-        4,
-        3,
-        2
-      ],
+      multipliers: [9, 8, 7, 6, 5, 4, 3, 2],
       regex: [/^(PT)(\d{9})$/]
     }
   }
 
   // eslint-disable-next-line no-undef
   COUNTRIES.romania = {
+    name: 'Romania',
+    codes: ['RO', 'ROU', '642'],
     calcs: function(vat) {
       var total = 0
       var expect
@@ -1202,132 +1061,88 @@ var jsvat = (function() {
       return total === expect
     },
     rules: {
-      multipliers: [
-        7,
-        5,
-        3,
-        2,
-        1,
-        7,
-        5,
-        3,
-        2
-      ],
+      multipliers: [7, 5, 3, 2, 1, 7, 5, 3, 2],
       regex: [/^(RO)([1-9]\d{1,9})$/]
     }
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.russia = (function() {
-    function _check10DigitINN(vat, rules) {
-      var total = 0
+  COUNTRIES.russia = {
+    name: 'Russian Federation',
+    codes: ['RU', 'RUS', '643'],
+    calcs: function(vat) {
+      function _check10DigitINN(vat, rules) {
+        var total = 0
 
-      if (vat.length === 10) {
-        for (var i = 0; i < 10; i++) {
-          total += +vat.charAt(i) * rules.multipliers.m_1[i]
+        if (vat.length === 10) {
+          for (var i = 0; i < 10; i++) {
+            total += +vat.charAt(i) * rules.multipliers.m_1[i]
+          }
+
+          total = total % 11
+          if (total > 9) {
+            total = total % 10
+          }
+
+          // Compare it with the last character of the VAT number. If it is the same, then it's valid
+          var expect = +vat.slice(9, 10)
+          return total === expect
         }
 
-        total = total % 11
-        if (total > 9) {
-          total = total % 10
-        }
-
-        // Compare it with the last character of the VAT number. If it is the same, then it's valid
-        var expect = +vat.slice(9, 10)
-        return total === expect
+        return false
       }
 
-      return false
-    }
+      function _check12DigitINN(vat, rules) {
+        var total1 = 0
+        var total2 = 0
 
-    function _check12DigitINN(vat, rules) {
-      var total1 = 0
-      var total2 = 0
+        if (vat.length === 12) {
+          for (var j = 0; j < 11; j++) {
+            total1 += +vat.charAt(j) * rules.multipliers.m_2[j]
+          }
 
-      if (vat.length === 12) {
-        for (var j = 0; j < 11; j++) {
-          total1 += +vat.charAt(j) * rules.multipliers.m_2[j]
+          total1 = total1 % 11
+
+          if (total1 > 9) {
+            total1 = total1 % 10
+          }
+
+          for (var k = 0; k < 11; k++) {
+            total2 += +vat.charAt(k) * rules.multipliers.m_3[k]
+          }
+
+          total2 = total2 % 11
+          if (total2 > 9) {
+            total2 = total2 % 10
+          }
+
+          // Compare the first check with the 11th character and the second check with the 12th and last
+          // character of the VAT number. If they're both the same, then it's valid
+          var expect = (total1 === +vat.slice(10, 11))
+          var expect2 = (total2 === +vat.slice(11, 12))
+          return (expect) && (expect2)
         }
 
-        total1 = total1 % 11
-
-        if (total1 > 9) {
-          total1 = total1 % 10
-        }
-
-        for (var k = 0; k < 11; k++) {
-          total2 += +vat.charAt(k) * rules.multipliers.m_3[k]
-        }
-
-        total2 = total2 % 11
-        if (total2 > 9) {
-          total2 = total2 % 10
-        }
-
-        // Compare the first check with the 11th character and the second check with the 12th and last
-        // character of the VAT number. If they're both the same, then it's valid
-        var expect = (total1 === +vat.slice(10, 11))
-        var expect2 = (total2 === +vat.slice(11, 12))
-        return (expect) && (expect2)
+        return false
       }
 
-      return false
-    }
-
-    return {
-      calcs: function(vat) {
-        // See http://russianpartner.biz/test_inn.html for algorithm
-        return _check10DigitINN(vat, this.rules) || _check12DigitINN(vat, this.rules)
+      // See http://russianpartner.biz/test_inn.html for algorithm
+      return _check10DigitINN(vat, this.rules) || _check12DigitINN(vat, this.rules)
+    },
+    rules: {
+      multipliers: {
+        m_1: [2, 4, 10, 3, 5, 9, 4, 6, 8, 0],
+        m_2: [7, 2, 4, 10, 3, 5, 9, 4, 6, 8, 0],
+        m_3: [3, 7, 2, 4, 10, 3, 5, 9, 4, 6, 8, 0]
       },
-      rules: {
-        multipliers: {
-          m_1: [
-            2,
-            4,
-            10,
-            3,
-            5,
-            9,
-            4,
-            6,
-            8,
-            0
-          ],
-          m_2: [
-            7,
-            2,
-            4,
-            10,
-            3,
-            5,
-            9,
-            4,
-            6,
-            8,
-            0
-          ],
-          m_3: [
-            3,
-            7,
-            2,
-            4,
-            10,
-            3,
-            5,
-            9,
-            4,
-            6,
-            8,
-            0
-          ]
-        },
-        regex: [/^(RU)(\d{10}|\d{12})$/]
-      }
+      regex: [/^(RU)(\d{10}|\d{12})$/]
     }
-  }())
+  }
 
   // eslint-disable-next-line no-undef
   COUNTRIES.serbia = {
+    name: 'Serbia',
+    codes: ['RS', 'SRB', '688'],
     calcs: function(vat) {
       // Checks the check digits of a Serbian VAT number using ISO 7064, MOD 11-10 for check digit.
 
@@ -1356,6 +1171,8 @@ var jsvat = (function() {
 
   // eslint-disable-next-line no-undef
   COUNTRIES.slovakia_republic = {
+    name: 'Slovakia_',
+    codes: ['SK', 'SVK', '703'],
     calcs: function(vat) {
       var expect = 0
       var checkDigit = (vat % 11)
@@ -1368,6 +1185,8 @@ var jsvat = (function() {
 
   // eslint-disable-next-line no-undef
   COUNTRIES.slovenia = {
+    name: 'Slovenia',
+    codes: ['SI', 'SVN', '705'],
     calcs: function(vat) {
       var total = 0
       var expect
@@ -1389,21 +1208,15 @@ var jsvat = (function() {
       return !!(total !== 11 && total === expect)
     },
     rules: {
-      multipliers: [
-        8,
-        7,
-        6,
-        5,
-        4,
-        3,
-        2
-      ],
+      multipliers: [8, 7, 6, 5, 4, 3, 2],
       regex: [/^(SI)([1-9]\d{7})$/]
     }
   }
 
   // eslint-disable-next-line no-undef
   COUNTRIES.spain = {
+    name: 'Spain',
+    codes: ['ES', 'ESP', '724'],
     calcs: function(vat) {
       var i = 0
       var total = 0
@@ -1467,15 +1280,7 @@ var jsvat = (function() {
       } else return false
     },
     rules: {
-      multipliers: [
-        2,
-        1,
-        2,
-        1,
-        2,
-        1,
-        2
-      ],
+      multipliers: [2, 1, 2, 1, 2, 1, 2],
       regex: [
         /^(ES)([A-Z]\d{8})$/,
         /^(ES)([A-HN-SW]\d{7}[A-J])$/,
@@ -1493,6 +1298,8 @@ var jsvat = (function() {
 
   // eslint-disable-next-line no-undef
   COUNTRIES.sweden = {
+    name: 'Sweden',
+    codes: ['SE', 'SWE', '752'],
     calcs: function(vat) {
       var expect
 
@@ -1524,6 +1331,8 @@ var jsvat = (function() {
 
   // eslint-disable-next-line no-undef
   COUNTRIES.switzerland = {
+    name: 'Switzerland',
+    codes: ['CH', 'CHE', '756'],
     calcs: function(vat) {
       var total = 0
       for (var i = 0; i < 8; i++) {
@@ -1540,22 +1349,15 @@ var jsvat = (function() {
       return total === expect
     },
     rules: {
-      multipliers: [
-        5,
-        4,
-        3,
-        2,
-        7,
-        6,
-        5,
-        4
-      ],
+      multipliers: [5, 4, 3, 2, 7, 6, 5, 4],
       regex: [/^(CHE)(\d{9})(MWST)?$/]
     }
   }
 
   // eslint-disable-next-line no-undef
   COUNTRIES.united_kingdom = {
+    name: 'United Kingdom',
+    codes: ['GB', 'GBR', '826'],
     calcs: function(vat) {
       var total = 0
       var expect
@@ -1609,15 +1411,7 @@ var jsvat = (function() {
       return !!(checkDigit === expect && no > 1000000)
     },
     rules: {
-      multipliers: [
-        8,
-        7,
-        6,
-        5,
-        4,
-        3,
-        2
-      ],
+      multipliers: [8, 7, 6, 5, 4, 3, 2],
       regex: [
         /^(GB)?(\d{9})$/,
         /^(GB)?(\d{12})$/,

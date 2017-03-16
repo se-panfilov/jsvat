@@ -1,5 +1,7 @@
 // eslint-disable-next-line no-undef
 COUNTRIES.sweden = {
+  name: 'Sweden',
+  codes: ['SE',	'SWE',	'752'],
   calcs: function (vat) {
     var expect
 

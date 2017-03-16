@@ -1,5 +1,7 @@
 // eslint-disable-next-line no-undef
 COUNTRIES.denmark = {
+  name: 'Denmark',
+  codes: ['DK',	'DNK',	'208'],
   calcs: function (vat) {
     var total = 0
 
@@ -10,16 +12,7 @@ COUNTRIES.denmark = {
     return total % 11 === 0
   },
   rules: {
-    multipliers: [
-      2,
-      7,
-      6,
-      5,
-      4,
-      3,
-      2,
-      1
-    ],
+    multipliers: [2, 7, 6, 5, 4, 3, 2, 1],
     regex: [/^(DK)(\d{8})$/]
   }
 }
