@@ -65,12 +65,11 @@ var jsvat = (function() {
 
           if (result.isValid) {
             result.country = countryName
-            console.info(result)
             return result
           }
         }
       }
-      console.info(result)
+
       return result
     }
   }

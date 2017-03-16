@@ -31,10 +31,10 @@ What jsvat do?
 Just check is VAT number valid or not and which country this VAT is:
 
   ```javascript
-  jsvat.checkVAT('BG131134023'); // {isValid: true, country: 'bulgaria', value: 'BG131134023'}
-  jsvat.checkVAT('BG0433170001'); //{isValid: false, country: null, value: 'BG0433170001'}
-  jsvat.checkVAT('atu5-150-7409');  //{isValid: true, country: 'austria', value: 'ATU51507409'}
-  jsvat.checkVAT('aTU 5 804 4146');  //{isValid: true, country: 'austria', value: 'ATU58044146'}
+  jsvat.checkVAT('BG131134023'); // {isValid: true, country: 'bulgaria', value: 'BG131134023', countryCode: 'BG'}
+  jsvat.checkVAT('BG0433170001'); //{isValid: false, country: null, value: 'BG0433170001', countryCode: 'BG'}
+  jsvat.checkVAT('atu5-150-7409');  //{isValid: true, country: 'austria', value: 'ATU51507409', countryCode: 'ATU'}
+  jsvat.checkVAT('aTU 5 804 4146');  //{isValid: true, country: 'austria', value: 'ATU58044146', countryCode: 'ATU'}
   ```
 
 You can specify list of allowed countries
@@ -86,7 +86,7 @@ There is 2-step check:
 
   For example regexp for austria is `/^(AT)U(\d{8})$/`.
 
- Looks like `ATU99999999` is valid (it's successfied the regexp), but actually it's should be invalid.
+ Looks like `ATU99999999` is valid (it's satisfy the regexp), but actually it's should be invalid.
 
 2. Some magic mathematical counting;
 
@@ -144,7 +144,7 @@ Changelog
 
 #####1.1.0
   - jsvat now always return Object (there is no more just true or false value);
-  - Changed way of jsvat configuretion (instead of object with countries, now you should pass an array with list of allowed countries);
+  - Changed way of jsvat configuration (instead of object with countries, now you should pass an array with list of allowed countries);
 
 LICENSE
 -------
