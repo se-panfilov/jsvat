@@ -19,7 +19,7 @@ function _validate (vat, regex, countryName) {
   return result
 }
 
-function _getPureVAT (vat) {
+function removeExtraChars (vat) {
   vat = vat || ''
   return vat.toString().toUpperCase().replace(/(\s|-|\.)+/g, '')
 }
@@ -42,13 +42,18 @@ function checkValidity (vat, countryName) {
 var exports = {
   config: [],
   checkVAT: function (vat) {
+    var cleanVAT = removeExtraChars(vat)
     var result = {
-      value: _getPureVAT(vat),
+      value: cleanVAT,
       isValid: false,
-      country: null
+      country: null,
+      countryCode: null
     }
 
     if (!vat) return result
+
+    var ccArr = (/^([A-z])*/).exec(cleanVAT)
+    if (ccArr && ccArr.length > 0) result.countryCode = ccArr[0].toUpperCase()
 
     for (var countryName in COUNTRIES) {
       if (COUNTRIES.hasOwnProperty(countryName)) {
@@ -56,11 +61,12 @@ var exports = {
 
         if (result.isValid) {
           result.country = countryName
+          console.info(result)
           return result
         }
       }
     }
-
+    console.info(result)
     return result
   }
 }

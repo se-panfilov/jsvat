@@ -1,6 +1,6 @@
 var jsvat = (function() {
 
-  'use strict';
+  'use strict'
 
   var COUNTRIES = {}
 
@@ -23,7 +23,7 @@ var jsvat = (function() {
     return result
   }
 
-  function _getPureVAT(vat) {
+  function removeExtraChars(vat) {
     vat = vat || ''
     return vat.toString().toUpperCase().replace(/(\s|-|\.)+/g, '')
   }
@@ -46,13 +46,18 @@ var jsvat = (function() {
   var exports = {
     config: [],
     checkVAT: function(vat) {
+      var cleanVAT = removeExtraChars(vat)
       var result = {
-        value: _getPureVAT(vat),
+        value: cleanVAT,
         isValid: false,
-        country: null
+        country: null,
+        countryCode: null
       }
 
       if (!vat) return result
+
+      var ccArr = (/^([A-z])*/).exec(cleanVAT)
+      if (ccArr && ccArr.length > 0) result.countryCode = ccArr[0].toUpperCase()
 
       for (var countryName in COUNTRIES) {
         if (COUNTRIES.hasOwnProperty(countryName)) {
@@ -60,11 +65,12 @@ var jsvat = (function() {
 
           if (result.isValid) {
             result.country = countryName
+            console.info(result)
             return result
           }
         }
       }
-
+      console.info(result)
       return result
     }
   }
@@ -1625,8 +1631,8 @@ var jsvat = (function() {
 
   //Support of node.js
 
-  if (typeof module === 'object' && module.exports) module.exports = exports;
+  if (typeof module === 'object' && module.exports) module.exports = exports
 
-  return exports;
+  return exports
 
-})();
+})()
