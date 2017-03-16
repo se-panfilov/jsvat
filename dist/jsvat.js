@@ -2,48 +2,6 @@ var jsvat = (function() {
 
   'use strict'
 
-  var ALL_COUNTRIES = {}
-
-  function validateRegex(vat, regex) {
-    return regex.test(vat)
-  }
-
-  function validateRules(vat, regex, countryName) {
-    var parsedNum = regex.exec(vat)
-    var vatNum = parsedNum[2]
-
-    return ALL_COUNTRIES[countryName].calcFn(vatNum)
-  }
-
-  function validate(vat, regex, countryName) {
-    var result = false
-    if (validateRegex(vat, regex)) {
-      result = validateRules(vat, regex, countryName)
-    }
-    return result
-  }
-
-  function removeExtraChars(vat) {
-    vat = vat || ''
-    return vat.toString().toUpperCase().replace(/(\s|-|\.)+/g, '')
-  }
-
-  function isCountryBlocked(config, countryName) {
-    if (!config || config.length === 0) return false
-
-    return config.indexOf(countryName) === -1
-  }
-
-  function checkValidity(vat, countryName) {
-    var regexArr = ALL_COUNTRIES[countryName].rules.regex
-    for (var i = 0; i < regexArr.length; i++) {
-      var isValid = validate(vat, regexArr[i], countryName)
-      if (isValid) return isValid && !isCountryBlocked(exports.config, countryName)
-    }
-    return false
-  }
-
-
   function Result(vat, isValid, country) {
     this.value = vat || null
     this.isValid = !!isValid
@@ -58,14 +16,22 @@ var jsvat = (function() {
         }
       }
     }
+  }
 
+  function removeExtraChars(vat) {
+    vat = vat || ''
+    return vat.toString().toUpperCase().replace(/(\s|-|\.)+/g, '')
+  }
+
+  function isValEqToCode(val, codes) {
+    return (val === codes[0] || val === codes[1] || val === codes[2])
   }
 
   function isInList(list, country) {
     for (var i = 0; i < list.length; i++) {
       var val = list[i]
       if (val === country.name) return true
-      if (val === country.codes[0] || val === country.codes[1] || val === country.codes[2]) return true
+      if (isValEqToCode(val, country.codes)) return true
     }
 
     return false
@@ -79,23 +45,25 @@ var jsvat = (function() {
   }
 
   function getCountry(vat, countries) {
-    var prefix = vat.match(/^[A-z]*/)
+    var prefix = vat.match(/^[A-z]{2}/)[0]
 
-    for (var i = 0; i < countries.length; i++) {
-      const country = countries[i]
-      if (prefix === country.codes[0] || prefix === country.codes[1] || prefix === country.codes[2]) return country
+    for (var k in countries) {
+      if (countries.hasOwnProperty(k)) {
+        if (isValEqToCode(prefix, countries[k].codes)) return countries[k]
+      }
     }
 
     return null
   }
 
-  function isValid(vat, country) {
+  function isVatValid(vat, country) {
     return country.calcFn(vat)
   }
 
   var exports = {
     blocked: [],
     allowed: [],
+    countries: {},
     checkVAT: function(vat) {
       if (!vat) throw new Error('VAT should be specified')
       var cleanVAT = removeExtraChars(vat)
@@ -104,18 +72,16 @@ var jsvat = (function() {
       var country = getCountry(cleanVAT, this.countries)
       if (isBlocked(country, this.blocked, this.allowed)) return result
 
-      var isValid = isValid(cleanVAT, country)
+      var isValid = isVatValid(cleanVAT, country)
       if (isValid) return new Result(cleanVAT, isValid, country)
 
       return result
     }
   }
 
-  exports.countries = ALL_COUNTRIES
-
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.austria = {
+  exports.countries.austria = {
     name: 'Austria',
     codes: ['AT', 'AUT', '040'],
     calcFn: function(vat) {
@@ -144,7 +110,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.belgium = {
+  exports.countries.belgium = {
     name: 'Belgium',
     codes: ['BE', 'BEL', '056'],
     calcFn: function(vat) {
@@ -163,7 +129,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.bulgaria = {
+  exports.countries.bulgaria = {
     name: 'Bulgaria',
     codes: ['BG', 'BGR', '100'],
     calcFn: function(vat) {
@@ -260,7 +226,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.croatia = {
+  exports.countries.croatia = {
     name: 'Croatia',
     codes: ['HR', 'HRV', '191'],
     calcFn: function(vat) {
@@ -290,7 +256,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.cyprus = {
+  exports.countries.cyprus = {
     name: 'Cyprus',
     codes: ['CY', 'CYP', '196'],
     calcFn: function(vat) {
@@ -342,7 +308,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.czech_republic = {
+  exports.countries.czech_republic = {
     name: 'Czech Republic',
     codes: ['CZ', 'CZE', '203'],
     calcFn: function(vat) {
@@ -420,7 +386,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.denmark = {
+  exports.countries.denmark = {
     name: 'Denmark',
     codes: ['DK', 'DNK', '208'],
     calcFn: function(vat) {
@@ -439,7 +405,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.estonia = {
+  exports.countries.estonia = {
     name: 'Estonia',
     codes: ['EE', 'EST', '233'],
     calcFn: function(vat) {
@@ -466,9 +432,9 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.europe = {
+  exports.countries.europe = {
     name: 'Europe',
-    codes: [],
+    codes: ['EU'],
     calcFn: function() {
       // We know little about EU numbers apart from the fact that the first 3 digits represent the
       // country, and that there are nine digits in total.
@@ -480,7 +446,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.finland = {
+  exports.countries.finland = {
     name: 'Finland',
     codes: ['FI', 'FIN', '246'],
     calcFn: function(vat) {
@@ -507,7 +473,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.france = {
+  exports.countries.france = {
     name: 'France',
     codes: ['FR', 'FRA', '250'],
     calcFn: function(vat) {
@@ -540,7 +506,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.germany = {
+  exports.countries.germany = {
     name: 'Germany',
     codes: ['DE', 'DEU', '276'],
     calcFn: function(vat) {
@@ -577,7 +543,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.greece = {
+  exports.countries.greece = {
     name: 'Greece',
     codes: ['GR', 'GRC', '300'],
     calcFn: function(vat) {
@@ -620,7 +586,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.hungary = {
+  exports.countries.hungary = {
     name: 'Hungary',
     codes: ['HU', 'HUN', '348'],
     calcFn: function(vat) {
@@ -655,7 +621,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.ireland = {
+  exports.countries.ireland = {
     name: 'Ireland',
     codes: ['IE', 'IRL', '372'],
     calcFn: function(vat) {
@@ -709,7 +675,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.italy = {
+  exports.countries.italy = {
     name: 'Italy',
     codes: ['IT', 'ITA', '380'],
     calcFn: function(vat) {
@@ -753,7 +719,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.latvia = {
+  exports.countries.latvia = {
     name: 'Latvia',
     codes: ['LV', 'LVA', '428'],
     calcFn: function(vat) {
@@ -793,7 +759,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.lithuania = {
+  exports.countries.lithuania = {
     name: 'Lithuania',
     codes: ['LT', 'LTU', '440'],
     calcFn: function(vat) {
@@ -908,7 +874,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.luxembourg = {
+  exports.countries.luxembourg = {
     name: 'Luxembourg',
     codes: ['LU', 'LUX', '442'],
     calcFn: function(vat) {
@@ -924,7 +890,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.malta = {
+  exports.countries.malta = {
     name: 'Malta',
     codes: ['MT', 'MLT', '470'],
     calcFn: function(vat) {
@@ -950,7 +916,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.netherlands = {
+  exports.countries.netherlands = {
     name: 'Netherlands',
     codes: ['NL', 'NLD', '528'],
     calcFn: function(vat) {
@@ -979,7 +945,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.norway = {
+  exports.countries.norway = {
     name: 'Norway',
     codes: ['NO', 'NOR', '578'],
     calcFn: function(vat) {
@@ -1012,7 +978,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.poland = {
+  exports.countries.poland = {
     name: 'Poland',
     codes: ['PL', 'POL', '616'],
     calcFn: function(vat) {
@@ -1041,7 +1007,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.portugal = {
+  exports.countries.portugal = {
     name: 'Portugal',
     codes: ['PT', 'PRT', '620'],
     calcFn: function(vat) {
@@ -1070,7 +1036,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.romania = {
+  exports.countries.romania = {
     name: 'Romania',
     codes: ['RO', 'ROU', '642'],
     calcFn: function(vat) {
@@ -1100,7 +1066,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.russia = {
+  exports.countries.russia = {
     name: 'Russian Federation',
     codes: ['RU', 'RUS', '643'],
     calcFn: function(vat) {
@@ -1173,7 +1139,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.serbia = {
+  exports.countries.serbia = {
     name: 'Serbia',
     codes: ['RS', 'SRB', '688'],
     calcFn: function(vat) {
@@ -1203,7 +1169,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.slovakia_republic = {
+  exports.countries.slovakia_republic = {
     name: 'Slovakia_',
     codes: ['SK', 'SVK', '703'],
     calcFn: function(vat) {
@@ -1217,7 +1183,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.slovenia = {
+  exports.countries.slovenia = {
     name: 'Slovenia',
     codes: ['SI', 'SVN', '705'],
     calcFn: function(vat) {
@@ -1247,7 +1213,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.spain = {
+  exports.countries.spain = {
     name: 'Spain',
     codes: ['ES', 'ESP', '724'],
     calcFn: function(vat) {
@@ -1330,7 +1296,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.sweden = {
+  exports.countries.sweden = {
     name: 'Sweden',
     codes: ['SE', 'SWE', '752'],
     calcFn: function(vat) {
@@ -1363,7 +1329,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.switzerland = {
+  exports.countries.switzerland = {
     name: 'Switzerland',
     codes: ['CH', 'CHE', '756'],
     calcFn: function(vat) {
@@ -1388,7 +1354,7 @@ var jsvat = (function() {
   }
 
   // eslint-disable-next-line no-undef
-  COUNTRIES.united_kingdom = {
+  exports.countries.united_kingdom = {
     name: 'United Kingdom',
     codes: ['GB', 'GBR', '826'],
     calcFn: function(vat) {

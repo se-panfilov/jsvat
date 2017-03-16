@@ -1,45 +1,3 @@
-var ALL_COUNTRIES = {}
-
-function validateRegex (vat, regex) {
-  return regex.test(vat)
-}
-
-function validateRules (vat, regex, countryName) {
-  var parsedNum = regex.exec(vat)
-  var vatNum = parsedNum[2]
-
-  return ALL_COUNTRIES[countryName].calcFn(vatNum)
-}
-
-function validate (vat, regex, countryName) {
-  var result = false
-  if (validateRegex(vat, regex)) {
-    result = validateRules(vat, regex, countryName)
-  }
-  return result
-}
-
-function removeExtraChars (vat) {
-  vat = vat || ''
-  return vat.toString().toUpperCase().replace(/(\s|-|\.)+/g, '')
-}
-
-function isCountryBlocked (config, countryName) {
-  if (!config || config.length === 0) return false
-
-  return config.indexOf(countryName) === -1
-}
-
-function checkValidity (vat, countryName) {
-  var regexArr = ALL_COUNTRIES[countryName].rules.regex
-  for (var i = 0; i < regexArr.length; i++) {
-    var isValid = validate(vat, regexArr[i], countryName)
-    if (isValid) return isValid && !isCountryBlocked(exports.config, countryName)
-  }
-  return false
-}
-
-
 function Result (vat, isValid, country) {
   this.value = vat || null
   this.isValid = !!isValid
@@ -54,14 +12,22 @@ function Result (vat, isValid, country) {
       }
     }
   }
+}
 
+function removeExtraChars (vat) {
+  vat = vat || ''
+  return vat.toString().toUpperCase().replace(/(\s|-|\.)+/g, '')
+}
+
+function isValEqToCode (val, codes) {
+  return (val === codes[0] || val === codes[1] || val === codes[2])
 }
 
 function isInList (list, country) {
   for (var i = 0; i < list.length; i++) {
     var val = list[i]
     if (val === country.name) return true
-    if (val === country.codes[0] || val === country.codes[1] || val === country.codes[2]) return true
+    if (isValEqToCode(val, country.codes)) return true
   }
 
   return false
@@ -75,23 +41,25 @@ function isBlocked (country, blocked, allowed) {
 }
 
 function getCountry (vat, countries) {
-  var prefix = vat.match(/^[A-z]*/)
+  var prefix = vat.match(/^[A-z]{2}/)[0]
 
-  for (var i = 0; i < countries.length; i++) {
-    const country = countries[i]
-    if (prefix === country.codes[0] || prefix === country.codes[1] || prefix === country.codes[2]) return country
+  for (var k in countries) {
+    if (countries.hasOwnProperty(k)) {
+      if (isValEqToCode(prefix, countries[k].codes)) return countries[k]
+    }
   }
 
   return null
 }
 
-function isValid (vat, country) {
+function isVatValid (vat, country) {
   return country.calcFn(vat)
 }
 
 var exports = {
   blocked: [],
   allowed: [],
+  countries: {},
   checkVAT: function (vat) {
     if (!vat) throw new Error('VAT should be specified')
     var cleanVAT = removeExtraChars(vat)
@@ -100,12 +68,10 @@ var exports = {
     var country = getCountry(cleanVAT, this.countries)
     if (isBlocked(country, this.blocked, this.allowed)) return result
 
-    var isValid = isValid(cleanVAT, country)
+    var isValid = isVatValid(cleanVAT, country)
     if (isValid) return new Result(cleanVAT, isValid, country)
 
     return result
   }
 }
-
-exports.countries = ALL_COUNTRIES
 

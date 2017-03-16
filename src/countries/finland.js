@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-undef
-COUNTRIES.finland = {
+exports.countries.finland = {
   name: 'Finland',
   codes: ['FI', 'FIN', '246'],
   calcFn: function (vat) {

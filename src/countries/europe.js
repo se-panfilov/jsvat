@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-undef
-COUNTRIES.europe = {
+exports.countries.europe = {
   name: 'Europe',
-  codes: [],
+  codes: ['EU'],
   calcFn: function () {
     // We know little about EU numbers apart from the fact that the first 3 digits represent the
     // country, and that there are nine digits in total.

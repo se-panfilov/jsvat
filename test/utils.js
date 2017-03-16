@@ -1,37 +1,36 @@
-var expect = require('chai').expect;
-var jsvat = require('../dist/jsvat.js');
-var argv = require('minimist')(process.argv.slice(2));
+const expect = require('chai').expect
+const jsvat = require('../dist/jsvat.js')
+const argv = require('minimist')(process.argv.slice(2))
 
-var noVerbose = "noverbose";
+const noVerbose = "noverbose"
 
 module.exports = {
-  check: function (arr, msg, isTrue, countryName) {
+  check (arr, msg, isTrue, countryName) {
     arr.forEach(function (item) {
 
-      var testMsg = (argv.config !== noVerbose) ? msg + ': ' + item : 'test';
+      const testMsg = (argv.config !== noVerbose) ? msg + ': ' + item : 'test'
 
-      return it(testMsg, function () {
-        var result = jsvat.checkVAT(item);
+      return it(testMsg, () => {
+        const result = jsvat.checkVAT(item)
         if (isTrue) {
-          expect(result.value).to.be.equal(item.toString().toUpperCase().replace(/(\s|-|\.)+/g, ''));
-          expect(result.isValid).to.be.true;
-          console.log(result.country);
-          console.log(countryName);
-          expect(result.country).to.be.equal(countryName);
+          expect(result.value).to.be.equal(item.toString().toUpperCase().replace(/(\s|-|\.)+/g, ''))
+          expect(result.isValid).to.be.true
+          console.log(result.country + ' - ' + countryName)
+          expect(result.country).to.be.equal(countryName)
         } else {
-          expect(result.value).to.be.equal(item.toString().toUpperCase().replace(/(\s|-|\.)+/g, ''));
-          expect(result.isValid).to.be.false;
-          expect(result.country).to.be.null;
+          expect(result.value).to.be.equal(item.toString().toUpperCase().replace(/(\s|-|\.)+/g, ''))
+          expect(result.isValid).to.be.false
+          expect(result.country).to.be.null
         }
-      });
-    });
+      })
+    })
   },
-  addCharsToVals: function (arr, char) {
+  addCharsToVals (arr, char) {
     return arr.map(function (item) {
-      var val = item.split('');
-      val.splice(3, 0, char);
-      val.splice(7, 0, char);
-      return val.join('');
-    });
+      const val = item.split('')
+      val.splice(3, 0, char)
+      val.splice(7, 0, char)
+      return val.join('')
+    })
   }
-};
+}
