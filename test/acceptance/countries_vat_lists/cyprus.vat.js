@@ -1,4 +1,6 @@
 module.exports = {
+  name: 'Cyprus',
+  codes: ['CY', 'CYP', '196'],
   valid: [
     'CY00001067Y',
     'CY00376309R',

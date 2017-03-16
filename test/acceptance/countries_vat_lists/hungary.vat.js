@@ -1,4 +1,6 @@
 module.exports = {
+  name: 'Hungary',
+  codes: ['HU', 'HUN', '348'],
   valid: [
     'HU10672101',
     'HU10724318',

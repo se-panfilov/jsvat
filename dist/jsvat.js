@@ -28,6 +28,8 @@ var jsvat = (function() {
   }
 
   function isInList(list, country) {
+    if (!list) return false
+
     for (var i = 0; i < list.length; i++) {
       var val = list[i]
       if (val === country.name) return true
@@ -56,9 +58,25 @@ var jsvat = (function() {
     return null
   }
 
-  function isVatValid(vat, country) {
-    return country.calcFn(vat)
+  function isVatValidToRegexp(vat, regexArr) {
+    for (var i = 0; i < regexArr.length; i++) {
+      var regex = regexArr[i]
+      var isValid = regex.test(vat)
+      if (isValid) return true
+    }
+
+    return false
   }
+
+  function isVatMathValid(vat, country) {
+    var vatDigits = (vat).match(/\d+/)[0]
+    return country.calcFn(vatDigits)
+  }
+
+  function isVatValid(vat, country) {
+    return (isVatValidToRegexp(vat, country.rules.regex) && isVatMathValid(vat, country))
+  }
+
 
   var exports = {
     blocked: [],

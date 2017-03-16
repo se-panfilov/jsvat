@@ -1,4 +1,6 @@
 module.exports = {
+  name: 'Portugal',
+  codes: ['PT',	'PRT',	'620'],
   valid: [
     'PT100000010',
     'PT100000029',

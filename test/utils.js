@@ -5,22 +5,26 @@ const argv = require('minimist')(process.argv.slice(2))
 const noVerbose = "noverbose"
 
 module.exports = {
-  check (arr, msg, isTrue, countryName) {
+  check (arr, msg, isTrue, country) {
     arr.forEach(function (item) {
 
       const testMsg = (argv.config !== noVerbose) ? msg + ': ' + item : 'test'
 
       return it(testMsg, () => {
         const result = jsvat.checkVAT(item)
+        // console.info(result)
         if (isTrue) {
           expect(result.value).to.be.equal(item.toString().toUpperCase().replace(/(\s|-|\.)+/g, ''))
           expect(result.isValid).to.be.true
-          console.log(result.country + ' - ' + countryName)
-          expect(result.country).to.be.equal(countryName)
+          expect(result.country.name).to.be.equal(country.name)
+          expect(result.country.isoCode.short).to.be.equal(country.codes[0])
+          expect(result.country.isoCode.long).to.be.equal(country.codes[1])
+          expect(result.country.isoCode.numeric).to.be.equal(country.codes[2])
         } else {
           expect(result.value).to.be.equal(item.toString().toUpperCase().replace(/(\s|-|\.)+/g, ''))
           expect(result.isValid).to.be.false
-          expect(result.country).to.be.null
+          expect(result.country.name).to.be.null
+          expect(result.country.isoCode).to.be.null
         }
       })
     })

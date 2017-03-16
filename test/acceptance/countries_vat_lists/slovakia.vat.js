@@ -1,4 +1,6 @@
 module.exports = {
+  name: 'Slovakia_',
+  codes: ['SK', 'SVK', '703'],
   valid: [
     'SK1025529197',
     'SK2020032377',

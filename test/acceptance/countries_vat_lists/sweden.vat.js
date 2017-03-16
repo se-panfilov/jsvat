@@ -1,4 +1,6 @@
 module.exports = {
+  name: 'Sweden',
+  codes: ['SE',	'SWE',	'752'],
   valid: [
     'SE000000002601',
     'SE000000003401',

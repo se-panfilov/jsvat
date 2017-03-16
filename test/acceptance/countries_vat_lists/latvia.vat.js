@@ -1,4 +1,6 @@
 module.exports = {
+  name: 'Latvia',
+  codes: ['LV', 'LVA', '428'],
   valid: [
     'LV07091910933',
     'LV40003009497',

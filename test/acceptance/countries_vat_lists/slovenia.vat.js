@@ -1,4 +1,6 @@
 module.exports = {
+  name: 'Slovenia',
+  codes: ['SI', 'SVN', '705'],
   valid: [
     'SI10693661',
     'SI10830316',
