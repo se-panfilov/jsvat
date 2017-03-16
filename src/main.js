@@ -37,7 +37,7 @@ function isInList (list, country) {
 
 function isBlocked (country, blocked, allowed) {
   var isBlocked = isInList(blocked, country)
-  if (isBlocked) return false
+  if (isBlocked) return true
   var isAllowed = isInList(allowed, country)
   return allowed.length > 0 && !isAllowed
 }

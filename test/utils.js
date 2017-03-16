@@ -12,6 +12,9 @@ module.exports = {
 
       return it(testMsg, () => {
         const result = jsvat.checkVAT(item)
+        // console.info(111)
+        // console.info(result)
+        // console.info(222)
         if (isTrue) {
           expect(result.value).to.be.equal(item.toString().toUpperCase().replace(/(\s|-|\.)+/g, ''))
           expect(result.isValid).to.be.true
