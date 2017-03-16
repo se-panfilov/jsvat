@@ -2,7 +2,7 @@
 COUNTRIES.bulgaria = {
   name: 'Bulgaria',
   codes: ['BG',	'BGR',	'100'],
-  calcs: function (vat) {
+  calcFn: function (vat) {
     function _increase (value, vat, from, to, incr) {
       for (var i = from; i < to; i++) {
         value += +vat.charAt(i) * (i + incr)

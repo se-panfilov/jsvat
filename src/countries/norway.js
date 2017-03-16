@@ -2,7 +2,7 @@
 COUNTRIES.norway = {
   name: 'Norway',
   codes: ['NO', 'NOR', '578'],
-  calcs: function (vat) {
+  calcFn: function (vat) {
     var total = 0
     var expect
     // See http://www.brreg.no/english/coordination/number.html

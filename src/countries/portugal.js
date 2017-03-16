@@ -2,7 +2,7 @@
 COUNTRIES.portugal = {
   name: 'Portugal',
   codes: ['PT',	'PRT',	'620'],
-  calcs: function (vat) {
+  calcFn: function (vat) {
     var total = 0
     var expect
 

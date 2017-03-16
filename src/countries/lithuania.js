@@ -2,7 +2,7 @@
 COUNTRIES.lithuania = {
   name: 'Lithuania',
   codes: ['LT', 'LTU', '440'],
-  calcs: function (vat) {
+  calcFn: function (vat) {
     function _extractDigit (vat, multiplier, key) {
       return +vat.charAt(key) * multiplier[key]
     }

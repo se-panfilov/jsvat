@@ -2,7 +2,7 @@
 COUNTRIES.slovakia_republic = {
   name: 'Slovakia_',
   codes: ['SK', 'SVK', '703'],
-  calcs: function (vat) {
+  calcFn: function (vat) {
     var expect = 0
     var checkDigit = (vat % 11)
     return checkDigit === expect

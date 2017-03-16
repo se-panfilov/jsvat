@@ -2,7 +2,7 @@
 COUNTRIES.russia = {
   name: 'Russian Federation',
   codes: ['RU', 'RUS', '643'],
-  calcs: function (vat) {
+  calcFn: function (vat) {
     function _check10DigitINN (vat, rules) {
       var total = 0
 

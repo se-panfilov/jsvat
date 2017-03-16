@@ -2,7 +2,7 @@
 COUNTRIES.sweden = {
   name: 'Sweden',
   codes: ['SE',	'SWE',	'752'],
-  calcs: function (vat) {
+  calcFn: function (vat) {
     var expect
 
     // Calculate R where R = R1 + R3 + R5 + R7 + R9, and Ri = INT(Ci/5) + (Ci*2) modulo 10

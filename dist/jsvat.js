@@ -2,23 +2,23 @@ var jsvat = (function() {
 
   'use strict'
 
-  var COUNTRIES = {}
+  var ALL_COUNTRIES = {}
 
-  function _validateRegex(vat, regex) {
+  function validateRegex(vat, regex) {
     return regex.test(vat)
   }
 
-  function _validateRules(vat, regex, countryName) {
+  function validateRules(vat, regex, countryName) {
     var parsedNum = regex.exec(vat)
     var vatNum = parsedNum[2]
 
-    return COUNTRIES[countryName].calcs(vatNum)
+    return ALL_COUNTRIES[countryName].calcs(vatNum)
   }
 
-  function _validate(vat, regex, countryName) {
+  function validate(vat, regex, countryName) {
     var result = false
-    if (_validateRegex(vat, regex)) {
-      result = _validateRules(vat, regex, countryName)
+    if (validateRegex(vat, regex)) {
+      result = validateRules(vat, regex, countryName)
     }
     return result
   }
@@ -35,57 +35,108 @@ var jsvat = (function() {
   }
 
   function checkValidity(vat, countryName) {
-    var regexArr = COUNTRIES[countryName].rules.regex
+    var regexArr = ALL_COUNTRIES[countryName].rules.regex
     for (var i = 0; i < regexArr.length; i++) {
-      var isValid = _validate(vat, regexArr[i], countryName)
+      var isValid = validate(vat, regexArr[i], countryName)
       if (isValid) return isValid && !_isCountryBlocked(exports.config, countryName)
     }
     return false
   }
 
-  function Country(name, calcFn, rules) {
-    this.name = name
-    this.calcFn = calcFn
-    this.rules = rules
+  // function Country (name, codes, calcFn, rules) {
+  //   this.name = name
+  //   this.isoCode = {
+  //     short: codes[0],
+  //     long: codes[1],
+  //     numeric: codes[2]
+  //   }
+  //   this.calcFn = calcFn
+  //   this.rules = rules
+  // }
+
+  function Result(vat, isValid, country) {
+    this.value = vat || null
+    this.isValid = !!isValid
+
+    if (country) {
+      this.country = {
+        name: country.name,
+        isoCode: {
+          short: country.codes[0],
+          long: country.codes[1],
+          numeric: country.codes[2]
+        }
+      }
+    }
+
+  }
+
+  function isInList(list, country) {
+    for (var i = 0; i < list.length; i++) {
+      var val = list[i]
+      if (val === country.name) return true
+      if (val === country.codes[0] || val === country.codes[1] || val === country.codes[2]) return true
+    }
+
+    return false
+  }
+  //
+  // function makeCountries (allCountries) {
+  //   var result = []
+  //   for (var k in allCountries) {
+  //     if (allCountries.hasOwnProperty(k)) {
+  //       // var isBlocked = isInList(blocked, allCountries[k])
+  //       // var isAllowed = isInList(allowed, allCountries[k])
+  //       // if (!isBlocked) {
+  //       //   if (isAllowed || allowed.length === 0) {
+  //       result.push(new Country(allCountries[k].name, allCountries[k].calcFn, allCountries[k].codes, allCountries.rules))
+  //       // }
+  //       // }
+  //     }
+  //   }
+  //
+  //   return result
+  // }
+
+  function isBlocked(country, blocked, allowed) {
+    var isBlocked = isInList(this.blocked, country)
+    if (isBlocked) return true
+    var isAllowed = isInList(this.allowed, country)
+    if (this.allowed.length > 0 && !isAllowed) return true
+    return false
   }
 
   var exports = {
-    config: [],
+    blocked: [],
+    allowed: [],
     checkVAT: function(vat) {
+      if (!vat) throw new Error('VAT should be specified')
       var cleanVAT = removeExtraChars(vat)
-      var result = {
-        value: cleanVAT,
-        isValid: false,
-        country: null,
-        prefix: null,
-        isoCountryCodes: null
-      }
+      var result = new Result(cleanVAT)
 
-      if (!vat) return result
+      var country = getCountry(cleanVAT)
+      if (isBlocked(country, this.blocked, this.allowed)) return result
 
-      var ccArr = (/^([A-z])*/).exec(cleanVAT)
-      if (ccArr && ccArr.length > 0) result.prefix = ccArr[0].toUpperCase()
-
-      for (var countryName in COUNTRIES) {
-        if (COUNTRIES.hasOwnProperty(countryName)) {
-          result.isValid = checkValidity(result.value, countryName)
-
-          if (result.isValid) {
-            result.country = countryName
-            return result
-          }
-        }
-      }
+      var isValid = isValid(cleanVAT, country)
+      if (isValid) return new Result(cleanVAT, isValid, country)
 
       return result
     }
   }
 
+  exports.countries = ALL_COUNTRIES
+
+  // function init () {
+  //   exports.countries = makeCountries()
+  // }
+  //
+  // init()
+
   // eslint-disable-next-line no-undef
   COUNTRIES.austria = {
     name: 'Austria',
     codes: ['AT', 'AUT', '040'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       var total = 0
       var temp
 
@@ -114,7 +165,7 @@ var jsvat = (function() {
   COUNTRIES.belgium = {
     name: 'Belgium',
     codes: ['BE', 'BEL', '056'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       if (vat.length === 9) {
         vat = '0' + vat
       }
@@ -133,7 +184,7 @@ var jsvat = (function() {
   COUNTRIES.bulgaria = {
     name: 'Bulgaria',
     codes: ['BG', 'BGR', '100'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       function _increase(value, vat, from, to, incr) {
         for (var i = from; i < to; i++) {
           value += +vat.charAt(i) * (i + incr)
@@ -230,7 +281,7 @@ var jsvat = (function() {
   COUNTRIES.croatia = {
     name: 'Croatia',
     codes: ['HR', 'HRV', '191'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       var expect
 
       // Checks the check digits of a Croatian VAT number using ISO 7064, MOD 11-10 for check digit.
@@ -260,7 +311,7 @@ var jsvat = (function() {
   COUNTRIES.cyprus = {
     name: 'Cyprus',
     codes: ['CY', 'CYP', '196'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       var total = 0
       var expect
 
@@ -312,7 +363,7 @@ var jsvat = (function() {
   COUNTRIES.czech_republic = {
     name: 'Czech Republic',
     codes: ['CZ', 'CZE', '203'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       function _isLegalEntities(vat, rules) {
         var total = 0
 
@@ -390,7 +441,7 @@ var jsvat = (function() {
   COUNTRIES.denmark = {
     name: 'Denmark',
     codes: ['DK', 'DNK', '208'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       var total = 0
 
       for (var i = 0; i < 8; i++) {
@@ -409,7 +460,7 @@ var jsvat = (function() {
   COUNTRIES.estonia = {
     name: 'Estonia',
     codes: ['EE', 'EST', '233'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       var total = 0
       var expect
 
@@ -436,7 +487,7 @@ var jsvat = (function() {
   COUNTRIES.europe = {
     name: 'Europe',
     codes: [],
-    calcs: function() {
+    calcFn: function() {
       // We know little about EU numbers apart from the fact that the first 3 digits represent the
       // country, and that there are nine digits in total.
       return true
@@ -450,7 +501,7 @@ var jsvat = (function() {
   COUNTRIES.finland = {
     name: 'Finland',
     codes: ['FI', 'FIN', '246'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       var total = 0
       var expect
 
@@ -477,7 +528,7 @@ var jsvat = (function() {
   COUNTRIES.france = {
     name: 'France',
     codes: ['FR', 'FRA', '250'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       var total
       var expect
 
@@ -510,7 +561,7 @@ var jsvat = (function() {
   COUNTRIES.germany = {
     name: 'Germany',
     codes: ['DE', 'DEU', '276'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       // Checks the check digits of a German VAT number.
       var product = 10
       var sum = 0
@@ -547,7 +598,7 @@ var jsvat = (function() {
   COUNTRIES.greece = {
     name: 'Greece',
     codes: ['GR', 'GRC', '300'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       var total = 0
       var expect
 
@@ -590,7 +641,7 @@ var jsvat = (function() {
   COUNTRIES.hungary = {
     name: 'Hungary',
     codes: ['HU', 'HUN', '348'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       var total = 0
       var expect
 
@@ -625,7 +676,7 @@ var jsvat = (function() {
   COUNTRIES.ireland = {
     name: 'Ireland',
     codes: ['IE', 'IRL', '372'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       var total = 0
       var expect
 
@@ -679,7 +730,7 @@ var jsvat = (function() {
   COUNTRIES.italy = {
     name: 'Italy',
     codes: ['IT', 'ITA', '380'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       var total = 0
       var temp
       var expect
@@ -723,7 +774,7 @@ var jsvat = (function() {
   COUNTRIES.latvia = {
     name: 'Latvia',
     codes: ['LV', 'LVA', '428'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       var total = 0
       var expect
 
@@ -763,7 +814,7 @@ var jsvat = (function() {
   COUNTRIES.lithuania = {
     name: 'Lithuania',
     codes: ['LT', 'LTU', '440'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       function _extractDigit(vat, multiplier, key) {
         return +vat.charAt(key) * multiplier[key]
       }
@@ -878,7 +929,7 @@ var jsvat = (function() {
   COUNTRIES.luxembourg = {
     name: 'Luxembourg',
     codes: ['LU', 'LUX', '442'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       var expect = +vat.slice(6, 8)
       var checkDigit = +vat.slice(0, 6) % 89
       // Checks the check digits of a Luxembourg VAT number.
@@ -894,7 +945,7 @@ var jsvat = (function() {
   COUNTRIES.malta = {
     name: 'Malta',
     codes: ['MT', 'MLT', '470'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       var total = 0
       var expect
 
@@ -920,7 +971,7 @@ var jsvat = (function() {
   COUNTRIES.netherlands = {
     name: 'Netherlands',
     codes: ['NL', 'NLD', '528'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       var total = 0
       var expect
 
@@ -949,7 +1000,7 @@ var jsvat = (function() {
   COUNTRIES.norway = {
     name: 'Norway',
     codes: ['NO', 'NOR', '578'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       var total = 0
       var expect
       // See http://www.brreg.no/english/coordination/number.html
@@ -982,7 +1033,7 @@ var jsvat = (function() {
   COUNTRIES.poland = {
     name: 'Poland',
     codes: ['PL', 'POL', '616'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       var total = 0
       var expect
 
@@ -1011,7 +1062,7 @@ var jsvat = (function() {
   COUNTRIES.portugal = {
     name: 'Portugal',
     codes: ['PT', 'PRT', '620'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       var total = 0
       var expect
 
@@ -1040,7 +1091,7 @@ var jsvat = (function() {
   COUNTRIES.romania = {
     name: 'Romania',
     codes: ['RO', 'ROU', '642'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       var total = 0
       var expect
 
@@ -1070,7 +1121,7 @@ var jsvat = (function() {
   COUNTRIES.russia = {
     name: 'Russian Federation',
     codes: ['RU', 'RUS', '643'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       function _check10DigitINN(vat, rules) {
         var total = 0
 
@@ -1143,7 +1194,7 @@ var jsvat = (function() {
   COUNTRIES.serbia = {
     name: 'Serbia',
     codes: ['RS', 'SRB', '688'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       // Checks the check digits of a Serbian VAT number using ISO 7064, MOD 11-10 for check digit.
 
       var product = 10
@@ -1173,7 +1224,7 @@ var jsvat = (function() {
   COUNTRIES.slovakia_republic = {
     name: 'Slovakia_',
     codes: ['SK', 'SVK', '703'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       var expect = 0
       var checkDigit = (vat % 11)
       return checkDigit === expect
@@ -1187,7 +1238,7 @@ var jsvat = (function() {
   COUNTRIES.slovenia = {
     name: 'Slovenia',
     codes: ['SI', 'SVN', '705'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       var total = 0
       var expect
 
@@ -1217,7 +1268,7 @@ var jsvat = (function() {
   COUNTRIES.spain = {
     name: 'Spain',
     codes: ['ES', 'ESP', '724'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       var i = 0
       var total = 0
       var temp
@@ -1300,7 +1351,7 @@ var jsvat = (function() {
   COUNTRIES.sweden = {
     name: 'Sweden',
     codes: ['SE', 'SWE', '752'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       var expect
 
       // Calculate R where R = R1 + R3 + R5 + R7 + R9, and Ri = INT(Ci/5) + (Ci*2) modulo 10
@@ -1333,7 +1384,7 @@ var jsvat = (function() {
   COUNTRIES.switzerland = {
     name: 'Switzerland',
     codes: ['CH', 'CHE', '756'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       var total = 0
       for (var i = 0; i < 8; i++) {
         total += +vat.charAt(i) * this.rules.multipliers[i]
@@ -1358,7 +1409,7 @@ var jsvat = (function() {
   COUNTRIES.united_kingdom = {
     name: 'United Kingdom',
     codes: ['GB', 'GBR', '826'],
-    calcs: function(vat) {
+    calcFn: function(vat) {
       var total = 0
       var expect
 

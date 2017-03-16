@@ -2,7 +2,7 @@
 COUNTRIES.serbia = {
   name: 'Serbia',
   codes: ['RS',	'SRB',	'688'],
-  calcs: function (vat) {
+  calcFn: function (vat) {
     // Checks the check digits of a Serbian VAT number using ISO 7064, MOD 11-10 for check digit.
 
     var product = 10

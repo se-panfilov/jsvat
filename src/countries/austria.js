@@ -2,7 +2,7 @@
 COUNTRIES.austria = {
   name: 'Austria',
   codes: ['AT', 'AUT', '040'],
-  calcs: function (vat) {
+  calcFn: function (vat) {
     var total = 0
     var temp
 

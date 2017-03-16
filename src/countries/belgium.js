@@ -2,7 +2,7 @@
 COUNTRIES.belgium = {
   name: 'Belgium',
   codes: ['BE', 'BEL', '056'],
-  calcs: function (vat) {
+  calcFn: function (vat) {
     if (vat.length === 9) {
       vat = '0' + vat
     }

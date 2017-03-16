@@ -2,7 +2,7 @@
 COUNTRIES.czech_republic = {
   name: 'Czech Republic',
   codes: ['CZ', 'CZE', '203'],
-  calcs: function (vat) {
+  calcFn: function (vat) {
     function _isLegalEntities (vat, rules) {
       var total = 0
 

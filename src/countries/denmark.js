@@ -2,7 +2,7 @@
 COUNTRIES.denmark = {
   name: 'Denmark',
   codes: ['DK',	'DNK',	'208'],
-  calcs: function (vat) {
+  calcFn: function (vat) {
     var total = 0
 
     for (var i = 0; i < 8; i++) {

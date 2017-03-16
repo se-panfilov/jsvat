@@ -2,7 +2,7 @@
 COUNTRIES.hungary = {
   name: 'Hungary',
   codes: ['HU', 'HUN', '348'],
-  calcs: function (vat) {
+  calcFn: function (vat) {
     var total = 0
     var expect
 
