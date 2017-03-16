@@ -43,11 +43,10 @@ function isBlocked (country, blocked, allowed) {
 }
 
 function getCountry (vat, countries) {
-  var prefix = vat.match(/^[A-z]{2}/)[0]
-
   for (var k in countries) {
     if (countries.hasOwnProperty(k)) {
-      if (isValEqToCode(prefix, countries[k].codes)) return countries[k]
+      var regexpValidRes = isVatValidToRegexp(vat, countries[k].rules.regex)
+      if (regexpValidRes.isValid) return countries[k]
     }
   }
 
@@ -58,19 +57,20 @@ function isVatValidToRegexp (vat, regexArr) {
   for (var i = 0; i < regexArr.length; i++) {
     var regex = regexArr[i]
     var isValid = regex.test(vat)
-    if (isValid) return true
+    if (isValid) return {isValid: true, regex: regex}
   }
 
-  return false
+  return {isValid: false}
 }
 
 function isVatMathValid (vat, country) {
-  var vatDigits = (vat).match(/\d+/)[0]
-  return country.calcFn(vatDigits)
+  return country.calcFn(vat)
 }
 
 function isVatValid (vat, country) {
-  return (isVatValidToRegexp(vat, country.rules.regex) && isVatMathValid(vat, country))
+  var regexpValidRes = isVatValidToRegexp(vat, country.rules.regex)
+  if (!regexpValidRes.isValid) return false
+  return isVatMathValid(regexpValidRes.regex.exec(vat)[2], country)
 }
 
 
@@ -84,7 +84,8 @@ var exports = {
     var result = new Result(cleanVAT)
 
     var country = getCountry(cleanVAT, this.countries)
-    if (isBlocked(country, this.blocked, this.allowed)) return result
+    if (!country) return result
+    if (isBlocked(country, this.blocked, this.allowed)) return new Result(cleanVAT, false, country)
 
     var isValid = isVatValid(cleanVAT, country)
     if (isValid) return new Result(cleanVAT, isValid, country)
