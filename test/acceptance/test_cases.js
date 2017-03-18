@@ -1,9 +1,9 @@
 'use strict'
 
-var jsvat = require('../../dist/jsvat.js')
-var utils = require('../utils.js')
+const jsvat = require('../../dist/jsvat.js')
+const utils = require('../utils.js')
 
-var countries = {}
+const countries = {}
 countries.austria = require('./countries_vat_lists/austria.vat.js')
 countries.belgium = require('./countries_vat_lists/belgium.vat.js')
 countries.bulgaria = require('./countries_vat_lists/bulgaria.vat.js')
@@ -310,9 +310,9 @@ function makeTests (vatList, country) {
       describe('Allowed other countries.', () => {
 
         before(() => {
-          var otherCountry = 'sweden'
+          let otherCountry = 'sweden'
           jsvat.allowed = []
-          if (country.name === 'sweden') {
+          if (country.name === 'Sweden') {
             otherCountry = 'austria'
           }
 
@@ -365,19 +365,19 @@ function makeTests (vatList, country) {
       describe('Allowed multiple countries but not current.', () => {
 
         before(() => {
-          var otherCountries = ['sweden', 'RU', '056']
+          const otherCountries = ['sweden', 'RU', '056']
 
           jsvat.allowed = []
 
-          if (country.name === 'sweden') otherCountries[0] = 'austria'
-          if (country.name === 'russia') otherCountries[1] = 'austria'
-          if (country.name === '056') otherCountries[2] = 'austria'
+          if (country.name === 'Sweden') otherCountries[0] = 'austria'
+          if (country.codes[0] === 'RU') otherCountries[1] = 'austria'
+          if (country.codes[2] === '056') otherCountries[2] = 'austria'
 
           jsvat.allowed.push(otherCountries[0])
           jsvat.allowed.push(otherCountries[1])
           jsvat.allowed.push(otherCountries[2])
         })
-        //
+
         describe('Valid VAT.', () => {
 
           describe('Simple checks.', () => {
