@@ -1,4 +1,6 @@
 module.exports = {
+  name: 'United Kingdom',
+  codes: ['GB',	'GBR',	'826'],
   valid: [
     'GB000472631',
     'GB000537235',

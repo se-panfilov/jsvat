@@ -1,4 +1,6 @@
 module.exports = {
+  name: 'Czech Republic',
+  codes: ['CZ', 'CZE', '203'],
   valid: [
     'CZ00008702',
     'CZ00216224',
@@ -50,7 +52,7 @@ module.exports = {
     'CZ699002447',
     'CZ70904901'
   ],
-  invalid: [ 
+  invalid: [
     'CZ699001237',
     'CZ600001234',
     'CZ60000123456',

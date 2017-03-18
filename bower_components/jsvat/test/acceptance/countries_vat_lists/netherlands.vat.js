@@ -1,4 +1,6 @@
 module.exports = {
+  name: 'Netherlands',
+  codes: ['NL', 'NLD', '528'],
   valid: [
     'NL010000446B01',
     'NL000000024B01',

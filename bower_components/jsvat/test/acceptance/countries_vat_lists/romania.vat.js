@@ -1,4 +1,6 @@
 module.exports = {
+  name: 'Romania',
+  codes: ['RO', 'ROU', '642'],
   valid: [
     'RO11198699',
     'RO99908',

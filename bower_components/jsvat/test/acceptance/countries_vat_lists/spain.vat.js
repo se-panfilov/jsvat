@@ -1,4 +1,6 @@
 module.exports = {
+  name: 'Spain',
+  codes: ['ES',	'ESP',	'724'],
   valid: [
     'ESA0011012B',
     'ES00000001R',

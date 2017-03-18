@@ -1,4 +1,6 @@
 module.exports = {
+  name: 'Austria',
+  codes: ['AT', 'AUT', '040'],
   valid: [
     'ATU00000024',
     'ATU00000033',

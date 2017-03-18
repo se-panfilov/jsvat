@@ -1,4 +1,6 @@
 module.exports = {
+  name: 'Russian Federation',
+  codes: ['RU', 'RUS', '643'],
   valid: [
     'RU0274051582',
     'RU2901081545',

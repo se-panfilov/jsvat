@@ -1,4 +1,6 @@
 module.exports = {
+  name: 'Belgium',
+  codes: ['BE', 'BEL', '056'],
   valid: [
     'BE0411905847',
     'BE0414445663',

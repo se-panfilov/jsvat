@@ -1,13 +1,13 @@
-"use strict";
+"use strict"
 
-const gulp = require('gulp');
+const gulp = require('gulp')
 
-const size = require('gulp-size');
+const size = require('gulp-size')
 
 
-gulp.task('sizes', function () {
+gulp.task('sizes', () => {
   return gulp.src([
     'dist/**/*.js',
     'dist/**/*.gz'
-  ]).pipe(size({showFiles: true, showTotal: true}));
-});
+  ]).pipe(size({showFiles: true, showTotal: true}))
+})

@@ -1,4 +1,6 @@
 module.exports = {
+  name: 'Bulgaria',
+  codes: ['BG',	'BGR',	'100'],
   valid: [
     'BG0000100153',
     'BG0000100159',

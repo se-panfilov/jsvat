@@ -1,4 +1,6 @@
 module.exports = {
+  name: 'Croatia',
+  codes: ['HR',	'HRV',	'191'],
   valid: [
     'HR02574432339',
     'HR06282943396',

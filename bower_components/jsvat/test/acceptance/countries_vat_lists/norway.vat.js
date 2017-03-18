@@ -1,4 +1,6 @@
 module.exports = {
+  name: 'Norway',
+  codes: ['NO', 'NOR', '578'],
   valid: [
     'NO864234232',
     'NO919405619',

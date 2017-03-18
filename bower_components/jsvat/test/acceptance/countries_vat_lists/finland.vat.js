@@ -1,4 +1,6 @@
 module.exports = {
+  name: 'Finland',
+  codes: ['FI', 'FIN', '246'],
   valid: [
     'FI09853608',
     'FI00000027',

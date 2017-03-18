@@ -1,4 +1,6 @@
 module.exports = {
+  name: 'Luxembourg',
+  codes: ['LU', 'LUX', '442'],
   valid: [
     'LU00000000',
     'LU10000356',

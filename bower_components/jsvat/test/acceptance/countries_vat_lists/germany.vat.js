@@ -1,4 +1,6 @@
 module.exports = {
+  name: 'Germany',
+  codes: ['DE',	'DEU',	'276'],
   valid: [
     'DE111111125',
     'DE113298780',
@@ -66,4 +68,3 @@ module.exports = {
     'DE000000206'
   ]
 };
-  

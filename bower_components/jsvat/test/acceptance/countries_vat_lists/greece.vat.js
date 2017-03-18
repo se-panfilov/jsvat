@@ -1,4 +1,6 @@
 module.exports = {
+  name: 'Greece',
+  codes: ['GR',	'GRC',	'300'],
   valid: [
     'EL000000024',
     'EL000000036',

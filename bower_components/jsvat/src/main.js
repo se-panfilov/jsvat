@@ -1,68 +1,95 @@
-var COUNTRIES = {};
+function Result (vat, isValid, country) {
+  this.value = vat || null
+  this.isValid = !!isValid
 
-function _validateRegex(vat, regex) {
-  return regex.test(vat);
-}
-
-function _validateRules(vat, regex, countryName) {
-  var parsedNum = regex.exec(vat);
-  var vatNum = parsedNum[2];
-
-  return COUNTRIES[countryName].calcs(vatNum);
-}
-
-function _validate(vat, regex, countryName) {
-  var result = false;
-  if (_validateRegex(vat, regex)) {
-    result = _validateRules(vat, regex, countryName);
+  if (country) {
+    this.country = {
+      name: country.name,
+      isoCode: {
+        short: country.codes[0],
+        long: country.codes[1],
+        numeric: country.codes[2]
+      }
+    }
   }
-  return result;
 }
 
-function _getPureVAT(vat) {
-  vat = vat || '';
-  return vat.toString().toUpperCase().replace(/(\s|-|\.)+/g, '');
+function removeExtraChars (vat) {
+  vat = vat || ''
+  return vat.toString().toUpperCase().replace(/(\s|-|\.)+/g, '')
 }
 
-function _isCountryBlocked(config, countryName) {
-  if (!config || config.length === 0) return false;
-
-  return config.indexOf(countryName) === -1;
+function isValEqToCode (val, codes) {
+  return (val === codes[0] || val === codes[1] || val === codes[2])
 }
 
-function checkValidity(vat, countryName) {
-  var regexArr = COUNTRIES[countryName].rules.regex;
+function isInList (list, country) {
+  if (!list) return false
+
+  for (var i = 0; i < list.length; i++) {
+    var val = list[i].toUpperCase()
+    if (val === country.name.toUpperCase()) return true
+    if (isValEqToCode(val, country.codes)) return true
+  }
+
+  return false
+}
+
+function isBlocked (country, blocked, allowed) {
+  var isBlocked = isInList(blocked, country)
+  if (isBlocked) return true
+  var isAllowed = isInList(allowed, country)
+  return allowed.length > 0 && !isAllowed
+}
+
+function getCountry (vat, countries) {
+  for (var k in countries) {
+    if (countries.hasOwnProperty(k)) {
+      var regexpValidRes = isVatValidToRegexp(vat, countries[k].rules.regex)
+      if (regexpValidRes.isValid) return countries[k]
+    }
+  }
+
+  return null
+}
+
+function isVatValidToRegexp (vat, regexArr) {
   for (var i = 0; i < regexArr.length; i++) {
-    var isValid = _validate(vat, regexArr[i], countryName);
-    if (isValid) return isValid && !_isCountryBlocked(exports.config, countryName);
+    var regex = regexArr[i]
+    var isValid = regex.test(vat)
+    if (isValid) return {isValid: true, regex: regex}
   }
-  return false;
+
+  return {isValid: false}
+}
+
+function isVatMathValid (vat, country) {
+  return country.calcFn(vat)
+}
+
+function isVatValid (vat, country) {
+  var regexpValidRes = isVatValidToRegexp(vat, country.rules.regex)
+  if (!regexpValidRes.isValid) return false
+  return isVatMathValid(regexpValidRes.regex.exec(vat)[2], country)
 }
 
 var exports = {
-  config: [],
+  blocked: [],
+  allowed: [],
+  countries: {},
   checkVAT: function (vat) {
-    var result = {
-      value: _getPureVAT(vat),
-      isValid: false,
-      country: null
-    };
+    if (!vat) throw new Error('VAT should be specified')
+    var cleanVAT = removeExtraChars(vat)
+    var result = new Result(cleanVAT)
 
-    if (!vat) return result;
+    var country = getCountry(cleanVAT, this.countries)
+    if (!country) return result
+    if (isBlocked(country, this.blocked, this.allowed)) return new Result(cleanVAT, false, country)
 
-    for (var countryName in COUNTRIES) {
-      if (COUNTRIES.hasOwnProperty(countryName)) {
+    var isValid = isVatValid(cleanVAT, country)
+    if (isValid) return new Result(cleanVAT, isValid, country)
 
-        result.isValid = checkValidity(result.value, countryName);
-
-        if (result.isValid) {
-          result.country = countryName;
-          return result;
-        }
-      }
-    }
-
-    return result;
-
+    return result
   }
-};
+}
+

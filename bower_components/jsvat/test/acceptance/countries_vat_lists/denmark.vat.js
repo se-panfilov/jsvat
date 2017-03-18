@@ -1,4 +1,6 @@
 module.exports = {
+  name: 'Denmark',
+  codes: ['DK',	'DNK',	'208'],
   valid: [
     'DK10000009',
     'DK10000017',

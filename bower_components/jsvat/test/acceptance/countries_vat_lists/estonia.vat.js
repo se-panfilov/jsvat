@@ -1,4 +1,6 @@
 module.exports = {
+  name: 'Estonia',
+  codes: ['EE',	'EST',	'233'],
   valid: [
     'EE100007796',
     'EE100014404',

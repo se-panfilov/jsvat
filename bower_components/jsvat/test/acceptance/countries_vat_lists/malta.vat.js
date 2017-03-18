@@ -1,4 +1,6 @@
 module.exports = {
+  name: 'Malta',
+  codes: ['MT', 'MLT', '470'],
   valid: [
     'MT10126313',
     'MT10271622',
