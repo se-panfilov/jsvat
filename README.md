@@ -31,21 +31,66 @@ What jsvat do?
 Just check is VAT number valid or not and which country this VAT is:
 
   ```javascript
-  jsvat.checkVAT('BG131134023'); // {isValid: true, country: 'bulgaria', value: 'BG131134023', countryCode: 'BG'}
-  jsvat.checkVAT('BG0433170001'); //{isValid: false, country: null, value: 'BG0433170001', countryCode: 'BG'}
-  jsvat.checkVAT('atu5-150-7409');  //{isValid: true, country: 'austria', value: 'ATU51507409', countryCode: 'ATU'}
-  jsvat.checkVAT('aTU 5 804 4146');  //{isValid: true, country: 'austria', value: 'ATU58044146', countryCode: 'ATU'}
+  jsvat.checkVAT('BG131134023'); 
+  jsvat.checkVAT('atu5-150-7409');
+  jsvat.checkVAT('aTU 5 804 4146');
   ```
+  
+Return value
+---------
+ 
+`jsvat.checkVAT()` returns `Result` Object:
+
+```
+{
+  value: 'BG131134023', // VAT without extra characters (like '-' and spaces)
+  isValid: true, 
+  country: { // VAT's couuntry (null if not found)
+      name: country.name, //Name of the country
+      isoCode: { //Country ISO codes
+        short: 'BE', 
+        long: 'BEL,
+        numeric: '056' //String, because of forwarding zero
+      }
+    }
+  }
+```
+
+Allow or block countries
+----------
 
 You can specify list of allowed countries
 
+1. Add some countries into `blocked` array:
 ```javascript
-  jsvat.config = ['austria', 'belgium']; //All countries except 'austria' and 'belgium' would return false
-  jsvat.checkVAT('BG131134023'); //valid VAT, but result would be 'false'
+  jsvat.blocked = ['austria', 'Belgium', 'RU', '470'] //Can be country's name or iso code
+  jsvat.checkVAT('BG131134023') //result's isValid will be === false
 ```
 
-To reset config just do `jsvat.config = [];`
+To reset `blocked` just do `jsvat.blocked = [];`
 
+
+2. Add some countries into `allowed` array:
+```javascript
+  jsvat.allowed = ['SK', 'Russia'] //All other countries would be blocked
+```
+
+To reset `allowed` just do `jsvat.allowed = [];`
+
+*Important:* it's not recommended to use `blocked` and `allowed` in same time. To stay on a safe side use one of them.
+
+3. Basically check result:
+
+```javascript
+function allowOnlyBelgium(vat) {
+  var result = jsvat.checkVAT(vat)
+  return result.isValid && result.isoCode.short === 'BE'
+}
+```
+It's better to use comparison with `isoCode` instead of name cause some countries can have multiple variations of name 
+(Netherlands aka Dutch, UK aka England, etc)
+
+  
 Installation
 ----------
 
@@ -61,7 +106,7 @@ Installation
 
   [https://github.com/se-panfilov/jsvat/releases][4]
 
-4. Just use `jsvat.chcekVat(vat, isDetailed)` from global scope.
+4. Just use `jsvat.chcekVat(vat)` from global scope.
   If you didn't like global scope - wrap it'
 
 How to use jsvat?
@@ -129,10 +174,19 @@ List of supported Countries:
  - Slovakia republic
  - Sweden
 
+What if I don't need all countries
+--------
+
+You can do your own custom build.
+
+ 1. [Download or clone][5];
+ 2. Remove extra countries (that you don't) need from `src/countries`;
+ 3. Build it `gulp build` (don't forget to make `npm i` first);
+
 Versions for frameworks:
 --------
 
- - [Angular-jsvat][5]
+ - [Angular-jsvat][5] (for angular 1.x.x)
 
 Browsers Supports
 ---------
@@ -141,6 +195,9 @@ Support all browsers down to IE9 (including IE9).
 
 Changelog
 --------
+
+#####1.2.0
+ - Added more info regarding countries in result (`isoCodes`, `name`)
 
 #####1.1.0
   - jsvat now always return Object (there is no more just true or false value);

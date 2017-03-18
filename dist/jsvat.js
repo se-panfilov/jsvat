@@ -82,7 +82,6 @@ var jsvat = (function() {
     return isVatMathValid(regexpValidRes.regex.exec(vat)[2], country)
   }
 
-
   var exports = {
     blocked: [],
     allowed: [],
