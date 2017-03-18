@@ -4,6 +4,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "gulp": "^3.9.1"
   },
   "devDependencies": {
     "gulp-webserver": "^0.9.1"
