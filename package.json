@@ -57,7 +57,7 @@
     "gulp-webstandards": "^0.1.1",
     "gulp-wrap": "^0.13.0",
     "eslint": "^3.17.1",
-    "eslint-config-standard": "^7.0.1",
+    "eslint-config-standard": "^8.0.0",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^2.1.1",
     "minimist": "^1.2.0",
