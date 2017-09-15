@@ -2,4 +2,3 @@
 node_modules
 .idea
 bower_components
-yarn.lock
