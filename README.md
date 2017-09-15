@@ -49,7 +49,7 @@ Return value
       name: country.name, //Name of the country
       isoCode: { //Country ISO codes
         short: 'BE', 
-        long: 'BEL,
+        long: 'BEL',
         numeric: '056' //String, because of forwarding zero
       }
     }
