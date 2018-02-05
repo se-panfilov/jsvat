@@ -25,6 +25,20 @@ exports.countries.czech_republic = {
       return false
     }
 
+    function _isIndividualType1 (vat, rules) {
+      if (rules.additional[1].test(vat)) {
+        var temp = +vat.slice(0,2)
+
+          if (temp > 62){
+            return false;
+          } else {
+            return true;
+          }
+
+
+      }
+    }
+
     function _isIndividualType2 (vat, rules) {
       var total = 0
 
@@ -60,6 +74,7 @@ exports.countries.czech_republic = {
     if (_isLegalEntities(vat, this.rules)) return true
     if (_isIndividualType2(vat, this.rules)) return true
     if (_isIndividualType3(vat, this.rules)) return true
+    if (_isIndividualType1(vat, this.rules)) return true
 
     return false
   },
@@ -71,7 +86,7 @@ exports.countries.czech_republic = {
       /^\d{8}$/,
       /^[0-5][0-9][0|1|5|6]\d[0-3]\d\d{3}$/,
       /^6\d{8}$/,
-      /^\d{2}[0-3|5-8][0-9][0-3][0-9]\d{4}$/
+      /^\d{2}[0-3|5-8]\d[0-3]\d\d{4}$/
     ]
   }
 }
