@@ -65,7 +65,7 @@ exports.countries.czech_republic = {
   },
   rules: {
     multipliers: [8, 7, 6, 5, 4, 3, 2],
-    lookup: [8, 7, 6, 5, 4, 3, 2, 1, 0, 9, 10],
+    lookup: [8, 7, 6, 5, 4, 3, 2, 1, 0, 9, 8],
     regex: [/^(CZ)(\d{8,10})(\d{3})?$/],
     additional: [
       /^\d{8}$/,
