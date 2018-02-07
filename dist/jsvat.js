@@ -357,6 +357,20 @@ var jsvat = (function() {
         return false
       }
 
+      function _isIndividualType1(vat, rules) {
+        if (rules.additional[1].test(vat)) {
+          var temp = +vat.slice(0, 2)
+
+          if (temp > 62) {
+            return false;
+          } else {
+            return true;
+          }
+
+
+        }
+      }
+
       function _isIndividualType2(vat, rules) {
         var total = 0
 
@@ -392,6 +406,7 @@ var jsvat = (function() {
       if (_isLegalEntities(vat, this.rules)) return true
       if (_isIndividualType2(vat, this.rules)) return true
       if (_isIndividualType3(vat, this.rules)) return true
+      if (_isIndividualType1(vat, this.rules)) return true
 
       return false
     },
