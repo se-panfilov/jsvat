@@ -13,6 +13,8 @@
 jsvat
 -------
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/se-panfilov/jsvat.svg)](https://greenkeeper.io/)
+
 [[Demo and Examples]][2]
 
 Check the validity of the format of an EU VAT number. No dependencies.
