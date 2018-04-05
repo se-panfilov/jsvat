@@ -154,6 +154,7 @@ List of supported Countries:
  - Greece
  - Spain
  - Europe
+ - Estonia
  - Finland
  - France
  - United Kingdom
