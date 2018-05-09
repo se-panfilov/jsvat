@@ -141,6 +141,10 @@ There is 2-step check:
  Here we make some mathematical calculation (different for each country).
  After that we may be sure that `ATU99999999`and for example `ATV66889218` isn't valid, but `ATU12011204` is valid.
 
+NOTE:
+VAT numbers of some countries should ends up with special characters. Like '01' for Sweden or "L" for Cyprus.
+If 100% real VAT doesn't fit, try to add proper appendix.
+
 List of supported Countries:
 ---------
 
