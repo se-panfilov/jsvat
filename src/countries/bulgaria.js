@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-undef
 exports.countries.bulgaria = {
   name: 'Bulgaria',
-  codes: ['BG',	'BGR',	'100'],
+  codes: ['BG', 'BGR', '100'],
   calcFn: function (vat) {
     function _increase (value, vat, from, to, incr) {
       for (var i = from; i < to; i++) {

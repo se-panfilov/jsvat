@@ -73,6 +73,7 @@ function isVatValid (vat, country) {
   return isVatMathValid(regexpValidRes.regex.exec(vat)[2], country)
 }
 
+// eslint-disable-next-line no-unused-vars
 var exports = {
   blocked: [],
   allowed: [],
@@ -92,4 +93,3 @@ var exports = {
     return result
   }
 }
-

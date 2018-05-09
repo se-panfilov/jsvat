@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-undef
 exports.countries.germany = {
   name: 'Germany',
-  codes: ['DE',	'DEU',	'276'],
+  codes: ['DE', 'DEU', '276'],
   calcFn: function (vat) {
     // Checks the check digits of a German VAT number.
     var product = 10

@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-undef
 exports.countries.switzerland = {
   name: 'Switzerland',
-  codes: ['CH',	'CHE',	'756'],
+  codes: ['CH', 'CHE', '756'],
   calcFn: function (vat) {
     var total = 0
     for (var i = 0; i < 8; i++) {

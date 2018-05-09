@@ -27,15 +27,13 @@ exports.countries.czech_republic = {
 
     function _isIndividualType1 (vat, rules) {
       if (rules.additional[1].test(vat)) {
-        var temp = +vat.slice(0,2)
+        var temp = +vat.slice(0, 2)
 
-          if (temp > 62){
-            return false;
-          } else {
-            return true;
-          }
-
-
+        if (temp > 62) {
+          return false
+        } else {
+          return true
+        }
       }
     }
 

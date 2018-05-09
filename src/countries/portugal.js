@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-undef
 exports.countries.portugal = {
   name: 'Portugal',
-  codes: ['PT',	'PRT',	'620'],
+  codes: ['PT', 'PRT', '620'],
   calcFn: function (vat) {
     var total = 0
     var expect
