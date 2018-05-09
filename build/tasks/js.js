@@ -1,4 +1,4 @@
-"use strict"
+'use strict'
 
 const gulp = require('gulp')
 
@@ -13,7 +13,6 @@ const beautify = require('gulp-beautify')
 const wrap = require('gulp-wrap')
 
 gulp.task('js', () => {
-
   const moduleWrap =
     'var jsvat = (function () {' +
     '\n\r\'use strict\'' +
@@ -44,7 +43,4 @@ gulp.task('js', () => {
     .pipe(gulp.dest(config.dest))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(config.dest))
-
-
 })
-
