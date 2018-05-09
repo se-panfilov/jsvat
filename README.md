@@ -8,10 +8,13 @@
 [![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/se-panfilov/jsvat/blob/master/LICENSE)
 
 [![NPM](https://nodei.co/npm/jsvat.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/jsvat/)
+[![Package Quality](http://npm.packagequality.com/badge/jsvat.png)](http://packagequality.com/#?package=jsvat)
 
 
 jsvat
 -------
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/se-panfilov/jsvat.svg)](https://greenkeeper.io/)
 
 [[Demo and Examples]][2]
 
@@ -138,6 +141,10 @@ There is 2-step check:
  Here we make some mathematical calculation (different for each country).
  After that we may be sure that `ATU99999999`and for example `ATV66889218` isn't valid, but `ATU12011204` is valid.
 
+NOTE:
+VAT numbers of some countries should ends up with special characters. Like '01' for Sweden or "L" for Cyprus.
+If 100% real VAT doesn't fit, try to add proper appendix.
+
 List of supported Countries:
 ---------
 
@@ -152,6 +159,7 @@ List of supported Countries:
  - Greece
  - Spain
  - Europe
+ - Estonia
  - Finland
  - France
  - United Kingdom
