@@ -56,7 +56,7 @@
     "gulp-watch": "5.0.1",
     "gulp-webstandards": "0.1.1",
     "gulp-wrap": "0.14.0",
-    "eslint": "5.0.1",
+    "eslint": "5.14.0",
     "eslint-config-standard": "12.0.0",
     "eslint-plugin-import": "2.13.0",
     "eslint-plugin-node": "7.0.0",
