@@ -81,15 +81,11 @@ var exports = {
   checkVAT: function (vat) {
     if (!vat) throw new Error('VAT should be specified')
     var cleanVAT = removeExtraChars(vat)
-    var result = new Result(cleanVAT)
-
     var country = getCountry(cleanVAT, this.countries)
-    if (!country) return result
-    if (isBlocked(country, this.blocked, this.allowed)) return new Result(cleanVAT, false, country)
+    var isValid = false;
+    
+    if (country && !isBlocked(country, this.blocked, this.allowed)) isValid = isVatValid(cleanVAT, country)
 
-    var isValid = isVatValid(cleanVAT, country)
-    if (isValid) return new Result(cleanVAT, isValid, country)
-
-    return result
+    return new Result(cleanVAT, isValid, country)
   }
 }
