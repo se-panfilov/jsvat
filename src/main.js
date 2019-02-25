@@ -79,7 +79,6 @@ var exports = {
   allowed: [],
   countries: {},
   checkVAT: function (vat) {
-    if (!vat) throw new Error('VAT should be specified')
     var cleanVAT = removeExtraChars(vat)
     var result = new Result(cleanVAT)
 
