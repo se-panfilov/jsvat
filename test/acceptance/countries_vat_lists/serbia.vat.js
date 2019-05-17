@@ -1,6 +1,6 @@
-module.exports = {
+export const serbia = {
   name: 'Serbia',
-  codes: ['RS',	'SRB',	'688'],
+  codes: ['RS', 'SRB', '688'],
   valid: [
     'RS100010812',
     'RS100182160',

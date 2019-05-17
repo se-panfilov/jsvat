@@ -1,6 +1,6 @@
-module.exports = {
+export const italy = {
   name: 'Italy',
-  codes: ['IT',	'ITA',	'380'],
+  codes: ['IT', 'ITA', '380'],
   valid: [
     'IT00000010215',
     'IT00079760328',

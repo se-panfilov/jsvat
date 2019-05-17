@@ -1,5 +1,6 @@
-// eslint-disable-next-line no-undef
-exports.countries.europe = {
+// @flow
+
+export const europe = {
   name: 'Europe',
   codes: ['EU', 'EUR', '000'], // TODO (S.Panfilov) that's not a real codes
   calcFn: function () {

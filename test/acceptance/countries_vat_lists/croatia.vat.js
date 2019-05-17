@@ -1,6 +1,6 @@
-module.exports = {
+export const croatia = {
   name: 'Croatia',
-  codes: ['HR',	'HRV',	'191'],
+  codes: ['HR', 'HRV', '191'],
   valid: [
     'HR02574432339',
     'HR06282943396',

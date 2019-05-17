@@ -1,4 +1,4 @@
-module.exports = {
+export const austria = {
   name: 'Austria',
   codes: ['AT', 'AUT', '040'],
   valid: [
@@ -73,5 +73,4 @@ module.exports = {
     'ATU10223005',
     'ATU10223007'
   ]
-};
-
+}

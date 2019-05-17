@@ -1,6 +1,6 @@
-module.exports = {
+export const denmark = {
   name: 'Denmark',
-  codes: ['DK',	'DNK',	'208'],
+  codes: ['DK', 'DNK', '208'],
   valid: [
     'DK10000009',
     'DK10000017',

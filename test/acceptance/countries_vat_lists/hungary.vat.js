@@ -1,4 +1,4 @@
-module.exports = {
+export const hungary = {
   name: 'Hungary',
   codes: ['HU', 'HUN', '348'],
   valid: [

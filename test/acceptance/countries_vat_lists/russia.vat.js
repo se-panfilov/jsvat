@@ -1,4 +1,4 @@
-module.exports = {
+export const russia = {
   name: 'Russian Federation',
   codes: ['RU', 'RUS', '643'],
   valid: [

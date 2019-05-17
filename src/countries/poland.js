@@ -1,5 +1,6 @@
-// eslint-disable-next-line no-undef
-exports.countries.poland = {
+// @flow
+
+export const poland = {
   name: 'Poland',
   codes: ['PL', 'POL', '616'],
   calcFn: function (vat) {

@@ -1,6 +1,6 @@
-module.exports = {
+export const sweden = {
   name: 'Sweden',
-  codes: ['SE',	'SWE',	'752'],
+  codes: ['SE', 'SWE', '752'],
   valid: [
     'SE000000002601',
     'SE000000003401',

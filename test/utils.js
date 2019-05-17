@@ -1,11 +1,11 @@
-const expect = require('chai').expect
-const jsvat = require('../dist/jsvat.js')
+import jsvat from '../dist/jsvat.js'
+
 const argv = require('minimist')(process.argv.slice(2))
 
-const noVerbose = "noverbose"
+const noVerbose = 'noverbose'
 
-module.exports = {
-  check (arr, msg, isTrue, country) {
+export const utils = {
+  check(arr, msg, isTrue, country) {
     arr.forEach(function (item) {
 
       const testMsg = (argv.config !== noVerbose) ? msg + ': ' + item : 'test'
@@ -30,7 +30,7 @@ module.exports = {
       })
     })
   },
-  addCharsToVals (arr, char) {
+  addCharsToVals(arr, char) {
     return arr.map(item => {
       const val = item.split('')
       val.splice(3, 0, char)

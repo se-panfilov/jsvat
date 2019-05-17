@@ -1,5 +1,6 @@
-// eslint-disable-next-line no-undef
-exports.countries.malta = {
+// @flow
+
+export const malta = {
   name: 'Malta',
   codes: ['MT', 'MLT', '470'],
   calcFn: function (vat) {

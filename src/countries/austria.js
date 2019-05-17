@@ -1,5 +1,13 @@
-// eslint-disable-next-line no-undef
-exports.countries.austria = {
+// @flow
+
+// interface CountryConfig {
+//   name: string;
+//   codes: Array<string>;
+//   calcFn: (vat: string) => boolean;
+// }
+
+// export const austria: CountryConfig = {
+export const austria = {
   name: 'Austria',
   codes: ['AT', 'AUT', '040'],
   calcFn: function (vat) {

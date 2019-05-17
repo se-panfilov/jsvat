@@ -1,4 +1,4 @@
-module.exports = {
+export const malta = {
   name: 'Malta',
   codes: ['MT', 'MLT', '470'],
   valid: [

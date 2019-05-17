@@ -1,4 +1,4 @@
-module.exports = {
+export const europe = {
   name: 'Europe',
   codes: ['EU', 'EUR', '000'], // TODO (S.Panfilov) that's not a real codes
   valid: [

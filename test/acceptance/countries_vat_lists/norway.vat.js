@@ -1,4 +1,4 @@
-module.exports = {
+export const norway = {
   name: 'Norway',
   codes: ['NO', 'NOR', '578'],
   valid: [

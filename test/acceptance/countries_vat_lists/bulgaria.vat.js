@@ -1,6 +1,6 @@
-module.exports = {
+export const bulgaria = {
   name: 'Bulgaria',
-  codes: ['BG',	'BGR',	'100'],
+  codes: ['BG', 'BGR', '100'],
   valid: [
     'BG0000100153',
     'BG0000100159',

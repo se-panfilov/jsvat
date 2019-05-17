@@ -1,6 +1,6 @@
-module.exports = {
+export const united_kingdom = {
   name: 'United Kingdom',
-  codes: ['GB',	'GBR',	'826'],
+  codes: ['GB', 'GBR', '826'],
   valid: [
     'GB000472631',
     'GB000537235',

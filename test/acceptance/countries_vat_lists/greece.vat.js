@@ -1,6 +1,6 @@
-module.exports = {
+export const greece = {
   name: 'Greece',
-  codes: ['GR',	'GRC',	'300'],
+  codes: ['GR', 'GRC', '300'],
   valid: [
     'EL000000024',
     'EL000000036',

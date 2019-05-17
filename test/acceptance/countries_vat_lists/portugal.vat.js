@@ -1,6 +1,6 @@
-module.exports = {
+export const portugal = {
   name: 'Portugal',
-  codes: ['PT',	'PRT',	'620'],
+  codes: ['PT', 'PRT', '620'],
   valid: [
     'PT100000010',
     'PT100000029',

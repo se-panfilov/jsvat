@@ -1,4 +1,5 @@
 *.log
 node_modules
 .idea
-bower_components
+.DS_Store
+coverage

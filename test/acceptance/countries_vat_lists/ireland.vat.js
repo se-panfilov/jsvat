@@ -1,6 +1,6 @@
-module.exports = {
+export const ireland = {
   name: 'Ireland',
-  codes: ['IE',	'IRL',	'372'],
+  codes: ['IE', 'IRL', '372'],
   valid: [
     'IE0000002D',
     'IE0000003F',

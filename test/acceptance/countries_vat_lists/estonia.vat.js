@@ -1,6 +1,6 @@
-module.exports = {
+export const estonia = {
   name: 'Estonia',
-  codes: ['EE',	'EST',	'233'],
+  codes: ['EE', 'EST', '233'],
   valid: [
     'EE100007796',
     'EE100014404',

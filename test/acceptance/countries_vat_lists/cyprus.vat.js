@@ -1,4 +1,4 @@
-module.exports = {
+export const cyprus = {
   name: 'Cyprus',
   codes: ['CY', 'CYP', '196'],
   valid: [

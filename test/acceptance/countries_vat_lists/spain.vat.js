@@ -1,6 +1,6 @@
-module.exports = {
+export const spain = {
   name: 'Spain',
-  codes: ['ES',	'ESP',	'724'],
+  codes: ['ES', 'ESP', '724'],
   valid: [
     'ESA0011012B',
     'ES00000001R',

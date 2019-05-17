@@ -1,4 +1,4 @@
-module.exports = {
+export const czech_republic = {
   name: 'Czech Republic',
   codes: ['CZ', 'CZE', '203'],
   valid: [
