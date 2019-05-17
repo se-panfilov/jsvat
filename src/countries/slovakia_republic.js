@@ -1,5 +1,6 @@
 // @flow
 
+// eslint-disable-next-line camelcase
 export const slovakia_republic = {
   name: 'Slovakia_Republic',
   codes: ['SK', 'SVK', '703'],

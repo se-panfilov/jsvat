@@ -1,5 +1,6 @@
 // @flow
 
+// eslint-disable-next-line camelcase
 export const united_kingdom = {
   name: 'United Kingdom',
   codes: ['GB', 'GBR', '826'],

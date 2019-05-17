@@ -1,38 +1,40 @@
 // import {jsvat} from '../../dist/jsvat.js'
 // import {utils} from '../utils.js'
-import {austria} from './countries_vat_lists/austria.vat.js'
-import {belgium} from './countries_vat_lists/belgium.vat.js'
-import {bulgaria} from './countries_vat_lists/bulgaria.vat.js'
-import {croatia} from './countries_vat_lists/croatia.vat.js'
-import {cyprus} from './countries_vat_lists/cyprus.vat.js'
-import {czech_republic} from './countries_vat_lists/czech_republic.vat.js'
-import {denmark} from './countries_vat_lists/denmark.vat.js'
-import {estonia} from './countries_vat_lists/estonia.vat.js'
-import {europe} from './countries_vat_lists/europe.vat.js'
-import {finland} from './countries_vat_lists/finland.vat.js'
-import {france} from './countries_vat_lists/france.vat.js'
-import {germany} from './countries_vat_lists/germany.vat.js'
-import {greece} from './countries_vat_lists/greece.vat.js'
-import {hungary} from './countries_vat_lists/hungary.vat.js'
-import {ireland} from './countries_vat_lists/ireland.vat.js'
-import {italy} from './countries_vat_lists/italy.vat.js'
-import {latvia} from './countries_vat_lists/latvia.vat.js'
-import {lithuania} from './countries_vat_lists/lithuania.vat.js'
-import {luxembourg} from './countries_vat_lists/luxembourg.vat.js'
-import {malta} from './countries_vat_lists/malta.vat.js'
-import {netherlands} from './countries_vat_lists/netherlands.vat.js'
-import {norway} from './countries_vat_lists/norway.vat.js'
-import {poland} from './countries_vat_lists/poland.vat.js'
-import {portugal} from './countries_vat_lists/portugal.vat.js'
-import {romania} from './countries_vat_lists/romania.vat.js'
-import {russia} from './countries_vat_lists/russia.vat.js'
-import {serbia} from './countries_vat_lists/serbia.vat.js'
-import {slovakia} from './countries_vat_lists/slovakia.vat.js'
-import {slovenia} from './countries_vat_lists/slovenia.vat.js'
-import {spain} from './countries_vat_lists/spain.vat.js'
-import {sweden} from './countries_vat_lists/sweden.vat.js'
-import {switzerland} from './countries_vat_lists/switzerland.vat.js'
-import {united_kingdom} from './countries_vat_lists/united_kingdom.vat.js'
+import { austria } from './countries_vat_lists/austria.vat.js'
+import { belgium } from './countries_vat_lists/belgium.vat.js'
+import { bulgaria } from './countries_vat_lists/bulgaria.vat.js'
+import { croatia } from './countries_vat_lists/croatia.vat.js'
+import { cyprus } from './countries_vat_lists/cyprus.vat.js'
+// eslint-disable-next-line camelcase
+import { czech_republic } from './countries_vat_lists/czech_republic.vat.js'
+import { denmark } from './countries_vat_lists/denmark.vat.js'
+import { estonia } from './countries_vat_lists/estonia.vat.js'
+import { europe } from './countries_vat_lists/europe.vat.js'
+import { finland } from './countries_vat_lists/finland.vat.js'
+import { france } from './countries_vat_lists/france.vat.js'
+import { germany } from './countries_vat_lists/germany.vat.js'
+import { greece } from './countries_vat_lists/greece.vat.js'
+import { hungary } from './countries_vat_lists/hungary.vat.js'
+import { ireland } from './countries_vat_lists/ireland.vat.js'
+import { italy } from './countries_vat_lists/italy.vat.js'
+import { latvia } from './countries_vat_lists/latvia.vat.js'
+import { lithuania } from './countries_vat_lists/lithuania.vat.js'
+import { luxembourg } from './countries_vat_lists/luxembourg.vat.js'
+import { malta } from './countries_vat_lists/malta.vat.js'
+import { netherlands } from './countries_vat_lists/netherlands.vat.js'
+import { norway } from './countries_vat_lists/norway.vat.js'
+import { poland } from './countries_vat_lists/poland.vat.js'
+import { portugal } from './countries_vat_lists/portugal.vat.js'
+import { romania } from './countries_vat_lists/romania.vat.js'
+import { russia } from './countries_vat_lists/russia.vat.js'
+import { serbia } from './countries_vat_lists/serbia.vat.js'
+import { slovakia } from './countries_vat_lists/slovakia.vat.js'
+import { slovenia } from './countries_vat_lists/slovenia.vat.js'
+import { spain } from './countries_vat_lists/spain.vat.js'
+import { sweden } from './countries_vat_lists/sweden.vat.js'
+import { switzerland } from './countries_vat_lists/switzerland.vat.js'
+// eslint-disable-next-line camelcase
+import { united_kingdom } from './countries_vat_lists/united_kingdom.vat.js'
 
 const countries = {
   austria,
@@ -73,8 +75,8 @@ const countries = {
 describe('asdasd', () => {
   it('should sadsad', () => {
     expect(austria.name).toBe('Austria')
-  });
-});
+  })
+})
 
 // for (const k in countries) {
 //   const country = countries[k]
