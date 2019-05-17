@@ -1,16 +1,17 @@
 const path = require('path')
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-  // mode: 'production',
-  mode: 'development',
+  mode: 'production',
+  devtool: 'source-map',
   entry: './src/main.js',
   output: {
     filename: 'jsvat.js',
     path: path.resolve(__dirname, 'dist'),
-    libraryTarget: 'umd'
-    // globalObject: 'this',
+    libraryTarget: 'umd',
+    globalObject: 'this',
     // // libraryExport: 'default',
-    // library: 'jsvat'
+    library: 'jsvat'
   },
   module: {
     rules: [
@@ -20,5 +21,8 @@ module.exports = {
         use: 'babel-loader'
       }
     ]
-  }
+  },
+  plugins: [
+    new CleanWebpackPlugin()
+  ]
 }
