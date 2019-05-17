@@ -1,7 +1,7 @@
 // @flow
 
 export const slovakia_republic = {
-  name: 'Slovakia_',
+  name: 'Slovakia_Republic',
   codes: ['SK', 'SVK', '703'],
   calcFn: function (vat) {
     var expect = 0
