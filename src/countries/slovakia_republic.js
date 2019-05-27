@@ -11,7 +11,6 @@ export const slovakia_republic: Country = {
     return checkDigit === expect
   },
   rules: {
-    multipliers: [],
     regex: [/^(SK)([1-9]\d[2346-9]\d{7})$/]
   }
 }

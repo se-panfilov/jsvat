@@ -5,8 +5,8 @@ export const switzerland: Country = {
   name: 'Switzerland',
   codes: ['CH', 'CHE', '756'],
   calcFn: function (vat: string) {
-    var total = 0
-    for (var i = 0; i < 8; i++) {
+    let total = 0
+    for (let i = 0; i < 8; i++) {
       total += +vat.charAt(i) * this.rules.multipliers[i]
     }
 
@@ -16,7 +16,7 @@ export const switzerland: Country = {
     if (total === 11) total = 0
 
     // Check to see if the check digit given is correct, If not, we have an error with the VAT number
-    var expect = +vat.substr(8, 1)
+    const expect = +vat.substr(8, 1)
     return total === expect
   },
   rules: {

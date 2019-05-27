@@ -26,7 +26,6 @@ export const serbia: Country = {
     return checkDigit === expect
   },
   rules: {
-    multipliers: [],
     regex: [/^(RS)(\d{9})$/]
   }
 }

@@ -26,7 +26,6 @@ export const croatia: Country = {
     return (product + expect) % 10 === 1
   },
   rules: {
-    multipliers: [],
     regex: [/^(HR)(\d{11})$/]
   }
 }

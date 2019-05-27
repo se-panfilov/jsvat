@@ -38,11 +38,13 @@ import { switzerland } from './countries/switzerland.js'
 import { united_kingdom } from './countries/united_kingdom.js'
 
 // export interface Rules {
-//   multipliers?: any | undefined;// Array<number> | {[string] : Array<number>}; // TODO (S.Panfilov) fix this type!!
+//   // multipliers?: Array<number> | { [string]: Array<number> } | typeof undefined;
+//   multipliers?: mixed;
 //   regex: Array<RegExp>;
 //   lookup?: Array<number>;
 //   typeFormats?: any; // {[string] : Array<number>}; // TODO (S.Panfilov) fix this type!!
-//   additional?: Array<RegExp>;
+//   additional?: any;
+//   // additional?: Array<RegExp>;
 // }
 
 export interface Country {

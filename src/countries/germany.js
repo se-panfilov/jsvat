@@ -33,7 +33,6 @@ export const germany: Country = {
     return checkDigit === expect
   },
   rules: {
-    multipliers: [],
     regex: [/^(DE)([1-9]\d{8})$/]
   }
 }
