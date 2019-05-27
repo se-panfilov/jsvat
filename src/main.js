@@ -82,6 +82,7 @@ function isBlocked (country, blocked, allowed) {
 }
 
 function getCountry (vat, countries) {
+  console.info('countries', countries)
   for (let k in countries) {
     if (countries.hasOwnProperty(k)) {
       var regexpValidRes = isVatValidToRegexp(vat, countries[k].rules.regex)
@@ -152,12 +153,12 @@ export const countries = {
   united_kingdom
 }
 
-export function checkVAT (vat, _blocked, _allowed, _countries) {
+export function checkVAT (vat, _blocked = [], _allowed = [], _countries = {}) {
   if (!vat) throw new Error('VAT should be specified')
   const cleanVAT = removeExtraChars(vat)
   const result = new Result(cleanVAT)
 
-  const country = getCountry(cleanVAT, [...countries, ..._countries])
+  const country = getCountry(cleanVAT, { ...countries, ..._countries })
   if (!country) return result
   if (isBlocked(country, [...blocked, ..._blocked], [...allowed, ..._allowed])) return new Result(cleanVAT, false, country)
 
