@@ -1,9 +1,10 @@
 // @flow
+import type { Country } from '../main'
 
-export const france = {
+export const france: Country = {
   name: 'France',
   codes: ['FR', 'FRA', '250'],
-  calcFn: function (vat) {
+  calcFn: function (vat: string) {
     var total
     var expect
 
@@ -23,6 +24,7 @@ export const france = {
     return total === expect
   },
   rules: {
+    multipliers: [],
     regex: [
       /^(FR)(\d{11})$/,
       /^(FR)([A-HJ-NP-Z]\d{10})$/,

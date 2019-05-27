@@ -1,21 +1,14 @@
 // @flow
+import type { Country } from '../main'
 
-// interface CountryConfig {
-//   name: string;
-//   codes: Array<string>;
-//   calcFn: (vat: string) => boolean;
-// }
-
-// export const austria: CountryConfig = {
-export const austria = {
+export const austria: Country = {
   name: 'Austria',
   codes: ['AT', 'AUT', '040'],
-  calcFn: function (vat) {
-    var total = 0
-    var temp
+  calcFn: function (vat: string) {
+    let total = 0
 
-    for (var i = 0; i < 7; i++) {
-      temp = vat.charAt(i) * this.rules.multipliers[i]
+    for (let i: number = 0; i < 7; i++) {
+      let temp = Number(vat.charAt(i)) * this.rules.multipliers[i]
 
       if (temp > 9) {
         total += Math.floor(temp / 10) + temp % 10

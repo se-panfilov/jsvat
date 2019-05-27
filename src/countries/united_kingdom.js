@@ -1,43 +1,44 @@
 // @flow
+import type { Country } from '../main'
 
 // eslint-disable-next-line camelcase
-export const united_kingdom = {
+export const united_kingdom: Country = {
   name: 'United Kingdom',
   codes: ['GB', 'GBR', '826'],
-  calcFn: function (vat) {
-    var total = 0
-    var expect
+  calcFn: function (vat: string) {
+    let total = 0
+    let expect
 
     // Government departments
     if (vat.substr(0, 2) === 'GD') {
       expect = 500
-      return vat.substr(2, 3) < expect
+      return Number(vat.substr(2, 3)) < expect
     }
 
     // Health authorities
     if (vat.substr(0, 2) === 'HA') {
       expect = 499
-      return vat.substr(2, 3) > expect
+      return Number(vat.substr(2, 3)) > expect
     }
 
     // Standard and commercial numbers
 
     // 0 VAT numbers disallowed!
-    if (+vat.slice(0) === 0) return false
+    if (Number(vat.slice(0)) === 0) return false
 
     // Check range is OK for modulus 97 calculation
-    var no = +vat.slice(0, 7)
+    const no = Number(vat.slice(0, 7))
 
     // Extract the next digit and multiply by the counter.
-    for (var i = 0; i < 7; i++) {
-      total += +vat.charAt(i) * this.rules.multipliers[i]
+    for (let i = 0; i < 7; i++) {
+      total += Number(vat.charAt(i)) * this.rules.multipliers[i]
     }
 
     // Old numbers use a simple 97 modulus, but new numbers use an adaptation of that (less 55). Our
     // VAT number could use either system, so we check it against both.
 
     // Establish check digits by subtracting 97 from total until negative.
-    var checkDigit = total
+    let checkDigit = total
     while (checkDigit > 0) {
       checkDigit = checkDigit - 97
     }

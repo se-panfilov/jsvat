@@ -1,9 +1,10 @@
 // @flow
+import type { Country } from '../main'
 
-export const lithuania = {
+export const lithuania: Country = {
   name: 'Lithuania',
   codes: ['LT', 'LTU', '440'],
-  calcFn: function (vat) {
+  calcFn: function (vat: string) {
     function _extractDigit (vat, multiplier, key) {
       return +vat.charAt(key) * multiplier[key]
     }

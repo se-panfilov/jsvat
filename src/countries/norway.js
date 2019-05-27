@@ -1,11 +1,12 @@
 // @flow
+import type { Country } from '../main'
 
-export const norway = {
+export const norway: Country = {
   name: 'Norway',
   codes: ['NO', 'NOR', '578'],
-  calcFn: function (vat) {
-    var total = 0
-    var expect
+  calcFn: function (vat: string) {
+    let total = 0
+    let expect
     // See http://www.brreg.no/english/coordination/number.html
 
     // Extract the next digit and multiply by the counter.
@@ -25,6 +26,8 @@ export const norway = {
       expect = +vat.slice(8, 9)
       return total === expect
     }
+
+    return false
   },
   rules: {
     multipliers: [3, 2, 7, 6, 5, 4, 3, 2],

@@ -1,9 +1,10 @@
 // @flow
+import type { Country } from '../main'
 
-export const germany = {
+export const germany: Country = {
   name: 'Germany',
   codes: ['DE', 'DEU', '276'],
-  calcFn: function (vat) {
+  calcFn: function (vat: string) {
     // Checks the check digits of a German VAT number.
     var product = 10
     var sum = 0
@@ -32,6 +33,7 @@ export const germany = {
     return checkDigit === expect
   },
   rules: {
+    multipliers: [],
     regex: [/^(DE)([1-9]\d{8})$/]
   }
 }

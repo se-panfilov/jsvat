@@ -1,9 +1,10 @@
 // @flow
+import type { Country } from '../main'
 
-export const serbia = {
+export const serbia: Country = {
   name: 'Serbia',
   codes: ['RS', 'SRB', '688'],
-  calcFn: function (vat) {
+  calcFn: function (vat: string) {
     // Checks the check digits of a Serbian VAT number using ISO 7064, MOD 11-10 for check digit.
 
     var product = 10
@@ -25,6 +26,7 @@ export const serbia = {
     return checkDigit === expect
   },
   rules: {
+    multipliers: [],
     regex: [/^(RS)(\d{9})$/]
   }
 }

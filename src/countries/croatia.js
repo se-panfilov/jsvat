@@ -1,16 +1,17 @@
 // @flow
+import type { Country } from '../main'
 
-export const croatia = {
+export const croatia: Country = {
   name: 'Croatia',
   codes: ['HR', 'HRV', '191'],
-  calcFn: function (vat) {
-    var expect
+  calcFn: function (vat: string) {
+    let expect
 
     // Checks the check digits of a Croatian VAT number using ISO 7064, MOD 11-10 for check digit.
-    var product = 10
-    var sum = 0
+    let product = 10
+    let sum = 0
 
-    for (var i = 0; i < 10; i++) {
+    for (let i = 0; i < 10; i++) {
       // Extract the next digit and implement the algorithm
       sum = (+vat.charAt(i) + product) % 10
       if (sum === 0) {
@@ -25,6 +26,7 @@ export const croatia = {
     return (product + expect) % 10 === 1
   },
   rules: {
+    multipliers: [],
     regex: [/^(HR)(\d{11})$/]
   }
 }

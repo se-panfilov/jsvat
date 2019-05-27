@@ -1,9 +1,10 @@
 // @flow
+import type { Country } from '../main'
 
-export const sweden = {
+export const sweden: Country = {
   name: 'Sweden',
   codes: ['SE', 'SWE', '752'],
-  calcFn: function (vat) {
+  calcFn: function (vat: string) {
     var expect
 
     // Calculate R where R = R1 + R3 + R5 + R7 + R9, and Ri = INT(Ci/5) + (Ci*2) modulo 10
@@ -28,6 +29,7 @@ export const sweden = {
     return checkDigit === expect
   },
   rules: {
+    multipliers: [],
     regex: [/^(SE)(\d{10}01)$/]
   }
 }

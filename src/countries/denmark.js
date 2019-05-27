@@ -1,9 +1,10 @@
 // @flow
+import type { Country } from '../main'
 
-export const denmark = {
+export const denmark: Country = {
   name: 'Denmark',
   codes: ['DK', 'DNK', '208'],
-  calcFn: function (vat) {
+  calcFn: function (vat: string) {
     var total = 0
 
     for (var i = 0; i < 8; i++) {

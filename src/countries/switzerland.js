@@ -1,9 +1,10 @@
 // @flow
+import type { Country } from '../main'
 
-export const switzerland = {
+export const switzerland: Country = {
   name: 'Switzerland',
   codes: ['CH', 'CHE', '756'],
-  calcFn: function (vat) {
+  calcFn: function (vat: string) {
     var total = 0
     for (var i = 0; i < 8; i++) {
       total += +vat.charAt(i) * this.rules.multipliers[i]

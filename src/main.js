@@ -37,12 +37,32 @@ import { switzerland } from './countries/switzerland.js'
 // eslint-disable-next-line camelcase
 import { united_kingdom } from './countries/united_kingdom.js'
 
-function Result (vat, isValid, country) {
-  this.value = vat || null
-  this.isValid = !!isValid
+// export interface Rules {
+//   multipliers?: any | undefined;// Array<number> | {[string] : Array<number>}; // TODO (S.Panfilov) fix this type!!
+//   regex: Array<RegExp>;
+//   lookup?: Array<number>;
+//   typeFormats?: any; // {[string] : Array<number>}; // TODO (S.Panfilov) fix this type!!
+//   additional?: Array<RegExp>;
+// }
 
-  if (country) {
-    this.country = {
+export interface Country {
+  name: string;
+  codes: Array<string>;
+  calcFn: (vat: string) => boolean;
+  rules: any; // Rules;
+}
+
+export interface VatCheckResult {
+  value: string | typeof undefined;
+  isValid: boolean;
+  country: ?{ name: string, isoCode: { short: string, long: string, numeric: string } };
+}
+
+function makeResult (vat: string, isValid?: boolean, country?: Country): VatCheckResult {
+  return {
+    value: vat || undefined,
+    isValid: Boolean(isValid),
+    country: (!country) ? undefined : {
       name: country.name,
       isoCode: {
         short: country.codes[0],
@@ -53,7 +73,7 @@ function Result (vat, isValid, country) {
   }
 }
 
-function removeExtraChars (vat) {
+function removeExtraChars (vat: string) {
   vat = vat || ''
   return vat.toString().toUpperCase().replace(/(\s|-|\.)+/g, '')
 }
@@ -62,7 +82,7 @@ function isValEqToCode (val, codes) {
   return (val === codes[0] || val === codes[1] || val === codes[2])
 }
 
-function isInList (list, country) {
+function isInList (country: Country, list?: Array<string>) {
   if (!list) return false
 
   for (let i = 0; i < list.length; i++) {
@@ -74,14 +94,14 @@ function isInList (list, country) {
   return false
 }
 
-function isBlocked (country, blocked, allowed) {
-  const isBlocked = isInList(blocked, country)
+function isBlocked (country: Country, blocked: Array<string> = [], allowed: Array<string> = []) {
+  const isBlocked = isInList(country, blocked)
   if (isBlocked) return true
-  const isAllowed = isInList(allowed, country)
+  const isAllowed = isInList(country, allowed)
   return allowed.length > 0 && !isAllowed
 }
 
-function getCountry (vat, countries) {
+function getCountry (vat: string, countries: { [string]: Country }) {
   console.info('countries', countries)
   for (let k in countries) {
     if (countries.hasOwnProperty(k)) {
@@ -93,31 +113,31 @@ function getCountry (vat, countries) {
   return null
 }
 
-function isVatValidToRegexp (vat, regexArr) {
+function isVatValidToRegexp (vat: string, regexArr: Array<RegExp>): { isValid: boolean, regex?: RegExp } {
   for (let i = 0; i < regexArr.length; i++) {
     const regex = regexArr[i]
     const isValid = regex.test(vat)
     if (isValid) return { isValid: true, regex: regex }
   }
 
-  return { isValid: false }
+  return { isValid: false, regex: undefined }
 }
 
-function isVatMathValid (vat, country) {
+function isVatMathValid (vat: string, country: Country) {
   return country.calcFn(vat)
 }
 
-function isVatValid (vat, country) {
+function isVatValid (vat: string, country: Country) {
   const regexpValidRes = isVatValidToRegexp(vat, country.rules.regex)
-  if (!regexpValidRes.isValid) return false
-  return isVatMathValid(regexpValidRes.regex.exec(vat)[2], country)
+  if (!regexpValidRes.isValid || !regexpValidRes.regex) return false
+  const regexResult = regexpValidRes.regex.exec(vat)
+  if (!regexResult) return false
+  return isVatMathValid(regexResult[2], country)
 }
 
-// eslint-disable-next-line no-unused-vars
-
-export const blocked = []
-export const allowed = []
-export const countries = {
+export const blocked: Array<string> = []
+export const allowed: Array<string> = []
+export const countries: { [string]: Country } = {
   austria,
   belgium,
   bulgaria,
@@ -153,17 +173,17 @@ export const countries = {
   united_kingdom
 }
 
-export function checkVAT (vat, _blocked = [], _allowed = [], _countries = {}) {
+export function checkVAT (vat: string, _blocked: Array<string> = [], _allowed: Array<string> = [], _countries: { [string]: Country } = {}): VatCheckResult {
   if (!vat) throw new Error('VAT should be specified')
   const cleanVAT = removeExtraChars(vat)
-  const result = new Result(cleanVAT)
+  const result = makeResult(cleanVAT)
 
   const country = getCountry(cleanVAT, { ...countries, ..._countries })
   if (!country) return result
-  if (isBlocked(country, [...blocked, ..._blocked], [...allowed, ..._allowed])) return new Result(cleanVAT, false, country)
+  if (isBlocked(country, [...blocked, ..._blocked], [...allowed, ..._allowed])) return makeResult(cleanVAT, false, country)
 
   const isValid = isVatValid(cleanVAT, country)
-  if (isValid) return new Result(cleanVAT, isValid, country)
+  if (isValid) return makeResult(cleanVAT, isValid, country)
 
   return result
 }

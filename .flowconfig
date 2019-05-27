@@ -1,6 +1,9 @@
 [ignore]
+.*/node_modules/**/.*
+.*/test/**/.*
 
 [include]
+./src
 
 [libs]
 

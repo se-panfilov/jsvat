@@ -1,16 +1,17 @@
 // @flow
+import type { Country } from '../main'
 
-export const czech_republic = {
+export const czech_republic: Country = {
   name: 'Czech Republic',
   codes: ['CZ', 'CZE', '203'],
-  calcFn: function (vat) {
+  calcFn: function (vat: string) {
     function _isLegalEntities (vat, rules) {
-      var total = 0
+      let total = 0
 
       if (rules.additional[0].test(vat)) {
         // Extract the next digit and multiply by the counter.
-        for (var i = 0; i < 7; i++) {
-          total += +vat.charAt(i) * rules.multipliers[i]
+        for (let i = 0; i < 7; i++) {
+          total += Number(vat.charAt(i)) * rules.multipliers[i]
         }
 
         // Establish check digit.
@@ -19,7 +20,7 @@ export const czech_republic = {
         if (total === 11) total = 1
 
         // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-        var expect = +vat.slice(7, 8)
+        const expect = +vat.slice(7, 8)
         return total === expect
       }
 
@@ -28,22 +29,18 @@ export const czech_republic = {
 
     function _isIndividualType1 (vat, rules) {
       if (rules.additional[1].test(vat)) {
-        var temp = +vat.slice(0, 2)
+        const temp = Number(vat.slice(0, 2))
 
-        if (temp > 62) {
-          return false
-        } else {
-          return true
-        }
+        return temp <= 62
       }
     }
 
     function _isIndividualType2 (vat, rules) {
-      var total = 0
+      let total = 0
 
       if (rules.additional[2].test(vat)) {
         // Extract the next digit and multiply by the counter.
-        for (var j = 0; j < 7; j++) {
+        for (let j = 0; j < 7; j++) {
           total += +vat.charAt(j + 1) * rules.multipliers[j]
         }
 
@@ -53,7 +50,7 @@ export const czech_republic = {
         if (total === 11) total = 1
 
         // Convert calculated check digit according to a lookup table
-        var expect = +vat.slice(8, 9)
+        let expect = +vat.slice(8, 9)
         return rules.lookup[total - 1] === expect
       }
 
@@ -62,11 +59,10 @@ export const czech_republic = {
 
     function _isIndividualType3 (vat, rules) {
       if (rules.additional[3].test(vat)) {
-        var temp = +vat.slice(0, 2) + vat.slice(2, 4) + vat.slice(4, 6) + vat.slice(6, 8) + vat.slice(8)
-        var expect = +vat % 11 === 0
+        const temp: number = Number(vat.slice(0, 2)) + Number(vat.slice(2, 4)) + Number(vat.slice(4, 6)) + Number(vat.slice(6, 8)) + Number(vat.slice(8))
+        const expect: boolean = Number(vat) % 11 === 0
         return !!(temp % 11 === 0 && expect)
       }
-
       return false
     }
 

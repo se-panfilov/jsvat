@@ -1,9 +1,10 @@
 // @flow
+import type { Country } from '../main'
 
-export const russia = {
+export const russia: Country = {
   name: 'Russian Federation',
   codes: ['RU', 'RUS', '643'],
-  calcFn: function (vat) {
+  calcFn: function (vat: string) {
     function _check10DigitINN (vat, rules) {
       var total = 0
 

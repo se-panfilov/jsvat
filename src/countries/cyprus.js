@@ -1,19 +1,20 @@
 // @flow
+import type { Country } from '../main'
 
-export const cyprus = {
+export const cyprus: Country = {
   name: 'Cyprus',
   codes: ['CY', 'CYP', '196'],
-  calcFn: function (vat) {
-    var total = 0
-    var expect
+  calcFn: function (vat: string) {
+    let total = 0
+    let expect
 
     // Not allowed to start with '12'
     if (+vat.slice(0, 2) === 12) return false
 
     // Extract the next digit and multiply by the counter.
 
-    for (var i = 0; i < 8; i++) {
-      var temp = +vat.charAt(i)
+    for (let i = 0; i < 8; i++) {
+      let temp = +vat.charAt(i)
       if (i % 2 === 0) {
         switch (temp) {
           case 0:
@@ -47,6 +48,7 @@ export const cyprus = {
     return total === expect
   },
   rules: {
+    multipliers: [],
     regex: [/^(CY)([0-59]\d{7}[A-Z])$/]
   }
 }

@@ -1,9 +1,10 @@
 // @flow
+import type { Country } from '../main'
 
-export const spain = {
+export const spain: Country = {
   name: 'Spain',
   codes: ['ES', 'ESP', '724'],
-  calcFn: function (vat) {
+  calcFn: function (vat: string) {
     var i = 0
     var total = 0
     var temp
@@ -13,7 +14,7 @@ export const spain = {
     if (this.rules.additional[0].test(vat)) {
       // Extract the next digit and multiply by the counter.
       for (i = 0; i < 7; i++) {
-        temp = vat.charAt(i + 1) * this.rules.multipliers[i]
+        temp = Number(vat.charAt(i + 1)) * this.rules.multipliers[i]
         if (temp > 9)
           total += Math.floor(temp / 10) + temp % 10
         else
@@ -31,7 +32,7 @@ export const spain = {
     } else if (this.rules.additional[1].test(vat)) { // Juridical entities other than national ones
       // Extract the next digit and multiply by the counter.
       for (i = 0; i < 7; i++) {
-        temp = vat.charAt(i + 1) * this.rules.multipliers[i]
+        temp = Number(vat.charAt(i + 1)) * this.rules.multipliers[i]
         if (temp > 9)
           total += Math.floor(temp / 10) + temp % 10
         else
