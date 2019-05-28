@@ -1,7 +1,7 @@
 import { Country } from '../main';
 
 // eslint-disable-next-line camelcase
-export const united_kingdom: Country = {
+export const unitedKingdom: Country = {
   name: 'United Kingdom',
   codes: ['GB', 'GBR', '826'],
   calcFn: (vat: string): boolean => {
@@ -30,9 +30,9 @@ export const united_kingdom: Country = {
 
     // Extract the next digit and multiply by the counter.
     for (let i = 0; i < 7; i++) {
-      if (!united_kingdom.rules.multipliers) return false;
-      if (!Array.isArray(united_kingdom.rules.multipliers)) return false;
-      total += Number(vat.charAt(i)) * united_kingdom.rules.multipliers[i];
+      if (!unitedKingdom.rules.multipliers) return false;
+      if (!Array.isArray(unitedKingdom.rules.multipliers)) return false;
+      total += Number(vat.charAt(i)) * unitedKingdom.rules.multipliers[i];
     }
 
     // Old numbers use a simple 97 modulus, but new numbers use an adaptation of that (less 55). Our

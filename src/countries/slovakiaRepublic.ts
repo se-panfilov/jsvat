@@ -1,7 +1,7 @@
 import { Country } from '../main';
 
 // eslint-disable-next-line camelcase
-export const slovakia_republic: Country = {
+export const slovakiaRepublic: Country = {
   name: 'Slovakia_Republic',
   codes: ['SK', 'SVK', '703'],
   calcFn: (vat: string): boolean  => {

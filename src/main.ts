@@ -3,8 +3,7 @@ import { belgium } from './countries/belgium';
 import { bulgaria } from './countries/bulgaria';
 import { croatia } from './countries/croatiat';
 import { cyprus } from './countries/cyprus';
-// eslint-disable-next-line camelcase
-import { czech_republic } from './countries/czech_republic';
+import { czechRepublic } from './countries/czechRepublic';
 import { denmark } from './countries/denmark';
 import { estonia } from './countries/estonia';
 import { europe } from './countries/europe';
@@ -26,14 +25,12 @@ import { portugal } from './countries/portugal';
 import { romania } from './countries/romania';
 import { russia } from './countries/russia';
 import { serbia } from './countries/serbia';
-// eslint-disable-next-line camelcase
-import { slovakia_republic } from './countries/slovakia_republic';
+import { slovakiaRepublic } from './countries/slovakiaRepublic';
 import { slovenia } from './countries/slovenia';
 import { spain } from './countries/spain';
 import { sweden } from './countries/sweden';
 import { switzerland } from './countries/switzerland';
-// eslint-disable-next-line camelcase
-import { united_kingdom } from './countries/united_kingdom';
+import { unitedKingdom } from './countries/unitedKingdom';
 
 export type Multipliers = ReadonlyArray<number> | { readonly [key: string]: ReadonlyArray<number> };
 
@@ -42,7 +39,7 @@ export interface Rules {
   check?: RegExp;
   regex: ReadonlyArray<RegExp>;
   lookup?: ReadonlyArray<number>;
-  typeFormats?: { readonly [key: string]: RegExp }; // TODO (S.Panfilov) fix this type!!
+  typeFormats?: { readonly [key: string]: RegExp };
   additional?: ReadonlyArray<RegExp>;
 }
 
@@ -77,8 +74,7 @@ function makeResult (vat: string, isValid?: boolean, country?: Country): VatChec
   };
 }
 
-function removeExtraChars (vat: string): string {
-  vat = vat || '';
+function removeExtraChars (vat: string = ''): string {
   return vat.toString().toUpperCase().replace(/(\s|-|\.)+/g, '');
 }
 
@@ -146,7 +142,7 @@ export const countries: { [key: string]: Country } = {
   bulgaria,
   croatia,
   cyprus,
-  czech_republic,
+  czech_republic: czechRepublic,
   denmark,
   estonia,
   europe,
@@ -168,12 +164,12 @@ export const countries: { [key: string]: Country } = {
   romania,
   russia,
   serbia,
-  slovakia_republic,
+  slovakia_republic: slovakiaRepublic,
   slovenia,
   spain,
   sweden,
   switzerland,
-  united_kingdom
+  united_kingdom: unitedKingdom
 };
 
 export function checkVAT (vat: string, _blocked: ReadonlyArray<string> = [], _allowed: ReadonlyArray<string> = [], _countries: { [key: string]: Country } = {}): VatCheckResult {

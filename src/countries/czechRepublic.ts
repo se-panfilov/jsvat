@@ -1,15 +1,13 @@
 import { Country, Rules } from '../main';
 
-export const czech_republic: Country = {
+export const czechRepublic: Country = {
   name: 'Czech Republic',
   codes: ['CZ', 'CZE', '203'],
   calcFn: (vat: string): boolean  => {
-    if (_isLegalEntities(vat, czech_republic.rules)) return true;
-    if (_isIndividualType2(vat, czech_republic.rules)) return true;
-    if (_isIndividualType3(vat, czech_republic.rules)) return true;
-    if (_isIndividualType1(vat, czech_republic.rules)) return true;
-
-    return false;
+    if (_isLegalEntities(vat, czechRepublic.rules)) return true;
+    if (_isIndividualType2(vat, czechRepublic.rules)) return true;
+    if (_isIndividualType3(vat, czechRepublic.rules)) return true;
+    return _isIndividualType1(vat, czechRepublic.rules);
   },
   rules: {
     multipliers: [8, 7, 6, 5, 4, 3, 2],
