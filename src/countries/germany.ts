@@ -28,7 +28,7 @@ export const germany: Country = {
 
     // Compare it with the last two characters of the VAT number. If the same, then it is a valid
     // check digit.
-    expect = +vat.slice(8, 9);
+    expect = Number(vat.slice(8, 9));
     return checkDigit === expect;
   },
   rules: {

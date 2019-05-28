@@ -6,7 +6,6 @@ export const romania: Country = {
   calcFn: (vat: string): boolean  => {
     if (!romania.rules.multipliers || !Array.isArray(romania.rules.multipliers)) return false;
     let total = 0;
-    let expect;
 
     // Extract the next digit and multiply by the counter.
     const vatLength = vat.length;
@@ -21,7 +20,7 @@ export const romania: Country = {
     if (total === 10) total = 0;
 
     // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-    expect = Number(vat.slice(vat.length - 1, vat.length));
+    const expect = Number(vat.slice(vat.length - 1, vat.length));
     return total === expect;
   },
   rules: {

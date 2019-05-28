@@ -3,14 +3,13 @@ import { Country } from '../main';
 export const latvia: Country = {
   name: 'Latvia',
   codes: ['LV', 'LVA', '428'],
-  calcFn: (vat: string): boolean  => {
+  calcFn: (vat: string): boolean => {
     let total = 0;
-    let expect;
 
     // Differentiate between legal entities and natural bodies. For the latter we simply check that
     // the first six digits correspond to valid DDMMYY dates.
     if ((/^[0-3]/).test(vat)) {
-      return !!(/^[0-3][0-9][0-1][0-9]/).test(vat);
+      return Boolean((/^[0-3][0-9][0-1][0-9]/).test(vat));
     } else {
       if (!latvia.rules.multipliers) return false;
       if (!Array.isArray(latvia.rules.multipliers)) return false;
@@ -31,7 +30,7 @@ export const latvia: Country = {
       }
 
       // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-      expect = +vat.slice(10, 11);
+      const expect = Number(vat.slice(10, 11));
       return total === expect;
     }
   },

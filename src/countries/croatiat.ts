@@ -4,7 +4,6 @@ export const croatia: Country = {
   name: 'Croatia',
   codes: ['HR', 'HRV', '191'],
   calcFn: (vat: string): boolean  => {
-    let expect;
 
     // Checks the check digits of a Croatian VAT number using ISO 7064, MOD 11-10 for check digit.
     let product = 10;
@@ -21,7 +20,7 @@ export const croatia: Country = {
     }
 
     // Now check that we have the right check digit
-    expect = Number(vat.slice(10, 11));
+    const expect = Number(vat.slice(10, 11));
     return (product + expect) % 10 === 1;
   },
   rules: {

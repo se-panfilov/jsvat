@@ -5,7 +5,6 @@ export const cyprus: Country = {
   codes: ['CY', 'CYP', '196'],
   calcFn: (vat: string): boolean  => {
     let total = 0;
-    let expect;
 
     // Not allowed to start with '12'
     if (Number(vat.slice(0, 2)) === 12) return false;
@@ -42,7 +41,7 @@ export const cyprus: Country = {
     total = Number(String.fromCharCode(total + 65));
 
     // Check to see if the check digit given is correct
-    expect = Number(vat.substr(8, 1));
+    const expect = Number(vat.substr(8, 1));
     return total === expect;
   },
   rules: {

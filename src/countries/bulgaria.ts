@@ -60,7 +60,7 @@ function _isPhysicalPerson (vat: string, rules: Rules): boolean {
   // 10 digit VAT code - see if it relates to a standard physical person
   if ((/^\d\d[0-5]\d[0-3]\d\d{4}$/).test(vat)) {
     // Check month
-    const month = +vat.slice(2, 4);
+    const month = Number(vat.slice(2, 4));
     if ((month > 0 && month < 13) || (month > 20 && month < 33) || (month > 40 && month < 53)) {
       if (!rules.multipliers) return false;
       if (Array.isArray(rules.multipliers)) return false;

@@ -1,19 +1,19 @@
-export declare type Multipliers = Array<number> | {
-    readonly [key: string]: Array<number>;
+export declare type Multipliers = ReadonlyArray<number> | {
+    readonly [key: string]: ReadonlyArray<number>;
 };
 export interface Rules {
     multipliers?: Multipliers;
     check?: RegExp;
-    regex: Array<RegExp>;
-    lookup?: Array<number>;
+    regex: ReadonlyArray<RegExp>;
+    lookup?: ReadonlyArray<number>;
     typeFormats?: {
         readonly [key: string]: RegExp;
     };
-    additional?: Array<RegExp>;
+    additional?: ReadonlyArray<RegExp>;
 }
 export interface Country {
     name: string;
-    codes: Array<string>;
+    codes: ReadonlyArray<string>;
     calcFn: (vat: string) => boolean;
     rules: Rules;
 }
@@ -29,11 +29,11 @@ export interface VatCheckResult {
         };
     };
 }
-export declare const blocked: Array<string>;
-export declare const allowed: Array<string>;
+export declare const blocked: ReadonlyArray<string>;
+export declare const allowed: ReadonlyArray<string>;
 export declare const countries: {
     [key: string]: Country;
 };
-export declare function checkVAT(vat: string, _blocked?: Array<string>, _allowed?: Array<string>, _countries?: {
+export declare function checkVAT(vat: string, _blocked?: ReadonlyArray<string>, _allowed?: ReadonlyArray<string>, _countries?: {
     [key: string]: Country;
 }): VatCheckResult;

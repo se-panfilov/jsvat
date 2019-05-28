@@ -53,7 +53,7 @@ export const spain: Country = {
       expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(+tempNumber.substring(0, 8) % 23);
       return tempNumber.charAt(8) === expect;
     } else if (spain.rules.additional[3].test(vat)) { // Personal number (NIF) (starting with K, L, M, or X)
-      expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(+vat.substring(1, 8) % 23);
+      expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(Number(vat.substring(1, 8)) % 23);
       return vat.charAt(8) === expect;
     } else return false;
   },

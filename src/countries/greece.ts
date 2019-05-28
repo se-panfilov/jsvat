@@ -7,7 +7,6 @@ export const greece: Country = {
     if (!greece.rules.multipliers) return false;
     if (!Array.isArray(greece.rules.multipliers)) return false;
     let total = 0;
-    let expect;
 
     // eight character numbers should be prefixed with an 0.
     if (vat.length === 8) {
@@ -26,7 +25,7 @@ export const greece: Country = {
     }
 
     // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-    expect = Number(vat.slice(8, 9));
+    const expect = Number(vat.slice(8, 9));
     return total === expect;
   },
   rules: {

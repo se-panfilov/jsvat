@@ -6,7 +6,6 @@ export const italy: Country = {
   calcFn: (vat: string): boolean  => {
     let total = 0;
     let temp;
-    let expect;
 
     // The last three digits are the issuing office, and cannot exceed more 201, unless 999 or 888
     if (Number(vat.slice(0, 7)) === 0) {
@@ -34,7 +33,7 @@ export const italy: Country = {
     }
 
     // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-    expect = Number(vat.slice(10, 11));
+    const expect = Number(vat.slice(10, 11));
     return total === expect;
   },
   rules: {

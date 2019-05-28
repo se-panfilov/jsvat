@@ -24,7 +24,7 @@ function _check10DigitINN (vat: string, rules: Rules): boolean {
     if (!rules.multipliers) return false;
     if (Array.isArray(rules.multipliers)) return false;
     for (let i = 0; i < 10; i++) {
-      total += +vat.charAt(i) * rules.multipliers.m_1[i];
+      total += Number(vat.charAt(i)) * rules.multipliers.m_1[i];
     }
 
     total = total % 11;
@@ -48,7 +48,7 @@ function _check12DigitINN (vat: string, rules: Rules): boolean {
     if (!rules.multipliers) return false;
     if (Array.isArray(rules.multipliers)) return false;
     for (let j = 0; j < 11; j++) {
-      total1 += +vat.charAt(j) * rules.multipliers.m_2[j];
+      total1 += Number(vat.charAt(j)) * rules.multipliers.m_2[j];
     }
 
     total1 = total1 % 11;
