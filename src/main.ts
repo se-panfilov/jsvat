@@ -85,8 +85,8 @@ function isValEqToCode (val: string, codes: ReadonlyArray<string>): boolean {
 function isInList (country: Country, list?: ReadonlyArray<string>): boolean {
   if (!list) return false;
 
-  for (let i = 0; i < list.length; i++) {
-    const val = list[i].toUpperCase();
+  for (const item of list) {
+    const val = item.toUpperCase();
     if (val === country.name.toUpperCase()) return true;
     if (isValEqToCode(val, country.codes)) return true;
   }
@@ -113,8 +113,7 @@ function getCountry (vat: string, countriesObj: { [key: string]: Country }): Cou
 }
 
 function isVatValidToRegexp (vat: string, regexArr: ReadonlyArray<RegExp>): { isValid: boolean, regex?: RegExp } {
-  for (let i = 0; i < regexArr.length; i++) {
-    const regex = regexArr[i];
+  for (const regex of regexArr) {
     const isValid = regex.test(vat);
     if (isValid) return {isValid: true, regex: regex};
   }
