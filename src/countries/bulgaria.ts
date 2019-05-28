@@ -3,7 +3,7 @@ import { Country, Multipliers, Rules } from '../main';
 export const bulgaria: Country = {
   name: 'Bulgaria',
   codes: ['BG', 'BGR', '100'],
-  calcFn: function (vat: string): boolean {
+  calcFn: (vat: string): boolean  => {
     function _increase (value: number, vat: string, from: number, to: number, incr: number): number {
       for (let i = from; i < to; i++) {
         value += Number(vat.charAt(i)) * (i + incr);

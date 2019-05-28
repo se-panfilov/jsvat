@@ -76,6 +76,7 @@
       "parameter",
       "call-signature"
     ],
+    "array-type": [true, "generic"],
     "readonly-keyword": false,
     "readonly-array": true,
     "no-object-mutation": false,
@@ -151,7 +152,6 @@
     "prefer-for-of": true,
     "no-duplicate-imports": true,
     "no-this-assignment": true,
-    "no-unused-variable": true,
     "no-require-imports": true,
     "object-literal-shorthand": false
   }

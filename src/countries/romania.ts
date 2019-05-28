@@ -3,14 +3,14 @@ import { Country } from '../main';
 export const romania: Country = {
   name: 'Romania',
   codes: ['RO', 'ROU', '642'],
-  calcFn: function (vat: string): boolean {
-    if (!this.rules.multipliers || !Array.isArray(this.rules.multipliers)) return false;
+  calcFn: (vat: string): boolean  => {
+    if (!romania.rules.multipliers || !Array.isArray(romania.rules.multipliers)) return false;
     let total = 0;
     let expect;
 
     // Extract the next digit and multiply by the counter.
     const vatLength = vat.length;
-    const multipliers = this.rules.multipliers.slice(10 - vatLength);
+    const multipliers = romania.rules.multipliers.slice(10 - vatLength);
 
     for (let i = 0; i < vat.length - 1; i++) {
       total += Number(vat.charAt(i)) * multipliers[i];

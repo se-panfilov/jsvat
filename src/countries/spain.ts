@@ -3,9 +3,9 @@ import { Country } from '../main';
 export const spain: Country = {
   name: 'Spain',
   codes: ['ES', 'ESP', '724'],
-  calcFn: function (vat: string): boolean {
-    if (!this.rules.multipliers) return false;
-    if (!this.rules.additional) return false;
+  calcFn: (vat: string): boolean  => {
+    if (!spain.rules.multipliers) return false;
+    if (!spain.rules.additional) return false;
 
     let i = 0;
     let total = 0;
@@ -13,15 +13,13 @@ export const spain: Country = {
     let expect;
 
     // National juridical entities
-    if (this.rules.additional[0].test(vat)) {
-      if (!Array.isArray(this.rules.multipliers)) return false;
+    if (spain.rules.additional[0].test(vat)) {
+      if (!Array.isArray(spain.rules.multipliers)) return false;
       // Extract the next digit and multiply by the counter.
       for (i = 0; i < 7; i++) {
-        temp = Number(vat.charAt(i + 1)) * this.rules.multipliers[i];
-        if (temp > 9)
-          total += Math.floor(temp / 10) + temp % 10;
-        else
-          total += temp;
+        temp = Number(vat.charAt(i + 1)) * spain.rules.multipliers[i];
+        if (temp > 9) total += Math.floor(temp / 10) + temp % 10;
+        else total += temp;
       }
       // Now calculate the check digit itself.
       total = 10 - total % 10;
@@ -32,15 +30,13 @@ export const spain: Country = {
       // Compare it with the last character of the VAT number. If it's the same, then it's valid.
       expect = +vat.slice(8, 9);
       return total === expect;
-    } else if (this.rules.additional[1].test(vat)) { // Juridical entities other than national ones
-      if (!Array.isArray(this.rules.multipliers)) return false;
+    } else if (spain.rules.additional[1].test(vat)) { // Juridical entities other than national ones
+      if (!Array.isArray(spain.rules.multipliers)) return false;
       // Extract the next digit and multiply by the counter.
       for (i = 0; i < 7; i++) {
-        temp = Number(vat.charAt(i + 1)) * this.rules.multipliers[i];
-        if (temp > 9)
-          total += Math.floor(temp / 10) + temp % 10;
-        else
-          total += temp;
+        temp = Number(vat.charAt(i + 1)) * spain.rules.multipliers[i];
+        if (temp > 9) total += Math.floor(temp / 10) + temp % 10;
+        else total += temp;
       }
 
       // Now calculate the check digit itself.
@@ -50,13 +46,13 @@ export const spain: Country = {
       // Compare it with the last character of the VAT number. If it's the same, then it's valid.
       expect = Number(vat.slice(8, 9));
       return total === expect;
-    } else if (this.rules.additional[2].test(vat)) { // Personal number (NIF) (starting with numeric of Y or Z)
+    } else if (spain.rules.additional[2].test(vat)) { // Personal number (NIF) (starting with numeric of Y or Z)
       let tempNumber = vat;
       if (tempNumber.substring(0, 1) === 'Y') tempNumber = tempNumber.replace(/Y/, '1');
       if (tempNumber.substring(0, 1) === 'Z') tempNumber = tempNumber.replace(/Z/, '2');
       expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(+tempNumber.substring(0, 8) % 23);
       return tempNumber.charAt(8) === expect;
-    } else if (this.rules.additional[3].test(vat)) { // Personal number (NIF) (starting with K, L, M, or X)
+    } else if (spain.rules.additional[3].test(vat)) { // Personal number (NIF) (starting with K, L, M, or X)
       expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(+vat.substring(1, 8) % 23);
       return vat.charAt(8) === expect;
     } else return false;

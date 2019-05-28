@@ -3,7 +3,7 @@ import { Country } from '../main';
 export const finland: Country = {
   name: 'Finland',
   codes: ['FI', 'FIN', '246'],
-  calcFn: function (vat: string): boolean {
+  calcFn: (vat: string): boolean  => {
     let total = 0;
     let expect;
 

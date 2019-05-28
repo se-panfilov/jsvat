@@ -3,12 +3,12 @@ import { Country } from '../main';
 export const switzerland: Country = {
   name: 'Switzerland',
   codes: ['CH', 'CHE', '756'],
-  calcFn: function (vat: string): boolean {
-    if (!this.rules.multipliers) return false;
-    if (!Array.isArray(this.rules.multipliers)) return false;
+  calcFn: (vat: string): boolean  => {
+    if (!switzerland.rules.multipliers) return false;
+    if (!Array.isArray(switzerland.rules.multipliers)) return false;
     let total = 0;
     for (let i = 0; i < 8; i++) {
-      total += Number(vat.charAt(i)) * this.rules.multipliers[i];
+      total += Number(vat.charAt(i)) * switzerland.rules.multipliers[i];
     }
 
     // Establish check digit.s

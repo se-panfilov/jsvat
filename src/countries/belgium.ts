@@ -3,7 +3,7 @@ import { Country } from '../main';
 export const belgium: Country = {
   name: 'Belgium',
   codes: ['BE', 'BEL', '056'],
-  calcFn: function (vat: string): boolean {
+  calcFn: (vat: string): boolean  => {
     if (vat.length === 9) {
       vat = '0' + vat;
     }

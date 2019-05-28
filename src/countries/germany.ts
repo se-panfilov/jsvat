@@ -3,7 +3,7 @@ import { Country } from '../main';
 export const germany: Country = {
   name: 'Germany',
   codes: ['DE', 'DEU', '276'],
-  calcFn: function (vat: string): boolean {
+  calcFn: (vat: string): boolean  => {
     // Checks the check digits of a German VAT number.
     let product = 10;
     let sum = 0;

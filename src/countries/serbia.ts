@@ -3,7 +3,7 @@ import { Country } from '../main';
 export const serbia: Country = {
   name: 'Serbia',
   codes: ['RS', 'SRB', '688'],
-  calcFn: function (vat: string): boolean {
+  calcFn: (vat: string): boolean  => {
     // Checks the check digits of a Serbian VAT number using ISO 7064, MOD 11-10 for check digit.
 
     let product = 10;

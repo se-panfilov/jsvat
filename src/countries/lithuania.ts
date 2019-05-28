@@ -3,7 +3,7 @@ import { Country, Rules } from '../main';
 export const lithuania: Country = {
   name: 'Lithuania',
   codes: ['LT', 'LTU', '440'],
-  calcFn: function (vat: string): boolean {
+  calcFn: (vat: string): boolean  => {
 
     function _extractDigit (vat: string, multiplierList: Array<number>, key: number): number {
       return Number(vat.charAt(key)) * multiplierList[key];

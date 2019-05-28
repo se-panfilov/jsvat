@@ -3,7 +3,7 @@ import { Country, Rules } from '../main';
 export const czech_republic: Country = {
   name: 'Czech Republic',
   codes: ['CZ', 'CZE', '203'],
-  calcFn: function (vat: string): boolean {
+  calcFn: (vat: string): boolean  => {
 
     function _isLegalEntities (vat: string, rules: Rules): boolean {
       if (!rules.additional) return false;

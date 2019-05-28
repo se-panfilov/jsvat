@@ -3,7 +3,7 @@ import { Country } from '../main';
 export const portugal: Country = {
   name: 'Portugal',
   codes: ['PT', 'PRT', '620'],
-  calcFn: function (vat: string): boolean {
+  calcFn: (vat: string): boolean  => {
     if (!this.rules.multipliers) return false;
     let total = 0;
     let expect;
