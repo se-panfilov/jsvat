@@ -3,8 +3,8 @@ import { Country } from '../main';
 export const russia: Country = {
   name: 'Russian Federation',
   codes: ['RU', 'RUS', '643'],
-  calcFn: function (vat: string) {
-    function _check10DigitINN(vat, rules) {
+  calcFn: function (vat: string): boolean {
+    function _check10DigitINN (vat, rules) {
       let total = 0;
 
       if (vat.length === 10) {
@@ -25,7 +25,7 @@ export const russia: Country = {
       return false;
     }
 
-    function _check12DigitINN(vat, rules) {
+    function _check12DigitINN (vat, rules) {
       let total1 = 0;
       let total2 = 0;
 

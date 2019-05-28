@@ -3,12 +3,13 @@ import { Country } from '../main';
 export const portugal: Country = {
   name: 'Portugal',
   codes: ['PT', 'PRT', '620'],
-  calcFn: function (vat: string) {
-    var total = 0;
-    var expect;
+  calcFn: function (vat: string): boolean {
+    if (!this.rules.multipliers) return false;
+    let total = 0;
+    let expect;
 
     // Extract the next digit and multiply by the counter.
-    for (var i = 0; i < 8; i++) {
+    for (let i = 0; i < 8; i++) {
       total += +vat.charAt(i) * this.rules.multipliers[i];
     }
 

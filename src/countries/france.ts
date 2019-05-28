@@ -3,14 +3,13 @@ import { Country } from '../main';
 export const france: Country = {
   name: 'France',
   codes: ['FR', 'FRA', '250'],
-  calcFn: function (vat: string) {
-    var total;
-    var expect;
+  calcFn: function (vat: string): boolean {
+    let total;
+    let expect;
 
     // Checks the check digits of a French VAT number.
-    if (!(/^\d{11}$/).test(vat)) {
-      return true;
-    }
+    if (!(/^\d{11}$/).test(vat)) return true;
+
 
     // Extract the last nine digits as an integer.
     total = +vat.substring(2);

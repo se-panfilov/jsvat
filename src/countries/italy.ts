@@ -3,24 +3,25 @@ import { Country } from '../main';
 export const italy: Country = {
   name: 'Italy',
   codes: ['IT', 'ITA', '380'],
-  calcFn: function (vat: string) {
-    var total = 0;
-    var temp;
-    var expect;
+  calcFn: function (vat: string): boolean {
+    let total = 0;
+    let temp;
+    let expect;
 
     // The last three digits are the issuing office, and cannot exceed more 201, unless 999 or 888
-    if (+vat.slice(0, 7) === 0) {
+    if (Number(vat.slice(0, 7)) === 0) {
       return false;
     }
 
-    temp = +vat.slice(7, 10);
+    temp = Number(vat.slice(7, 10));
     if ((temp < 1) || (temp > 201) && temp !== 999 && temp !== 888) {
       return false;
     }
 
+    if (!this.rules.multipliers) return false;
     // Extract the next digit and multiply by the appropriate
-    for (var i = 0; i < 10; i++) {
-      temp = +vat.charAt(i) * this.rules.multipliers[i];
+    for (let i = 0; i < 10; i++) {
+      temp = Number(vat.charAt(i)) * this.rules.multipliers[i];
       if (temp > 9)
         total += Math.floor(temp / 10) + temp % 10;
       else

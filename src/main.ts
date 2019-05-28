@@ -36,10 +36,11 @@ import { switzerland } from './countries/switzerland';
 import { united_kingdom } from './countries/united_kingdom';
 
 export interface Rules {
-  multipliers?: Array<number> | { [key: string]: Array<number> } | typeof undefined;
+  multipliers?: Array<number> | { readonly [key: string]: Array<number> };
+  check?: RegExp;
   regex: Array<RegExp>;
   lookup?: Array<number>;
-  typeFormats?: { [key: string]: Array<number> }; // TODO (S.Panfilov) fix this type!!
+  typeFormats?: { readonly [key: string]: RegExp }; // TODO (S.Panfilov) fix this type!!
   additional?: Array<RegExp>;
 }
 
@@ -51,7 +52,7 @@ export interface Country {
 }
 
 export interface VatCheckResult {
-  value: string | typeof undefined;
+  value?: string;
   isValid: boolean;
   country?: {
     name: string,
@@ -106,7 +107,7 @@ function getCountry(vat: string, countries: { [key: string]: Country }) {
   console.info('countries', countries);
   for (let k in countries) {
     if (countries.hasOwnProperty(k)) {
-      var regexpValidRes = isVatValidToRegexp(vat, countries[k].rules.regex);
+      const regexpValidRes = isVatValidToRegexp(vat, countries[k].rules.regex);
       if (regexpValidRes.isValid) return countries[k];
     }
   }

@@ -3,14 +3,15 @@ import { Country } from '../main';
 export const norway: Country = {
   name: 'Norway',
   codes: ['NO', 'NOR', '578'],
-  calcFn: function (vat: string) {
+  calcFn: function (vat: string): boolean {
+    if (!this.rules.multipliers) return false;
     let total = 0;
     let expect;
     // See http://www.brreg.no/english/coordination/number.html
 
     // Extract the next digit and multiply by the counter.
-    for (var i = 0; i < 8; i++) {
-      total += +vat.charAt(i) * this.rules.multipliers[i];
+    for (let i = 0; i < 8; i++) {
+      total += Number(vat.charAt(i)) * this.rules.multipliers[i];
     }
 
     // Establish check digits by getting modulus 11. Check digits > 9 are invalid

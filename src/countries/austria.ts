@@ -3,10 +3,11 @@ import { Country } from '../main';
 export const austria: Country = {
   name: 'Austria',
   codes: ['AT', 'AUT', '040'],
-  calcFn: function (vat: string) {
+  calcFn: function (vat: string): boolean {
     let total = 0;
 
-    for (let i: number = 0; i < 7; i++) {
+    for (let i = 0; i < 7; i++) {
+      if (!this.rules.multipliers) return false;
       let temp = Number(vat.charAt(i)) * this.rules.multipliers[i];
 
       if (temp > 9) {

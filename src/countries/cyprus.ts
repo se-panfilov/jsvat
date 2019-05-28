@@ -3,17 +3,16 @@ import { Country } from '../main';
 export const cyprus: Country = {
   name: 'Cyprus',
   codes: ['CY', 'CYP', '196'],
-  calcFn: function (vat: string) {
+  calcFn: function (vat: string): boolean {
     let total = 0;
     let expect;
 
     // Not allowed to start with '12'
-    if (+vat.slice(0, 2) === 12) return false;
+    if (Number(vat.slice(0, 2)) === 12) return false;
 
     // Extract the next digit and multiply by the counter.
-
     for (let i = 0; i < 8; i++) {
-      let temp = +vat.charAt(i);
+      let temp = Number(vat.charAt(i));
       if (i % 2 === 0) {
         switch (temp) {
           case 0:
@@ -40,7 +39,7 @@ export const cyprus: Country = {
 
     // Establish check digit using modulus 26, and translate to char. equivalent.
     total = total % 26;
-    total = String.fromCharCode(total + 65);
+    total = Number(String.fromCharCode(total + 65));
 
     // Check to see if the check digit given is correct
     expect = vat.substr(8, 1);

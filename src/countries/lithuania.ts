@@ -1,32 +1,35 @@
-import { Country } from '../main';
+import { Country, Rules } from '../main';
 
 export const lithuania: Country = {
   name: 'Lithuania',
   codes: ['LT', 'LTU', '440'],
-  calcFn: function (vat: string) {
-    function _extractDigit(vat, multiplier, key) {
-      return +vat.charAt(key) * multiplier[key];
+  calcFn: function (vat: string): boolean {
+
+    function _extractDigit (vat, multiplier, key) {
+      return Number(vat.charAt(key)) * multiplier[key];
     }
 
-    function _doubleCheckCalculation(vat, total, rules) {
+    function _doubleCheckCalculation (vat: string, total: number, rules: Rules): number {
       if (total % 11 === 10) {
         total = 0;
-        for (var i = 0; i < 8; i++) {
-          total += _extractDigit(vat, rules.multipliers.short, i);
+        if (rules.multipliers && !Array.isArray(rules.multipliers)) {
+          for (let i = 0; i < 8; i++) {
+            total += _extractDigit(vat, rules.multipliers.short, i);
+          }
         }
       }
 
       return total;
     }
 
-    function extractDigit(vat, total) {
+    function extractDigit (vat, total) {
       for (var i = 0; i < 8; i++) {
         total += +vat.charAt(i) * (i + 1);
       }
       return total;
     }
 
-    function checkDigit(total) {
+    function checkDigit (total) {
       total = total % 11;
       if (total === 10) {
         total = 0;
@@ -35,7 +38,7 @@ export const lithuania: Country = {
       return total;
     }
 
-    function _check9DigitVat(vat, rules) {
+    function _check9DigitVat (vat, rules) {
       // 9 character VAT numbers are for legal persons
       var total = 0;
       if (vat.length === 9) {
@@ -58,14 +61,14 @@ export const lithuania: Country = {
       return false;
     }
 
-    function extractDigit12(vat, total, rules) {
+    function extractDigit12 (vat, total, rules) {
       for (var k = 0; k < 11; k++) {
         total += _extractDigit(vat, rules.multipliers.med, k);
       }
       return total;
     }
 
-    function _doubleCheckCalculation12(vat, total, rules) {
+    function _doubleCheckCalculation12 (vat, total, rules) {
       if (total % 11 === 10) {
         total = 0;
         for (var l = 0; l < 11; l++) {
@@ -76,7 +79,7 @@ export const lithuania: Country = {
       return total;
     }
 
-    function _check12DigitVat(vat, rules) {
+    function _check12DigitVat (vat, rules) {
       var total = 0;
 
       // 12 character VAT numbers are for temporarily registered taxpayers

@@ -1,24 +1,24 @@
-import { Country } from '../main';
+import { Country, Rules } from '../main';
 
 export const bulgaria: Country = {
   name: 'Bulgaria',
   codes: ['BG', 'BGR', '100'],
-  calcFn: function (vat: string) {
-    function _increase(value, vat, from, to, incr) {
+  calcFn: function (vat: string): boolean {
+    function _increase (value, vat, from, to, incr) {
       for (let i = from; i < to; i++) {
         value += +vat.charAt(i) * (i + incr);
       }
       return value;
     }
 
-    function _increase2(value, vat, from, to, multipliers) {
+    function _increase2 (value, vat, from, to, multipliers) {
       for (let i = from; i < to; i++) {
         value += +vat.charAt(i) * multipliers[i];
       }
       return value;
     }
 
-    function _checkNineLengthVat(vat) {
+    function _checkNineLengthVat (vat) {
       let total;
       let temp = 0;
       const expect = +vat.slice(8);
@@ -38,7 +38,7 @@ export const bulgaria: Country = {
       return total === expect;
     }
 
-    function _isPhysicalPerson(vat, rules) {
+    function _isPhysicalPerson (vat, rules) {
       // 10 digit VAT code - see if it relates to a standard physical person
       if ((/^\d\d[0-5]\d[0-3]\d\d{4}$/).test(vat)) {
         // Check month
@@ -56,17 +56,19 @@ export const bulgaria: Country = {
       return false;
     }
 
-    function _isForeigner(vat, rules) {
+    function _isForeigner (vat: string, rules: Rules): boolean {
+      if (!rules.multipliers) return false;
+      if (Array.isArray(rules.multipliers)) return false
       // Extract the next digit and multiply by the counter.
       const total = _increase2(0, vat, 0, 9, rules.multipliers.foreigner);
 
       // Check to see if the check digit given is correct, If not, try next type of person
-      if (total % 10 === +vat.substr(9, 1)) {
-        return true;
-      }
+      return total % 10 === +vat.substr(9, 1);
     }
 
-    function _miscellaneousVAT(vat, rules) {
+    function _miscellaneousVAT (vat: string, rules: Rules): boolean {
+      if (!rules.multipliers) return false;
+      if (Array.isArray(rules.multipliers)) return false
       // Finally, if not yet identified, see if it conforms to a miscellaneous VAT number
       let total = _increase2(0, vat, 0, 9, rules.multipliers.miscellaneous);
 
@@ -76,7 +78,7 @@ export const bulgaria: Country = {
       if (total === 11) total = 0;
 
       // Check to see if the check digit given is correct, If not, we have an error with the VAT number
-      const expect = +vat.substr(9, 1);
+      const expect = Number(vat.substr(9, 1));
       return total === expect;
     }
 

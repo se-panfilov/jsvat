@@ -3,7 +3,8 @@ import { Country } from '../main';
 export const denmark: Country = {
   name: 'Denmark',
   codes: ['DK', 'DNK', '208'],
-  calcFn: function (vat: string) {
+  calcFn: function (vat: string): boolean {
+    if (!this.rules.multipliers) return false;
     let total = 0;
 
     for (let i = 0; i < 8; i++) {

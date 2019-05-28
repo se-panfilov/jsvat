@@ -3,9 +3,12 @@ import { Country } from '../main';
 export const ireland: Country = {
   name: 'Ireland',
   codes: ['IE', 'IRL', '372'],
-  calcFn: function (vat: string) {
-    var total = 0;
-    var expect;
+  calcFn: function (vat: string): boolean {
+    if (!this.rules.typeFormats || !this.rules.typeFormats.first) return false;
+    if (!this.rules.multipliers) return false;
+
+    let total: string | number = 0;
+    let expect;
 
     // If the code is type 1 format, we need to convert it to the new before performing the validation.
     if (this.rules.typeFormats.first.test(vat)) {

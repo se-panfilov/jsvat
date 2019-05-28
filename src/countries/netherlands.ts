@@ -3,13 +3,14 @@ import { Country } from '../main';
 export const netherlands: Country = {
   name: 'Netherlands',
   codes: ['NL', 'NLD', '528'],
-  calcFn: function (vat: string) {
-    var total = 0;
-    var expect;
+  calcFn: function (vat: string): boolean {
+    if (!this.rules.multipliers) return false;
+    let total = 0;
+    let expect;
 
     // Extract the next digit and multiply by the counter.
-    for (var i = 0; i < 8; i++) {
-      total += +vat.charAt(i) * this.rules.multipliers[i];
+    for (let i = 0; i < 8; i++) {
+      total += Number(vat.charAt(i)) * this.rules.multipliers[i];
     }
 
     // Establish check digits by getting modulus 11.
@@ -19,7 +20,7 @@ export const netherlands: Country = {
     }
 
     // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-    expect = +vat.slice(8, 9);
+    expect = +Number(vat.slice(8, 9));
     return total === expect;
   },
   rules: {

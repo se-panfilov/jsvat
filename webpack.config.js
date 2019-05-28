@@ -5,7 +5,7 @@ module.exports = {
   // mode: 'production',
   mode: 'development',
   devtool: 'source-map',
-  entry: './src/main.js',
+  entry: './src/main.ts',
   output: {
     filename: 'jsvat.js',
     path: path.resolve(__dirname, 'dist'),
@@ -17,11 +17,14 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js)$/,
-        exclude: /(node_modules)/,
-        use: 'babel-loader'
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
       }
     ]
+  },
+  resolve: {
+    extensions: ['.ts']
   },
   plugins: [
     new CleanWebpackPlugin()

@@ -4,11 +4,12 @@ export const finland: Country = {
   name: 'Finland',
   codes: ['FI', 'FIN', '246'],
   calcFn: function (vat: string) {
-    var total = 0;
-    var expect;
+    let total = 0;
+    let expect;
 
     // Extract the next digit and multiply by the counter.
-    for (var i = 0; i < 7; i++) total += +vat.charAt(i) * this.rules.multipliers[i];
+    if (!this.rules.multipliers) return false;
+    for (let i = 0; i < 7; i++) total += +vat.charAt(i) * this.rules.multipliers[i];
 
     // Establish check digit.
     total = 11 - total % 11;
@@ -17,7 +18,7 @@ export const finland: Country = {
     }
 
     // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-    expect = +vat.slice(7, 8);
+    expect = Number(vat.slice(7, 8));
     return total === expect;
   },
   rules: {

@@ -3,12 +3,12 @@ import { Country } from '../main';
 export const germany: Country = {
   name: 'Germany',
   codes: ['DE', 'DEU', '276'],
-  calcFn: function (vat: string) {
+  calcFn: function (vat: string): boolean {
     // Checks the check digits of a German VAT number.
-    var product = 10;
-    var sum = 0;
-    var checkDigit = 0;
-    var expect;
+    let product = 10;
+    let sum = 0;
+    let checkDigit = 0;
+    let expect;
 
     for (var i = 0; i < 8; i++) {
       // Extract the next digit and implement peculiar algorithm!.

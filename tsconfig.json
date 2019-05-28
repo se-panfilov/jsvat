@@ -14,7 +14,7 @@
     "strict": true
     /* Enable all strict type-checking options. */,
     /* Strict Type-Checking Options */
-    "noImplicitAny": true
+    "noImplicitAny": false
     /* Raise error on expressions and declarations with an implied 'any' type. */,
     "strictNullChecks": true
     /* Enable strict null checks. */,
