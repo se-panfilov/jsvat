@@ -5,7 +5,7 @@ export const lithuania: Country = {
   codes: ['LT', 'LTU', '440'],
   calcFn: (vat: string): boolean  => {
 
-    function _extractDigit (vat: string, multiplierList: Array<number>, key: number): number {
+    function _extractDigit (vat: string, multiplierList: ReadonlyArray<number>, key: number): number {
       return Number(vat.charAt(key)) * multiplierList[key];
     }
 
