@@ -7,7 +7,6 @@ export const slovenia: Country = {
     if (!slovenia.rules.multipliers) return false;
     if (!Array.isArray(slovenia.rules.multipliers)) return false;
     let total = 0;
-    let expect;
 
     // Extract the next digit and multiply by the counter.
     for (let i = 0; i < 7; i++) {
@@ -22,7 +21,7 @@ export const slovenia: Country = {
 
     // Compare the number with the last character of the VAT number. If it is the
     // same, then it's a valid check digit.
-    expect = +vat.slice(7, 8);
+    const expect = Number(vat.slice(7, 8));
     return !!(total !== 11 && total === expect);
   },
   rules: {

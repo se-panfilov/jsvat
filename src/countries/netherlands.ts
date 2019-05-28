@@ -4,14 +4,14 @@ export const netherlands: Country = {
   name: 'Netherlands',
   codes: ['NL', 'NLD', '528'],
   calcFn: (vat: string): boolean  => {
-    if (!this.rules.multipliers) return false;
-    if (!Array.isArray(this.rules.multipliers)) return false;
+    if (!netherlands.rules.multipliers) return false;
+    if (!Array.isArray(netherlands.rules.multipliers)) return false;
     let total = 0;
     let expect;
 
     // Extract the next digit and multiply by the counter.
     for (let i = 0; i < 8; i++) {
-      total += Number(vat.charAt(i)) * this.rules.multipliers[i];
+      total += Number(vat.charAt(i)) * netherlands.rules.multipliers[i];
     }
 
     // Establish check digits by getting modulus 11.

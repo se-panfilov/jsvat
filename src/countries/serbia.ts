@@ -3,7 +3,7 @@ import { Country } from '../main';
 export const serbia: Country = {
   name: 'Serbia',
   codes: ['RS', 'SRB', '688'],
-  calcFn: (vat: string): boolean  => {
+  calcFn: (vat: string): boolean => {
     // Checks the check digits of a Serbian VAT number using ISO 7064, MOD 11-10 for check digit.
 
     let product = 10;
@@ -11,7 +11,7 @@ export const serbia: Country = {
 
     for (let i = 0; i < 8; i++) {
       // Extract the next digit and implement the algorithm
-      sum = (+vat.charAt(i) + product) % 10;
+      sum = (Number(vat.charAt(i)) + product) % 10;
       if (sum === 0) {
         sum = 10;
       }
@@ -20,7 +20,7 @@ export const serbia: Country = {
 
     // Now check that we have the right check digit
     const expect = 1;
-    const checkDigit = (product + (+vat.slice(8, 9))) % 10;
+    const checkDigit = (product + (Number(vat.slice(8, 9)))) % 10;
     return checkDigit === expect;
   },
   rules: {

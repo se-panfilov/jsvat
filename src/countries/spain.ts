@@ -28,7 +28,7 @@ export const spain: Country = {
       }
 
       // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-      expect = +vat.slice(8, 9);
+      expect = Number(vat.slice(8, 9));
       return total === expect;
     } else if (spain.rules.additional[1].test(vat)) { // Juridical entities other than national ones
       if (!Array.isArray(spain.rules.multipliers)) return false;

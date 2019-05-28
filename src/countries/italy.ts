@@ -18,15 +18,13 @@ export const italy: Country = {
       return false;
     }
 
-    if (!this.rules.multipliers) return false;
-    if (!Array.isArray(this.rules.multipliers)) return false;
+    if (!italy.rules.multipliers) return false;
+    if (!Array.isArray(italy.rules.multipliers)) return false;
     // Extract the next digit and multiply by the appropriate
     for (let i = 0; i < 10; i++) {
-      temp = Number(vat.charAt(i)) * this.rules.multipliers[i];
-      if (temp > 9)
-        total += Math.floor(temp / 10) + temp % 10;
-      else
-        total += temp;
+      temp = Number(vat.charAt(i)) * italy.rules.multipliers[i];
+      if (temp > 9) total += Math.floor(temp / 10) + temp % 10;
+      else total += temp;
     }
 
     // Establish check digit.
@@ -36,7 +34,7 @@ export const italy: Country = {
     }
 
     // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-    expect = +vat.slice(10, 11);
+    expect = Number(vat.slice(10, 11));
     return total === expect;
   },
   rules: {

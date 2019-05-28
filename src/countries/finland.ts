@@ -8,9 +8,9 @@ export const finland: Country = {
     let expect;
 
     // Extract the next digit and multiply by the counter.
-    if (!this.rules.multipliers) return false;
-    if (!Array.isArray(this.rules.multipliers)) return false;
-    for (let i = 0; i < 7; i++) total += +vat.charAt(i) * this.rules.multipliers[i];
+    if (!finland.rules.multipliers) return false;
+    if (!Array.isArray(finland.rules.multipliers)) return false;
+    for (let i = 0; i < 7; i++) total += +vat.charAt(i) * finland.rules.multipliers[i];
 
     // Establish check digit.
     total = 11 - total % 11;

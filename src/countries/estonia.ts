@@ -4,14 +4,14 @@ export const estonia: Country = {
   name: 'Estonia',
   codes: ['EE', 'EST', '233'],
   calcFn: (vat: string): boolean  => {
-    if (!this.rules.multipliers) return false;
-    if (!Array.isArray(this.rules.multipliers)) return false;
+    if (!estonia.rules.multipliers) return false;
+    if (!Array.isArray(estonia.rules.multipliers)) return false;
     let total = 0;
     let expect;
 
     // Extract the next digit and multiply by the counter.
     for (let i = 0; i < 8; i++) {
-      total += +vat.charAt(i) * this.rules.multipliers[i];
+      total += +vat.charAt(i) * estonia.rules.multipliers[i];
     }
 
     // Establish check digits using modulus 10.

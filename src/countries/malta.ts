@@ -4,14 +4,14 @@ export const malta: Country = {
   name: 'Malta',
   codes: ['MT', 'MLT', '470'],
   calcFn: (vat: string): boolean  => {
-    if (!this.rules.multipliers) return false;
-    if (!Array.isArray(this.rules.multipliers)) return false;
+    if (!malta.rules.multipliers) return false;
+    if (!Array.isArray(malta.rules.multipliers)) return false;
     let total = 0;
     let expect;
 
     // Extract the next digit and multiply by the counter.
     for (let i = 0; i < 6; i++) {
-      total += +vat.charAt(i) * this.rules.multipliers[i];
+      total += Number(vat.charAt(i)) * malta.rules.multipliers[i];
     }
 
     // Establish check digits by getting modulus 37.

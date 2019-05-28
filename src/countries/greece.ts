@@ -3,9 +3,9 @@ import { Country } from '../main';
 export const greece: Country = {
   name: 'Greece',
   codes: ['GR', 'GRC', '300'],
-  calcFn: (vat: string): boolean  => {
-    if (!this.rules.multipliers) return false;
-    if (!Array.isArray(this.rules.multipliers)) return false;
+  calcFn: (vat: string): boolean => {
+    if (!greece.rules.multipliers) return false;
+    if (!Array.isArray(greece.rules.multipliers)) return false;
     let total = 0;
     let expect;
 
@@ -16,7 +16,7 @@ export const greece: Country = {
 
     // Extract the next digit and multiply by the counter.
     for (let i = 0; i < 8; i++) {
-      total += Number(vat.charAt(i)) * this.rules.multipliers[i];
+      total += Number(vat.charAt(i)) * greece.rules.multipliers[i];
     }
 
     // Establish check digit.
@@ -30,16 +30,7 @@ export const greece: Country = {
     return total === expect;
   },
   rules: {
-    multipliers: [
-      256,
-      128,
-      64,
-      32,
-      16,
-      8,
-      4,
-      2
-    ],
+    multipliers: [256, 128, 64, 32, 16, 8, 4, 2],
     regex: [/^(EL)(\d{9})$/]
   }
 };
