@@ -5,8 +5,7 @@ export const lithuania: Country = {
   codes: ['LT', 'LTU', '440'],
   calcFn: function (vat: string): boolean {
 
-    function _extractDigit (vat: string, multiplierList: Array<number>, key: number) {
-
+    function _extractDigit (vat: string, multiplierList: Array<number>, key: number): number {
       return Number(vat.charAt(key)) * multiplierList[key];
     }
 
@@ -30,7 +29,7 @@ export const lithuania: Country = {
       return total;
     }
 
-    function checkDigit (total: number) {
+    function checkDigit (total: number): number {
       total = total % 11;
       if (total === 10) {
         total = 0;
@@ -39,7 +38,7 @@ export const lithuania: Country = {
       return total;
     }
 
-    function _check9DigitVat (vat: string, rules: Rules) {
+    function _check9DigitVat (vat: string, rules: Rules): boolean {
       // 9 character VAT numbers are for legal persons
       let total = 0;
       if (vat.length === 9) {
@@ -62,7 +61,7 @@ export const lithuania: Country = {
       return false;
     }
 
-    function extractDigit12 (vat: string, total: number, rules: Rules) {
+    function extractDigit12 (vat: string, total: number, rules: Rules): number {
       if (rules.multipliers) {
         if (!Array.isArray(rules.multipliers)) {
           for (let k = 0; k < 11; k++) {
@@ -74,7 +73,7 @@ export const lithuania: Country = {
       return total;
     }
 
-    function _doubleCheckCalculation12 (vat: string, total: number, rules: Rules) {
+    function _doubleCheckCalculation12 (vat: string, total: number, rules: Rules): number {
       if (rules.multipliers) {
         if (!Array.isArray(rules.multipliers)) {
           if (total % 11 === 10) {
@@ -89,7 +88,7 @@ export const lithuania: Country = {
       return total;
     }
 
-    function _check12DigitVat (vat: string, rules: Rules) {
+    function _check12DigitVat (vat: string, rules: Rules): boolean {
       let total = 0;
       if (Array.isArray(rules.multipliers)) return false;
 

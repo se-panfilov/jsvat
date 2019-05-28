@@ -4,7 +4,7 @@ import { Country } from '../main';
 export const united_kingdom: Country = {
   name: 'United Kingdom',
   codes: ['GB', 'GBR', '826'],
-  calcFn: function (vat: string) {
+  calcFn: function (vat: string): boolean {
     let total = 0;
     let expect;
 

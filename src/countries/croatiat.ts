@@ -3,7 +3,7 @@ import { Country } from '../main';
 export const croatia: Country = {
   name: 'Croatia',
   codes: ['HR', 'HRV', '191'],
-  calcFn: function (vat: string) {
+  calcFn: function (vat: string): boolean {
     let expect;
 
     // Checks the check digits of a Croatian VAT number using ISO 7064, MOD 11-10 for check digit.

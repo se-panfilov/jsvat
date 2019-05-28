@@ -66,7 +66,7 @@ export const czech_republic: Country = {
       return false;
     }
 
-    function _isIndividualType3 (vat: string, rules: Rules) {
+    function _isIndividualType3 (vat: string, rules: Rules): boolean {
       if (!rules.additional) return false;
       if (rules.additional[3].test(vat)) {
         const temp: number = Number(vat.slice(0, 2)) + Number(vat.slice(2, 4)) + Number(vat.slice(4, 6)) + Number(vat.slice(6, 8)) + Number(vat.slice(8));
