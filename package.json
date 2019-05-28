@@ -7,8 +7,7 @@
     "build": "webpack",
     "test": "jest test/acceptance/test_cases.spec.js",
     "lint": "eslint src --ext .js",
-    "lint:fix": "eslint src --fix .js",
-    "flow:check": "flow"
+    "lint:fix": "eslint src --fix .js"
   },
   "license": "MIT",
   "repository": {
@@ -43,13 +42,11 @@
   "devDependencies": {
     "@babel/core": "7.4.4",
     "@babel/preset-env": "7.4.4",
-    "@babel/preset-flow": "7.0.0",
     "babel-cli": "6.26.0",
     "babel-eslint": "10.0.1",
     "babel-loader": "8.0.6",
     "babel-plugin-add-module-exports": "1.0.2",
     "babel-preset-env": "1.7.0",
-    "babel-preset-flow": "6.23.0",
     "clean-webpack-plugin": "2.0.2",
     "eslint": "5.16.0",
     "eslint-config-standard": "12.0.0",
@@ -58,10 +55,11 @@
     "eslint-plugin-node": "9.0.1",
     "eslint-plugin-promise": "4.1.1",
     "eslint-plugin-standard": "4.0.0",
-    "flow": "0.2.3",
-    "flow-bin": "0.98.1",
     "jest": "24.8.0",
     "minimist": "1.2.0",
+    "ts-loader": "6.0.1",
+    "tslint-immutable": "5.5.2",
+    "typescript": "3.4.5",
     "webpack": "4.31.0",
     "webpack-cli": "3.3.2"
   }
