@@ -141,7 +141,7 @@ export const countries: { [key: string]: Country } = {
   bulgaria,
   croatia,
   cyprus,
-  czech_republic: czechRepublic,
+  czechRepublic,
   denmark,
   estonia,
   europe,
@@ -163,12 +163,12 @@ export const countries: { [key: string]: Country } = {
   romania,
   russia,
   serbia,
-  slovakia_republic: slovakiaRepublic,
+  slovakiaRepublic,
   slovenia,
   spain,
   sweden,
   switzerland,
-  united_kingdom: unitedKingdom
+  unitedKingdom
 };
 
 export function checkVAT (vat: string, _blocked: ReadonlyArray<string> = [], _allowed: ReadonlyArray<string> = [], _countries: { [key: string]: Country } = {}): VatCheckResult {
