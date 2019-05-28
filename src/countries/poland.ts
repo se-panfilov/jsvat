@@ -5,6 +5,7 @@ export const poland: Country = {
   codes: ['PL', 'POL', '616'],
   calcFn: function (vat: string): boolean {
     if (!this.rules.multipliers) return false;
+    if (!Array.isArray(this.rules.multipliers)) return false;
     let total = 0;
     let expect;
 

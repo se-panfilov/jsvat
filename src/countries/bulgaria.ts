@@ -1,24 +1,26 @@
-import { Country, Rules } from '../main';
+import { Country, Multipliers, Rules } from '../main';
 
 export const bulgaria: Country = {
   name: 'Bulgaria',
   codes: ['BG', 'BGR', '100'],
   calcFn: function (vat: string): boolean {
-    function _increase (value, vat, from, to, incr) {
+    function _increase (value: number, vat: string, from: number, to: number, incr: number) {
       for (let i = from; i < to; i++) {
-        value += +vat.charAt(i) * (i + incr);
+        value += Number(vat.charAt(i)) * (i + incr);
       }
       return value;
     }
 
-    function _increase2 (value, vat, from, to, multipliers) {
+    function _increase2 (value: number, vat: string, from: number, to: number, multipliers: Multipliers) {
       for (let i = from; i < to; i++) {
-        value += +vat.charAt(i) * multipliers[i];
+        if (Array.isArray(multipliers)) {
+          value += Number(vat.charAt(i)) * multipliers[i];
+        }
       }
       return value;
     }
 
-    function _checkNineLengthVat (vat) {
+    function _checkNineLengthVat (vat: string) {
       let total;
       let temp = 0;
       const expect = +vat.slice(8);
@@ -38,12 +40,14 @@ export const bulgaria: Country = {
       return total === expect;
     }
 
-    function _isPhysicalPerson (vat, rules) {
+    function _isPhysicalPerson (vat: string, rules: Rules) {
       // 10 digit VAT code - see if it relates to a standard physical person
       if ((/^\d\d[0-5]\d[0-3]\d\d{4}$/).test(vat)) {
         // Check month
         const month = +vat.slice(2, 4);
         if ((month > 0 && month < 13) || (month > 20 && month < 33) || (month > 40 && month < 53)) {
+          if (!rules.multipliers) return false;
+          if (Array.isArray(rules.multipliers)) return false;
           let total = _increase2(0, vat, 0, 9, rules.multipliers.physical);
           // Establish check digit.
           total = total % 11;

@@ -10,7 +10,7 @@ export const germany: Country = {
     let checkDigit = 0;
     let expect;
 
-    for (var i = 0; i < 8; i++) {
+    for (let i = 0; i < 8; i++) {
       // Extract the next digit and implement peculiar algorithm!.
       sum = (+vat.charAt(i) + product) % 10;
       if (sum === 0) {

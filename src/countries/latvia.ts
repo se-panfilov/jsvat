@@ -13,6 +13,7 @@ export const latvia: Country = {
       return !!(/^[0-3][0-9][0-1][0-9]/).test(vat);
     } else {
       if (!this.rules.multipliers) return false;
+      if (!Array.isArray(this.rules.multipliers)) return false;
       // Extract the next digit and multiply by the counter.
       for (let i = 0; i < 10; i++) {
         total += Number(vat.charAt(i)) * this.rules.multipliers[i];

@@ -15,9 +15,10 @@ export const ireland: Country = {
       vat = '0' + vat.substring(2, 7) + vat.substring(0, 1) + vat.substring(7, 8);
     }
 
+    if (!Array.isArray(this.rules.multipliers)) return false;
     // Extract the next digit and multiply by the counter.
-    for (var i = 0; i < 7; i++) {
-      total += +vat.charAt(i) * this.rules.multipliers[i];
+    for (let i = 0; i < 7; i++) {
+      total += Number(vat.charAt(i)) * this.rules.multipliers[i];
     }
 
     // If the number is type 3 then we need to include the trailing A or H in the calculation

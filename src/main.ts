@@ -35,8 +35,11 @@ import { switzerland } from './countries/switzerland';
 // eslint-disable-next-line camelcase
 import { united_kingdom } from './countries/united_kingdom';
 
+export type Multipliers = Array<number> | { readonly [key: string]: Array<number> }
+
+
 export interface Rules {
-  multipliers?: Array<number> | { readonly [key: string]: Array<number> };
+  multipliers?: Multipliers;
   check?: RegExp;
   regex: Array<RegExp>;
   lookup?: Array<number>;

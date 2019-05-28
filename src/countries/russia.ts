@@ -1,13 +1,15 @@
-import { Country } from '../main';
+import { Country, Rules } from '../main';
 
 export const russia: Country = {
   name: 'Russian Federation',
   codes: ['RU', 'RUS', '643'],
   calcFn: function (vat: string): boolean {
-    function _check10DigitINN (vat, rules) {
+    function _check10DigitINN (vat: string, rules: Rules) {
       let total = 0;
 
       if (vat.length === 10) {
+        if (!rules.multipliers) return false;
+        if (Array.isArray(rules.multipliers)) return false;
         for (let i = 0; i < 10; i++) {
           total += +vat.charAt(i) * rules.multipliers.m_1[i];
         }
@@ -25,11 +27,13 @@ export const russia: Country = {
       return false;
     }
 
-    function _check12DigitINN (vat, rules) {
+    function _check12DigitINN (vat: string, rules: Rules) {
       let total1 = 0;
       let total2 = 0;
 
       if (vat.length === 12) {
+        if (!rules.multipliers) return false;
+        if (Array.isArray(rules.multipliers)) return false;
         for (let j = 0; j < 11; j++) {
           total1 += +vat.charAt(j) * rules.multipliers.m_2[j];
         }

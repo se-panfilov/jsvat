@@ -5,6 +5,7 @@ export const denmark: Country = {
   codes: ['DK', 'DNK', '208'],
   calcFn: function (vat: string): boolean {
     if (!this.rules.multipliers) return false;
+    if (!Array.isArray(this.rules.multipliers)) return false;
     let total = 0;
 
     for (let i = 0; i < 8; i++) {

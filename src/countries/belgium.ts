@@ -8,7 +8,7 @@ export const belgium: Country = {
       vat = '0' + vat;
     }
 
-    if (+vat.slice(1, 2) === 0) return false;
+    if (Number(vat.slice(1, 2)) === 0) return false;
 
     const check = (97 - Number(vat.slice(0, 8)) % 97);
     return check === Number(vat.slice(8, 10));

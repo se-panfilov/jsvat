@@ -10,6 +10,7 @@ export const czech_republic: Country = {
       let total = 0;
       if (rules.additional[0].test(vat)) {
         if (!rules.multipliers) return false;
+        if (!Array.isArray(rules.multipliers)) return false;
         // Extract the next digit and multiply by the counter.
         for (let i = 0; i < 7; i++) {
           total += Number(vat.charAt(i)) * rules.multipliers[i];
@@ -45,6 +46,7 @@ export const czech_republic: Country = {
 
       if (rules.additional[2].test(vat)) {
         if (!rules.multipliers) return false;
+        if (!Array.isArray(rules.multipliers)) return false;
         // Extract the next digit and multiply by the counter.
         for (let j = 0; j < 7; j++) {
           total += +vat.charAt(j + 1) * rules.multipliers[j];
@@ -64,7 +66,8 @@ export const czech_republic: Country = {
       return false;
     }
 
-    function _isIndividualType3 (vat, rules) {
+    function _isIndividualType3 (vat: string, rules: Rules) {
+      if (!rules.additional) return false;
       if (rules.additional[3].test(vat)) {
         const temp: number = Number(vat.slice(0, 2)) + Number(vat.slice(2, 4)) + Number(vat.slice(4, 6)) + Number(vat.slice(6, 8)) + Number(vat.slice(8));
         const expect: boolean = Number(vat) % 11 === 0;

@@ -8,6 +8,7 @@ export const portugal: Country = {
     let total = 0;
     let expect;
 
+    if (!Array.isArray(this.rules.multipliers)) return false;
     // Extract the next digit and multiply by the counter.
     for (let i = 0; i < 8; i++) {
       total += +vat.charAt(i) * this.rules.multipliers[i];

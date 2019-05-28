@@ -31,6 +31,7 @@ export const united_kingdom: Country = {
     // Extract the next digit and multiply by the counter.
     for (let i = 0; i < 7; i++) {
       if (!this.rules.multipliers) return false;
+      if (!Array.isArray(this.rules.multipliers)) return false;
       total += Number(vat.charAt(i)) * this.rules.multipliers[i];
     }
 

@@ -5,6 +5,7 @@ export const norway: Country = {
   codes: ['NO', 'NOR', '578'],
   calcFn: function (vat: string): boolean {
     if (!this.rules.multipliers) return false;
+    if (!Array.isArray(this.rules.multipliers)) return false;
     let total = 0;
     let expect;
     // See http://www.brreg.no/english/coordination/number.html

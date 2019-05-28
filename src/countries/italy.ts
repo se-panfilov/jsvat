@@ -19,6 +19,7 @@ export const italy: Country = {
     }
 
     if (!this.rules.multipliers) return false;
+    if (!Array.isArray(this.rules.multipliers)) return false;
     // Extract the next digit and multiply by the appropriate
     for (let i = 0; i < 10; i++) {
       temp = Number(vat.charAt(i)) * this.rules.multipliers[i];

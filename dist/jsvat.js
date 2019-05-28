@@ -114,6 +114,8 @@ const austria = {
         for (let i = 0; i < 7; i++) {
             if (!this.rules.multipliers)
                 return false;
+            if (!Array.isArray(this.rules.multipliers))
+                return false;
             let temp = Number(vat.charAt(i)) * this.rules.multipliers[i];
             if (temp > 9) {
                 total += Math.floor(temp / 10) + temp % 10;
@@ -182,13 +184,15 @@ const bulgaria = {
     calcFn: function (vat) {
         function _increase(value, vat, from, to, incr) {
             for (let i = from; i < to; i++) {
-                value += +vat.charAt(i) * (i + incr);
+                value += Number(vat.charAt(i)) * (i + incr);
             }
             return value;
         }
         function _increase2(value, vat, from, to, multipliers) {
             for (let i = from; i < to; i++) {
-                value += +vat.charAt(i) * multipliers[i];
+                if (Array.isArray(multipliers)) {
+                    value += Number(vat.charAt(i)) * multipliers[i];
+                }
             }
             return value;
         }
@@ -213,6 +217,10 @@ const bulgaria = {
                 // Check month
                 const month = +vat.slice(2, 4);
                 if ((month > 0 && month < 13) || (month > 20 && month < 33) || (month > 40 && month < 53)) {
+                    if (!rules.multipliers)
+                        return false;
+                    if (Array.isArray(rules.multipliers))
+                        return false;
                     let total = _increase2(0, vat, 0, 9, rules.multipliers.physical);
                     // Establish check digit.
                     total = total % 11;
@@ -359,7 +367,7 @@ const cyprus = {
         total = total % 26;
         total = Number(String.fromCharCode(total + 65));
         // Check to see if the check digit given is correct
-        expect = vat.substr(8, 1);
+        expect = Number(vat.substr(8, 1));
         return total === expect;
     },
     rules: {
@@ -390,6 +398,8 @@ const czech_republic = {
             let total = 0;
             if (rules.additional[0].test(vat)) {
                 if (!rules.multipliers)
+                    return false;
+                if (!Array.isArray(rules.multipliers))
                     return false;
                 // Extract the next digit and multiply by the counter.
                 for (let i = 0; i < 7; i++) {
@@ -423,6 +433,8 @@ const czech_republic = {
             if (rules.additional[2].test(vat)) {
                 if (!rules.multipliers)
                     return false;
+                if (!Array.isArray(rules.multipliers))
+                    return false;
                 // Extract the next digit and multiply by the counter.
                 for (let j = 0; j < 7; j++) {
                     total += +vat.charAt(j + 1) * rules.multipliers[j];
@@ -442,6 +454,8 @@ const czech_republic = {
             return false;
         }
         function _isIndividualType3(vat, rules) {
+            if (!rules.additional)
+                return false;
             if (rules.additional[3].test(vat)) {
                 const temp = Number(vat.slice(0, 2)) + Number(vat.slice(2, 4)) + Number(vat.slice(4, 6)) + Number(vat.slice(6, 8)) + Number(vat.slice(8));
                 const expect = Number(vat) % 11 === 0;
@@ -491,6 +505,8 @@ const denmark = {
     calcFn: function (vat) {
         if (!this.rules.multipliers)
             return false;
+        if (!Array.isArray(this.rules.multipliers))
+            return false;
         let total = 0;
         for (let i = 0; i < 8; i++) {
             total += +vat.charAt(i) * this.rules.multipliers[i];
@@ -521,6 +537,8 @@ const estonia = {
     codes: ['EE', 'EST', '233'],
     calcFn: function (vat) {
         if (!this.rules.multipliers)
+            return false;
+        if (!Array.isArray(this.rules.multipliers))
             return false;
         let total = 0;
         let expect;
@@ -589,6 +607,8 @@ const finland = {
         let expect;
         // Extract the next digit and multiply by the counter.
         if (!this.rules.multipliers)
+            return false;
+        if (!Array.isArray(this.rules.multipliers))
             return false;
         for (let i = 0; i < 7; i++)
             total += +vat.charAt(i) * this.rules.multipliers[i];
@@ -669,7 +689,7 @@ const germany = {
         let sum = 0;
         let checkDigit = 0;
         let expect;
-        for (var i = 0; i < 8; i++) {
+        for (let i = 0; i < 8; i++) {
             // Extract the next digit and implement peculiar algorithm!.
             sum = (+vat.charAt(i) + product) % 10;
             if (sum === 0) {
@@ -712,6 +732,8 @@ const greece = {
     codes: ['GR', 'GRC', '300'],
     calcFn: function (vat) {
         if (!this.rules.multipliers)
+            return false;
+        if (!Array.isArray(this.rules.multipliers))
             return false;
         let total = 0;
         let expect;
@@ -765,6 +787,8 @@ const hungary = {
     codes: ['HU', 'HUN', '348'],
     calcFn: function (vat) {
         if (!this.rules.multipliers)
+            return false;
+        if (!Array.isArray(this.rules.multipliers))
             return false;
         let total = 0;
         let expect;
@@ -821,9 +845,11 @@ const ireland = {
         if (this.rules.typeFormats.first.test(vat)) {
             vat = '0' + vat.substring(2, 7) + vat.substring(0, 1) + vat.substring(7, 8);
         }
+        if (!Array.isArray(this.rules.multipliers))
+            return false;
         // Extract the next digit and multiply by the counter.
-        for (var i = 0; i < 7; i++) {
-            total += +vat.charAt(i) * this.rules.multipliers[i];
+        for (let i = 0; i < 7; i++) {
+            total += Number(vat.charAt(i)) * this.rules.multipliers[i];
         }
         // If the number is type 3 then we need to include the trailing A or H in the calculation
         if (this.rules.typeFormats.third.test(vat)) {
@@ -891,6 +917,8 @@ const italy = {
         }
         if (!this.rules.multipliers)
             return false;
+        if (!Array.isArray(this.rules.multipliers))
+            return false;
         // Extract the next digit and multiply by the appropriate
         for (let i = 0; i < 10; i++) {
             temp = Number(vat.charAt(i)) * this.rules.multipliers[i];
@@ -941,6 +969,8 @@ const latvia = {
         else {
             if (!this.rules.multipliers)
                 return false;
+            if (!Array.isArray(this.rules.multipliers))
+                return false;
             // Extract the next digit and multiply by the counter.
             for (let i = 0; i < 10; i++) {
                 total += Number(vat.charAt(i)) * this.rules.multipliers[i];
@@ -985,8 +1015,8 @@ const lithuania = {
     name: 'Lithuania',
     codes: ['LT', 'LTU', '440'],
     calcFn: function (vat) {
-        function _extractDigit(vat, multiplier, key) {
-            return Number(vat.charAt(key)) * multiplier[key];
+        function _extractDigit(vat, multiplierList, key) {
+            return Number(vat.charAt(key)) * multiplierList[key];
         }
         function _doubleCheckCalculation(vat, total, rules) {
             if (total % 11 === 10) {
@@ -1000,8 +1030,8 @@ const lithuania = {
             return total;
         }
         function extractDigit(vat, total) {
-            for (var i = 0; i < 8; i++) {
-                total += +vat.charAt(i) * (i + 1);
+            for (let i = 0; i < 8; i++) {
+                total += Number(vat.charAt(i)) * (i + 1);
             }
             return total;
         }
@@ -1014,7 +1044,7 @@ const lithuania = {
         }
         function _check9DigitVat(vat, rules) {
             // 9 character VAT numbers are for legal persons
-            var total = 0;
+            let total = 0;
             if (vat.length === 9) {
                 // 8th character must be one
                 if (!(/^\d{7}1/).test(vat))
@@ -1026,30 +1056,42 @@ const lithuania = {
                 // Establish check digit.
                 total = checkDigit(total);
                 // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-                var expect = +vat.slice(8, 9);
+                const expect = Number(vat.slice(8, 9));
                 return total === expect;
             }
             return false;
         }
         function extractDigit12(vat, total, rules) {
-            for (var k = 0; k < 11; k++) {
-                total += _extractDigit(vat, rules.multipliers.med, k);
+            if (rules.multipliers) {
+                if (!Array.isArray(rules.multipliers)) {
+                    for (let k = 0; k < 11; k++) {
+                        total += _extractDigit(vat, rules.multipliers.med, k);
+                    }
+                }
             }
             return total;
         }
         function _doubleCheckCalculation12(vat, total, rules) {
-            if (total % 11 === 10) {
-                total = 0;
-                for (var l = 0; l < 11; l++) {
-                    total += _extractDigit(vat, rules.multipliers.alt, l);
+            if (rules.multipliers) {
+                if (!Array.isArray(rules.multipliers)) {
+                    if (total % 11 === 10) {
+                        total = 0;
+                        for (let l = 0; l < 11; l++) {
+                            total += _extractDigit(vat, rules.multipliers.alt, l);
+                        }
+                    }
                 }
             }
             return total;
         }
         function _check12DigitVat(vat, rules) {
-            var total = 0;
+            let total = 0;
+            if (Array.isArray(rules.multipliers))
+                return false;
             // 12 character VAT numbers are for temporarily registered taxpayers
             if (vat.length === 12) {
+                if (!rules.check)
+                    return false;
                 // 11th character must be one
                 if (!(rules.check).test(vat))
                     return false;
@@ -1124,6 +1166,8 @@ const malta = {
     calcFn: function (vat) {
         if (!this.rules.multipliers)
             return false;
+        if (!Array.isArray(this.rules.multipliers))
+            return false;
         let total = 0;
         let expect;
         // Extract the next digit and multiply by the counter.
@@ -1160,6 +1204,8 @@ const netherlands = {
     codes: ['NL', 'NLD', '528'],
     calcFn: function (vat) {
         if (!this.rules.multipliers)
+            return false;
+        if (!Array.isArray(this.rules.multipliers))
             return false;
         let total = 0;
         let expect;
@@ -1200,6 +1246,8 @@ const norway = {
     codes: ['NO', 'NOR', '578'],
     calcFn: function (vat) {
         if (!this.rules.multipliers)
+            return false;
+        if (!Array.isArray(this.rules.multipliers))
             return false;
         let total = 0;
         let expect;
@@ -1245,6 +1293,8 @@ const poland = {
     calcFn: function (vat) {
         if (!this.rules.multipliers)
             return false;
+        if (!Array.isArray(this.rules.multipliers))
+            return false;
         let total = 0;
         let expect;
         // Extract the next digit and multiply by the counter.
@@ -1287,6 +1337,8 @@ const portugal = {
             return false;
         let total = 0;
         let expect;
+        if (!Array.isArray(this.rules.multipliers))
+            return false;
         // Extract the next digit and multiply by the counter.
         for (let i = 0; i < 8; i++) {
             total += +vat.charAt(i) * this.rules.multipliers[i];
@@ -1367,6 +1419,10 @@ const russia = {
         function _check10DigitINN(vat, rules) {
             let total = 0;
             if (vat.length === 10) {
+                if (!rules.multipliers)
+                    return false;
+                if (Array.isArray(rules.multipliers))
+                    return false;
                 for (let i = 0; i < 10; i++) {
                     total += +vat.charAt(i) * rules.multipliers.m_1[i];
                 }
@@ -1384,6 +1440,10 @@ const russia = {
             let total1 = 0;
             let total2 = 0;
             if (vat.length === 12) {
+                if (!rules.multipliers)
+                    return false;
+                if (Array.isArray(rules.multipliers))
+                    return false;
                 for (let j = 0; j < 11; j++) {
                     total1 += +vat.charAt(j) * rules.multipliers.m_2[j];
                 }
@@ -1503,6 +1563,8 @@ const slovenia = {
     calcFn: function (vat) {
         if (!this.rules.multipliers)
             return false;
+        if (!Array.isArray(this.rules.multipliers))
+            return false;
         let total = 0;
         let expect;
         // Extract the next digit and multiply by the counter.
@@ -1552,6 +1614,8 @@ const spain = {
         let expect;
         // National juridical entities
         if (this.rules.additional[0].test(vat)) {
+            if (!Array.isArray(this.rules.multipliers))
+                return false;
             // Extract the next digit and multiply by the counter.
             for (i = 0; i < 7; i++) {
                 temp = Number(vat.charAt(i + 1)) * this.rules.multipliers[i];
@@ -1570,6 +1634,8 @@ const spain = {
             return total === expect;
         }
         else if (this.rules.additional[1].test(vat)) { // Juridical entities other than national ones
+            if (!Array.isArray(this.rules.multipliers))
+                return false;
             // Extract the next digit and multiply by the counter.
             for (i = 0; i < 7; i++) {
                 temp = Number(vat.charAt(i + 1)) * this.rules.multipliers[i];
@@ -1582,7 +1648,7 @@ const spain = {
             total = 10 - total % 10;
             total = Number(String.fromCharCode(total + 64));
             // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-            expect = vat.slice(8, 9);
+            expect = Number(vat.slice(8, 9));
             return total === expect;
         }
         else if (this.rules.additional[2].test(vat)) { // Personal number (NIF) (starting with numeric of Y or Z)
@@ -1676,6 +1742,8 @@ const switzerland = {
     calcFn: function (vat) {
         if (!this.rules.multipliers)
             return false;
+        if (!Array.isArray(this.rules.multipliers))
+            return false;
         let total = 0;
         for (let i = 0; i < 8; i++) {
             total += Number(vat.charAt(i)) * this.rules.multipliers[i];
@@ -1735,6 +1803,8 @@ const united_kingdom = {
         // Extract the next digit and multiply by the counter.
         for (let i = 0; i < 7; i++) {
             if (!this.rules.multipliers)
+                return false;
+            if (!Array.isArray(this.rules.multipliers))
                 return false;
             total += Number(vat.charAt(i)) * this.rules.multipliers[i];
         }

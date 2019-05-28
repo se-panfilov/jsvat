@@ -5,6 +5,7 @@ export const netherlands: Country = {
   codes: ['NL', 'NLD', '528'],
   calcFn: function (vat: string): boolean {
     if (!this.rules.multipliers) return false;
+    if (!Array.isArray(this.rules.multipliers)) return false;
     let total = 0;
     let expect;
 

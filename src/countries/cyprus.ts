@@ -42,7 +42,7 @@ export const cyprus: Country = {
     total = Number(String.fromCharCode(total + 65));
 
     // Check to see if the check digit given is correct
-    expect = vat.substr(8, 1);
+    expect = Number(vat.substr(8, 1));
     return total === expect;
   },
   rules: {

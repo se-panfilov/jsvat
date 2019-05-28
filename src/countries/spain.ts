@@ -14,6 +14,7 @@ export const spain: Country = {
 
     // National juridical entities
     if (this.rules.additional[0].test(vat)) {
+      if (!Array.isArray(this.rules.multipliers)) return false;
       // Extract the next digit and multiply by the counter.
       for (i = 0; i < 7; i++) {
         temp = Number(vat.charAt(i + 1)) * this.rules.multipliers[i];
@@ -32,6 +33,7 @@ export const spain: Country = {
       expect = +vat.slice(8, 9);
       return total === expect;
     } else if (this.rules.additional[1].test(vat)) { // Juridical entities other than national ones
+      if (!Array.isArray(this.rules.multipliers)) return false;
       // Extract the next digit and multiply by the counter.
       for (i = 0; i < 7; i++) {
         temp = Number(vat.charAt(i + 1)) * this.rules.multipliers[i];
@@ -46,7 +48,7 @@ export const spain: Country = {
       total = Number(String.fromCharCode(total + 64));
 
       // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-      expect = vat.slice(8, 9);
+      expect = Number(vat.slice(8, 9));
       return total === expect;
     } else if (this.rules.additional[2].test(vat)) { // Personal number (NIF) (starting with numeric of Y or Z)
       let tempNumber = vat;
