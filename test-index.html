@@ -304,6 +304,7 @@
     function isValid() {
         var result;
         var value = document.getElementById('test_vat_inp').value;
+
         result = jsvat.checkVAT(value);
 
         result = JSON.stringify(result);
@@ -314,7 +315,13 @@
     }
 
     function checkVat(value, resultElemId) {
-        var result = jsvat.checkVAT(value);
+        var result = jsvat.checkVAT(value, [
+          jsvat.austria,
+          jsvat.belgium,
+          jsvat.serbia,
+          jsvat.russia,
+          jsvat.romania
+        ]);
 
         document.getElementById(resultElemId).innerText = JSON.stringify(result);
 

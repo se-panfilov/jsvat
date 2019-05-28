@@ -45,12 +45,10 @@ function removeExtraChars (vat: string = ''): string {
   return vat.toString().toUpperCase().replace(/(\s|-|\.)+/g, '');
 }
 
-function getCountry (vat: string, countriesObj: { [key: string]: Country }): Country | undefined {
-  for (const k in countriesObj) {
-    if (countriesObj.hasOwnProperty(k)) {
-      const regexpValidRes = isVatValidToRegexp(vat, countriesObj[k].rules.regex);
-      if (regexpValidRes.isValid) return countriesObj[k];
-    }
+function getCountry (vat: string, countriesList: ReadonlyArray<Country>): Country | undefined {
+  for (const country of countriesList) {
+      const regexpValidRes = isVatValidToRegexp(vat, country.rules.regex);
+      if (regexpValidRes.isValid) return country;
   }
 
   return undefined;
@@ -65,24 +63,20 @@ function isVatValidToRegexp (vat: string, regexArr: ReadonlyArray<RegExp>): { is
   return {isValid: false, regex: undefined};
 }
 
-function isVatMathValid (vat: string, country: Country): boolean {
-  return country.calcFn(vat);
-}
-
 function isVatValid (vat: string, country: Country): boolean {
   const regexpValidRes = isVatValidToRegexp(vat, country.rules.regex);
   if (!regexpValidRes.isValid || !regexpValidRes.regex) return false;
   const regexResult = regexpValidRes.regex.exec(vat);
   if (!regexResult) return false;
-  return isVatMathValid(regexResult[2], country);
+  return country.calcFn(regexResult[2]);
 }
 
-export function checkVAT (vat: string, countries: { [key: string]: Country } = {}): VatCheckResult {
-  if (!vat) throw new Error('VAT should be specified');
+export function checkVAT (vat: string, countriesList: ReadonlyArray<Country> = []): VatCheckResult {
+  if (!vat) throw new Error('[jsvat]: VAT should be specified');
   const cleanVAT = removeExtraChars(vat);
   const result = makeResult(cleanVAT);
 
-  const country = getCountry(cleanVAT, {...countries});
+  const country = getCountry(cleanVAT, countriesList);
   if (!country) return result;
 
   const isValid = isVatValid(cleanVAT, country);

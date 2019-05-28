@@ -29,6 +29,4 @@ export interface VatCheckResult {
         };
     };
 }
-export declare function checkVAT(vat: string, countries?: {
-    [key: string]: Country;
-}): VatCheckResult;
+export declare function checkVAT(vat: string, countriesList?: ReadonlyArray<Country>): VatCheckResult;

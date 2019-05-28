@@ -799,6 +799,151 @@ const hungary = {
 
 /***/ }),
 
+/***/ "./src/countries/index.ts":
+/*!********************************!*\
+  !*** ./src/countries/index.ts ***!
+  \********************************/
+/*! exports provided: austria, belgium, bulgaria, croatia, cyprus, czechRepublic, denmark, estonia, europe, finland, france, germany, greece, hungary, ireland, italy, latvia, lithuania, luxembourg, malta, netherlands, norway, poland, portugal, romania, russia, serbia, slovakiaRepublic, slovenia, spain, sweden, switzerland, unitedKingdom */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _austria__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./austria */ "./src/countries/austria.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "austria", function() { return _austria__WEBPACK_IMPORTED_MODULE_0__["austria"]; });
+
+/* harmony import */ var _belgium__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./belgium */ "./src/countries/belgium.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "belgium", function() { return _belgium__WEBPACK_IMPORTED_MODULE_1__["belgium"]; });
+
+/* harmony import */ var _bulgaria__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./bulgaria */ "./src/countries/bulgaria.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "bulgaria", function() { return _bulgaria__WEBPACK_IMPORTED_MODULE_2__["bulgaria"]; });
+
+/* harmony import */ var _croatiat__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./croatiat */ "./src/countries/croatiat.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "croatia", function() { return _croatiat__WEBPACK_IMPORTED_MODULE_3__["croatia"]; });
+
+/* harmony import */ var _cyprus__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./cyprus */ "./src/countries/cyprus.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "cyprus", function() { return _cyprus__WEBPACK_IMPORTED_MODULE_4__["cyprus"]; });
+
+/* harmony import */ var _czechRepublic__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./czechRepublic */ "./src/countries/czechRepublic.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "czechRepublic", function() { return _czechRepublic__WEBPACK_IMPORTED_MODULE_5__["czechRepublic"]; });
+
+/* harmony import */ var _denmark__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./denmark */ "./src/countries/denmark.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "denmark", function() { return _denmark__WEBPACK_IMPORTED_MODULE_6__["denmark"]; });
+
+/* harmony import */ var _estonia__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./estonia */ "./src/countries/estonia.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "estonia", function() { return _estonia__WEBPACK_IMPORTED_MODULE_7__["estonia"]; });
+
+/* harmony import */ var _europe__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./europe */ "./src/countries/europe.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "europe", function() { return _europe__WEBPACK_IMPORTED_MODULE_8__["europe"]; });
+
+/* harmony import */ var _finland__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./finland */ "./src/countries/finland.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "finland", function() { return _finland__WEBPACK_IMPORTED_MODULE_9__["finland"]; });
+
+/* harmony import */ var _france__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./france */ "./src/countries/france.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "france", function() { return _france__WEBPACK_IMPORTED_MODULE_10__["france"]; });
+
+/* harmony import */ var _germany__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./germany */ "./src/countries/germany.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "germany", function() { return _germany__WEBPACK_IMPORTED_MODULE_11__["germany"]; });
+
+/* harmony import */ var _greece__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./greece */ "./src/countries/greece.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "greece", function() { return _greece__WEBPACK_IMPORTED_MODULE_12__["greece"]; });
+
+/* harmony import */ var _hungary__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./hungary */ "./src/countries/hungary.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "hungary", function() { return _hungary__WEBPACK_IMPORTED_MODULE_13__["hungary"]; });
+
+/* harmony import */ var _ireland__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./ireland */ "./src/countries/ireland.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ireland", function() { return _ireland__WEBPACK_IMPORTED_MODULE_14__["ireland"]; });
+
+/* harmony import */ var _italy__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./italy */ "./src/countries/italy.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "italy", function() { return _italy__WEBPACK_IMPORTED_MODULE_15__["italy"]; });
+
+/* harmony import */ var _latvia__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./latvia */ "./src/countries/latvia.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "latvia", function() { return _latvia__WEBPACK_IMPORTED_MODULE_16__["latvia"]; });
+
+/* harmony import */ var _lithuania__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./lithuania */ "./src/countries/lithuania.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "lithuania", function() { return _lithuania__WEBPACK_IMPORTED_MODULE_17__["lithuania"]; });
+
+/* harmony import */ var _luxembourg__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./luxembourg */ "./src/countries/luxembourg.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "luxembourg", function() { return _luxembourg__WEBPACK_IMPORTED_MODULE_18__["luxembourg"]; });
+
+/* harmony import */ var _malta__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./malta */ "./src/countries/malta.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "malta", function() { return _malta__WEBPACK_IMPORTED_MODULE_19__["malta"]; });
+
+/* harmony import */ var _netherlands__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./netherlands */ "./src/countries/netherlands.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "netherlands", function() { return _netherlands__WEBPACK_IMPORTED_MODULE_20__["netherlands"]; });
+
+/* harmony import */ var _norway__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./norway */ "./src/countries/norway.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "norway", function() { return _norway__WEBPACK_IMPORTED_MODULE_21__["norway"]; });
+
+/* harmony import */ var _poland__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./poland */ "./src/countries/poland.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "poland", function() { return _poland__WEBPACK_IMPORTED_MODULE_22__["poland"]; });
+
+/* harmony import */ var _portugal__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./portugal */ "./src/countries/portugal.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "portugal", function() { return _portugal__WEBPACK_IMPORTED_MODULE_23__["portugal"]; });
+
+/* harmony import */ var _romania__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./romania */ "./src/countries/romania.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "romania", function() { return _romania__WEBPACK_IMPORTED_MODULE_24__["romania"]; });
+
+/* harmony import */ var _russia__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./russia */ "./src/countries/russia.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "russia", function() { return _russia__WEBPACK_IMPORTED_MODULE_25__["russia"]; });
+
+/* harmony import */ var _serbia__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./serbia */ "./src/countries/serbia.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "serbia", function() { return _serbia__WEBPACK_IMPORTED_MODULE_26__["serbia"]; });
+
+/* harmony import */ var _slovakiaRepublic__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./slovakiaRepublic */ "./src/countries/slovakiaRepublic.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "slovakiaRepublic", function() { return _slovakiaRepublic__WEBPACK_IMPORTED_MODULE_27__["slovakiaRepublic"]; });
+
+/* harmony import */ var _slovenia__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./slovenia */ "./src/countries/slovenia.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "slovenia", function() { return _slovenia__WEBPACK_IMPORTED_MODULE_28__["slovenia"]; });
+
+/* harmony import */ var _spain__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./spain */ "./src/countries/spain.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "spain", function() { return _spain__WEBPACK_IMPORTED_MODULE_29__["spain"]; });
+
+/* harmony import */ var _sweden__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./sweden */ "./src/countries/sweden.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "sweden", function() { return _sweden__WEBPACK_IMPORTED_MODULE_30__["sweden"]; });
+
+/* harmony import */ var _switzerland__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./switzerland */ "./src/countries/switzerland.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "switzerland", function() { return _switzerland__WEBPACK_IMPORTED_MODULE_31__["switzerland"]; });
+
+/* harmony import */ var _unitedKingdom__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./unitedKingdom */ "./src/countries/unitedKingdom.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "unitedKingdom", function() { return _unitedKingdom__WEBPACK_IMPORTED_MODULE_32__["unitedKingdom"]; });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***/ }),
+
 /***/ "./src/countries/ireland.ts":
 /*!**********************************!*\
   !*** ./src/countries/ireland.ts ***!
@@ -1814,144 +1959,80 @@ const unitedKingdom = {
 /*!**********************!*\
   !*** ./src/index.ts ***!
   \**********************/
-/*! exports provided: austria, belgium, bulgaria, croatia, cyprus, czechRepublic, denmark, estonia, europe, finland, france, germany, greece, hungary, ireland, italy, latvia, lithuania, luxembourg, malta, netherlands, norway, poland, portugal, romania, russia, serbia, slovakiaRepublic, slovenia, spain, sweden, switzerland, unitedKingdom, checkVAT */
+/*! exports provided: checkVAT, austria, belgium, bulgaria, croatia, cyprus, czechRepublic, denmark, estonia, europe, finland, france, germany, greece, hungary, ireland, italy, latvia, lithuania, luxembourg, malta, netherlands, norway, poland, portugal, romania, russia, serbia, slovakiaRepublic, slovenia, spain, sweden, switzerland, unitedKingdom */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _countries_austria__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./countries/austria */ "./src/countries/austria.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "austria", function() { return _countries_austria__WEBPACK_IMPORTED_MODULE_0__["austria"]; });
+/* harmony import */ var _countries__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./countries */ "./src/countries/index.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "austria", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["austria"]; });
 
-/* harmony import */ var _countries_belgium__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./countries/belgium */ "./src/countries/belgium.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "belgium", function() { return _countries_belgium__WEBPACK_IMPORTED_MODULE_1__["belgium"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "belgium", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["belgium"]; });
 
-/* harmony import */ var _countries_bulgaria__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./countries/bulgaria */ "./src/countries/bulgaria.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "bulgaria", function() { return _countries_bulgaria__WEBPACK_IMPORTED_MODULE_2__["bulgaria"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "bulgaria", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["bulgaria"]; });
 
-/* harmony import */ var _countries_croatiat__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./countries/croatiat */ "./src/countries/croatiat.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "croatia", function() { return _countries_croatiat__WEBPACK_IMPORTED_MODULE_3__["croatia"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "croatia", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["croatia"]; });
 
-/* harmony import */ var _countries_cyprus__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./countries/cyprus */ "./src/countries/cyprus.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "cyprus", function() { return _countries_cyprus__WEBPACK_IMPORTED_MODULE_4__["cyprus"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "cyprus", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["cyprus"]; });
 
-/* harmony import */ var _countries_czechRepublic__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./countries/czechRepublic */ "./src/countries/czechRepublic.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "czechRepublic", function() { return _countries_czechRepublic__WEBPACK_IMPORTED_MODULE_5__["czechRepublic"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "czechRepublic", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["czechRepublic"]; });
 
-/* harmony import */ var _countries_denmark__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./countries/denmark */ "./src/countries/denmark.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "denmark", function() { return _countries_denmark__WEBPACK_IMPORTED_MODULE_6__["denmark"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "denmark", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["denmark"]; });
 
-/* harmony import */ var _countries_estonia__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./countries/estonia */ "./src/countries/estonia.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "estonia", function() { return _countries_estonia__WEBPACK_IMPORTED_MODULE_7__["estonia"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "estonia", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["estonia"]; });
 
-/* harmony import */ var _countries_europe__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./countries/europe */ "./src/countries/europe.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "europe", function() { return _countries_europe__WEBPACK_IMPORTED_MODULE_8__["europe"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "europe", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["europe"]; });
 
-/* harmony import */ var _countries_finland__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./countries/finland */ "./src/countries/finland.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "finland", function() { return _countries_finland__WEBPACK_IMPORTED_MODULE_9__["finland"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "finland", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["finland"]; });
 
-/* harmony import */ var _countries_france__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./countries/france */ "./src/countries/france.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "france", function() { return _countries_france__WEBPACK_IMPORTED_MODULE_10__["france"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "france", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["france"]; });
 
-/* harmony import */ var _countries_germany__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./countries/germany */ "./src/countries/germany.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "germany", function() { return _countries_germany__WEBPACK_IMPORTED_MODULE_11__["germany"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "germany", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["germany"]; });
 
-/* harmony import */ var _countries_greece__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./countries/greece */ "./src/countries/greece.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "greece", function() { return _countries_greece__WEBPACK_IMPORTED_MODULE_12__["greece"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "greece", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["greece"]; });
 
-/* harmony import */ var _countries_hungary__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./countries/hungary */ "./src/countries/hungary.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "hungary", function() { return _countries_hungary__WEBPACK_IMPORTED_MODULE_13__["hungary"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "hungary", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["hungary"]; });
 
-/* harmony import */ var _countries_ireland__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./countries/ireland */ "./src/countries/ireland.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ireland", function() { return _countries_ireland__WEBPACK_IMPORTED_MODULE_14__["ireland"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ireland", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["ireland"]; });
 
-/* harmony import */ var _countries_italy__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./countries/italy */ "./src/countries/italy.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "italy", function() { return _countries_italy__WEBPACK_IMPORTED_MODULE_15__["italy"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "italy", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["italy"]; });
 
-/* harmony import */ var _countries_latvia__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./countries/latvia */ "./src/countries/latvia.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "latvia", function() { return _countries_latvia__WEBPACK_IMPORTED_MODULE_16__["latvia"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "latvia", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["latvia"]; });
 
-/* harmony import */ var _countries_lithuania__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./countries/lithuania */ "./src/countries/lithuania.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "lithuania", function() { return _countries_lithuania__WEBPACK_IMPORTED_MODULE_17__["lithuania"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "lithuania", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["lithuania"]; });
 
-/* harmony import */ var _countries_luxembourg__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./countries/luxembourg */ "./src/countries/luxembourg.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "luxembourg", function() { return _countries_luxembourg__WEBPACK_IMPORTED_MODULE_18__["luxembourg"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "luxembourg", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["luxembourg"]; });
 
-/* harmony import */ var _countries_malta__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./countries/malta */ "./src/countries/malta.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "malta", function() { return _countries_malta__WEBPACK_IMPORTED_MODULE_19__["malta"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "malta", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["malta"]; });
 
-/* harmony import */ var _countries_netherlands__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./countries/netherlands */ "./src/countries/netherlands.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "netherlands", function() { return _countries_netherlands__WEBPACK_IMPORTED_MODULE_20__["netherlands"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "netherlands", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["netherlands"]; });
 
-/* harmony import */ var _countries_norway__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./countries/norway */ "./src/countries/norway.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "norway", function() { return _countries_norway__WEBPACK_IMPORTED_MODULE_21__["norway"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "norway", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["norway"]; });
 
-/* harmony import */ var _countries_poland__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./countries/poland */ "./src/countries/poland.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "poland", function() { return _countries_poland__WEBPACK_IMPORTED_MODULE_22__["poland"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "poland", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["poland"]; });
 
-/* harmony import */ var _countries_portugal__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./countries/portugal */ "./src/countries/portugal.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "portugal", function() { return _countries_portugal__WEBPACK_IMPORTED_MODULE_23__["portugal"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "portugal", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["portugal"]; });
 
-/* harmony import */ var _countries_romania__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./countries/romania */ "./src/countries/romania.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "romania", function() { return _countries_romania__WEBPACK_IMPORTED_MODULE_24__["romania"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "romania", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["romania"]; });
 
-/* harmony import */ var _countries_russia__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./countries/russia */ "./src/countries/russia.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "russia", function() { return _countries_russia__WEBPACK_IMPORTED_MODULE_25__["russia"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "russia", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["russia"]; });
 
-/* harmony import */ var _countries_serbia__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./countries/serbia */ "./src/countries/serbia.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "serbia", function() { return _countries_serbia__WEBPACK_IMPORTED_MODULE_26__["serbia"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "serbia", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["serbia"]; });
 
-/* harmony import */ var _countries_slovakiaRepublic__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./countries/slovakiaRepublic */ "./src/countries/slovakiaRepublic.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "slovakiaRepublic", function() { return _countries_slovakiaRepublic__WEBPACK_IMPORTED_MODULE_27__["slovakiaRepublic"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "slovakiaRepublic", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["slovakiaRepublic"]; });
 
-/* harmony import */ var _countries_slovenia__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./countries/slovenia */ "./src/countries/slovenia.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "slovenia", function() { return _countries_slovenia__WEBPACK_IMPORTED_MODULE_28__["slovenia"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "slovenia", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["slovenia"]; });
 
-/* harmony import */ var _countries_spain__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./countries/spain */ "./src/countries/spain.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "spain", function() { return _countries_spain__WEBPACK_IMPORTED_MODULE_29__["spain"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "spain", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["spain"]; });
 
-/* harmony import */ var _countries_sweden__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./countries/sweden */ "./src/countries/sweden.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "sweden", function() { return _countries_sweden__WEBPACK_IMPORTED_MODULE_30__["sweden"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "sweden", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["sweden"]; });
 
-/* harmony import */ var _countries_switzerland__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./countries/switzerland */ "./src/countries/switzerland.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "switzerland", function() { return _countries_switzerland__WEBPACK_IMPORTED_MODULE_31__["switzerland"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "switzerland", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["switzerland"]; });
 
-/* harmony import */ var _countries_unitedKingdom__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! ./countries/unitedKingdom */ "./src/countries/unitedKingdom.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "unitedKingdom", function() { return _countries_unitedKingdom__WEBPACK_IMPORTED_MODULE_32__["unitedKingdom"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "unitedKingdom", function() { return _countries__WEBPACK_IMPORTED_MODULE_0__["unitedKingdom"]; });
 
-/* harmony import */ var _main__WEBPACK_IMPORTED_MODULE_33__ = __webpack_require__(/*! ./main */ "./src/main.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "checkVAT", function() { return _main__WEBPACK_IMPORTED_MODULE_33__["checkVAT"]; });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* harmony import */ var _main__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./main */ "./src/main.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "checkVAT", function() { return _main__WEBPACK_IMPORTED_MODULE_1__["checkVAT"]; });
 
 
 
@@ -1986,13 +2067,11 @@ function makeResult(vat, isValid, country) {
 function removeExtraChars(vat = '') {
     return vat.toString().toUpperCase().replace(/(\s|-|\.)+/g, '');
 }
-function getCountry(vat, countriesObj) {
-    for (const k in countriesObj) {
-        if (countriesObj.hasOwnProperty(k)) {
-            const regexpValidRes = isVatValidToRegexp(vat, countriesObj[k].rules.regex);
-            if (regexpValidRes.isValid)
-                return countriesObj[k];
-        }
+function getCountry(vat, countriesList) {
+    for (const country of countriesList) {
+        const regexpValidRes = isVatValidToRegexp(vat, country.rules.regex);
+        if (regexpValidRes.isValid)
+            return country;
     }
     return undefined;
 }
@@ -2016,12 +2095,12 @@ function isVatValid(vat, country) {
         return false;
     return isVatMathValid(regexResult[2], country);
 }
-function checkVAT(vat, countries = {}) {
+function checkVAT(vat, countriesList = []) {
     if (!vat)
         throw new Error('VAT should be specified');
     const cleanVAT = removeExtraChars(vat);
     const result = makeResult(cleanVAT);
-    const country = getCountry(cleanVAT, { ...countries });
+    const country = getCountry(cleanVAT, countriesList);
     if (!country)
         return result;
     const isValid = isVatValid(cleanVAT, country);
