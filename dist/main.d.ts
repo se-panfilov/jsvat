@@ -29,11 +29,6 @@ export interface VatCheckResult {
         };
     };
 }
-export declare const blocked: ReadonlyArray<string>;
-export declare const allowed: ReadonlyArray<string>;
-export declare const countries: {
-    [key: string]: Country;
-};
-export declare function checkVAT(vat: string, _blocked?: ReadonlyArray<string>, _allowed?: ReadonlyArray<string>, _countries?: {
+export declare function checkVAT(vat: string, countries?: {
     [key: string]: Country;
 }): VatCheckResult;

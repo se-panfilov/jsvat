@@ -5,7 +5,7 @@ module.exports = {
   // mode: 'production',
   mode: 'development',
   devtool: 'source-map',
-  entry: './src/main.ts',
+  entry: './src/index.ts',
   output: {
     filename: 'jsvat.js',
     path: path.resolve(__dirname, 'dist'),
