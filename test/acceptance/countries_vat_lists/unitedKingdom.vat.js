@@ -1,4 +1,4 @@
-export const united_kingdom = {
+export const unitedKingdom = {
   name: 'United Kingdom',
   codes: ['GB', 'GBR', '826'],
   valid: [

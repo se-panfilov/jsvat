@@ -8,6 +8,6 @@
   "test": [
   ],
   "critics": {
-    "lint": {"engine": "jshint"}
+    "lint": {"engine": "tslint"}
   }
 }

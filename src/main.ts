@@ -32,7 +32,8 @@ import { sweden } from './countries/sweden';
 import { switzerland } from './countries/switzerland';
 import { unitedKingdom } from './countries/unitedKingdom';
 
-export type Multipliers = ReadonlyArray<number> | { readonly [key: string]: ReadonlyArray<number> };
+// TODO (S.Panfilov) some bug happens with checks here if I replace Array with ReadonlyArray
+export type Multipliers = Array<number> | { readonly [key: string]: Array<number> };
 
 export interface Rules {
   multipliers?: Multipliers;

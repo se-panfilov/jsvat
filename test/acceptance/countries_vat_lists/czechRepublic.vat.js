@@ -1,4 +1,4 @@
-export const czech_republic = {
+export const czechRepublic = {
   name: 'Czech Republic',
   codes: ['CZ', 'CZE', '203'],
   valid: [

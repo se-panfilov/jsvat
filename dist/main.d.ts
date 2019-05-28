@@ -1,5 +1,5 @@
-export declare type Multipliers = ReadonlyArray<number> | {
-    readonly [key: string]: ReadonlyArray<number>;
+export declare type Multipliers = Array<number> | {
+    readonly [key: string]: Array<number>;
 };
 export interface Rules {
     multipliers?: Multipliers;

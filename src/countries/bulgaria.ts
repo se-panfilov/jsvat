@@ -89,6 +89,7 @@ function _isForeigner (vat: string, rules: Rules): boolean {
 function _miscellaneousVAT (vat: string, rules: Rules): boolean {
   if (!rules.multipliers) return false;
   if (Array.isArray(rules.multipliers)) return false;
+  if (!rules.multipliers.miscellaneous) return false;
   // Finally, if not yet identified, see if it conforms to a miscellaneous VAT number
   let total = _increase2(0, vat, 0, 9, rules.multipliers.miscellaneous);
 

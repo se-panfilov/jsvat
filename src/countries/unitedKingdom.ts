@@ -1,6 +1,5 @@
 import { Country } from '../main';
 
-// eslint-disable-next-line camelcase
 export const unitedKingdom: Country = {
   name: 'United Kingdom',
   codes: ['GB', 'GBR', '826'],

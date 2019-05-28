@@ -1,4 +1,4 @@
-import jsvat from '../dist/jsvat.js'
+import { checkVAT } from '../dist/jsvat.js'
 
 const argv = require('minimist')(process.argv.slice(2))
 
@@ -11,20 +11,18 @@ export const utils = {
       const testMsg = (argv.config !== noVerbose) ? msg + ': ' + item : 'test'
 
       return it(testMsg, () => {
-        const result = jsvat.checkVAT(item)
-        // console.info(111)
-        // console.info(result)
-        // console.info(222)
+        const result = checkVAT(item)
+
         if (isTrue) {
-          expect(result.value).to.be.equal(item.toString().toUpperCase().replace(/(\s|-|\.)+/g, ''))
-          expect(result.isValid).to.be.true
-          expect(result.country.name).to.be.equal(country.name)
-          expect(result.country.isoCode.short).to.be.equal(country.codes[0])
-          expect(result.country.isoCode.long).to.be.equal(country.codes[1])
-          expect(result.country.isoCode.numeric).to.be.equal(country.codes[2])
+          expect(result.value).toBe(item.toString().toUpperCase().replace(/(\s|-|\.)+/g, ''))
+          expect(result.isValid).toBe(true)
+          expect(result.country.name).toBe(country.name)
+          expect(result.country.isoCode.short).toBe(country.codes[0])
+          expect(result.country.isoCode.long).toBe(country.codes[1])
+          expect(result.country.isoCode.numeric).toBe(country.codes[2])
         } else {
-          expect(result.value).to.be.equal(item.toString().toUpperCase().replace(/(\s|-|\.)+/g, ''))
-          expect(result.isValid).to.be.false
+          expect(result.value).toBe(item.toString().toUpperCase().replace(/(\s|-|\.)+/g, ''))
+          expect(result.isValid).toBe(false)
           // expect(result.country).to.be.undefined
         }
       })

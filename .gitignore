@@ -3,8 +3,5 @@ node_modules
 .idea
 .tmp
 .DS_Store
-build
-test
-src/**.js
 coverage
 package-lock.json

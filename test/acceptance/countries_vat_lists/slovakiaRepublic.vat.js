@@ -1,5 +1,5 @@
-export const slovakia = {
-  name: 'Slovakia_',
+export const slovakiaRepublic = {
+  name: 'Slovakia',
   codes: ['SK', 'SVK', '703'],
   valid: [
     'SK1025529197',

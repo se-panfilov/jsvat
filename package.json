@@ -39,6 +39,9 @@
   "private": false,
   "dependencies": {},
   "devDependencies": {
+    "@babel/preset-env": "7.4.5",
+    "babel": "6.23.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "6.26.2",
     "clean-webpack-plugin": "2.0.2",
     "jest": "24.8.0",
     "minimist": "1.2.0",
