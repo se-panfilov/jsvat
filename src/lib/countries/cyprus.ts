@@ -3,8 +3,8 @@ import { Country } from '../main';
 export const cyprus: Country = {
   name: 'Cyprus',
   codes: ['CY', 'CYP', '196'],
-  calcFn: (vat: string): boolean  => {
-    let total = 0;
+  calcFn: (vat: string): boolean => {
+    let total: string | number = 0;
 
     // Not allowed to start with '12'
     if (Number(vat.slice(0, 2)) === 12) return false;
@@ -38,10 +38,10 @@ export const cyprus: Country = {
 
     // Establish check digit using modulus 26, and translate to char. equivalent.
     total = total % 26;
-    total = Number(String.fromCharCode(total + 65));
+    total = String.fromCharCode(total + 65);
 
     // Check to see if the check digit given is correct
-    const expect = Number(vat.substr(8, 1));
+    const expect = vat.substr(8, 1);
     return total === expect;
   },
   rules: {

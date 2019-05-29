@@ -44,9 +44,9 @@ export const spain = {
             }
             // Now calculate the check digit itself.
             total = 10 - total % 10;
-            total = Number(String.fromCharCode(total + 64));
+            total = String.fromCharCode(total + 64);
             // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-            expect = Number(vat.slice(8, 9));
+            expect = vat.slice(8, 9);
             return total === expect;
         }
         else if (spain.rules.additional[2].test(vat)) { // Personal number (NIF) (starting with numeric of Y or Z)
