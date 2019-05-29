@@ -47,8 +47,8 @@ function removeExtraChars (vat: string = ''): string {
 
 function getCountry (vat: string, countriesList: ReadonlyArray<Country>): Country | undefined {
   for (const country of countriesList) {
-      const regexpValidRes = isVatValidToRegexp(vat, country.rules.regex);
-      if (regexpValidRes.isValid) return country;
+    const regexpValidRes = isVatValidToRegexp(vat, country.rules.regex);
+    if (regexpValidRes.isValid) return country;
   }
 
   return undefined;
@@ -72,7 +72,7 @@ function isVatValid (vat: string, country: Country): boolean {
 }
 
 export function checkVAT (vat: string, countriesList: ReadonlyArray<Country> = []): VatCheckResult {
-  if (!vat) throw new Error('[jsvat]: VAT should be specified');
+  if (!vat) return makeResult(vat, false);
   const cleanVAT = removeExtraChars(vat);
   const result = makeResult(cleanVAT);
 

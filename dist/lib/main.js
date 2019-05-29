@@ -42,7 +42,7 @@ function isVatValid(vat, country) {
 }
 export function checkVAT(vat, countriesList = []) {
     if (!vat)
-        throw new Error('[jsvat]: VAT should be specified');
+        return makeResult(vat, false);
     const cleanVAT = removeExtraChars(vat);
     const result = makeResult(cleanVAT);
     const country = getCountry(cleanVAT, countriesList);
