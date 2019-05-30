@@ -3,7 +3,7 @@ import { Country, Multipliers, Rules } from '../main';
 export const bulgaria: Country = {
   name: 'Bulgaria',
   codes: ['BG', 'BGR', '100'],
-  calcFn: (vat: string): boolean  => {
+  calcFn: (vat: string): boolean => {
     if (vat.length === 9) {
       return _checkNineLengthVat(vat);
     } else {
@@ -20,23 +20,25 @@ export const bulgaria: Country = {
   }
 };
 
-function _increase (value: number, vat: string, from: number, to: number, incr: number): number {
+function _increase(value: number, vat: string, from: number, to: number, incr: number): number {
+  let result = value;
   for (let i = from; i < to; i++) {
-    value += Number(vat.charAt(i)) * (i + incr);
+    result += Number(vat.charAt(i)) * (i + incr);
   }
-  return value;
+  return result;
 }
 
-function _increase2 (value: number, vat: string, from: number, to: number, multipliers: Multipliers): number {
+function _increase2(value: number, vat: string, from: number, to: number, multipliers: Multipliers): number {
+  let result = value;
   for (let i = from; i < to; i++) {
     if (Array.isArray(multipliers)) {
-      value += Number(vat.charAt(i)) * multipliers[i];
+      result += Number(vat.charAt(i)) * multipliers[i];
     }
   }
-  return value;
+  return result;
 }
 
-function _checkNineLengthVat (vat: string): boolean {
+function _checkNineLengthVat(vat: string): boolean {
   let total;
   let temp = 0;
   const expect = +vat.slice(8);
@@ -56,7 +58,7 @@ function _checkNineLengthVat (vat: string): boolean {
   return total === expect;
 }
 
-function _isPhysicalPerson (vat: string, rules: Rules): boolean {
+function _isPhysicalPerson(vat: string, rules: Rules): boolean {
   // 10 digit VAT code - see if it relates to a standard physical person
   if ((/^\d\d[0-5]\d[0-3]\d\d{4}$/).test(vat)) {
     // Check month
@@ -76,7 +78,7 @@ function _isPhysicalPerson (vat: string, rules: Rules): boolean {
   return false;
 }
 
-function _isForeigner (vat: string, rules: Rules): boolean {
+function _isForeigner(vat: string, rules: Rules): boolean {
   if (!rules.multipliers) return false;
   if (Array.isArray(rules.multipliers)) return false;
   // Extract the next digit and multiply by the counter.
@@ -86,7 +88,7 @@ function _isForeigner (vat: string, rules: Rules): boolean {
   return total % 10 === +vat.substr(9, 1);
 }
 
-function _miscellaneousVAT (vat: string, rules: Rules): boolean {
+function _miscellaneousVAT(vat: string, rules: Rules): boolean {
   if (!rules.multipliers) return false;
   if (Array.isArray(rules.multipliers)) return false;
   if (!rules.multipliers.miscellaneous) return false;
