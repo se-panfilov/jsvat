@@ -8,20 +8,16 @@ export const greece = {
             return false;
         let total = 0;
         // eight character numbers should be prefixed with an 0.
-        if (vat.length === 8) {
-            vat = '0' + vat;
-        }
+        const newVat = (vat.length === 8) ? '0' + vat : vat;
         // Extract the next digit and multiply by the counter.
         for (let i = 0; i < 8; i++) {
-            total += Number(vat.charAt(i)) * greece.rules.multipliers[i];
+            total += Number(newVat.charAt(i)) * greece.rules.multipliers[i];
         }
         // Establish check digit.
         total = total % 11;
-        if (total > 9) {
-            total = 0;
-        }
+        total = (total > 9) ? 0 : total;
         // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-        const expect = Number(vat.slice(8, 9));
+        const expect = Number(newVat.slice(8, 9));
         return total === expect;
     },
     rules: {
