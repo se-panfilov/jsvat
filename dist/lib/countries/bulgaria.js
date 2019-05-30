@@ -19,18 +19,20 @@ export const bulgaria = {
     }
 };
 function _increase(value, vat, from, to, incr) {
+    let result = value;
     for (let i = from; i < to; i++) {
-        value += Number(vat.charAt(i)) * (i + incr);
+        result += Number(vat.charAt(i)) * (i + incr);
     }
-    return value;
+    return result;
 }
 function _increase2(value, vat, from, to, multipliers) {
+    let result = value;
     for (let i = from; i < to; i++) {
         if (Array.isArray(multipliers)) {
-            value += Number(vat.charAt(i)) * multipliers[i];
+            result += Number(vat.charAt(i)) * multipliers[i];
         }
     }
-    return value;
+    return result;
 }
 function _checkNineLengthVat(vat) {
     let total;
