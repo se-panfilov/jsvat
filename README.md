@@ -136,11 +136,11 @@ export const wonderland = {
     return vat.length === 10;
   },
   rules: {
-    regex: [/^(EU)(\d{9})$/]
+    regex: [/^(WD)(\d{8})$/]
   }
 };
 
-checkVAT('WD1234567890', [wonderland]); // true
+checkVAT('WD12345678', [wonderland]); // true
 
 ```
 
