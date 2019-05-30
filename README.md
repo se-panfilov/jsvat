@@ -10,11 +10,8 @@
 [![NPM](https://nodei.co/npm/jsvat.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/jsvat/)
 [![Package Quality](http://npm.packagequality.com/badge/jsvat.png)](http://packagequality.com/#?package=jsvat)
 
-
 jsvat
 -------
-
-[![Greenkeeper badge](https://badges.greenkeeper.io/se-panfilov/jsvat.svg)](https://greenkeeper.io/)
 
 [[Demo and Examples]][2]
 
@@ -23,127 +20,56 @@ Check the validity of the format of an EU VAT number. No dependencies.
 What is it?
 --------
 
-jsvat is a small library to check validity of European (and few non-eu) VAT number. ([learn more][1] about VAT)
-jsvat use 2-step check (see below) and didn't make any request for external resources.
+Small library to check validity VAT numbers (European + some others counties). ([learn more][1] about VAT)
 
-Each country has own regexp for VAT number and different math-logic of number calculating.
+- no dependencies;
+- no http calls;
+- 2-step checks: math + regexp;
+- three-shakeable;
+- extendable;
+- dynamically add/remove countries with which yu want to check the VAT;
+- written with `typescript`;
 
-What jsvat do?
---------
-
-Just check is VAT number valid or not and which country this VAT is:
-
-  ```javascript
-  jsvat.checkVAT('BG131134023'); 
-  jsvat.checkVAT('atu5-150-7409');
-  jsvat.checkVAT('aTU 5 804 4146');
-  ```
-  
-Return value
----------
- 
-`jsvat.checkVAT()` returns `Result` Object:
-
-```
-{
-  value: 'BG131134023', // VAT without extra characters (like '-' and spaces)
-  isValid: true, 
-  country: { // VAT's couuntry (null if not found)
-      name: country.name, //Name of the country
-      isoCode: { //Country ISO codes
-        short: 'BE', 
-        long: 'BEL',
-        numeric: '056' //String, because of forwarding zero
-      }
-    }
-  }
-```
-
-Allow or block countries
-----------
-
-You can specify list of allowed countries
-
-1. Add some countries into `blocked` array:
-```javascript
-  jsvat.blocked = ['austria', 'Belgium', 'RU', '470'] //Can be country's name or iso code
-  jsvat.checkVAT('BG131134023') //result's isValid will be === false
-```
-
-To reset `blocked` just do `jsvat.blocked = [];`
-
-
-2. Add some countries into `allowed` array:
-```javascript
-  jsvat.allowed = ['SK', 'Russia'] //All other countries would be blocked
-```
-
-To reset `allowed` just do `jsvat.allowed = [];`
-
-*Important:* it's not recommended to use `blocked` and `allowed` in same time. To stay on a safe side use one of them.
-
-3. Basically check result:
-
-```javascript
-function allowOnlyBelgium(vat) {
-  var result = jsvat.checkVAT(vat)
-  return result.isValid && result.isoCode.short === 'BE'
-}
-```
-It's better to use comparison with `isoCode` instead of name cause some countries can have multiple variations of name 
-(Netherlands aka Dutch, UK aka England, etc)
-
-  
 Installation
 ----------
 
-1. Bower
+Installation:
 
-  `bower i jsvat --save`
+  `npm i jsvat --save` or `yarn add jsvat`
 
-2. NPM (node.js)
+For legacy versions (below v2.0.0) also possible: Bower: `bower i jsvat --save`
 
-  `npm i jsvat --save`
+Getting Started
+----------
 
-3. Directly download one of the latest releases:
+  ```javascript
+  import {checkVAT, belgium, austria} from 'jsvat'; 
+  
+  checkVAT('BG131134023', [belgium]); // true: accept only Belgium VATs
+  checkVAT('BG131134023', [belgium, austria]); // true: accept only Belgium or Austria VATs 
+  checkVAT('BG131134023', [austria]); // false: accept only Austria VATs
+  ```
 
-  [https://github.com/se-panfilov/jsvat/releases][4]
-
-4. Just use `jsvat.chcekVat(vat)` from global scope.
-  If you didn't like global scope - wrap it'
-
-How to use jsvat?
------
-It's simple:
-
-```javascript
-jsvat.checkVAT(vat);  //returns Object
-```
-
- - `vat` param means VAT number (`string`), like "BG0433170001".
-
-  `vat` can be passed with '-' (`BG0-4331-70001`) or ' ' (space, like `BG 0433 17 0001`) characters;
-
-
-How does jsvat check the validity?
+Return value
 ---------
+ 
+`checkVAT()` returns a `Result` Object:
 
-There is 2-step check:
+```typescript
 
-1. Compare with list of Regexps;
-
-  For example regexp for austria is `/^(AT)U(\d{8})$/`.
-
- Looks like `ATU99999999` is valid (it's satisfy the regexp), but actually it's should be invalid.
-
-2. Some magic mathematical counting;
-
- Here we make some mathematical calculation (different for each country).
- After that we may be sure that `ATU99999999`and for example `ATV66889218` isn't valid, but `ATU12011204` is valid.
-
-NOTE:
-VAT numbers of some countries should ends up with special characters. Like '01' for Sweden or "L" for Cyprus.
-If 100% real VAT doesn't fit, try to add proper appendix.
+export interface VatCheckResult {
+    value?: string; // 'BG131134023': your VAT without extra characters (like '-', spaces, etc)
+    isValid: boolean; // main result - is VAT correct against provided countries or not
+    country?: { // VAT's couuntry (null if not found)
+        name: string; // ISO country name of VAT
+        isoCode: { // Country ISO codes
+            short: string;
+            long: string;
+            numeric: string;
+        };
+    };
+}
+```
 
 List of supported Countries:
 ---------
@@ -168,7 +94,7 @@ List of supported Countries:
  - Ireland
  - Italy
  - Latvia
- - Lithunia
+ - Lithuania
  - Luxembourg
  - Malta
  - Netherlands
@@ -182,34 +108,69 @@ List of supported Countries:
  - Slovakia republic
  - Sweden
 
-What if I don't need all countries
---------
+Extend countries list - add your own country:
+----------
 
-You can do your own custom build.
+You can add your own country.
+In general `Country` should implement following structure:
 
- 1. [Download or clone][5];
- 2. Remove extra countries (that you don't) need from `src/countries`;
- 3. Build it `gulp build` (don't forget to make `npm i` first);
+```typescript
+interface Country {
+    name: string;
+    codes: ReadonlyArray<string>;
+    calcFn: (vat: string) => boolean;
+    rules: {
+       regex: ReadonlyArray<RegExp>;
+   };
+}
+```
+Example:
 
-Versions for frameworks:
---------
+```javascript
+import {checkVAT} from 'jsvat';
 
- - [Angular-jsvat][5] (for angular 1.x.x)
+export const wonderland = {
+  name: 'Wonderland',
+  codes: ['WD', 'WDR', '999'], // This codes should follow ISO standards (short, long and numeric), but it's your own business
+  calcFn: (vat) => {
+    return vat.length === 10;
+  },
+  rules: {
+    regex: [/^(WD)(\d{8})$/]
+  }
+};
+
+checkVAT('WD12345678', [wonderland]); // true
+
+```
+
+How jsvat checks validity?
+---------
+
+There is 2-step check:
+
+1. Compare with list of Regexps;
+
+  For example regexp for austria is `/^(AT)U(\d{8})$/`.
+
+ Looks like `ATU99999999` is valid (it's satisfy the regexp), but actually it's should be invalid.
+
+2. Some magic mathematical counting;
+
+ Here we make some mathematical calculation (different for each country).
+ After that we may be sure that `ATU99999999`and for example `ATV66889218` isn't valid, but `ATU12011204` is valid.
+
+NOTE:
+VAT numbers of some countries should ends up with special characters. Like '01' for Sweden or "L" for Cyprus.
+If 100% real VAT doesn't fit, try to add proper appendix.
+
 
 Browsers Supports
 ---------
 
-Support all browsers down to IE9 (including IE9).
+Support only of evergreen browsers.
 
-Changelog
---------
-
-#####1.2.0
- - Added more info regarding countries in result (`isoCodes`, `name`)
-
-#####1.1.0
-  - jsvat now always return Object (there is no more just true or false value);
-  - Changed way of jsvat configuration (instead of object with countries, now you should pass an array with list of allowed countries);
+Legacy versions (below v2.0.0) supports all browsers down to IE9 (including IE9).
 
 LICENSE
 -------

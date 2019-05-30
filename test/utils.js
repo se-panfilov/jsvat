@@ -1,41 +1,27 @@
-const expect = require('chai').expect
-const jsvat = require('../dist/jsvat.js')
-const argv = require('minimist')(process.argv.slice(2))
+import {checkVAT} from '../dist'
 
-const noVerbose = "noverbose"
+export function checkValidVat(vat, countriesList, codes, name) {
+  const result = checkVAT(vat, countriesList)
 
-module.exports = {
-  check (arr, msg, isTrue, country) {
-    arr.forEach(function (item) {
+  if (!result.isValid) console.info('Invalid VAT:', vat);
 
-      const testMsg = (argv.config !== noVerbose) ? msg + ': ' + item : 'test'
-
-      return it(testMsg, () => {
-        const result = jsvat.checkVAT(item)
-        // console.info(111)
-        // console.info(result)
-        // console.info(222)
-        if (isTrue) {
-          expect(result.value).to.be.equal(item.toString().toUpperCase().replace(/(\s|-|\.)+/g, ''))
-          expect(result.isValid).to.be.true
-          expect(result.country.name).to.be.equal(country.name)
-          expect(result.country.isoCode.short).to.be.equal(country.codes[0])
-          expect(result.country.isoCode.long).to.be.equal(country.codes[1])
-          expect(result.country.isoCode.numeric).to.be.equal(country.codes[2])
-        } else {
-          expect(result.value).to.be.equal(item.toString().toUpperCase().replace(/(\s|-|\.)+/g, ''))
-          expect(result.isValid).to.be.false
-          // expect(result.country).to.be.undefined
-        }
-      })
-    })
-  },
-  addCharsToVals (arr, char) {
-    return arr.map(item => {
-      const val = item.split('')
-      val.splice(3, 0, char)
-      val.splice(7, 0, char)
-      return val.join('')
-    })
-  }
+  expect(result.isValid).toBe(true)
+  expect(result.country.name).toBe(name)
+  expect(result.country.isoCode.short).toBe(codes[0])
+  expect(result.country.isoCode.long).toBe(codes[1])
+  expect(result.country.isoCode.numeric).toBe(codes[2])
 }
+
+export function checkInValidVat(vat, countriesList) {
+  const result = checkVAT(vat, countriesList)
+  if (result.isValid) console.info('Following VAT should be invalid:', vat);
+  expect(result.isValid).toBe(false)
+}
+
+export function addCharsToString(item, char) {
+  const val = item.split('')
+  val.splice(3, 0, char)
+  val.splice(7, 0, char)
+  return val.join('')
+}
+
