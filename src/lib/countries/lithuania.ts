@@ -22,32 +22,34 @@ function _extractDigit (vat: string, multiplierList: ReadonlyArray<number>, key:
 }
 
 function _doubleCheckCalculation (vat: string, total: number, rules: Rules): number {
-  if (total % 11 === 10) {
-    total = 0;
+  let result = total;
+  if (result % 11 === 10) {
+    result = 0;
     if (rules.multipliers && !Array.isArray(rules.multipliers)) {
       for (let i = 0; i < 8; i++) {
-        total += _extractDigit(vat, rules.multipliers.short, i);
+        result += _extractDigit(vat, rules.multipliers.short, i);
       }
     }
   }
 
-  return total;
+  return result;
 }
 
 function extractDigit (vat: string, total: number): number {
+  let result = total;
   for (let i = 0; i < 8; i++) {
-    total += Number(vat.charAt(i)) * (i + 1);
+    result += Number(vat.charAt(i)) * (i + 1);
   }
-  return total;
+  return result;
 }
 
 function checkDigit (total: number): number {
-  total = total % 11;
-  if (total === 10) {
-    total = 0;
+  let result = total % 11;
+  if (result === 10) {
+    result = 0;
   }
 
-  return total;
+  return result;
 }
 
 function _check9DigitVat (vat: string, rules: Rules): boolean {
@@ -74,30 +76,32 @@ function _check9DigitVat (vat: string, rules: Rules): boolean {
 }
 
 function extractDigit12 (vat: string, total: number, rules: Rules): number {
+  let result = total;
   if (rules.multipliers) {
     if (!Array.isArray(rules.multipliers)) {
       for (let k = 0; k < 11; k++) {
-        total += _extractDigit(vat, rules.multipliers.med, k);
+        result += _extractDigit(vat, rules.multipliers.med, k);
       }
     }
   }
 
-  return total;
+  return result;
 }
 
 function _doubleCheckCalculation12 (vat: string, total: number, rules: Rules): number {
+  let result = total;
   if (rules.multipliers) {
     if (!Array.isArray(rules.multipliers)) {
       if (total % 11 === 10) {
-        total = 0;
+        result = 0;
         for (let l = 0; l < 11; l++) {
-          total += _extractDigit(vat, rules.multipliers.alt, l);
+          result += _extractDigit(vat, rules.multipliers.alt, l);
         }
       }
     }
   }
 
-  return total;
+  return result;
 }
 
 function _check12DigitVat (vat: string, rules: Rules): boolean {
