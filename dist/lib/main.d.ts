@@ -1,8 +1,8 @@
-export declare type Multipliers = Array<number> | {
+export interface Multipliers {
     readonly [key: string]: Array<number>;
-};
+}
 export interface Rules {
-    multipliers?: Multipliers;
+    multipliers: Multipliers;
     check?: RegExp;
     regex: ReadonlyArray<RegExp>;
     lookup?: ReadonlyArray<number>;
@@ -14,7 +14,9 @@ export interface Rules {
 export interface Country {
     name: string;
     codes: ReadonlyArray<string>;
-    calcFn: (vat: string) => boolean;
+    calcFn: (vat: string, options?: {
+        readonly [key: string]: any;
+    }) => boolean;
     rules: Rules;
 }
 export interface VatCheckResult {

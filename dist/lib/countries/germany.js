@@ -28,6 +28,7 @@ export const germany = {
         return checkDigit === expect;
     },
     rules: {
+        multipliers: {},
         regex: [/^(DE)([1-9]\d{8})$/]
     }
 };

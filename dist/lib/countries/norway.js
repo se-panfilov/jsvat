@@ -2,15 +2,11 @@ export const norway = {
     name: 'Norway',
     codes: ['NO', 'NOR', '578'],
     calcFn: (vat) => {
-        if (!norway.rules.multipliers)
-            return false;
-        if (!Array.isArray(norway.rules.multipliers))
-            return false;
         let total = 0;
         // See http://www.brreg.no/english/coordination/number.html
         // Extract the next digit and multiply by the counter.
         for (let i = 0; i < 8; i++) {
-            total += Number(vat.charAt(i)) * norway.rules.multipliers[i];
+            total += Number(vat.charAt(i)) * norway.rules.multipliers.common[i];
         }
         // Establish check digits by getting modulus 11. Check digits > 9 are invalid
         total = 11 - total % 11;
@@ -25,7 +21,9 @@ export const norway = {
         return false;
     },
     rules: {
-        multipliers: [3, 2, 7, 6, 5, 4, 3, 2],
+        multipliers: {
+            common: [3, 2, 7, 6, 5, 4, 3, 2]
+        },
         regex: [/^(NO)(\d{9})$/]
     }
 };

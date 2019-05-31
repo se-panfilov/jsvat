@@ -2,15 +2,11 @@ export const estonia = {
     name: 'Estonia',
     codes: ['EE', 'EST', '233'],
     calcFn: (vat) => {
-        if (!estonia.rules.multipliers)
-            return false;
-        if (!Array.isArray(estonia.rules.multipliers))
-            return false;
         let total = 0;
         let expect;
         // Extract the next digit and multiply by the counter.
         for (let i = 0; i < 8; i++) {
-            total += Number(vat.charAt(i)) * estonia.rules.multipliers[i];
+            total += Number(vat.charAt(i)) * estonia.rules.multipliers.common[i];
         }
         // Establish check digits using modulus 10.
         total = 10 - total % 10;
@@ -21,7 +17,9 @@ export const estonia = {
         return total === expect;
     },
     rules: {
-        multipliers: [3, 7, 1, 3, 7, 1, 3, 7],
+        multipliers: {
+            common: [3, 7, 1, 3, 7, 1, 3, 7]
+        },
         regex: [/^(EE)(10\d{7})$/]
     }
 };

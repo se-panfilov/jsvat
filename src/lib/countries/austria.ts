@@ -3,13 +3,11 @@ import { Country } from '../main';
 export const austria: Country = {
   name: 'Austria',
   codes: ['AT', 'AUT', '040'],
-  calcFn: (vat: string): boolean  => {
+  calcFn: (vat: string): boolean => {
     let total = 0;
 
     for (let i: number = 0; i < 7; i++) {
-      if (!austria.rules.multipliers) return false;
-      if (!Array.isArray(austria.rules.multipliers)) return false;
-      const temp = Number(vat.charAt(i)) * austria.rules.multipliers[i];
+      const temp = Number(vat.charAt(i)) * austria.rules.multipliers.common[i];
 
       if (temp > 9) {
         total += Math.floor(temp / 10) + temp % 10;
@@ -24,7 +22,9 @@ export const austria: Country = {
     return total === Number(vat.slice(7, 8));
   },
   rules: {
-    multipliers: [1, 2, 1, 2, 1, 2, 1],
+    multipliers: {
+      common: [1, 2, 1, 2, 1, 2, 1]
+    },
     regex: [/^(AT)U(\d{8})$/]
   }
 };

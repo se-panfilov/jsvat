@@ -27,6 +27,7 @@ export const sweden: Country = {
     return checkDigit === expect;
   },
   rules: {
+    multipliers: {},
     regex: [/^(SE)(\d{10}01)$/]
   }
 };

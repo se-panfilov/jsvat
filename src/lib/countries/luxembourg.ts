@@ -11,6 +11,7 @@ export const luxembourg: Country = {
     return checkDigit === expect;
   },
   rules: {
+    multipliers: {},
     regex: [/^(LU)(\d{8})$/]
   }
 };

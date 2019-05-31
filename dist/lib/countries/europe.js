@@ -7,6 +7,7 @@ export const europe = {
         return true;
     },
     rules: {
+        multipliers: {},
         regex: [/^(EU)(\d{9})$/]
     }
 };

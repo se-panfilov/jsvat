@@ -1,9 +1,11 @@
 // TODO (S.Panfilov) some bug happens with checks here if I replace Array with ReadonlyArray
-// tslint:disable-next-line:readonly-array
-export type Multipliers = Array<number> | { readonly [key: string]: Array<number> };
+export interface Multipliers {
+  // tslint:disable-next-line:readonly-array
+  readonly [key: string]: Array<number>;
+}
 
 export interface Rules {
-  multipliers?: Multipliers;
+  multipliers: Multipliers;
   check?: RegExp;
   regex: ReadonlyArray<RegExp>;
   lookup?: ReadonlyArray<number>;
@@ -14,7 +16,7 @@ export interface Rules {
 export interface Country {
   name: string;
   codes: ReadonlyArray<string>;
-  calcFn: (vat: string) => boolean;
+  calcFn: (vat: string, options?: { readonly [key: string]: any }) => boolean;
   rules: Rules;
 }
 
@@ -27,7 +29,7 @@ export interface VatCheckResult {
   };
 }
 
-function makeResult (vat: string, isValid?: boolean, country?: Country): VatCheckResult {
+function makeResult(vat: string, isValid?: boolean, country?: Country): VatCheckResult {
   return {
     value: vat || undefined,
     isValid: Boolean(isValid),
@@ -42,11 +44,11 @@ function makeResult (vat: string, isValid?: boolean, country?: Country): VatChec
   };
 }
 
-function removeExtraChars (vat: string = ''): string {
+function removeExtraChars(vat: string = ''): string {
   return vat.toString().toUpperCase().replace(/(\s|-|\.)+/g, '');
 }
 
-function getCountry (vat: string, countriesList: ReadonlyArray<Country>): Country | undefined {
+function getCountry(vat: string, countriesList: ReadonlyArray<Country>): Country | undefined {
   for (const country of countriesList) {
     const regexpValidRes = isVatValidToRegexp(vat, country.rules.regex);
     if (regexpValidRes.isValid) return country;
@@ -55,16 +57,16 @@ function getCountry (vat: string, countriesList: ReadonlyArray<Country>): Countr
   return undefined;
 }
 
-function isVatValidToRegexp (vat: string, regexArr: ReadonlyArray<RegExp>): { isValid: boolean, regex?: RegExp } {
+function isVatValidToRegexp(vat: string, regexArr: ReadonlyArray<RegExp>): { isValid: boolean, regex?: RegExp } {
   for (const regex of regexArr) {
     const isValid = regex.test(vat);
-    if (isValid) return {isValid: true, regex: regex};
+    if (isValid) return { isValid: true, regex: regex };
   }
 
-  return {isValid: false, regex: undefined};
+  return { isValid: false, regex: undefined };
 }
 
-function isVatValid (vat: string, country: Country): boolean {
+function isVatValid(vat: string, country: Country): boolean {
   const regexpValidRes = isVatValidToRegexp(vat, country.rules.regex);
   if (!regexpValidRes.isValid || !regexpValidRes.regex) return false;
   const regexResult = regexpValidRes.regex.exec(vat);
@@ -72,7 +74,7 @@ function isVatValid (vat: string, country: Country): boolean {
   return country.calcFn(regexResult[2]);
 }
 
-export function checkVAT (vat: string, countriesList: ReadonlyArray<Country> = []): VatCheckResult {
+export function checkVAT(vat: string, countriesList: ReadonlyArray<Country> = []): VatCheckResult {
   if (!vat) return makeResult(vat, false);
   const cleanVAT = removeExtraChars(vat);
   const result = makeResult(cleanVAT);

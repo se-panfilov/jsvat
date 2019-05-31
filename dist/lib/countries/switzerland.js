@@ -2,13 +2,9 @@ export const switzerland = {
     name: 'Switzerland',
     codes: ['CH', 'CHE', '756'],
     calcFn: (vat) => {
-        if (!switzerland.rules.multipliers)
-            return false;
-        if (!Array.isArray(switzerland.rules.multipliers))
-            return false;
         let total = 0;
         for (let i = 0; i < 8; i++) {
-            total += Number(vat.charAt(i)) * switzerland.rules.multipliers[i];
+            total += Number(vat.charAt(i)) * switzerland.rules.multipliers.common[i];
         }
         // Establish check digit.s
         total = 11 - total % 11;
@@ -21,7 +17,9 @@ export const switzerland = {
         return total === expect;
     },
     rules: {
-        multipliers: [5, 4, 3, 2, 7, 6, 5, 4],
+        multipliers: {
+            common: [5, 4, 3, 2, 7, 6, 5, 4]
+        },
         regex: [/^(CHE)(\d{9})(MWST)?$/]
     }
 };

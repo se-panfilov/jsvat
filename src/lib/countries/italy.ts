@@ -17,11 +17,9 @@ export const italy: Country = {
       return false;
     }
 
-    if (!italy.rules.multipliers) return false;
-    if (!Array.isArray(italy.rules.multipliers)) return false;
     // Extract the next digit and multiply by the appropriate
     for (let i = 0; i < 10; i++) {
-      temp = Number(vat.charAt(i)) * italy.rules.multipliers[i];
+      temp = Number(vat.charAt(i)) * italy.rules.multipliers.common[i];
       if (temp > 9) total += Math.floor(temp / 10) + temp % 10;
       else total += temp;
     }
@@ -37,7 +35,9 @@ export const italy: Country = {
     return total === expect;
   },
   rules: {
-    multipliers: [1, 2, 1, 2, 1, 2, 1, 2, 1, 2],
+    multipliers: {
+      common: [1, 2, 1, 2, 1, 2, 1, 2, 1, 2]
+    },
     regex: [/^(IT)(\d{11})$/]
   }
 };

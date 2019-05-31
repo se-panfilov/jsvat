@@ -6,7 +6,6 @@ export const ireland: Country = {
   calcFn: (vat: string): boolean => {
     const { typeFormats, multipliers } = ireland.rules;
     if (!typeFormats || !typeFormats.first) return false;
-    if (!multipliers) return false;
     let total: string | number = 0;
 
     let newVat = vat;
@@ -15,10 +14,9 @@ export const ireland: Country = {
       newVat = '0' + vat.substring(2, 7) + vat.substring(0, 1) + vat.substring(7, 8);
     }
 
-    if (!Array.isArray(multipliers)) return false;
     // Extract the next digit and multiply by the counter.
     for (let i = 0; i < 7; i++) {
-      total += Number(newVat.charAt(i)) * multipliers[i];
+      total += Number(newVat.charAt(i)) * multipliers.common[i];
     }
 
     // If the number is type 3 then we need to include the trailing A or H in the calculation
@@ -36,7 +34,9 @@ export const ireland: Country = {
     return total === expect;
   },
   rules: {
-    multipliers: [8, 7, 6, 5, 4, 3, 2],
+    multipliers: {
+      common: [8, 7, 6, 5, 4, 3, 2]
+    },
     typeFormats: {
       first: /^\d[A-Z*+]/,
       third: /^\d{7}[A-Z][AH]$/

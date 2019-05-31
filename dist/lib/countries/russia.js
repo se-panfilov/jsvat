@@ -17,10 +17,6 @@ export const russia = {
 function _check10DigitINN(vat, rules) {
     let total = 0;
     if (vat.length === 10) {
-        if (!rules.multipliers)
-            return false;
-        if (Array.isArray(rules.multipliers))
-            return false;
         for (let i = 0; i < 10; i++) {
             total += Number(vat.charAt(i)) * rules.multipliers.m_1[i];
         }
@@ -38,10 +34,6 @@ function _check12DigitINN(vat, rules) {
     let total1 = 0;
     let total2 = 0;
     if (vat.length === 12) {
-        if (!rules.multipliers)
-            return false;
-        if (Array.isArray(rules.multipliers))
-            return false;
         for (let j = 0; j < 11; j++) {
             total1 += Number(vat.charAt(j)) * rules.multipliers.m_2[j];
         }

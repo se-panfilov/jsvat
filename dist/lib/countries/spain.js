@@ -5,14 +5,12 @@ export const spain = {
         const { additional, multipliers } = spain.rules;
         if (!additional)
             return false;
-        if (!Array.isArray(multipliers))
-            return false;
         // National juridical entities
         if (additional[0].test(vat))
-            return isNationalJuridicalEntities(vat, multipliers);
+            return isNationalJuridicalEntities(vat, multipliers.common);
         // Juridical entities other than national ones
         if (additional[1].test(vat))
-            return isNonNationalJuridical(vat, multipliers);
+            return isNonNationalJuridical(vat, multipliers.common);
         // Personal number (NIF) (starting with numeric of Y or Z)
         if (additional[2].test(vat))
             return isPersonalYtoZ(vat);
@@ -22,7 +20,9 @@ export const spain = {
         return false;
     },
     rules: {
-        multipliers: [2, 1, 2, 1, 2, 1, 2],
+        multipliers: {
+            common: [2, 1, 2, 1, 2, 1, 2]
+        },
         regex: [
             /^(ES)([A-Z]\d{8})$/,
             /^(ES)([A-HN-SW]\d{7}[A-J])$/,

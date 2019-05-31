@@ -11,12 +11,12 @@ export const unitedKingdom: Country = {
     if (vat.substr(0, 2) === 'HA') return isHealthAuthorities(vat);
 
     // Standard and commercial numbers
-    if (!unitedKingdom.rules.multipliers) return false;
-    if (!Array.isArray(unitedKingdom.rules.multipliers)) return false;
-    return isStandardOrCommercialNumber(vat, unitedKingdom.rules.multipliers);
+    return isStandardOrCommercialNumber(vat, unitedKingdom.rules.multipliers.common);
   },
   rules: {
-    multipliers: [8, 7, 6, 5, 4, 3, 2],
+    multipliers: {
+      common: [8, 7, 6, 5, 4, 3, 2]
+    },
     regex: [
       /^(GB)?(\d{9})$/,
       /^(GB)?(\d{12})$/,

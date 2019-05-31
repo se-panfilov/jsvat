@@ -9,6 +9,7 @@ export const belgium = {
         return check === Number(newVat.slice(8, 10));
     },
     rules: {
+        multipliers: {},
         regex: [/^(BE)(0?\d{9})$/]
     }
 };

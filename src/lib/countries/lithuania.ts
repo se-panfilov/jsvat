@@ -25,10 +25,8 @@ function _doubleCheckCalculation (vat: string, total: number, rules: Rules): num
   let result = total;
   if (result % 11 === 10) {
     result = 0;
-    if (rules.multipliers && !Array.isArray(rules.multipliers)) {
-      for (let i = 0; i < 8; i++) {
-        result += _extractDigit(vat, rules.multipliers.short, i);
-      }
+    for (let i = 0; i < 8; i++) {
+      result += _extractDigit(vat, rules.multipliers.short, i);
     }
   }
 
@@ -77,12 +75,8 @@ function _check9DigitVat (vat: string, rules: Rules): boolean {
 
 function extractDigit12 (vat: string, total: number, rules: Rules): number {
   let result = total;
-  if (rules.multipliers) {
-    if (!Array.isArray(rules.multipliers)) {
-      for (let k = 0; k < 11; k++) {
-        result += _extractDigit(vat, rules.multipliers.med, k);
-      }
-    }
+  for (let k = 0; k < 11; k++) {
+    result += _extractDigit(vat, rules.multipliers.med, k);
   }
 
   return result;
@@ -90,14 +84,10 @@ function extractDigit12 (vat: string, total: number, rules: Rules): number {
 
 function _doubleCheckCalculation12 (vat: string, total: number, rules: Rules): number {
   let result = total;
-  if (rules.multipliers) {
-    if (!Array.isArray(rules.multipliers)) {
-      if (total % 11 === 10) {
-        result = 0;
-        for (let l = 0; l < 11; l++) {
-          result += _extractDigit(vat, rules.multipliers.alt, l);
-        }
-      }
+  if (total % 11 === 10) {
+    result = 0;
+    for (let l = 0; l < 11; l++) {
+      result += _extractDigit(vat, rules.multipliers.alt, l);
     }
   }
 
@@ -106,8 +96,6 @@ function _doubleCheckCalculation12 (vat: string, total: number, rules: Rules): n
 
 function _check12DigitVat (vat: string, rules: Rules): boolean {
   let total = 0;
-  if (Array.isArray(rules.multipliers)) return false;
-
   // 12 character VAT numbers are for temporarily registered taxpayers
   if (vat.length === 12) {
     if (!rules.check) return false;

@@ -7,8 +7,6 @@ export const bulgaria: Country = {
     if (vat.length === 9) return _checkNineLengthVat(vat);
 
     const { multipliers } = bulgaria.rules;
-    if (!multipliers) return false;
-    if (Array.isArray(multipliers)) return false;
     return _isPhysicalPerson(vat, multipliers.physical) || _isForeigner(vat, multipliers) || _miscellaneousVAT(vat, multipliers);
   },
   rules: {
@@ -32,9 +30,7 @@ function _increase(value: number, vat: string, from: number, to: number, incr: n
 function _increase2(value: number, vat: string, from: number, to: number, multipliers: ReadonlyArray<number>): number {
   let result = value;
   for (let i = from; i < to; i++) {
-    if (Array.isArray(multipliers)) {
-      result += Number(vat.charAt(i)) * multipliers[i];
-    }
+    result += Number(vat.charAt(i)) * multipliers[i];
   }
   return result;
 }

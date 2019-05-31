@@ -117,8 +117,9 @@ In general `Country` should implement following structure:
 interface Country {
     name: string;
     codes: ReadonlyArray<string>;
-    calcFn: (vat: string) => boolean;
+    calcFn: (vat: string, options?: object) => boolean; //options - isn't a mandatory param
     rules: {
+       multipliers: {}; // you can leave it empty 
        regex: ReadonlyArray<RegExp>;
    };
 }

@@ -2,16 +2,12 @@ export const greece = {
     name: 'Greece',
     codes: ['GR', 'GRC', '300'],
     calcFn: (vat) => {
-        if (!greece.rules.multipliers)
-            return false;
-        if (!Array.isArray(greece.rules.multipliers))
-            return false;
         let total = 0;
         // eight character numbers should be prefixed with an 0.
         const newVat = (vat.length === 8) ? '0' + vat : vat;
         // Extract the next digit and multiply by the counter.
         for (let i = 0; i < 8; i++) {
-            total += Number(newVat.charAt(i)) * greece.rules.multipliers[i];
+            total += Number(newVat.charAt(i)) * greece.rules.multipliers.common[i];
         }
         // Establish check digit.
         total = total % 11;
@@ -21,7 +17,9 @@ export const greece = {
         return total === expect;
     },
     rules: {
-        multipliers: [256, 128, 64, 32, 16, 8, 4, 2],
+        multipliers: {
+            common: [256, 128, 64, 32, 16, 8, 4, 2]
+        },
         regex: [/^(EL)(\d{9})$/]
     }
 };

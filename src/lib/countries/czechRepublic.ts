@@ -6,14 +6,17 @@ export const czechRepublic: Country = {
   calcFn: (vat: string): boolean => {
     const { rules } = czechRepublic;
     const { multipliers, additional, lookup } = rules;
-    if (!multipliers) return false;
     if (!additional) return false;
-    if (!Array.isArray(multipliers)) return false;
 
-    return isLegalEntities(vat, multipliers, additional) || isIndividualType2(vat, multipliers, additional, lookup) || isIndividualType3(vat, additional) || isIndividualType1(vat, additional);
+    return isLegalEntities(vat, multipliers.common, additional)
+      || isIndividualType2(vat, multipliers.common, additional, lookup)
+      || isIndividualType3(vat, additional)
+      || isIndividualType1(vat, additional);
   },
   rules: {
-    multipliers: [8, 7, 6, 5, 4, 3, 2],
+    multipliers: {
+      common: [8, 7, 6, 5, 4, 3, 2]
+    },
     lookup: [8, 7, 6, 5, 4, 3, 2, 1, 0, 9, 10],
     regex: [/^(CZ)(\d{8,10})(\d{3})?$/],
     additional: [

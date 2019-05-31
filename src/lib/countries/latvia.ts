@@ -11,11 +11,9 @@ export const latvia: Country = {
     if ((/^[0-3]/).test(vat)) {
       return Boolean((/^[0-3][0-9][0-1][0-9]/).test(vat));
     } else {
-      if (!latvia.rules.multipliers) return false;
-      if (!Array.isArray(latvia.rules.multipliers)) return false;
       // Extract the next digit and multiply by the counter.
       for (let i = 0; i < 10; i++) {
-        total += Number(vat.charAt(i)) * latvia.rules.multipliers[i];
+        total += Number(vat.charAt(i)) * latvia.rules.multipliers.common[i];
       }
 
       // Establish check digits by getting modulus 11.
@@ -35,7 +33,9 @@ export const latvia: Country = {
     }
   },
   rules: {
-    multipliers: [9, 1, 4, 8, 3, 10, 2, 5, 7, 6],
+    multipliers: {
+      common: [9, 1, 4, 8, 3, 10, 2, 5, 7, 6]
+    },
     regex: [/^(LV)(\d{11})$/]
   }
 };

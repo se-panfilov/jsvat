@@ -4,13 +4,11 @@ export const portugal: Country = {
   name: 'Portugal',
   codes: ['PT', 'PRT', '620'],
   calcFn: (vat: string): boolean  => {
-    if (!portugal.rules.multipliers) return false;
     let total = 0;
 
-    if (!Array.isArray(portugal.rules.multipliers)) return false;
     // Extract the next digit and multiply by the counter.
     for (let i = 0; i < 8; i++) {
-      total += Number(vat.charAt(i)) * portugal.rules.multipliers[i];
+      total += Number(vat.charAt(i)) * portugal.rules.multipliers.common[i];
     }
 
     // Establish check digits subtracting modulus 11 from 11.
@@ -24,7 +22,9 @@ export const portugal: Country = {
     return total === expect;
   },
   rules: {
-    multipliers: [9, 8, 7, 6, 5, 4, 3, 2],
+    multipliers: {
+      common: [9, 8, 7, 6, 5, 4, 3, 2]
+    },
     regex: [/^(PT)(\d{9})$/]
   }
 };

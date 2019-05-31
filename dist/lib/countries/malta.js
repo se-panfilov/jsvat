@@ -2,14 +2,10 @@ export const malta = {
     name: 'Malta',
     codes: ['MT', 'MLT', '470'],
     calcFn: (vat) => {
-        if (!malta.rules.multipliers)
-            return false;
-        if (!Array.isArray(malta.rules.multipliers))
-            return false;
         let total = 0;
         // Extract the next digit and multiply by the counter.
         for (let i = 0; i < 6; i++) {
-            total += Number(vat.charAt(i)) * malta.rules.multipliers[i];
+            total += Number(vat.charAt(i)) * malta.rules.multipliers.common[i];
         }
         // Establish check digits by getting modulus 37.
         total = 37 - total % 37;
@@ -18,7 +14,9 @@ export const malta = {
         return total === expect;
     },
     rules: {
-        multipliers: [3, 4, 6, 7, 8, 9],
+        multipliers: {
+            common: [3, 4, 6, 7, 8, 9]
+        },
         regex: [/^(MT)([1-9]\d{7})$/]
     }
 };

@@ -4,12 +4,11 @@ export const romania: Country = {
   name: 'Romania',
   codes: ['RO', 'ROU', '642'],
   calcFn: (vat: string): boolean  => {
-    if (!romania.rules.multipliers || !Array.isArray(romania.rules.multipliers)) return false;
     let total = 0;
 
     // Extract the next digit and multiply by the counter.
     const vatLength = vat.length;
-    const multipliers = romania.rules.multipliers.slice(10 - vatLength);
+    const multipliers = romania.rules.multipliers.common.slice(10 - vatLength);
 
     for (let i = 0; i < vat.length - 1; i++) {
       total += Number(vat.charAt(i)) * multipliers[i];
@@ -24,7 +23,9 @@ export const romania: Country = {
     return total === expect;
   },
   rules: {
-    multipliers: [7, 5, 3, 2, 1, 7, 5, 3, 2],
+    multipliers: {
+      common: [7, 5, 3, 2, 1, 7, 5, 3, 2]
+    },
     regex: [/^(RO)([1-9]\d{1,9})$/]
   }
 };

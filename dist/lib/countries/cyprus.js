@@ -15,6 +15,7 @@ export const cyprus = {
         return total === expect;
     },
     rules: {
+        multipliers: {},
         regex: [/^(CY)([0-59]\d{7}[A-Z])$/]
     }
 };

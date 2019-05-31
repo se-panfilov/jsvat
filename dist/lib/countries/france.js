@@ -15,6 +15,7 @@ export const france = {
         return total === expect;
     },
     rules: {
+        multipliers: {},
         regex: [
             /^(FR)(\d{11})$/,
             /^(FR)([A-HJ-NP-Z]\d{10})$/,

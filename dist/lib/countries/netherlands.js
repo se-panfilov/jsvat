@@ -2,14 +2,10 @@ export const netherlands = {
     name: 'Netherlands',
     codes: ['NL', 'NLD', '528'],
     calcFn: (vat) => {
-        if (!netherlands.rules.multipliers)
-            return false;
-        if (!Array.isArray(netherlands.rules.multipliers))
-            return false;
         let total = 0;
         // Extract the next digit and multiply by the counter.
         for (let i = 0; i < 8; i++) {
-            total += Number(vat.charAt(i)) * netherlands.rules.multipliers[i];
+            total += Number(vat.charAt(i)) * netherlands.rules.multipliers.common[i];
         }
         // Establish check digits by getting modulus 11.
         total = total % 11;
@@ -21,7 +17,9 @@ export const netherlands = {
         return total === expect;
     },
     rules: {
-        multipliers: [9, 8, 7, 6, 5, 4, 3, 2],
+        multipliers: {
+            common: [9, 8, 7, 6, 5, 4, 3, 2]
+        },
         regex: [/^(NL)(\d{9})B\d{2}$/]
     }
 };

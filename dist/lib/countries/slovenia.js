@@ -2,14 +2,10 @@ export const slovenia = {
     name: 'Slovenia',
     codes: ['SI', 'SVN', '705'],
     calcFn: (vat) => {
-        if (!slovenia.rules.multipliers)
-            return false;
-        if (!Array.isArray(slovenia.rules.multipliers))
-            return false;
         let total = 0;
         // Extract the next digit and multiply by the counter.
         for (let i = 0; i < 7; i++) {
-            total += Number(vat.charAt(i)) * slovenia.rules.multipliers[i];
+            total += Number(vat.charAt(i)) * slovenia.rules.multipliers.common[i];
         }
         // Establish check digits using modulus 11
         total = 11 - total % 11;
@@ -22,7 +18,9 @@ export const slovenia = {
         return !!(total !== 11 && total === expect);
     },
     rules: {
-        multipliers: [8, 7, 6, 5, 4, 3, 2],
+        multipliers: {
+            common: [8, 7, 6, 5, 4, 3, 2]
+        },
         regex: [/^(SI)([1-9]\d{7})$/]
     }
 };

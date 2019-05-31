@@ -8,6 +8,7 @@ export const luxembourg = {
         return checkDigit === expect;
     },
     rules: {
+        multipliers: {},
         regex: [/^(LU)(\d{8})$/]
     }
 };
