@@ -7,55 +7,19 @@ export const spain: Country = {
     if (!spain.rules.multipliers) return false;
     if (!spain.rules.additional) return false;
 
-    let i = 0;
-    let total: string | number = 0;
-    let temp;
-    let expect;
-
     // National juridical entities
-    if (spain.rules.additional[0].test(vat)) {
-      if (!Array.isArray(spain.rules.multipliers)) return false;
-      // Extract the next digit and multiply by the counter.
-      for (i = 0; i < 7; i++) {
-        temp = Number(vat.charAt(i + 1)) * spain.rules.multipliers[i];
-        if (temp > 9) total += Math.floor(temp / 10) + temp % 10;
-        else total += temp;
-      }
-      // Now calculate the check digit itself.
-      total = 10 - total % 10;
-      if (total === 10) {
-        total = 0;
-      }
+    if (spain.rules.additional[0].test(vat)) return isNationalJuridicalEntities(vat);
 
-      // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-      expect = Number(vat.slice(8, 9));
-      return total === expect;
-    } else if (spain.rules.additional[1].test(vat)) { // Juridical entities other than national ones
-      if (!Array.isArray(spain.rules.multipliers)) return false;
-      // Extract the next digit and multiply by the counter.
-      for (i = 0; i < 7; i++) {
-        temp = Number(vat.charAt(i + 1)) * spain.rules.multipliers[i];
-        if (temp > 9) total += Math.floor(temp / 10) + temp % 10;
-        else total += temp;
-      }
+    // Juridical entities other than national ones
+    if (spain.rules.additional[1].test(vat)) return isNonNationalJuridical(vat);
 
-      // Now calculate the check digit itself.
-      total = 10 - total % 10;
-      total = String.fromCharCode(total + 64);
+    // Personal number (NIF) (starting with numeric of Y or Z)
+    if (spain.rules.additional[2].test(vat)) return isPersonalYtoZ(vat);
 
-      // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-      expect = vat.slice(8, 9);
-      return total === expect;
-    } else if (spain.rules.additional[2].test(vat)) { // Personal number (NIF) (starting with numeric of Y or Z)
-      let tempNumber = vat;
-      if (tempNumber.substring(0, 1) === 'Y') tempNumber = tempNumber.replace(/Y/, '1');
-      if (tempNumber.substring(0, 1) === 'Z') tempNumber = tempNumber.replace(/Z/, '2');
-      expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(+tempNumber.substring(0, 8) % 23);
-      return tempNumber.charAt(8) === expect;
-    } else if (spain.rules.additional[3].test(vat)) { // Personal number (NIF) (starting with K, L, M, or X)
-      expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(Number(vat.substring(1, 8)) % 23);
-      return vat.charAt(8) === expect;
-    } else return false;
+    // Personal number (NIF) (starting with K, L, M, or X)
+    if (spain.rules.additional[3].test(vat)) return isPersonalKtoX(vat);
+
+    return false;
   },
   rules: {
     multipliers: [2, 1, 2, 1, 2, 1, 2],
@@ -73,3 +37,63 @@ export const spain: Country = {
     ]
   }
 };
+
+function isNationalJuridicalEntities(vat: string): boolean {
+  let temp;
+  let total = 0;
+  if (!Array.isArray(spain.rules.multipliers)) return false;
+  // Extract the next digit and multiply by the counter.
+  for (let i = 0; i < 7; i++) {
+    temp = Number(vat.charAt(i + 1)) * spain.rules.multipliers[i];
+    if (temp > 9) {
+      total += Math.floor(temp / 10) + temp % 10;
+    } else {
+      total += temp;
+    }
+  }
+  // Now calculate the check digit itself.
+  total = 10 - total % 10;
+  if (total === 10) {
+    total = 0;
+  }
+
+  // Compare it with the last character of the VAT number. If it's the same, then it's valid.
+  const expect = Number(vat.slice(8, 9));
+  return total === expect;
+}
+
+function isNonNationalJuridical(vat: string): boolean {
+  let temp;
+  let total: number | string = 0;
+  if (!Array.isArray(spain.rules.multipliers)) return false;
+  // Extract the next digit and multiply by the counter.
+  for (let i = 0; i < 7; i++) {
+    temp = Number(vat.charAt(i + 1)) * spain.rules.multipliers[i];
+    if (temp > 9) {
+      total += Math.floor(temp / 10) + temp % 10;
+    } else {
+      total += temp;
+    }
+  }
+
+  // Now calculate the check digit itself.
+  total = 10 - total % 10;
+  total = String.fromCharCode(total + 64);
+
+  // Compare it with the last character of the VAT number. If it's the same, then it's valid.
+  const expect = vat.slice(8, 9);
+  return total === expect;
+}
+
+function isPersonalYtoZ(vat: string): boolean {
+  let tempNumber = vat;
+  if (tempNumber.substring(0, 1) === 'Y') tempNumber = tempNumber.replace(/Y/, '1');
+  if (tempNumber.substring(0, 1) === 'Z') tempNumber = tempNumber.replace(/Z/, '2');
+  const expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(+tempNumber.substring(0, 8) % 23);
+  return tempNumber.charAt(8) === expect;
+}
+
+function isPersonalKtoX(vat: string): boolean {
+  const expect = 'TRWAGMYFPDXBNJZSQVHLCKE'.charAt(Number(vat.substring(1, 8)) % 23);
+  return vat.charAt(8) === expect;
+}
