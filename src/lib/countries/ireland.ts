@@ -4,44 +4,35 @@ export const ireland: Country = {
   name: 'Ireland',
   codes: ['IE', 'IRL', '372'],
   calcFn: (vat: string): boolean => {
-    if (!ireland.rules.typeFormats || !ireland.rules.typeFormats.first) return false;
-    if (!ireland.rules.multipliers) return false;
-
+    const { typeFormats, multipliers } = ireland.rules;
+    if (!typeFormats || !typeFormats.first) return false;
+    if (!multipliers) return false;
     let total: string | number = 0;
-    let expect;
 
     let newVat = vat;
     // If the code is type 1 format, we need to convert it to the new before performing the validation.
-    if (ireland.rules.typeFormats.first.test(vat)) {
+    if (typeFormats.first.test(vat)) {
       newVat = '0' + vat.substring(2, 7) + vat.substring(0, 1) + vat.substring(7, 8);
     }
 
-    if (!Array.isArray(ireland.rules.multipliers)) return false;
+    if (!Array.isArray(multipliers)) return false;
     // Extract the next digit and multiply by the counter.
     for (let i = 0; i < 7; i++) {
-      total += Number(newVat.charAt(i)) * ireland.rules.multipliers[i];
+      total += Number(newVat.charAt(i)) * multipliers[i];
     }
 
     // If the number is type 3 then we need to include the trailing A or H in the calculation
-    if (ireland.rules.typeFormats.third.test(newVat)) {
+    if (typeFormats.third.test(newVat)) {
       // Add in a multiplier for the character A (1*9=9) or H (8*9=72)
-      if (newVat.charAt(8) === 'H') {
-        total += 72;
-      } else {
-        total += 9;
-      }
+      total += (newVat.charAt(8) === 'H') ? 72 : 9;
     }
 
     // Establish check digit using modulus 23, and translate to char. equivalent.
     total = total % 23;
-    if (total === 0) {
-      total = 'W';
-    } else {
-      total = String.fromCharCode(total + 64);
-    }
+    total = (total === 0) ? 'W' : String.fromCharCode(total + 64);
 
     // Compare it with the eighth character of the VAT number. If it's the same, then it's valid.
-    expect = newVat.slice(7, 8);
+    const expect = newVat.slice(7, 8);
     return total === expect;
   },
   rules: {
