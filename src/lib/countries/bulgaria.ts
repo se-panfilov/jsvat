@@ -1,14 +1,15 @@
-import { Country, Multipliers, Rules } from '../main';
+import { Country } from '../main';
 
 export const bulgaria: Country = {
   name: 'Bulgaria',
   codes: ['BG', 'BGR', '100'],
   calcFn: (vat: string): boolean => {
-    if (vat.length === 9) {
-      return _checkNineLengthVat(vat);
-    } else {
-      return _isPhysicalPerson(vat, bulgaria.rules) || _isForeigner(vat, bulgaria.rules) || _miscellaneousVAT(vat, bulgaria.rules);
-    }
+    if (vat.length === 9) return _checkNineLengthVat(vat);
+
+    const { multipliers } = bulgaria.rules;
+    if (!multipliers) return false;
+    if (Array.isArray(multipliers)) return false;
+    return _isPhysicalPerson(vat, multipliers.physical) || _isForeigner(vat, multipliers) || _miscellaneousVAT(vat, multipliers);
   },
   rules: {
     multipliers: {
@@ -28,7 +29,7 @@ function _increase(value: number, vat: string, from: number, to: number, incr: n
   return result;
 }
 
-function _increase2(value: number, vat: string, from: number, to: number, multipliers: Multipliers): number {
+function _increase2(value: number, vat: string, from: number, to: number, multipliers: ReadonlyArray<number>): number {
   let result = value;
   for (let i = from; i < to; i++) {
     if (Array.isArray(multipliers)) {
@@ -40,15 +41,11 @@ function _increase2(value: number, vat: string, from: number, to: number, multip
 
 function _checkNineLengthVat(vat: string): boolean {
   let total;
-  let temp = 0;
-  const expect = +vat.slice(8);
-
-  temp = _increase(temp, vat, 0, 8, 1);
+  let temp = _increase(0, vat, 0, 8, 1);
+  const expect = Number(vat.slice(8));
 
   total = temp % 11;
-  if (total !== 10) {
-    return total === expect;
-  }
+  if (total !== 10) return total === expect;
 
   temp = _increase(0, vat, 0, 8, 3);
 
@@ -58,15 +55,13 @@ function _checkNineLengthVat(vat: string): boolean {
   return total === expect;
 }
 
-function _isPhysicalPerson(vat: string, rules: Rules): boolean {
+function _isPhysicalPerson(vat: string, physicalMultipliers: ReadonlyArray<number>): boolean {
   // 10 digit VAT code - see if it relates to a standard physical person
   if ((/^\d\d[0-5]\d[0-3]\d\d{4}$/).test(vat)) {
     // Check month
     const month = Number(vat.slice(2, 4));
     if ((month > 0 && month < 13) || (month > 20 && month < 33) || (month > 40 && month < 53)) {
-      if (!rules.multipliers) return false;
-      if (Array.isArray(rules.multipliers)) return false;
-      let total = _increase2(0, vat, 0, 9, rules.multipliers.physical);
+      let total = _increase2(0, vat, 0, 9, physicalMultipliers);
       // Establish check digit.
       total = total % 11;
       if (total === 10) total = 0;
@@ -78,22 +73,17 @@ function _isPhysicalPerson(vat: string, rules: Rules): boolean {
   return false;
 }
 
-function _isForeigner(vat: string, rules: Rules): boolean {
-  if (!rules.multipliers) return false;
-  if (Array.isArray(rules.multipliers)) return false;
+function _isForeigner(vat: string, multipliers: { readonly [key: string]: ReadonlyArray<number> }): boolean {
   // Extract the next digit and multiply by the counter.
-  const total = _increase2(0, vat, 0, 9, rules.multipliers.foreigner);
+  const total = _increase2(0, vat, 0, 9, multipliers.foreigner);
 
   // Check to see if the check digit given is correct, If not, try next type of person
-  return total % 10 === +vat.substr(9, 1);
+  return total % 10 === Number(vat.substr(9, 1));
 }
 
-function _miscellaneousVAT(vat: string, rules: Rules): boolean {
-  if (!rules.multipliers) return false;
-  if (Array.isArray(rules.multipliers)) return false;
-  if (!rules.multipliers.miscellaneous) return false;
+function _miscellaneousVAT(vat: string, multipliers: { readonly [key: string]: ReadonlyArray<number> }): boolean {
   // Finally, if not yet identified, see if it conforms to a miscellaneous VAT number
-  let total = _increase2(0, vat, 0, 9, rules.multipliers.miscellaneous);
+  let total = _increase2(0, vat, 0, 9, multipliers.miscellaneous);
 
   // Establish check digit.
   total = 11 - total % 11;
