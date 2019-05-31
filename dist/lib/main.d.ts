@@ -1,5 +1,5 @@
 export interface Multipliers {
-    readonly [key: string]: Array<number>;
+    readonly [key: string]: ReadonlyArray<number>;
 }
 export interface Rules {
     multipliers: Multipliers;

@@ -1,7 +1,5 @@
-// TODO (S.Panfilov) some bug happens with checks here if I replace Array with ReadonlyArray
 export interface Multipliers {
-  // tslint:disable-next-line:readonly-array
-  readonly [key: string]: Array<number>;
+  readonly [key: string]: ReadonlyArray<number>;
 }
 
 export interface Rules {
