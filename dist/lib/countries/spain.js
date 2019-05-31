@@ -6,12 +6,14 @@ export const spain = {
             return false;
         if (!spain.rules.additional)
             return false;
+        if (!Array.isArray(spain.rules.multipliers))
+            return false;
         // National juridical entities
         if (spain.rules.additional[0].test(vat))
-            return isNationalJuridicalEntities(vat);
+            return isNationalJuridicalEntities(vat, spain.rules.multipliers);
         // Juridical entities other than national ones
         if (spain.rules.additional[1].test(vat))
-            return isNonNationalJuridical(vat);
+            return isNonNationalJuridical(vat, spain.rules.multipliers);
         // Personal number (NIF) (starting with numeric of Y or Z)
         if (spain.rules.additional[2].test(vat))
             return isPersonalYtoZ(vat);
@@ -36,14 +38,12 @@ export const spain = {
         ]
     }
 };
-function isNationalJuridicalEntities(vat) {
+function isNationalJuridicalEntities(vat, multipliers) {
     let temp;
     let total = 0;
-    if (!Array.isArray(spain.rules.multipliers))
-        return false;
     // Extract the next digit and multiply by the counter.
     for (let i = 0; i < 7; i++) {
-        temp = Number(vat.charAt(i + 1)) * spain.rules.multipliers[i];
+        temp = Number(vat.charAt(i + 1)) * multipliers[i];
         if (temp > 9) {
             total += Math.floor(temp / 10) + temp % 10;
         }
@@ -60,14 +60,12 @@ function isNationalJuridicalEntities(vat) {
     const expect = Number(vat.slice(8, 9));
     return total === expect;
 }
-function isNonNationalJuridical(vat) {
+function isNonNationalJuridical(vat, multipliers) {
     let temp;
     let total = 0;
-    if (!Array.isArray(spain.rules.multipliers))
-        return false;
     // Extract the next digit and multiply by the counter.
     for (let i = 0; i < 7; i++) {
-        temp = Number(vat.charAt(i + 1)) * spain.rules.multipliers[i];
+        temp = Number(vat.charAt(i + 1)) * multipliers[i];
         if (temp > 9) {
             total += Math.floor(temp / 10) + temp % 10;
         }
