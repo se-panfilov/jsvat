@@ -61,7 +61,7 @@ function _isPhysicalPerson(vat, physicalMultipliers) {
             if (total === 10)
                 total = 0;
             // Check to see if the check digit given is correct, If not, try next type of person
-            if (total === +vat.substr(9, 1))
+            if (total === Number(vat.substr(9, 1)))
                 return true;
         }
     }

@@ -18,7 +18,7 @@ export const hungary: Country = {
     if (total === 10) total = 0;
 
     // Compare it with the last character of the VAT number. If it's the same, then it's valid.
-    const expect = +vat.slice(7, 8);
+    const expect = Number(vat.slice(7, 8));
     return total === expect;
   },
   rules: {

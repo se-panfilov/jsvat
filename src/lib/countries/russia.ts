@@ -33,7 +33,7 @@ function _check10DigitINN (vat: string, rules: Rules): boolean {
     }
 
     // Compare it with the last character of the VAT number. If it is the same, then it's valid
-    const expect = +vat.slice(9, 10);
+    const expect = Number(vat.slice(9, 10));
     return total === expect;
   }
 

@@ -7,7 +7,7 @@ export const croatia = {
         let sum = 0;
         for (let i = 0; i < 10; i++) {
             // Extract the next digit and implement the algorithm
-            sum = (+vat.charAt(i) + product) % 10;
+            sum = (Number(vat.charAt(i)) + product) % 10;
             if (sum === 0) {
                 sum = 10;
             }

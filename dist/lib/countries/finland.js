@@ -10,7 +10,7 @@ export const finland = {
         if (!Array.isArray(finland.rules.multipliers))
             return false;
         for (let i = 0; i < 7; i++)
-            total += +vat.charAt(i) * finland.rules.multipliers[i];
+            total += Number(vat.charAt(i)) * finland.rules.multipliers[i];
         // Establish check digit.
         total = 11 - total % 11;
         if (total > 9) {

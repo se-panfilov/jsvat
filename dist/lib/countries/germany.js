@@ -9,7 +9,7 @@ export const germany = {
         let expect;
         for (let i = 0; i < 8; i++) {
             // Extract the next digit and implement peculiar algorithm!.
-            sum = (+vat.charAt(i) + product) % 10;
+            sum = (Number(vat.charAt(i)) + product) % 10;
             if (sum === 0) {
                 sum = 10;
             }

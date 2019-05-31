@@ -10,7 +10,7 @@ export const poland: Country = {
 
     // Extract the next digit and multiply by the counter.
     for (let i = 0; i < 9; i++) {
-      total += +vat.charAt(i) * poland.rules.multipliers[i];
+      total += Number(vat.charAt(i)) * poland.rules.multipliers[i];
     }
 
     // Establish check digits subtracting modulus 11 from 11.

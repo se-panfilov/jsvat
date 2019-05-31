@@ -10,7 +10,7 @@ export const portugal: Country = {
     if (!Array.isArray(portugal.rules.multipliers)) return false;
     // Extract the next digit and multiply by the counter.
     for (let i = 0; i < 8; i++) {
-      total += +vat.charAt(i) * portugal.rules.multipliers[i];
+      total += Number(vat.charAt(i)) * portugal.rules.multipliers[i];
     }
 
     // Establish check digits subtracting modulus 11 from 11.
