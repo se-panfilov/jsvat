@@ -4,21 +4,21 @@ export const spain: Country = {
   name: 'Spain',
   codes: ['ES', 'ESP', '724'],
   calcFn: (vat: string): boolean => {
-    if (!spain.rules.multipliers) return false;
-    if (!spain.rules.additional) return false;
-    if (!Array.isArray(spain.rules.multipliers)) return false;
+    const {additional, multipliers} = spain.rules;
+    if (!additional) return false;
+    if (!Array.isArray(multipliers)) return false;
 
     // National juridical entities
-    if (spain.rules.additional[0].test(vat)) return isNationalJuridicalEntities(vat, spain.rules.multipliers);
+    if (additional[0].test(vat)) return isNationalJuridicalEntities(vat, multipliers);
 
     // Juridical entities other than national ones
-    if (spain.rules.additional[1].test(vat)) return isNonNationalJuridical(vat, spain.rules.multipliers);
+    if (additional[1].test(vat)) return isNonNationalJuridical(vat, multipliers);
 
     // Personal number (NIF) (starting with numeric of Y or Z)
-    if (spain.rules.additional[2].test(vat)) return isPersonalYtoZ(vat);
+    if (additional[2].test(vat)) return isPersonalYtoZ(vat);
 
     // Personal number (NIF) (starting with K, L, M, or X)
-    if (spain.rules.additional[3].test(vat)) return isPersonalKtoX(vat);
+    if (additional[3].test(vat)) return isPersonalKtoX(vat);
 
     return false;
   },
@@ -39,19 +39,22 @@ export const spain: Country = {
   }
 };
 
-function isNationalJuridicalEntities(vat: string, multipliers: ReadonlyArray<number>): boolean {
-  let temp;
-  let total = 0;
-
-  // Extract the next digit and multiply by the counter.
+function extractDigitAndMultiplyByCounter(vat: string, multipliers: ReadonlyArray<number>, total: number): number {
+  let temp: number;
+  let result = total;
   for (let i = 0; i < 7; i++) {
     temp = Number(vat.charAt(i + 1)) * multipliers[i];
     if (temp > 9) {
-      total += Math.floor(temp / 10) + temp % 10;
+      result += Math.floor(temp / 10) + temp % 10;
     } else {
-      total += temp;
+      result += temp;
     }
   }
+  return result;
+}
+
+function isNationalJuridicalEntities(vat: string, multipliers: ReadonlyArray<number>): boolean {
+  let total = extractDigitAndMultiplyByCounter(vat, multipliers, 0);
   // Now calculate the check digit itself.
   total = 10 - total % 10;
   if (total === 10) {
@@ -64,25 +67,15 @@ function isNationalJuridicalEntities(vat: string, multipliers: ReadonlyArray<num
 }
 
 function isNonNationalJuridical(vat: string, multipliers: ReadonlyArray<number>): boolean {
-  let temp;
-  let total: number | string = 0;
-  // Extract the next digit and multiply by the counter.
-  for (let i = 0; i < 7; i++) {
-    temp = Number(vat.charAt(i + 1)) * multipliers[i];
-    if (temp > 9) {
-      total += Math.floor(temp / 10) + temp % 10;
-    } else {
-      total += temp;
-    }
-  }
+  let total = extractDigitAndMultiplyByCounter(vat, multipliers, 0);
 
   // Now calculate the check digit itself.
   total = 10 - total % 10;
-  total = String.fromCharCode(total + 64);
+  const totalStr = String.fromCharCode(total + 64);
 
   // Compare it with the last character of the VAT number. If it's the same, then it's valid.
   const expect = vat.slice(8, 9);
-  return total === expect;
+  return totalStr === expect;
 }
 
 function isPersonalYtoZ(vat: string): boolean {
