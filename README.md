@@ -44,9 +44,9 @@ Getting Started
   ```javascript
   import {checkVAT, belgium, austria} from 'jsvat'; 
   
-  checkVAT('BG131134023', [belgium]); // true: accept only Belgium VATs
-  checkVAT('BG131134023', [belgium, austria]); // true: accept only Belgium or Austria VATs 
-  checkVAT('BG131134023', [austria]); // false: accept only Austria VATs
+  checkVAT('BE0411905847', [belgium]); // true: accept only Belgium VATs
+  checkVAT('BE0411905847', [belgium, austria]); // true: accept only Belgium or Austria VATs 
+  checkVAT('BE0411905847', [austria]); // false: accept only Austria VATs
   ```
 
 Return value
@@ -57,7 +57,7 @@ Return value
 ```typescript
 
 export interface VatCheckResult {
-    value?: string; // 'BG131134023': your VAT without extra characters (like '-', spaces, etc)
+    value?: string; // 'BE0411905847': your VAT without extra characters (like '-', spaces, etc)
     isValid: boolean; // main result - is VAT correct against provided countries or not
     country?: { // VAT's couuntry (null if not found)
         name: string; // ISO country name of VAT

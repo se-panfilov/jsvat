@@ -1,4 +1,4 @@
-import {checkVAT} from '../dist'
+import { checkVAT } from '../index'
 
 export function checkValidVat(vat, countriesList, codes, name) {
   const result = checkVAT(vat, countriesList)

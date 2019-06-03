@@ -1,4 +1,4 @@
-import { Country } from '../main';
+import { Country } from '../index';
 
 export const ireland: Country = {
   name: 'Ireland',

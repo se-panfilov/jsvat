@@ -32,4 +32,4 @@ export { sweden } from './lib/countries/sweden';
 export { switzerland } from './lib/countries/switzerland';
 export { unitedKingdom } from './lib/countries/unitedKingdom';
 
-export { checkVAT, Rules, Country, Multipliers, VatCheckResult } from './lib/main';
+export { checkVAT, Rules, Country, Multipliers, VatCheckResult } from './lib';

@@ -1,4 +1,4 @@
-import { Country, Rules } from '../main';
+import { Country, Rules } from '../index';
 
 export const russia: Country = {
   name: 'Russian Federation',

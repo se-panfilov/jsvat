@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
     "target": "es2018",
-    "outDir": "dist",
-    //    "declarationDir": "types",
+    //    "outDir": "lib",
+    "declarationDir": "./types",
     //    "outFile": "./dist/index.js",
     "rootDir": "src",
     "moduleResolution": "node",
-    "module": "es6",
+    //    "module": "es6",
     "declaration": true,
     "inlineSourceMap": false,
     "esModuleInterop": true

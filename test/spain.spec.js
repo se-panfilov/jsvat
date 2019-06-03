@@ -1,8 +1,8 @@
-import {spain} from '../dist/index'
-import {codes, invalid, name, valid} from './countries_vat_lists/spain.vat'
-import {addCharsToString, checkInValidVat, checkValidVat} from './utils'
+import { spain } from '../index'
+import { codes, invalid, name, valid } from './countries_vat_lists/spain.vat'
+import { addCharsToString, checkInValidVat, checkValidVat } from './utils'
 
-describe('Spain.', () => {
+describe('Spain', () => {
 
   it('should return true result for valid VATs', () => {
     valid.forEach(vat => checkValidVat(vat, [spain], codes, name))

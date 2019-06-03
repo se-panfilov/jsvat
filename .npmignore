@@ -7,3 +7,13 @@ node_modules
 .tmp
 .DS_Store
 coverage
+src
+.editorconfig
+.babelrc
+.npmrc
+.nvmrc
+.gitattributes
+.gitignore
+tsconfig.json
+tslint.json
+yarn-error.log
