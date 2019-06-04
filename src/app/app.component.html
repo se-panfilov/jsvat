@@ -3,10 +3,16 @@
 </div>
 
 <mat-card class="content">
-  <div>
-    <input type="text" [(ngModel)]="inputVat"/>
-    {{getCheckResult() | json}}
-  </div>
+  <form [formGroup]="exampleForm" class="example-form">
+    <mat-form-field class="example-full-width">
+      <input formControlName="vat"
+             matInput
+             placeholder="VAT number"
+             type="text"
+      />
+    </mat-form-field>
+  </form>
+  {{exampleResult ? (exampleResult | json) : ''}}
 </mat-card>
 
 

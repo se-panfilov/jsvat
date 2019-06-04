@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
+import { FormBuilder, FormGroup } from '@angular/forms'
 import {
   austria,
   belgium,
@@ -33,20 +34,37 @@ import {
   spain,
   sweden,
   switzerland,
-  unitedKingdom, VatCheckResult
-} from 'jsvat/dist';
+  unitedKingdom,
+  VatCheckResult
+} from 'jsvat'
 
 @Component({
-  selector: 'app-root',
+  selector: 'jsvat-root',
   templateUrl: './app.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  public inputVat: string = 'ATU00000024';
+  public exampleResult: VatCheckResult | undefined
+  readonly exampleForm: FormGroup = this.fb.group({
+    vat: ''
+  })
 
-  public getCheckResult(): VatCheckResult {
-    return checkVAT(this.inputVat, [austria,
+  constructor(private fb: FormBuilder) {
+  }
+
+  ngOnInit(): void {
+    this.exampleForm.get('vat')
+      .valueChanges
+      .subscribe(vat => this.updateExampleValue(vat))
+
+    this.exampleForm.setValue({ vat: 'ATU00000024' })
+  }
+
+  updateExampleValue(vat: string | undefined): void {
+    this.exampleResult = checkVAT(vat, [
+      austria,
       belgium,
       bulgaria,
       switzerland,
@@ -79,7 +97,8 @@ export class AppComponent {
       slovenia,
       slovakiaRepublic,
       sweden
-    ]);
+    ])
   }
+
 
 }

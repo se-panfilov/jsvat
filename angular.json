@@ -3,17 +3,40 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "jsvat-demo": {
+    "jsvat": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
-      "prefix": "app",
-      "schematics": {},
+      "prefix": "jsvat",
+      "schematics": {
+        "@schematics/angular:component": {
+          "styleext": "stylus",
+          "spec": false
+        },
+        "@schematics/angular:class": {
+          "spec": false
+        },
+        "@schematics/angular:directive": {
+          "spec": false
+        },
+        "@schematics/angular:guard": {
+          "spec": false
+        },
+        "@schematics/angular:module": {
+          "spec": false
+        },
+        "@schematics/angular:pipe": {
+          "spec": false
+        },
+        "@schematics/angular:service": {
+          "spec": false
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/jsvat-demo",
+            "outputPath": "dist/jsvat",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -50,18 +73,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "jsvat-demo:build"
+            "browserTarget": "jsvat:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "jsvat-demo:build:production"
+              "browserTarget": "jsvat:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "jsvat-demo:build"
+            "browserTarget": "jsvat:build"
           }
         },
         "test": {
@@ -95,7 +118,7 @@
         }
       }
     },
-    "jsvat-demo-e2e": {
+    "jsvat-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -103,11 +126,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "jsvat-demo:serve"
+            "devServerTarget": "jsvat:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "jsvat-demo:serve:production"
+              "devServerTarget": "jsvat:serve:production"
             }
           }
         },
@@ -123,5 +146,5 @@
       }
     }
   },
-  "defaultProject": "jsvat-demo"
+  "defaultProject": "jsvat"
 }
