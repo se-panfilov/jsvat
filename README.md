@@ -81,7 +81,7 @@ import {checkVAT, belgium, austria} from 'jsvat/lib/es6';
 // UMD
 <script src="whatever/jsvat/lib/umd.index.js"></script>
 
-// UMD
+// AMD
 const { checkVAT, belgium, austria } = require('jsvat/lib/amd');
 ```
 
