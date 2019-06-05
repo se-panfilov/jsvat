@@ -13,7 +13,7 @@
     "build:amd": "yarn ts --outDir lib/amd --module AMD",
     "build:umd": "yarn ts --outDir lib/umd --module UMD",
     "ts": "tsc -p tsconfig.json",
-    "test": "jest",
+    "test": "./node_modules/.bin/jest",
     "lint": "tslint --project ."
   },
   "license": "MIT",
