@@ -49,42 +49,6 @@ Getting Started
   checkVAT('BE0411905847', [austria]); // false: accept only Austria VATs
   ```
 
-About modules... ES6 / CommonJS / AMD / UMD
-----------
-
-jsvat build includes  `es6`, `commonjs`, `amd` and `umd` builds at the same time.
-
-By default you will stick to `es6` version for browsers and build tools (webpack, etc):
-which expects you to import it as 
-
-```javascript
-import {checkVAT, belgium, austria} from 'jsvat';
-````
-
-Node.js automatically will pick up `CommonJS` version by default.
-Means you could import it like:
-
-```javascript
-const { checkVAT, belgium, austria } = require('jsvat');
-```
-
-You also can manually pick version you want, e.g.:
-
-```jsx harmony
-
-// CommonJS (i.g nodejs)
-const { checkVAT, belgium, austria } = require('jsvat/lib/commonjs');
-
-// ES6
-import {checkVAT, belgium, austria} from 'jsvat/lib/es6';
-
-// UMD
-<script src="whatever/jsvat/lib/umd.index.js"></script>
-
-// AMD
-const { checkVAT, belgium, austria } = require('jsvat/lib/amd');
-```
-
 Return value
 ---------
  
@@ -178,6 +142,42 @@ export const wonderland = {
 
 checkVAT('WD12345678', [wonderland]); // true
 
+```
+
+About modules... ES6 / CommonJS / AMD / UMD
+----------
+
+jsvat build includes  `es6`, `commonjs`, `amd` and `umd` builds at the same time.
+
+By default you will stick to `es6` version for browsers and build tools (webpack, etc):
+which expects you to import it as 
+
+```javascript
+import {checkVAT, belgium, austria} from 'jsvat';
+````
+
+Node.js automatically will pick up `CommonJS` version by default.
+Means you could import it like:
+
+```javascript
+const { checkVAT, belgium, austria } = require('jsvat');
+```
+
+You also can manually pick version you want, e.g.:
+
+```jsx harmony
+
+// CommonJS (i.g nodejs)
+const { checkVAT, belgium, austria } = require('jsvat/lib/commonjs');
+
+// ES6
+import {checkVAT, belgium, austria} from 'jsvat/lib/es6';
+
+// UMD
+<script src="whatever/jsvat/lib/umd.index.js"></script>
+
+// AMD
+const { checkVAT, belgium, austria } = require('jsvat/lib/amd');
 ```
 
 How jsvat checks validity?
