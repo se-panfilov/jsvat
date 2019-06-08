@@ -8,7 +8,10 @@
   text-align: center;
 
   &__vat {
-    color: #ac1145;
+    color: $secondary_color;
   }
+}
 
+.code {
+  display: block;
 }

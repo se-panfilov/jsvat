@@ -4,7 +4,7 @@
 
 body.mat-app-background {
   margin: 0;
-  background-color: #282C34;
-  color: #a5abb9;
+  background-color: $bg_primary_color;
+  color: $text_primary_color;
   font-family: 'Roboto', sans-serif;
 }

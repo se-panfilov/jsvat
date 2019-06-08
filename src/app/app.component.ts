@@ -29,8 +29,8 @@ export class AppComponent implements OnInit {
 
   updateExampleValue(vat: string | undefined): void {
     const code = checkVAT(vat, countries)
-    if (code) this.code = highlight(JSON.stringify(code, null, 2), languages.javascript, 'javascript')
+    const codeStr = JSON.stringify(code, null, 2).replace(/"(\S+)":/g, '$1:')
+    if (code) this.code = highlight(codeStr, languages.javascript, 'javascript')
   }
-
 
 }
