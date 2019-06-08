@@ -1,18 +1,10 @@
-<div style="text-align:center">
-  <h1>jsvat</h1>
-</div>
+<jsvat-navbar></jsvat-navbar>
 
 <mat-card class="content">
   <form [formGroup]="exampleForm" class="example-form">
     <mat-form-field class="example-full-width">
-      <input formControlName="vat"
-             matInput
-             placeholder="VAT number"
-             type="text"
-      />
+      <input matInput formControlName="vat"/>
     </mat-form-field>
   </form>
   {{exampleResult ? (exampleResult | json) : ''}}
 </mat-card>
-
-

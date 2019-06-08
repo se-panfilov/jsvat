@@ -3,7 +3,6 @@
   "version": "2.0.0",
   "scripts": {
     "start": "ng serve",
-    "build": "ng build",
     "build:prod": "ng build --prod --aot --output-hashing=all --build-optimizer",
     "lint": "ng lint"
   },
