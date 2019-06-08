@@ -6,14 +6,9 @@
   align-items: center;
   padding: 8px 16px;
 
-  &__logo {
-    color: $primary_color;
-    font-weight: bold;
-    font-style: italic;
-    font-size: 2em;
-  }
-
   &__button {
+    color: $primary_color;
+
     &:last-child {
       margin-left: auto;
     }

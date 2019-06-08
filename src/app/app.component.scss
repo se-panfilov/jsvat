@@ -1,1 +1,14 @@
+@import "../assets/colors";
 
+.logo {
+  font-weight: bold;
+  font-style: italic;
+  font-size: 4.2em;
+  color: $primary_color;
+  text-align: center;
+
+  &__vat {
+    color: #ac1145;
+  }
+
+}

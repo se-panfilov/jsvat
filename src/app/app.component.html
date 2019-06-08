@@ -1,10 +1,14 @@
 <jsvat-navbar></jsvat-navbar>
 
+<div class="logo">
+  <span class="logo__js">js<span class="logo__vat">vat</span></span>
+</div>
+
 <mat-card class="content">
   <form [formGroup]="exampleForm" class="example-form">
     <mat-form-field class="example-full-width">
       <input matInput formControlName="vat"/>
     </mat-form-field>
   </form>
-  {{exampleResult ? (exampleResult | json) : ''}}
+  <code [innerHTML]="code" class="language-javascript"></code>
 </mat-card>
