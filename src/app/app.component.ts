@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
-import { checkVAT, countries } from 'jsvat'
-import { highlight, languages } from 'prismjs';
+import { checkVAT, countries, Country } from 'jsvat'
+import { highlight, languages } from 'prismjs'
 
 @Component({
   selector: 'jsvat-root',
@@ -12,6 +12,8 @@ import { highlight, languages } from 'prismjs';
 export class AppComponent implements OnInit {
 
   public code: string | undefined
+  public readonly countries: ReadonlyArray<Country> = countries
+
   readonly exampleForm: FormGroup = this.fb.group({
     vat: ''
   })

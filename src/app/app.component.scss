@@ -24,6 +24,31 @@
   display: flex;
   justify-content: center;
 
+  &__playground {
+    ::ng-deep {
+      .mat-form-field {
+        display: flex;
+
+        .mat-form-field-wrapper {
+          flex: 1;
+        }
+      }
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  &__features {
+    flex: 1;
+  }
+
+  &__result {
+    flex: 1;
+  }
+
   .form {
     &.-vertical {
       display: flex;

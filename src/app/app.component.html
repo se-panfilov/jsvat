@@ -7,9 +7,40 @@
 <mat-card class="content">
   <form [formGroup]="exampleForm" class="form -vertical">
     <p style="text-align: center">Enter your <span class="highlight">VAT</span> here:</p>
-    <mat-form-field>
-      <input matInput class="form__input" autocomplete="false" formControlName="vat"/>
-    </mat-form-field>
-    <code [innerHTML]="code" class="code language-javascript"></code>
+
+    <section class="content__playground">
+      <mat-form-field>
+        <input matInput class="form__input" autocomplete="false" formControlName="vat"/>
+      </mat-form-field>
+    </section>
+
+    <section class="content__bottom">
+      <section class="content__features">
+        <h2>Features:</h2>
+        <ul class="content__features-list">
+          <li class="features-list__item">No calls;</li>
+          <li class="features-list__item">No dependencies;</li>
+          <li class="features-list__item">Three-shakeable;</li>
+          <li class="features-list__item">Extendable;</li>
+          <li class="features-list__item">Types support;</li>
+        </ul>
+      </section>
+
+      <section class="content__result">
+        <h2>Result:</h2>
+        <code [innerHTML]="code" class="code language-javascript"></code>
+      </section>
+    </section>
+
+    <section class="playground-countries">
+      <h2>Select allowed countries:</h2>
+      <ul class="playground-countries__countries-list">
+        <li class="countries-list__item"
+            *ngFor="let country of countries">
+          <mat-checkbox>{{country.name}}</mat-checkbox>
+        </li>
+      </ul>
+    </section>
+
   </form>
 </mat-card>
