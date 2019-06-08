@@ -42,7 +42,7 @@ Getting Started
 ----------
 
   ```javascript
-  import {checkVAT, belgium, austria} from 'jsvat'; 
+  import { checkVAT, belgium, austria } from 'jsvat'; 
   
   checkVAT('BE0411905847', [belgium]); // true: accept only Belgium VATs
   checkVAT('BE0411905847', [belgium, austria]); // true: accept only Belgium or Austria VATs 
@@ -107,6 +107,16 @@ List of supported Countries:
  - Slovakia republic
  - Sweden
 
+How to import all countries at once?
+----------
+
+```javascript
+import { checkVAT, countries } from 'jsvat';
+// const { checkVAT, countries } = require('jsvat');
+
+checkVAT('WD12345678', countries);
+```
+
 Extend countries list - add your own country:
 ----------
 
@@ -127,7 +137,7 @@ interface Country {
 Example:
 
 ```javascript
-import {checkVAT} from 'jsvat';
+import { checkVAT } from 'jsvat';
 
 export const wonderland = {
   name: 'Wonderland',
@@ -153,7 +163,7 @@ By default you will stick to `es6` version for browsers and build tools (webpack
 which expects you to import it as 
 
 ```javascript
-import {checkVAT, belgium, austria} from 'jsvat';
+import { checkVAT, belgium, austria } from 'jsvat';
 ````
 
 Node.js automatically will pick up `CommonJS` version by default.
@@ -171,7 +181,7 @@ You also can manually pick version you want, e.g.:
 const { checkVAT, belgium, austria } = require('jsvat/lib/commonjs');
 
 // ES6
-import {checkVAT, belgium, austria} from 'jsvat/lib/es6';
+import { checkVAT, belgium, austria } from 'jsvat/lib/es6';
 
 // UMD
 <script src="whatever/jsvat/lib/umd/index.js"></script>
