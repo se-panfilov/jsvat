@@ -1,7 +1,6 @@
 export const name = 'Ireland'
 
-export const codes = ['IE', 'IRL', '372'
-]
+export const codes = ['IE', 'IRL', '372']
 
 export const valid = [
   'IE0000002D',

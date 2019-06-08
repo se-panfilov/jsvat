@@ -1,7 +1,6 @@
 export const name = 'Czech Republic'
 
-export const codes = ['CZ', 'CZE', '203'
-]
+export const codes = ['CZ', 'CZE', '203']
 
 export const valid = [
   'CZ00008702',

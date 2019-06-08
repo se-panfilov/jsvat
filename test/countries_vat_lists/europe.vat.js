@@ -1,7 +1,6 @@
 export const name = 'Europe'
 
-export const codes = ['EU', 'EUR', '000'
-]
+export const codes = ['EU', 'EUR', '000']
 
 // TODO (S.Panfilov) that's not a real codes
 export const valid = [

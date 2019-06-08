@@ -1,6 +1,7 @@
 export const name = 'Denmark'
 
 export const codes = ['DK', 'DNK', '208'
+
 ]
 
 export const valid = [

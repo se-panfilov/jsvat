@@ -1,7 +1,6 @@
 export const name = 'Germany'
 
-export const codes = ['DE', 'DEU', '276'
-]
+export const codes = ['DE', 'DEU', '276']
 
 export const valid = [
   'DE111111125',

@@ -1,7 +1,6 @@
 export const name = 'Croatia'
 
-export const codes = ['HR', 'HRV', '191'
-]
+export const codes = ['HR', 'HRV', '191']
 
 export const valid = [
   'HR02574432339',

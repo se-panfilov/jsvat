@@ -1,7 +1,6 @@
 export const name = 'Russian Federation'
 
-export const codes = ['RU', 'RUS', '643'
-]
+export const codes = ['RU', 'RUS', '643']
 
 export const valid = [
   'RU0274051582',
