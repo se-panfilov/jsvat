@@ -1,4 +1,4 @@
-import { Country } from '../index';
+import { Country } from '../jsvat';
 
 export const finland: Country = {
   name: 'Finland',

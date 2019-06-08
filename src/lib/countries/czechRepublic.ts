@@ -1,4 +1,4 @@
-import { Country } from '../index';
+import { Country } from '../jsvat';
 
 export const czechRepublic: Country = {
   name: 'Czech Republic',
