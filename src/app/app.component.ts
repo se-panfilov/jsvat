@@ -1,8 +1,40 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
 import {
+  austria,
+  belgium,
+  bulgaria,
   checkVAT,
-  countries,
+  croatia,
+  cyprus,
+  czechRepublic,
+  denmark,
+  estonia,
+  europe,
+  finland,
+  france,
+  germany,
+  greece,
+  hungary,
+  ireland,
+  italy,
+  latvia,
+  lithuania,
+  luxembourg,
+  malta,
+  netherlands,
+  norway,
+  poland,
+  portugal,
+  romania,
+  russia,
+  serbia,
+  slovakiaRepublic,
+  slovenia,
+  spain,
+  sweden,
+  switzerland,
+  unitedKingdom,
   VatCheckResult
 } from 'jsvat'
 
@@ -31,7 +63,41 @@ export class AppComponent implements OnInit {
   }
 
   updateExampleValue(vat: string | undefined): void {
-    this.exampleResult = checkVAT(vat, countries)
+    this.exampleResult = checkVAT(vat, [
+      austria,
+      belgium,
+      bulgaria,
+      switzerland,
+      cyprus,
+      czechRepublic,
+      germany,
+      denmark,
+      greece,
+      spain,
+      europe,
+      estonia,
+      finland,
+      france,
+      unitedKingdom,
+      croatia,
+      hungary,
+      ireland,
+      italy,
+      latvia,
+      lithuania,
+      luxembourg,
+      malta,
+      netherlands,
+      norway,
+      poland,
+      portugal,
+      romania,
+      russia,
+      serbia,
+      slovenia,
+      slovakiaRepublic,
+      sweden
+    ])
   }
 
 
