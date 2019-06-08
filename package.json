@@ -4,7 +4,7 @@
   "scripts": {
     "start": "ng serve",
     "build": "ng build",
-    "build:prod": "ng build --aot --output-hashing=all",
+    "build:prod": "ng build --prod --aot --output-hashing=all --build-optimizer",
     "lint": "ng lint"
   },
   "private": true,
@@ -21,7 +21,7 @@
     "@angular/platform-browser-dynamic": "7.1.4",
     "@angular/router": "7.1.4",
     "core-js": "2.5.7",
-    "jsvat": "2.0.1",
+    "jsvat": "2.1.1",
     "rxjs": "6.3.3",
     "zone.js": "0.8.26"
   },
