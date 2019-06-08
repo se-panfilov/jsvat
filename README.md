@@ -154,10 +154,10 @@ checkVAT('WD12345678', [wonderland]); // true
 
 ```
 
-About modules... ES6 / CommonJS / AMD / UMD
+About modules... ES6 / CommonJS / AMD / UMD / System
 ----------
 
-jsvat build includes  `es6`, `commonjs`, `amd` and `umd` builds at the same time.
+jsvat build includes  `es6`, `commonjs`, `amd`, `umd` and `system` builds at the same time.
 
 By default you will stick to `es6` version for browsers and build tools (webpack, etc):
 which expects you to import it as 
@@ -169,14 +169,20 @@ import { checkVAT, belgium, austria } from 'jsvat';
 Node.js automatically will pick up `CommonJS` version by default.
 Means you could import it like:
 
-```javascript
+```jsx harmony
+// Modern Frontend and Node
+const { checkVAT, belgium, austria } = require('jsvat'); 
+
+ // Node.js
 const { checkVAT, belgium, austria } = require('jsvat');
+
+// Legacy Frontend
+<script src="whatever/jsvat/lib/umd/index.js"></script>
 ```
 
-You also can manually pick version you want, e.g.:
+Alternatively you can specify which module system you do want, e.g.:
 
 ```jsx harmony
-
 // CommonJS (i.g nodejs)
 const { checkVAT, belgium, austria } = require('jsvat/lib/commonjs');
 
@@ -188,6 +194,9 @@ import { checkVAT, belgium, austria } from 'jsvat/lib/es6';
 
 // AMD
 const { checkVAT, belgium, austria } = require('jsvat/lib/amd');
+
+// System
+import { checkVAT, belgium, austria } from 'jsvat/lib/system';
 ```
 
 How jsvat checks validity?
