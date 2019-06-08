@@ -3,9 +3,12 @@
 .logo {
   font-weight: bold;
   font-style: italic;
-  font-size: 4.2em;
+  font-size: 6.2em;
+  text-decoration: underline;
   color: $primary_color;
   text-align: center;
+  padding: 1.1em;
+  background-color: $bg_primary_color;
 
   &__vat {
     color: $secondary_color;
@@ -14,4 +17,28 @@
 
 .code {
   display: block;
+  background-color: $bg_dark_color;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+
+  .form {
+    &.-vertical {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    &__input {
+      text-align: center;
+      color: $primary_color;
+    }
+  }
+}
+
+.highlight {
+  color: $primary_color;
+  font-weight: bold;
 }

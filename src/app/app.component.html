@@ -5,10 +5,11 @@
 </div>
 
 <mat-card class="content">
-  <form [formGroup]="exampleForm" class="example-form">
-    <mat-form-field class="example-full-width">
-      <input matInput formControlName="vat"/>
+  <form [formGroup]="exampleForm" class="form -vertical">
+    <p style="text-align: center">Enter your <span class="highlight">VAT</span> here:</p>
+    <mat-form-field>
+      <input matInput class="form__input" autocomplete="false" formControlName="vat"/>
     </mat-form-field>
+    <code [innerHTML]="code" class="code language-javascript"></code>
   </form>
-  <code [innerHTML]="code" class="code language-javascript"></code>
 </mat-card>

@@ -4,7 +4,11 @@
 
 body.mat-app-background {
   margin: 0;
-  background-color: $bg_primary_color;
+  background-color: $bg_dark_color;
   color: $text_primary_color;
   font-family: 'Roboto', sans-serif;
+}
+
+.mat-card {
+  background-color: $bg_dark_color;
 }
