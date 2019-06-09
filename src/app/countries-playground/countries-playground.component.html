@@ -1,10 +1,14 @@
 <form [formGroup]="form" class="form -vertical">
 
   <h2>Select allowed countries:</h2>
+
   <ul class="countries-list">
     <li class="countries-list__item"
-        *ngFor="let country of countries">
-      <mat-checkbox>{{country.name}}</mat-checkbox>
+        formArrayName="items"
+        *ngFor="let item of form.get('items').controls; let i = index;">
+      <div [formGroupName]="i">
+        <mat-checkbox formControlName="isSelected">{{countries[i].name}}</mat-checkbox>
+      </div>
     </li>
   </ul>
 
