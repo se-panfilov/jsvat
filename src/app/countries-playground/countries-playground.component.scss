@@ -1,0 +1,19 @@
+@import "../../assets/colors";
+
+.form {
+  padding: 0 25px;
+
+  ::ng-deep {
+    .mat-checkbox-checked {
+      .mat-checkbox-background {
+        background-color: $primary_color;
+      }
+    }
+  }
+}
+
+.countries-list {
+  &__item {
+    list-style: none;
+  }
+}

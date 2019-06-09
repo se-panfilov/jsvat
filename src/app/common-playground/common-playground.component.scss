@@ -1,0 +1,51 @@
+@import "../../assets/colors";
+
+.playground {
+  ::ng-deep {
+    .mat-form-field {
+      display: flex;
+
+      .mat-form-field-wrapper {
+        flex: 1;
+      }
+    }
+  }
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-around;
+}
+
+.features {
+  flex: 1;
+  padding: 0 25px;
+}
+
+.result {
+  flex: 1;
+  padding: 0 25px;
+}
+
+.form {
+  &.-vertical {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  &__input {
+    text-align: center;
+    color: $primary_color;
+  }
+}
+
+.highlight {
+  color: $primary_color;
+  font-weight: bold;
+}
+
+.code {
+  display: block;
+  background-color: $bg_dark_color;
+}

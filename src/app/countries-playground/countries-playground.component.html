@@ -1,14 +1,11 @@
 <form [formGroup]="form" class="form -vertical">
-  <p style="text-align: center">Enter your <span class="highlight">VAT</span> here:</p>
 
-  <section class="playground-countries">
-    <h2>Select allowed countries:</h2>
-    <ul class="playground-countries__countries-list">
-      <li class="countries-list__item"
-          *ngFor="let country of countries">
-        <mat-checkbox>{{country.name}}</mat-checkbox>
-      </li>
-    </ul>
-  </section>
+  <h2>Select allowed countries:</h2>
+  <ul class="countries-list">
+    <li class="countries-list__item"
+        *ngFor="let country of countries">
+      <mat-checkbox>{{country.name}}</mat-checkbox>
+    </li>
+  </ul>
 
 </form>
