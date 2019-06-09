@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
-import { checkVAT, countries } from 'jsvat'
+import { checkVAT, Country } from 'jsvat'
 import { highlight, languages } from 'prismjs'
 
 @Component({
@@ -11,6 +11,9 @@ import { highlight, languages } from 'prismjs'
 })
 export class CommonPlaygroundComponent implements OnInit {
   public code: string | undefined
+  public panelOpenState = false
+
+  private countries: ReadonlyArray<Country> = []
 
   readonly form: FormGroup = this.fb.group({
     vat: ''
@@ -22,14 +25,19 @@ export class CommonPlaygroundComponent implements OnInit {
   ngOnInit(): void {
     this.form.get('vat')
       .valueChanges
-      .subscribe(vat => this.updateExampleValue(vat))
+      .subscribe(vat => this.updateExampleValue(vat, this.countries))
 
     this.form.setValue({ vat: 'ATU00000024' })
   }
 
-  updateExampleValue(vat: string | undefined): void {
+  updateExampleValue(vat: string | undefined, countries: ReadonlyArray<Country>): void {
     const code = checkVAT(vat, countries)
     const codeStr = JSON.stringify(code, null, 2).replace(/"(\S+)":/g, '$1:')
     if (code) this.code = highlight(codeStr, languages.javascript, 'javascript')
+  }
+
+  onCountriesListUpdated(list: ReadonlyArray<Country>): void {
+    this.countries = list
+    this.updateExampleValue(this.form.get('vat').value, this.countries)
   }
 }

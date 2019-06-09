@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { MatButtonModule, MatCheckboxModule, MatInputModule } from '@angular/material'
+import { MatButtonModule, MatCheckboxModule, MatExpansionModule, MatInputModule } from '@angular/material'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
@@ -25,7 +25,8 @@ import { NavbarComponent } from './navbar/navbar.component'
     ReactiveFormsModule,
     MatButtonModule,
     MatInputModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
 import { countries, Country } from 'jsvat'
 
@@ -11,16 +11,26 @@ import { countries, Country } from 'jsvat'
 export class CountriesPlaygroundComponent implements OnInit {
 
   public readonly countries: ReadonlyArray<Country> = countries
-  // public readonly countries: ReadonlyArray<any> = [{ name: 'aaa', isSelected: 'aaa' }, { name: 'bbb', isSelected: false }]
+  public form: FormGroup
 
-  form: FormGroup
+  @Output()
+  public countriesChanged = new EventEmitter<ReadonlyArray<Country>>()
 
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      vat: '',
       items: this.fb.array(this.createItems())
+    })
+
+    this.countriesChanged.emit(countries)
+
+    this.form.valueChanges.subscribe(({ items }) => {
+
+      // TODO (S.Panfilov) sometimes it's not a countries, but form values
+
+      console.info(items)
+      this.countriesChanged.emit(items)
     })
   }
 
@@ -28,7 +38,7 @@ export class CountriesPlaygroundComponent implements OnInit {
     return this.countries.map(c => {
       return this.fb.group({
         name: c.name,
-        isSelected: new Date().getMilliseconds() % 2 === 0
+        isSelected: true
       })
     })
   }
