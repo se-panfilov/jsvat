@@ -1,0 +1,28 @@
+<form [formGroup]="form" class="form -vertical">
+  <p style="text-align: center">Enter your <span class="highlight">VAT</span> here:</p>
+
+  <section class="playground">
+    <mat-form-field>
+      <input matInput class="form__input" autocomplete="false" formControlName="vat"/>
+    </mat-form-field>
+  </section>
+
+  <section class="bottom">
+    <section class="features">
+      <h2>Features:</h2>
+      <ul class="features-list">
+        <li class="features-list__item">No calls;</li>
+        <li class="features-list__item">No dependencies;</li>
+        <li class="features-list__item">Three-shakeable;</li>
+        <li class="features-list__item">Extendable;</li>
+        <li class="features-list__item">Types support;</li>
+      </ul>
+    </section>
+
+    <section class="result">
+      <h2>Result:</h2>
+      <code [innerHTML]="code" class="code language-javascript"></code>
+    </section>
+  </section>
+
+</form>

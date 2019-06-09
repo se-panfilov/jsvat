@@ -1,20 +1,5 @@
 @import "../assets/colors";
 
-.logo {
-  font-weight: bold;
-  font-style: italic;
-  font-size: 6.2em;
-  text-decoration: underline;
-  color: $primary_color;
-  text-align: center;
-  padding: 1.1em;
-  background-color: $bg_primary_color;
-
-  &__vat {
-    color: $secondary_color;
-  }
-}
-
 .code {
   display: block;
   background-color: $bg_dark_color;
