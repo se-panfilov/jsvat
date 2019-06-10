@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { MatButtonModule, MatCheckboxModule, MatExpansionModule, MatInputModule } from '@angular/material'
+import { MatButtonModule, MatCheckboxModule, MatDividerModule, MatExpansionModule, MatInputModule } from '@angular/material'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
@@ -9,6 +9,7 @@ import { CommonPlaygroundComponent } from './common-playground/common-playground
 import { CountriesPlaygroundComponent } from './countries-playground/countries-playground.component'
 import { LogoComponent } from './logo/logo.component'
 import { NavbarComponent } from './navbar/navbar.component'
+import { GettingStartedComponent } from './getting-started/getting-started.component'
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { NavbarComponent } from './navbar/navbar.component'
     NavbarComponent,
     LogoComponent,
     CommonPlaygroundComponent,
-    CountriesPlaygroundComponent
+    CountriesPlaygroundComponent,
+    GettingStartedComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +28,8 @@ import { NavbarComponent } from './navbar/navbar.component'
     MatButtonModule,
     MatInputModule,
     MatCheckboxModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
