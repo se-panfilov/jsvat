@@ -49,3 +49,11 @@
   display: block;
   background-color: $bg_dark_color;
 }
+
+.countries-select {
+  ::ng-deep {
+    .mat-expansion-panel {
+      background-color: $bg_primary_color;
+    }
+  }
+}
