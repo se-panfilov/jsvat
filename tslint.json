@@ -5,6 +5,10 @@
     "tslint-immutable"
   ],
   "rules": {
+    "array-type": [
+      true,
+      "generic"
+    ],
     "interface-name": [
       true,
       "never-prefix"

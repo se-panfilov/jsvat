@@ -30,6 +30,7 @@ export class CountriesPlaygroundComponent implements OnInit {
     })
   }
 
+  // tslint:disable-next-line:readonly-array
   createItems(): Array<FormGroup> {
     return this.countries.map(c => {
       return this.fb.group({
