@@ -1,0 +1,10 @@
+@import "../../assets/colors";
+
+.misc {
+  text-align: center;
+  padding: 15px;
+
+  &__item {
+    color: $primary_color;
+  }
+}

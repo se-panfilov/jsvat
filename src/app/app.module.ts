@@ -9,7 +9,8 @@ import { CommonPlaygroundComponent } from './common-playground/common-playground
 import { CountriesPlaygroundComponent } from './countries-playground/countries-playground.component'
 import { LogoComponent } from './logo/logo.component'
 import { NavbarComponent } from './navbar/navbar.component'
-import { GettingStartedComponent } from './getting-started/getting-started.component'
+import { GettingStartedComponent } from './getting-started/getting-started.component';
+import { MiscComponent } from './misc/misc.component'
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { GettingStartedComponent } from './getting-started/getting-started.compo
     LogoComponent,
     CommonPlaygroundComponent,
     CountriesPlaygroundComponent,
-    GettingStartedComponent
+    GettingStartedComponent,
+    MiscComponent
   ],
   imports: [
     BrowserModule,
