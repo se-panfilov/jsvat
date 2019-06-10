@@ -13,7 +13,7 @@ export class CommonPlaygroundComponent implements OnInit {
   public code: string | undefined
   public panelOpenState = false
 
-  private countries: ReadonlyArray<Country> = []
+  public countries: ReadonlyArray<Country> = []
 
   readonly form: FormGroup = this.fb.group({
     vat: ''

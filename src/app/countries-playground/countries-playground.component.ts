@@ -26,11 +26,7 @@ export class CountriesPlaygroundComponent implements OnInit {
     this.countriesChanged.emit(countries)
 
     this.form.valueChanges.subscribe(({ items }) => {
-
-      // TODO (S.Panfilov) sometimes it's not a countries, but form values
-
-      console.info(items)
-      this.countriesChanged.emit(items)
+      this.countriesChanged.emit(this.getCountriesByCodes(items))
     })
   }
 
@@ -38,10 +34,22 @@ export class CountriesPlaygroundComponent implements OnInit {
     return this.countries.map(c => {
       return this.fb.group({
         name: c.name,
+        code: c.codes[0],
         isSelected: true
       })
     })
   }
 
+  getCountriesByCodes(list: ReadonlyArray<CountryControl>): ReadonlyArray<Country> {
+    return list.filter(item => item.isSelected).map(item => {
+      return this.countries.find(c => c.codes[0] === item.code)
+    })
+  }
 
+}
+
+export interface CountryControl {
+  name: string,
+  code: string,
+  isSelected: boolean
 }

@@ -9,8 +9,11 @@
     <mat-accordion>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
-          <mat-panel-description>
+          <mat-panel-title>
             Click here to select allowed countries
+          </mat-panel-title>
+          <mat-panel-description style="display: inline;">
+            Selected countries: <span class="highlight"> {{countries.length}}</span>
           </mat-panel-description>
         </mat-expansion-panel-header>
         <jsvat-countries-playground (countriesChanged)="onCountriesListUpdated($event)"></jsvat-countries-playground>

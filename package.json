@@ -2,7 +2,7 @@
   "name": "jsvat-demo",
   "version": "2.0.0",
   "scripts": {
-    "start": "ng serve",
+    "start": "ng serve --hmr",
     "build:prod": "ng build --prod --aot --output-hashing=all --build-optimizer",
     "lint": "ng lint"
   },
