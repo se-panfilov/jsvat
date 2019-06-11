@@ -14,18 +14,19 @@
 
 .bottom {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   padding: 45px;
+  align-self: center;
 }
 
 .features {
   flex: 1;
-  padding: 0 25px;
+  padding: 0 200px;
 }
 
 .result {
   flex: 1;
-  padding: 0 25px;
+  padding: 0 200px;
 }
 
 .form {
@@ -57,4 +58,8 @@
       background-color: $bg_primary_color;
     }
   }
+}
+
+.title {
+  padding-bottom: 15px;
 }

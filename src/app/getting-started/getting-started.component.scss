@@ -4,14 +4,26 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 45px;
+  padding: 75px;
+
+  &__text {
+    flex-direction: row;
+    display: flex;
+    padding: 15px;
+  }
 }
 
 .installation {
   color: $primary_color;
-  padding: 15px;
+  padding: 0 15px;
+  font-size: 1.1em;
 }
 
 .code {
   background-color: $bg_dark_color;
+  padding: 75px;
+}
+
+.title {
+  padding-bottom: 15px;
 }

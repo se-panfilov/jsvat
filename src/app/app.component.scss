@@ -1,7 +1,38 @@
 @import "../assets/colors";
 
+$extra-small: 1500px;
+$small: 1600px;
+$small-medium: 1800px;
+$medium: 2000px;
+$medium-big: 2500px;
+
 .content {
   display: flex;
   justify-content: center;
   flex-direction: column;
+  margin: 0 800px;
+}
+
+@media screen and (max-width: $medium-big) {
+  .content {
+    margin: 0 700px;
+  }
+}
+
+@media screen and (max-width: $medium) {
+  .content {
+    margin: 0 300px;
+  }
+}
+
+@media screen and (max-width: $small-medium) {
+  .content {
+    margin: 0 75px;
+  }
+}
+
+@media screen and (max-width: $extra-small) {
+  .content {
+    margin: 0;
+  }
 }
