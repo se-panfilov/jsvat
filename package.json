@@ -3,9 +3,11 @@
   "version": "2.0.0",
   "scripts": {
     "start": "ng serve --hmr",
-    "build:prod": "ng build --prod --aot --output-hashing=all --build-optimizer --outputPath static && yarn move:index",
+    "build:prod": "ng build --prod --aot --output-hashing=all --build-optimizer --outputPath static && yarn move:index && yarn replace",
     "move:index": "cpx ./static/index.html ./ && rimraf ./static/index.html",
-    "replace:paths": "./node_modules/.bin/replace-in-file",
+    "replace": "yarn replace:src && yarn replace:href",
+    "replace:src": "./node_modules/.bin/replace-in-file /src=\\\"/g src=\\\"jsvat/static/ ./index.html --isRegex true",
+    "replace:href": "./node_modules/.bin/replace-in-file /href=\\\"styles/g href=\\\"jsvat/static/styles ./index.html --isRegex true",
     "lint": "ng lint"
   },
   "private": true,
