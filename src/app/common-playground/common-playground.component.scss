@@ -42,6 +42,12 @@
   }
 }
 
+.enter-text {
+  text-align: center;
+  margin-bottom: 2px;
+  margin-top: 20px
+}
+
 .highlight {
   color: $primary_color;
   font-weight: bold;
@@ -70,8 +76,12 @@
 .vat-examples {
   display: inline-block;
   font-size: 0.9em;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 
   &__item {
+    display: inline;
     margin: 0 5px;
     padding: 3px;
     background-color: $bg_primary_color;
@@ -80,6 +90,7 @@
   }
 
   &__description {
+    display: inline;
     margin: 0 5px;
     padding: 0 3px;
     color: #999999b3;

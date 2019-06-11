@@ -1,15 +1,17 @@
 <form [formGroup]="form" class="form -vertical">
   <div class="hint">
-    <p style="text-align: center; margin-bottom: 2px;">Enter <span class="highlight">VAT</span> to test
-      (<span class="vat-examples">
-        <mat-hint class="vat-examples__description">e.g.</mat-hint>
-        <mat-hint class="vat-examples__item">BE0411905847</mat-hint>
-        <mat-hint class="vat-examples__item">RU5024051807</mat-hint>
-        <mat-hint class="vat-examples__item">NL000000024B01</mat-hint>
-        <mat-hint class="vat-examples__item">MT10365719</mat-hint>
-        <mat-hint class="vat-examples__item">ESA0011012B</mat-hint>
-    </span>)
-    </p>
+    <div class="enter-text">Enter <span class="highlight">VAT</span> to test
+      (
+      <ul class="vat-examples">
+        <li class="vat-examples__description">e.g.</li>
+        <li class="vat-examples__item">BE0411905847</li>
+        <li class="vat-examples__item">RU5024051807</li>
+        <li class="vat-examples__item">NL000000024B01</li>
+        <li class="vat-examples__item">MT10365719</li>
+        <li class="vat-examples__item">ESA0011012B</li>
+      </ul>
+      )
+    </div>
   </div>
 
   <section class="playground">
