@@ -63,3 +63,25 @@
 .title {
   padding-bottom: 15px;
 }
+
+.hint {
+}
+
+.vat-examples {
+  display: inline-block;
+  font-size: 0.9em;
+
+  &__item {
+    margin: 0 5px;
+    padding: 3px;
+    background-color: $bg_primary_color;
+    border: 1px solid $bg_darker_color;
+    color: #999999b3;
+  }
+
+  &__description {
+    margin: 0 5px;
+    padding: 0 3px;
+    color: #999999b3;
+  }
+}

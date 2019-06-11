@@ -1,5 +1,16 @@
 <form [formGroup]="form" class="form -vertical">
-  <p style="text-align: center">Enter your <span class="highlight">VAT</span> here:</p>
+  <div class="hint">
+    <p style="text-align: center; margin-bottom: 2px;">Enter <span class="highlight">VAT</span> to test
+      (<span class="vat-examples">
+        <mat-hint class="vat-examples__description">e.g.</mat-hint>
+        <mat-hint class="vat-examples__item">BE0411905847</mat-hint>
+        <mat-hint class="vat-examples__item">RU5024051807</mat-hint>
+        <mat-hint class="vat-examples__item">NL000000024B01</mat-hint>
+        <mat-hint class="vat-examples__item">MT10365719</mat-hint>
+        <mat-hint class="vat-examples__item">ESA0011012B</mat-hint>
+    </span>)
+    </p>
+  </div>
 
   <section class="playground">
     <mat-form-field>
