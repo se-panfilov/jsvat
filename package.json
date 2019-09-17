@@ -8,7 +8,7 @@
   "types": "./types/index.d.ts",
   "scripts": {
     "build": "rimraf lib && yarn build:commonjs && yarn build:es6 && yarn build:amd && yarn build:umd && yarn build:system",
-    "build:commonjs": "yarn ts --outDir lib/commonjs --module CommonJS",
+    "build:commonjs": "yarn ts --outDir lib/commonjs --module CommonJS --target ES5",
     "build:es6": "yarn ts --outDir lib/es6 --module ES6",
     "build:amd": "yarn ts --outDir lib/amd --module AMD",
     "build:umd": "yarn ts --outDir lib/umd --module UMD",
