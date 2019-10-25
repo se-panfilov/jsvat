@@ -24,10 +24,10 @@ Small library to check validity VAT numbers (European + some others counties). (
 - no dependencies;
 - no http calls;
 - 2-step checks: math + regexp;
-- three-shakeable;
+- tree-shakeable;
 - extendable;
-- dynamically add/remove countries with which yu want to check the VAT;
-- written with `typescript`;
+- dynamically add/remove countries with which you want to check the VAT;
+- written in `typescript`;
 
 Installation
 ----------
