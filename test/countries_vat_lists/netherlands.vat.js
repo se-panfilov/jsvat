@@ -48,7 +48,8 @@ export const valid = [
   'NL822502975B01',
   'NL822667800B01',
   'NL822754812B01',
-  'NL823363247B01'
+  'NL823363247B01',
+  'NL123456789B13'
 ]
 
 export const invalid = [
