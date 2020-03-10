@@ -46,6 +46,14 @@ function removeExtraChars(vat: string = ''): string {
   return vat.toString().toUpperCase().replace(/(\s|-|\.)+/g, '');
 }
 
+function getCountryCode(country: Country): string {
+  if (country.name === 'Greece') {
+    return 'EL';
+  } else {
+    return country.codes[0];
+  }
+}
+
 function getCountry(vat: string, countriesList: ReadonlyArray<Country>): Country | undefined {
   for (const country of countriesList) {
     const regexpValidRes = isVatValidToRegexp(vat, country.rules.regex);
