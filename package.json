@@ -1,6 +1,6 @@
 {
   "name": "jsvat",
-  "version": "2.1.4",
+  "version": "2.2.0",
   "description": "Check the validity of the format of an EU VAT number",
   "main": "./lib/commonjs/index.js",
   "module": "./lib/es6/index.js",
@@ -49,15 +49,15 @@
   "private": false,
   "dependencies": {},
   "devDependencies": {
-    "@babel/preset-env": "7.6.3",
+    "@babel/preset-env": "7.9.5",
     "babel": "6.23.0",
     "babel-plugin-transform-es2015-modules-commonjs": "6.26.2",
-    "jest": "24.9.0",
-    "rimraf": "3.0.0",
-    "ts-loader": "6.2.0",
-    "tslint": "5.20.0",
+    "jest": "25.2.7",
+    "rimraf": "3.0.2",
+    "ts-loader": "6.2.2",
+    "tslint": "6.1.1",
     "tslint-config-prettier": "1.18.0",
     "tslint-immutable": "6.0.1",
-    "typescript": "3.6.4"
+    "typescript": "3.8.3"
   }
 }
