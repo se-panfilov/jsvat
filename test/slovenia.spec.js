@@ -4,23 +4,23 @@ import { addCharsToString, checkInvalidVat, checkValidVat } from './utils'
 
 describe('Slovenia', () => {
 
-  it('should return true result for valid VATs', () => {
+  it('should return "true" result for valid VATs', () => {
     valid.forEach(vat => checkValidVat(vat, [slovenia], codes, name))
   })
 
-  it('should return true result for valid VATs with extra dash characters', () => {
+  it('should return "true" result for valid VATs with extra dash characters', () => {
     valid
       .map(vat => addCharsToString(vat, '-'))
       .forEach(vat => checkValidVat(vat, [slovenia], codes, name))
   })
 
-  it('should return true result for valid VATs with extra space characters', () => {
+  it('should return "true" result for valid VATs with extra space characters', () => {
     valid
       .map(vat => addCharsToString(vat, ' '))
       .forEach(vat => checkValidVat(vat, [slovenia], codes, name))
   })
 
-  it('should return false result for invalid VATs', () => {
+  it('should return "false" result for invalid VATs', () => {
     invalid.forEach(vat => checkInvalidVat(vat, [slovenia]))
   })
 
