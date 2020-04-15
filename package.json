@@ -1,6 +1,6 @@
 {
   "name": "jsvat-demo",
-  "version": "2.1.2",
+  "version": "2.3.0",
   "scripts": {
     "start": "ng serve --hmr",
     "build:prod": "ng build --prod --aot --output-hashing=all --build-optimizer --outputPath static && yarn move:index && yarn replace",
@@ -40,6 +40,7 @@
     "codelyzer": "4.4.3",
     "cpx": "1.5.0",
     "install": "0.12.2",
+    "node-sass": "4.13.1",
     "replace-in-file": "4.1.0",
     "rimraf": "2.6.3",
     "ts-node": "5.0.1",
