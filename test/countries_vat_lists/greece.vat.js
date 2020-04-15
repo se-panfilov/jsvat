@@ -54,7 +54,7 @@ export const valid = [
 export const validOnlyByFormat = [
   'EL000000022',
   'EL000000023',
-  'EL000000024',
+  'EL000000026',
   'EL000000025'
 ]
 
