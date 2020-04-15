@@ -66,6 +66,13 @@ export const valid = [
   'ATU66889218'
 ]
 
+export const validOnlyByFormat = [
+  'ATU00000000',
+  'ATU00000001',
+  'ATU00000002',
+  'ATU00000003'
+]
+
 export const invalid = [
   'ATV66889218',
   'ATU10223001',

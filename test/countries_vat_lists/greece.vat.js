@@ -51,6 +51,13 @@ export const valid = [
   'EL998920231'
 ]
 
+export const validOnlyByFormat = [
+  'EL000000022',
+  'EL000000023',
+  'EL000000026',
+  'EL000000025'
+]
+
 export const invalid = [
   'EL000000022',
   'EL000000032',

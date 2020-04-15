@@ -63,6 +63,13 @@ export const valid = [
   'RO13499400'
 ]
 
+export const validOnlyByFormat = [
+  'RO1000000',
+  'RO1000001',
+  'RO1000002',
+  'RO1000003'
+]
+
 export const invalid = [
   'RO11198698',
   'RO99907',

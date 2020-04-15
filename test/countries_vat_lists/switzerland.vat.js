@@ -75,6 +75,13 @@ export const valid = [
   'CHE-432.825.998 IVA',
 ]
 
+export const validOnlyByFormat = [
+  'CHE000000001MWST',
+  'CHE000000002MWST',
+  'CHE000000003MWST',
+  'CHE000000004MWST'
+]
+
 export const invalid = [
   'CHE-432.825.99-MWST',
   'CHE-432.825.9980-MWST',

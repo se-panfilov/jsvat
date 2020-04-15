@@ -26,6 +26,13 @@ export const valid = [
   'RS129391320'
 ]
 
+export const validOnlyByFormat = [
+  'RS100000000',
+  'RS100000001',
+  'RS100000002',
+  'RS100000003'
+]
+
 export const invalid = [
   'RS12939132',
   'RS1293913201',

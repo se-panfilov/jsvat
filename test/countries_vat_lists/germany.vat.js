@@ -45,6 +45,13 @@ export const valid = [
   'DE813495425'
 ]
 
+export const validOnlyByFormat = [
+  'DE200000001',
+  'DE200000002',
+  'DE200000003',
+  'DE200000004'
+]
+
 export const invalid = [
   'DE111111126',
   'DE111111127',

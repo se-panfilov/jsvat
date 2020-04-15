@@ -55,6 +55,13 @@ export const valid = [
   'HU65730980'
 ]
 
+export const validOnlyByFormat = [
+  'HU00000001',
+  'HU00000002',
+  'HU00000003',
+  'HU00000004'
+]
+
 export const invalid = [
   'HU65730981',
   'HU65731980'

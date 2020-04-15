@@ -52,6 +52,13 @@ export const valid = [
   'DK78805218'
 ]
 
+export const validOnlyByFormat = [
+  'DK10000000',
+  'DK10000001',
+  'DK10000002',
+  'DK10000003'
+]
+
 export const invalid = [
   'DK10000000',
   'DK10000010',

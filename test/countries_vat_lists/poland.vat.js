@@ -49,6 +49,13 @@ export const valid = [
   'PL9691068493'
 ]
 
+export const validOnlyByFormat = [
+  'PL7000000000',
+  'PL7000000001',
+  'PL7000000002',
+  'PL7000000003'
+]
+
 export const invalid = [
   'PL7122913628',
   'PL7122913427'

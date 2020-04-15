@@ -62,6 +62,13 @@ export const valid = [
   'LT907560811'
 ]
 
+export const validOnlyByFormat = [
+  'LT000000000',
+  'LT000000001',
+  'LT000000002',
+  'LT000000003'
+]
+
 export const invalid = [
   'LT123456789',
   'LT1234567890',

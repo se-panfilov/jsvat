@@ -50,6 +50,13 @@ export const valid = [
   'LU25318872'
 ]
 
+export const validOnlyByFormat = [
+  'LU20000000',
+  'LU20000001',
+  'LU20000002',
+  'LU20000003'
+]
+
 export const invalid = [
   'LU10000350',
   'LU00000200',

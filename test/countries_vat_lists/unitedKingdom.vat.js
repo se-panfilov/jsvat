@@ -64,6 +64,13 @@ export const valid = [
   'GBGD103'
 ]
 
+export const validOnlyByFormat = [
+  'GB000000000',
+  'GB000000001',
+  'GB000000002',
+  'GB000000003'
+]
+
 export const invalid = [
   'GB999000103',
   'GB999000201',

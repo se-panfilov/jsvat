@@ -63,6 +63,13 @@ export const valid = [
   'IT01709820995'
 ]
 
+export const validOnlyByFormat = [
+  'IT00000000000',
+  'IT00000000001',
+  'IT00000000002',
+  'IT00000000003'
+]
+
 export const invalid = [
   'IT00000010210',
   'IT10000100010',

@@ -58,6 +58,13 @@ export const valid = [
   'BG9902280002'
 ]
 
+export const validOnlyByFormat = [
+  'BG800000000',
+  'BG800000001',
+  'BG800000002',
+  'BG800000003'
+]
+
 export const invalid = [
   'BG101004509',
   'BG101004507',

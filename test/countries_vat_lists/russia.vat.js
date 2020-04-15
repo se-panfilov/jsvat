@@ -35,6 +35,13 @@ export const valid = [
   'RU9909310782'
 ]
 
+export const validOnlyByFormat = [
+  'RU7700000001',
+  'RU7700000002',
+  'RU7700000003',
+  'RU7700000004'
+]
+
 export const invalid = [
   'RU5027187067',
   'RU524911659',

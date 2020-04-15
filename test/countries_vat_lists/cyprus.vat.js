@@ -44,6 +44,14 @@ export const valid = [
   'CY99000027S',
   'CY99200002N'
 ]
+
+export const validOnlyByFormat = [
+  'CY12000000C',
+  'CY12000001C',
+  'CY12000002C',
+  'CY12000003C'
+]
+
 export const invalid = [
   'CY0',
   'CY00000000W',

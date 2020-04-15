@@ -211,6 +211,13 @@ export const valid = [
   'BE897231984'
 ]
 
+export const validOnlyByFormat = [
+  'BE000000000',
+  'BE000000001',
+  'BE000000002',
+  'BE000000003'
+]
+
 export const invalid = [
   'BE897221791',
   'BE0897221791',
