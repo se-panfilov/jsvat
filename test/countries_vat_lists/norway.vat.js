@@ -55,10 +55,10 @@ export const valid = [
 ]
 
 export const validOnlyByFormat = [
-  'NO000000000',
-  'NO000000001',
-  'NO000000002',
-  'NO000000003'
+  'NO962209011',
+  'NO962209012',
+  'NO962209013',
+  'NO962209014'
 ]
 
 export const invalid = [

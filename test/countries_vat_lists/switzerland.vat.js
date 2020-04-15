@@ -76,10 +76,10 @@ export const valid = [
 ]
 
 export const validOnlyByFormat = [
-  'CHE000000000MWST',
   'CHE000000001MWST',
   'CHE000000002MWST',
-  'CHE000000003MWST'
+  'CHE000000003MWST',
+  'CHE000000004MWST'
 ]
 
 export const invalid = [

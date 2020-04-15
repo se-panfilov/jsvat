@@ -50,10 +50,10 @@ export const valid = [
 ]
 
 export const validOnlyByFormat = [
-  'PL0000000000',
-  'PL0000000001',
-  'PL0000000002',
-  'PL0000000003'
+  'PL7000000000',
+  'PL7000000001',
+  'PL7000000002',
+  'PL7000000003'
 ]
 
 export const invalid = [

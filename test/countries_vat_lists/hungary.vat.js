@@ -56,10 +56,10 @@ export const valid = [
 ]
 
 export const validOnlyByFormat = [
-  'HU00000000',
   'HU00000001',
   'HU00000002',
-  'HU00000003'
+  'HU00000003',
+  'HU00000004'
 ]
 
 export const invalid = [

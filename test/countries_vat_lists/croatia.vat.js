@@ -49,10 +49,10 @@ export const valid = [
 ]
 
 export const validOnlyByFormat = [
-  'HR00000000000',
-  'HR00000000001',
-  'HR00000000002',
-  'HR00000000003'
+  'HR90000000000',
+  'HR90000000001',
+  'HR90000000003',
+  'HR90000000004'
 ]
 
 export const invalid = [

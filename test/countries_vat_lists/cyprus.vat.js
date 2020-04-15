@@ -46,10 +46,10 @@ export const valid = [
 ]
 
 export const validOnlyByFormat = [
-  'CY000000000',
-  'CY000000000',
-  'CY000000000',
-  'CY000000000'
+  'CY12000000C',
+  'CY12000001C',
+  'CY12000002C',
+  'CY12000003C'
 ]
 
 export const invalid = [

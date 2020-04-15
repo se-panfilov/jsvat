@@ -52,10 +52,10 @@ export const valid = [
 ]
 
 export const validOnlyByFormat = [
-  'PT000000000',
-  'PT000000001',
-  'PT000000002',
-  'PT000000003'
+  'PT100000012',
+  'PT100000013',
+  'PT100000014',
+  'PT100000015'
 ]
 
 export const invalid = [

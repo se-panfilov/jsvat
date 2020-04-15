@@ -70,10 +70,10 @@ export const valid = [
 ]
 
 export const validOnlyByFormat = [
-  'ESU00000000',
-  'ESU00000001',
-  'ESU00000002',
-  'ESU00000003'
+  'ESA0000002A',
+  'ESA0000003A',
+  'ESA0000004A',
+  'ESA0000005A'
 ]
 
 export const invalid = [

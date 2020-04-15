@@ -79,10 +79,10 @@ export const valid = [
 ]
 
 export const validOnlyByFormat = [
-  'IE00000000H',
-  'IE00000001H',
-  'IE00000002H',
-  'IE00000003H'
+  'IE0000000H',
+  'IE0000001H',
+  'IE0000002H',
+  'IE0000003H'
 ]
 
 export const invalid = [

@@ -49,10 +49,10 @@ export const valid = [
 ]
 
 export const validOnlyByFormat = [
-  'SI00000000',
-  'SI00000001',
-  'SI00000002',
-  'SI00000003'
+  'SI90000000',
+  'SI90000001',
+  'SI90000002',
+  'SI90000003'
 ]
 
 export const invalid = [

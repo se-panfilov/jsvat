@@ -53,10 +53,10 @@ export const valid = [
 ]
 
 export const validOnlyByFormat = [
-  'EE000000000',
-  'EE000000001',
-  'EE000000002',
-  'EE000000003'
+  'EE100000000',
+  'EE100000001',
+  'EE100000002',
+  'EE100000003'
 ]
 
 export const invalid = [

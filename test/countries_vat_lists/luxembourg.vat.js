@@ -51,10 +51,10 @@ export const valid = [
 ]
 
 export const validOnlyByFormat = [
-  'LU00000000',
-  'LU00000001',
-  'LU00000002',
-  'LU00000003'
+  'LU20000000',
+  'LU20000001',
+  'LU20000002',
+  'LU20000003'
 ]
 
 export const invalid = [

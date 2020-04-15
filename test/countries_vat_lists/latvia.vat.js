@@ -55,8 +55,8 @@ export const valid = [
 export const validOnlyByFormat = [
   'LV50000000000',
   'LV50000000001',
-  'LV50000000002',
-  'LV50000000003'
+  'LV50000000003',
+  'LV50000000004'
 ]
 
 export const invalid = [
