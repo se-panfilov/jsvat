@@ -50,10 +50,10 @@ export const valid = [
 ]
 
 export const validOnlyByFormat = [
-  'FI00000000',
-  'FI00000001',
-  'FI00000002',
-  'FI00000003'
+  'FI00000023',
+  'FI00000024',
+  'FI00000025',
+  'FI00000026'
 ]
 
 export const invalid = [

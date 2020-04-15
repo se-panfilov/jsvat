@@ -64,10 +64,10 @@ export const valid = [
 ]
 
 export const validOnlyByFormat = [
-  'RO0000000',
-  'RO0000001',
-  'RO0000002',
-  'RO0000003'
+  'RO1000000',
+  'RO1000001',
+  'RO1000002',
+  'RO1000003'
 ]
 
 export const invalid = [
