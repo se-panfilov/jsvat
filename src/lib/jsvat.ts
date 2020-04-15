@@ -53,11 +53,7 @@ function removeExtraChars(vat: string = ''): string {
 }
 
 function getCountryCode(country: Country): string {
-  if (country.name === 'Greece') {
-    return 'EL';
-  } else {
-    return country.codes[0];
-  }
+  return (country.name === 'Greece') ? 'EL' : country.codes[0];
 }
 
 function getCountry(vat: string, countriesList: ReadonlyArray<Country>): CountryWithFormatValid | undefined {
@@ -98,7 +94,7 @@ export function checkVAT(vat: string, countriesList: ReadonlyArray<Country> = []
 
   const country = getCountry(cleanVAT, countriesList);
   if (!country) return result;
-  if (!country.formatValid) return makeResult(cleanVAT, country.formatValid, country)
+  if (!country.formatValid) return makeResult(cleanVAT, country.formatValid, country);
 
   const isValid = isVatValid(cleanVAT, country);
 
