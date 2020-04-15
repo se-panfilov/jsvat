@@ -1,6 +1,6 @@
 import { belgium } from '../index'
 import { codes, invalid, name, valid } from './countries_vat_lists/belgium.vat'
-import { addCharsToString, checkInValidVat, checkValidVat } from './utils'
+import { addCharsToString, checkInvalidVat, checkValidVat } from './utils'
 
 describe('Belgium', () => {
 
@@ -21,7 +21,7 @@ describe('Belgium', () => {
   })
 
   it('should return false result for invalid VATs', () => {
-    invalid.forEach(vat => checkInValidVat(vat, [belgium]))
+    invalid.forEach(vat => checkInvalidVat(vat, [belgium]))
   })
 
 })
