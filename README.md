@@ -21,20 +21,26 @@ What is it?
 
 Small library to check validity VAT numbers (European + some others counties). ([learn more][1] about VAT)
 
-- no dependencies;
-- no http calls;
+- No dependencies;
+- No http calls;
 - 2-step checks: math + regexp;
-- tree-shakeable;
-- extendable;
-- dynamically add/remove countries with which you want to check the VAT;
-- written in `typescript`;
+- Tree-shakeable;
+- Extendable;
+- Separate checks for valid VAT and valid VAT format;
+- Dynamically add/remove countries with which you want to check the VAT;
+- Detecting possible country before you finish;
+- Typescript;
 
 Installation
 ----------
 
 Installation:
 
-  `npm i jsvat --save` or `yarn add jsvat`
+  ```bash
+  npm i jsvat --save
+  ```
+
+(or `yarn add jsvat`)
 
 For legacy versions (below v2.0.0) also possible: Bower: `bower i jsvat --save`
 
@@ -52,14 +58,15 @@ Getting Started
 Return value
 ---------
  
-`checkVAT()` returns a `Result` Object:
+`checkVAT()` returns `VatCheckResult` object:
 
 ```typescript
 
 export interface VatCheckResult {
     value?: string; // 'BE0411905847': your VAT without extra characters (like '-', spaces, etc)
-    isValid: boolean; // main result - is VAT correct against provided countries or not
-    country?: { // VAT's couuntry (null if not found)
+    isValid: boolean; // The main result. Indicates if VAT is correct against provided countries or not
+    isValidFormat: boolean; // Indicates the validation of the format of VAT only. E.g. "BE0411905847" is a valid VAT, and "BE0897221791" is not. But they both has valid format, so "isValidFormat" will return "true"
+    isSupportedCountry: boolean; // Indicates if "jsvat" could recognize the VAT. Sometimes you want to understand - if it's an invalid VAT from supported country or from an unknown one   country?: { // VAT's country (null if not found). By "supported" I mean imported. 
         name: string; // ISO country name of VAT
         isoCode: { // Country ISO codes
             short: string;
