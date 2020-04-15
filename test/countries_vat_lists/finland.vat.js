@@ -49,6 +49,13 @@ export const valid = [
   'FI24710461'
 ]
 
+export const validOnlyByFormat = [
+  'FI00000000',
+  'FI00000001',
+  'FI00000002',
+  'FI00000003'
+]
+
 export const invalid = [
   'FI09853601',
   'FI00000023',

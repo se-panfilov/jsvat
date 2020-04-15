@@ -49,6 +49,13 @@ export const valid = [
   'MT20973507'
 ]
 
+export const validOnlyByFormat = [
+  'MT10000001',
+  'MT10000002',
+  'MT10000003',
+  'MT20000004'
+]
+
 export const invalid = [
   'MT2039051',
   'MT20390515'

@@ -48,6 +48,13 @@ export const valid = [
   'SI98511734'
 ]
 
+export const validOnlyByFormat = [
+  'SI00000000',
+  'SI00000001',
+  'SI00000002',
+  'SI00000003'
+]
+
 export const invalid = [
   'SI05936241'
 ]

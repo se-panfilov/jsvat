@@ -20,6 +20,17 @@ export function checkInvalidVat(vat, countriesList) {
   expect(result.isValid).toBe(false)
 }
 
+
+export function checkOnlyValidFormatVat(vat, countriesList) {
+  const result = checkVAT(vat, countriesList)
+
+  if (!result.isValid) console.info('Invalid VAT:', vat);
+
+  expect(result.isValid).toBe(false)
+  expect(result.isSupportedCountry).toBe(true)
+  expect(result.isValidFormat).toBe(true)
+}
+
 export function addCharsToString(item, char) {
   const val = item.split('')
   val.splice(3, 0, char)

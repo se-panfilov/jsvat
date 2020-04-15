@@ -73,6 +73,13 @@ export const valid = [
   'FRAB012345678'
 ]
 
+export const validOnlyByFormat = [
+  'FR00000000000',
+  'FR00000000001',
+  'FR00000000002',
+  'FR00000000003'
+]
+
 export const invalid = [
   'FR00300076967',
   'FR90000000027',

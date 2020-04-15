@@ -51,6 +51,13 @@ export const valid = [
   'PT980405319'
 ]
 
+export const validOnlyByFormat = [
+  'PT000000000',
+  'PT000000001',
+  'PT000000002',
+  'PT000000003'
+]
+
 export const invalid = [
   'PT502757192',
   'PT100000012',

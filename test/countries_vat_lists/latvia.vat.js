@@ -52,6 +52,13 @@ export const valid = [
   'LV90002573483'
 ]
 
+export const validOnlyByFormat = [
+  'LV50000000000',
+  'LV50000000001',
+  'LV50000000002',
+  'LV50000000003'
+]
+
 export const invalid = [
   'LV90001234567',
   'LV12345234567',

@@ -50,6 +50,13 @@ export const valid = [
   'SK7020000680'
 ]
 
+export const validOnlyByFormat = [
+  'SK7000000000',
+  'SK7000000001',
+  'SK7000000002',
+  'SK7000000003'
+]
+
 export const invalid = [
   'SK5407062531',
   'SK7020001680'

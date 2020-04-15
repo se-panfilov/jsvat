@@ -105,6 +105,13 @@ export const valid = [
   'CZ6353050473'
 ]
 
+export const validOnlyByFormat = [
+  'CZ0000000000',
+  'CZ0000000001',
+  'CZ0000000002',
+  'CZ0000000003'
+]
+
 export const invalid = [
   'CZ699001237',
   'CZ2758975',

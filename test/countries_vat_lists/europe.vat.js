@@ -8,6 +8,13 @@ export const valid = [
   'EU826001142'
 ]
 
+export const validOnlyByFormat = [
+  'EU000000000',
+  'EU000000001',
+  'EU000000002',
+  'EU000000003'
+]
+
 export const invalid = [
   'EU123456',
   'EU1234567',

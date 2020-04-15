@@ -78,6 +78,13 @@ export const valid = [
   'IE3214048CH'
 ]
 
+export const validOnlyByFormat = [
+  'IE00000000H',
+  'IE00000001H',
+  'IE00000002H',
+  'IE00000003H'
+]
+
 export const invalid = [
   'IE87654321SA',
   'IE8Z49289A',

@@ -49,6 +49,13 @@ export const valid = [
   'SE556785615701'
 ]
 
+export const validOnlyByFormat = [
+  'SE000000000000',
+  'SE000000000001',
+  'SE000000000002',
+  'SE000000000003'
+]
+
 export const invalid = [
   'SE556188840301',
   'SE000000002301',

@@ -48,6 +48,13 @@ export const valid = [
   'HR97405527203'
 ]
 
+export const validOnlyByFormat = [
+  'HR00000000000',
+  'HR00000000001',
+  'HR00000000002',
+  'HR00000000003'
+]
+
 export const invalid = [
   'HR9363442948',
   'HR93634429488',

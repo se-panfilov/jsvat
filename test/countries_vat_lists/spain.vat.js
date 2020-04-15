@@ -69,6 +69,13 @@ export const valid = [
   'ESA81626905'
 ]
 
+export const validOnlyByFormat = [
+  'ESU00000000',
+  'ESU00000001',
+  'ESU00000002',
+  'ESU00000003'
+]
+
 export const invalid = [
   'ESA0011012A',
   'ES00000001A',
