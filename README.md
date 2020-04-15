@@ -66,7 +66,8 @@ export interface VatCheckResult {
     value?: string; // 'BE0411905847': your VAT without extra characters (like '-', spaces, etc)
     isValid: boolean; // The main result. Indicates if VAT is correct against provided countries or not
     isValidFormat: boolean; // Indicates the validation of the format of VAT only. E.g. "BE0411905847" is a valid VAT, and "BE0897221791" is not. But they both has valid format, so "isValidFormat" will return "true"
-    isSupportedCountry: boolean; // Indicates if "jsvat" could recognize the VAT. Sometimes you want to understand - if it's an invalid VAT from supported country or from an unknown one   country?: { // VAT's country (null if not found). By "supported" I mean imported. 
+    isSupportedCountry: boolean; // Indicates if "jsvat" could recognize the VAT. Sometimes you want to understand - if it's an invalid VAT from supported country or from an unknown one   
+    country?: { // VAT's country (null if not found). By "supported" I mean imported. 
         name: string; // ISO country name of VAT
         isoCode: { // Country ISO codes
             short: string;
