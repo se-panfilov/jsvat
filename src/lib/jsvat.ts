@@ -18,16 +18,21 @@ export interface Country {
   rules: Rules;
 }
 
+export interface CountryWithFormatValid extends Country {
+  formatValid: boolean;
+}
+
 export interface VatCheckResult {
   value?: string;
   isValid: boolean;
   country?: {
     name: string,
     isoCode: { short: string, long: string, numeric: string }
+    formatValid: boolean
   };
 }
 
-function makeResult(vat: string, isValid?: boolean, country?: Country): VatCheckResult {
+function makeResult(vat: string, isValid?: boolean, country?: CountryWithFormatValid): VatCheckResult {
   return {
     value: vat || undefined,
     isValid: Boolean(isValid),
@@ -37,7 +42,8 @@ function makeResult(vat: string, isValid?: boolean, country?: Country): VatCheck
         short: country.codes[0],
         long: country.codes[1],
         numeric: country.codes[2]
-      }
+      },
+      formatValid: country.formatValid,
     }
   };
 }
@@ -46,12 +52,25 @@ function removeExtraChars(vat: string = ''): string {
   return vat.toString().toUpperCase().replace(/(\s|-|\.)+/g, '');
 }
 
-function getCountry(vat: string, countriesList: ReadonlyArray<Country>): Country | undefined {
-  for (const country of countriesList) {
-    const regexpValidRes = isVatValidToRegexp(vat, country.rules.regex);
-    if (regexpValidRes.isValid) return country;
+function getCountryCode(country: Country): string {
+  if (country.name === 'Greece') {
+    return 'EL';
+  } else {
+    return country.codes[0];
   }
+}
 
+function getCountry(vat: string, countriesList: ReadonlyArray<Country>): CountryWithFormatValid | undefined {
+  for (const country of countriesList) {
+    const countryCode = getCountryCode(country);
+    if (vat.startsWith(countryCode)) {
+      const formatValid = isVatValidToRegexp(vat, country.rules.regex);
+      return {
+        ...country,
+        formatValid: formatValid.isValid
+      };
+    }
+  }
   return undefined;
 }
 
@@ -79,8 +98,10 @@ export function checkVAT(vat: string, countriesList: ReadonlyArray<Country> = []
 
   const country = getCountry(cleanVAT, countriesList);
   if (!country) return result;
+  if (!country.formatValid) return makeResult(cleanVAT, country.formatValid, country)
 
   const isValid = isVatValid(cleanVAT, country);
+
   if (isValid) return makeResult(cleanVAT, isValid, country);
 
   return result;

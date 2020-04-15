@@ -19,6 +19,9 @@ export interface Country {
     }) => boolean;
     rules: Rules;
 }
+export interface CountryWithFormatValid extends Country {
+    formatValid: boolean;
+}
 export interface VatCheckResult {
     value?: string;
     isValid: boolean;
@@ -29,6 +32,7 @@ export interface VatCheckResult {
             long: string;
             numeric: string;
         };
+        formatValid: boolean;
     };
 }
 export declare function checkVAT(vat: string, countriesList?: ReadonlyArray<Country>): VatCheckResult;
