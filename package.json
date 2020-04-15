@@ -46,6 +46,9 @@
   ],
   "ignore": {},
   "author": "S.Panfilov <se-panfilov@ya.ru> (https://se-panfilov.github.io)",
+  "contributors": [
+    "Wilgert Velinga <wilgert@wilgert.nl> (http://wilgert.nl)"
+  ],
   "private": false,
   "dependencies": {},
   "devDependencies": {
