@@ -1,5 +1,3 @@
-import JSBI from "jsbi";
-
 import { Country } from "../jsvat";
 
 export const netherlands: Country = {
@@ -58,8 +56,19 @@ function getCharValue(char: string): number {
 }
 
 function isNinetySevenMod(value: string): boolean {
-  const remainder = JSBI.toNumber(
-    JSBI.remainder(JSBI.BigInt(value), JSBI.BigInt(97))
-  );
+  const remainder = mod(value, 97);
   return remainder === 1;
+}
+
+// custom module function, to check module on values above Number limit
+function mod(value: string, divisor: number): number {
+  // Initialize result
+  let res: number = 0;
+
+  // iterate over Value and calculate the mod for each of them
+  for (let i = 0; i < value.length; i++) {
+    res = (res * 10 + +value[i]) % divisor;
+  }
+
+  return res;
 }

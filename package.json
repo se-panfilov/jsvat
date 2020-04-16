@@ -47,9 +47,7 @@
   "ignore": {},
   "author": "S.Panfilov <se-panfilov@ya.ru> (https://se-panfilov.github.io)",
   "private": false,
-  "dependencies": {
-    "jsbi": "3.1.2"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/preset-env": "7.9.5",
     "babel": "6.23.0",
