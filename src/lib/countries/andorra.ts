@@ -1,7 +1,7 @@
 import { Country } from '../jsvat';
 
-export const andorre: Country = {
-  name: 'Andorre',
+export const andorra: Country = {
+  name: 'Andorra',
   codes: ['AD', 'AND', '020'],
   calcFn: (vat: string): boolean => {
     return vat.length === 8;

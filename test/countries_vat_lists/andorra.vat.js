@@ -1,4 +1,4 @@
-export const name = 'Andorre'
+export const name = 'Andorra'
 
 export const codes = ['AD', 'AND', '020']
 
