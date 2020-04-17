@@ -36,11 +36,11 @@ export const netherlands: Country = {
   },
   rules: {
     multipliers: {
-      common: [9, 8, 7, 6, 5, 4, 3, 2],
+      common: [9, 8, 7, 6, 5, 4, 3, 2]
     },
     regex: [/^(NL)(\d{9}B\d{2})$/],
-    additional: [/^(\d{9})B\d{2}$/],
-  },
+    additional: [/^(\d{9})B\d{2}$/]
+  }
 };
 
 function getCharValue(char: string): number {
