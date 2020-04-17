@@ -1,1 +1,1 @@
-site for jsvat
+The site for "jsvat" lib
