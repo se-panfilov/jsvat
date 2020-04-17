@@ -8,8 +8,8 @@ export const latvia: Country = {
 
     // Differentiate between legal entities and natural bodies. For the latter we simply check that
     // the first six digits correspond to valid DDMMYY dates.
-    if ((/^[0-3]/).test(vat)) {
-      return Boolean((/^[0-3][0-9][0-1][0-9]/).test(vat));
+    if (/^[0-3]/.test(vat)) {
+      return Boolean(/^[0-3][0-9][0-1][0-9]/.test(vat));
     } else {
       // Extract the next digit and multiply by the counter.
       for (let i = 0; i < 10; i++) {
@@ -20,11 +20,11 @@ export const latvia: Country = {
       if (total % 11 === 4 && Number(vat[0]) === 9) total = total - 45;
 
       if (total % 11 === 4) {
-        total = 4 - total % 11;
+        total = 4 - (total % 11);
       } else if (total % 11 > 4) {
-        total = 14 - total % 11;
+        total = 14 - (total % 11);
       } else if (total % 11 < 4) {
-        total = 3 - total % 11;
+        total = 3 - (total % 11);
       }
 
       // Compare it with the last character of the VAT number. If it's the same, then it's valid.

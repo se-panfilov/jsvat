@@ -5,3 +5,4 @@ node_modules
 .DS_Store
 coverage
 package-lock.json
+src/lib/**/*.js

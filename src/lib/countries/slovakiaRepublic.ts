@@ -5,7 +5,7 @@ export const slovakiaRepublic: Country = {
   codes: ['SK', 'SVK', '703'],
   calcFn: (vat: string): boolean => {
     const expect = 0;
-    const checkDigit = (Number(vat) % 11);
+    const checkDigit = Number(vat) % 11;
     return checkDigit === expect;
   },
   rules: {

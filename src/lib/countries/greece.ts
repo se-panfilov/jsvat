@@ -7,7 +7,7 @@ export const greece: Country = {
     let total = 0;
 
     // eight character numbers should be prefixed with an 0.
-    const newVat = (vat.length === 8) ? '0' + vat : vat;
+    const newVat = vat.length === 8 ? '0' + vat : vat;
 
     // Extract the next digit and multiply by the counter.
     for (let i = 0; i < 8; i++) {
@@ -16,7 +16,7 @@ export const greece: Country = {
 
     // Establish check digit.
     total = total % 11;
-    total = (total > 9) ? 0 : total;
+    total = total > 9 ? 0 : total;
 
     // Compare it with the last character of the VAT number. If it's the same, then it's valid.
     const expect = Number(newVat.slice(8, 9));

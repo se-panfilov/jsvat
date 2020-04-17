@@ -3,7 +3,7 @@ import { Country } from '../jsvat';
 export const denmark: Country = {
   name: 'Denmark',
   codes: ['DK', 'DNK', '208'],
-  calcFn: (vat: string): boolean  => {
+  calcFn: (vat: string): boolean => {
     let total = 0;
 
     for (let i = 0; i < 8; i++) {

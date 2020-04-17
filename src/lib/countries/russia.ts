@@ -17,7 +17,7 @@ export const russia: Country = {
   }
 };
 
-function _check10DigitINN (vat: string, rules: Rules): boolean {
+function _check10DigitINN(vat: string, rules: Rules): boolean {
   let total = 0;
 
   if (vat.length === 10) {
@@ -38,7 +38,7 @@ function _check10DigitINN (vat: string, rules: Rules): boolean {
   return false;
 }
 
-function _check12DigitINN (vat: string, rules: Rules): boolean {
+function _check12DigitINN(vat: string, rules: Rules): boolean {
   let total1 = 0;
   let total2 = 0;
 
@@ -64,9 +64,9 @@ function _check12DigitINN (vat: string, rules: Rules): boolean {
 
     // Compare the first check with the 11th character and the second check with the 12th and last
     // character of the VAT number. If they're both the same, then it's valid
-    const expect = (total1 === Number(vat.slice(10, 11)));
-    const expect2 = (total2 === Number(vat.slice(11, 12)));
-    return (expect) && (expect2);
+    const expect = total1 === Number(vat.slice(10, 11));
+    const expect2 = total2 === Number(vat.slice(11, 12));
+    return expect && expect2;
   }
 
   return false;

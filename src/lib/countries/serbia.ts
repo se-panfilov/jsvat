@@ -20,7 +20,7 @@ export const serbia: Country = {
 
     // Now check that we have the right check digit
     const expect = 1;
-    const checkDigit = (product + (Number(vat.slice(8, 9)))) % 10;
+    const checkDigit = (product + Number(vat.slice(8, 9))) % 10;
     return checkDigit === expect;
   },
   rules: {

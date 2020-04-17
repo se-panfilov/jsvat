@@ -24,8 +24,8 @@ export interface VatCheckResult {
   isValidFormat: boolean;
   isSupportedCountry: boolean;
   country?: {
-    name: string,
-    isoCode: { short: string, long: string, numeric: string }
+    name: string;
+    isoCode: { short: string; long: string; numeric: string };
   };
 }
 
@@ -35,26 +35,28 @@ function makeResult(vat: string, isValid?: boolean, country?: Country): VatCheck
     isValid: Boolean(isValid),
     isValidFormat: country ? isVatValidToRegexp(vat, country.rules.regex).isValid : false,
     isSupportedCountry: Boolean(country),
-    country: (!country) ? undefined : {
-      name: country.name,
-      isoCode: {
-        short: country.codes[0],
-        long: country.codes[1],
-        numeric: country.codes[2]
-      }
-    }
+    country: !country
+      ? undefined
+      : {
+          name: country.name,
+          isoCode: {
+            short: country.codes[0],
+            long: country.codes[1],
+            numeric: country.codes[2]
+          }
+        }
   };
 }
 
 function removeExtraChars(vat: string = ''): string {
-  return vat.toString().toUpperCase().replace(/(\s|-|\.)+/g, '');
+  return vat
+    .toString()
+    .toUpperCase()
+    .replace(/(\s|-|\.)+/g, '');
 }
 
 function getCountryCodes(country: Country): ReadonlyArray<string> {
-  return ([
-    ...country.codes,
-    (country.name === 'Greece') ? 'EL' : undefined
-  ]).filter(Boolean) as ReadonlyArray<string>;
+  return [...country.codes, country.name === 'Greece' ? 'EL' : undefined].filter(Boolean) as ReadonlyArray<string>;
 }
 
 function getCountry(vat: string, countriesList: ReadonlyArray<Country>): Country | undefined {
@@ -66,10 +68,10 @@ function getCountry(vat: string, countriesList: ReadonlyArray<Country>): Country
 
 function startsWithCode(vat: string, country: Country): boolean {
   const countryCodes = getCountryCodes(country);
-  return countryCodes.filter(code => vat.startsWith(code)).length > 0;
+  return countryCodes.filter((code) => vat.startsWith(code)).length > 0;
 }
 
-function isVatValidToRegexp(vat: string, regexArr: ReadonlyArray<RegExp>): { isValid: boolean, regex?: RegExp } {
+function isVatValidToRegexp(vat: string, regexArr: ReadonlyArray<RegExp>): { isValid: boolean; regex?: RegExp } {
   for (const regex of regexArr) {
     const isValid = regex.test(vat);
     if (isValid) return { isValid: true, regex: regex };
@@ -89,8 +91,7 @@ function isVatValid(vat: string, country: Country): boolean {
 export function checkVAT(vat: string, countriesList: ReadonlyArray<Country> = []): VatCheckResult {
   if (!vat) return makeResult(vat, false);
   const cleanVAT = removeExtraChars(vat);
-
   const country = getCountry(cleanVAT, countriesList);
-  const isValid = (country) ? isVatValid(cleanVAT, country) : false;
+  const isValid = country ? isVatValid(cleanVAT, country) : false;
   return makeResult(cleanVAT, isValid, country);
 }
