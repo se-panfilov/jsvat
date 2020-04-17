@@ -1,0 +1,7 @@
+node_modules
+types
+lib/amd
+lib/commonjs
+lib/es6
+lib/system
+lib/umd
