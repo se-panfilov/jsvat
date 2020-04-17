@@ -1,10 +1,10 @@
-import { Country } from "../jsvat";
+import { Country } from '../jsvat';
 
 export const netherlands: Country = {
-  name: "Netherlands",
-  codes: ["NL", "NLD", "528"],
+  name: 'Netherlands',
+  codes: ['NL', 'NLD', '528'],
   calcFn: (input: string): boolean => {
-    const vat = input.replace(/[\ \-\_]/g, "").toUpperCase();
+    const vat = input.replace(/[\ \-\_]/g, '').toUpperCase();
 
     const { additional, multipliers } = netherlands.rules;
     if (!additional) return false;
@@ -14,7 +14,7 @@ export const netherlands: Country = {
 
     const numb = match[1];
 
-    const characterValues = `NL${vat}`.split("").map(getCharValue);
+    const characterValues = `NL${vat}`.split('').map(getCharValue);
 
     let total = 0;
     // Extract the next digit and multiply by the counter.
@@ -32,7 +32,7 @@ export const netherlands: Country = {
     const expect = Number(numb.slice(8, 9));
 
     // is either 11 proof or 97 mod proof.
-    return total === expect || isNinetySevenMod(characterValues.join(""));
+    return total === expect || isNinetySevenMod(characterValues.join(''));
   },
   rules: {
     multipliers: {
@@ -45,8 +45,8 @@ export const netherlands: Country = {
 
 function getCharValue(char: string): number {
   // if one of these set values
-  if (char === "+") return 36;
-  if (char === "*") return 37;
+  if (char === '+') return 36;
+  if (char === '*') return 37;
 
   // if A...Z return code VAL -55
   const code = char.charCodeAt(0) - 55;
@@ -65,9 +65,8 @@ function mod(value: string, divisor: number): number {
   // Initialize result
   let res: number = 0;
 
-  // iterate over Value and calculate the mod for each of them
-  for (let i = 0; i < value.length; i++) {
-    res = (res * 10 + +value[i]) % divisor;
+  for (const char of value.split('')) {
+    res = (res * 10 + +char) % divisor;
   }
 
   return res;
