@@ -3,14 +3,14 @@ import { Country } from '../jsvat';
 export const finland: Country = {
   name: 'Finland',
   codes: ['FI', 'FIN', '246'],
-  calcFn: (vat: string): boolean  => {
+  calcFn: (vat: string): boolean => {
     let total = 0;
 
     // Extract the next digit and multiply by the counter.
     for (let i = 0; i < 7; i++) total += Number(vat.charAt(i)) * finland.rules.multipliers.common[i];
 
     // Establish check digit.
-    total = 11 - total % 11;
+    total = 11 - (total % 11);
     if (total > 9) {
       total = 0;
     }

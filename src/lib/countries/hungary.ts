@@ -12,7 +12,7 @@ export const hungary: Country = {
     }
 
     // Establish check digit.
-    total = 10 - total % 10;
+    total = 10 - (total % 10);
     if (total === 10) total = 0;
 
     // Compare it with the last character of the VAT number. If it's the same, then it's valid.

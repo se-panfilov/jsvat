@@ -4,7 +4,7 @@ export const spain: Country = {
   name: 'Spain',
   codes: ['ES', 'ESP', '724'],
   calcFn: (vat: string): boolean => {
-    const {additional, multipliers} = spain.rules;
+    const { additional, multipliers } = spain.rules;
     if (!additional) return false;
 
     // National juridical entities
@@ -31,12 +31,7 @@ export const spain: Country = {
       /^(ES)([0-9YZ]\d{7}[A-Z])$/,
       /^(ES)([KLMX]\d{7}[A-Z])$/
     ],
-    additional: [
-      /^[A-H|J|U|V]\d{8}$/,
-      /^[A-H|N-S|W]\d{7}[A-J]$/,
-      /^[0-9|Y|Z]\d{7}[A-Z]$/,
-      /^[K|L|M|X]\d{7}[A-Z]$/
-    ]
+    additional: [/^[A-H|J|U|V]\d{8}$/, /^[A-H|N-S|W]\d{7}[A-J]$/, /^[0-9|Y|Z]\d{7}[A-Z]$/, /^[K|L|M|X]\d{7}[A-Z]$/]
   }
 };
 
@@ -46,7 +41,7 @@ function extractDigitAndMultiplyByCounter(vat: string, multipliers: ReadonlyArra
   for (let i = 0; i < 7; i++) {
     temp = Number(vat.charAt(i + 1)) * multipliers[i];
     if (temp > 9) {
-      result += Math.floor(temp / 10) + temp % 10;
+      result += Math.floor(temp / 10) + (temp % 10);
     } else {
       result += temp;
     }
@@ -57,7 +52,7 @@ function extractDigitAndMultiplyByCounter(vat: string, multipliers: ReadonlyArra
 function isNationalJuridicalEntities(vat: string, multipliers: ReadonlyArray<number>): boolean {
   let total = extractDigitAndMultiplyByCounter(vat, multipliers, 0);
   // Now calculate the check digit itself.
-  total = 10 - total % 10;
+  total = 10 - (total % 10);
   if (total === 10) {
     total = 0;
   }
@@ -71,7 +66,7 @@ function isNonNationalJuridical(vat: string, multipliers: ReadonlyArray<number>)
   let total = extractDigitAndMultiplyByCounter(vat, multipliers, 0);
 
   // Now calculate the check digit itself.
-  total = 10 - total % 10;
+  total = 10 - (total % 10);
   const totalStr = String.fromCharCode(total + 64);
 
   // Compare it with the last character of the VAT number. If it's the same, then it's valid.

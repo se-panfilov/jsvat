@@ -3,7 +3,7 @@ import { Country } from '../jsvat';
 export const malta: Country = {
   name: 'Malta',
   codes: ['MT', 'MLT', '470'],
-  calcFn: (vat: string): boolean  => {
+  calcFn: (vat: string): boolean => {
     let total = 0;
 
     // Extract the next digit and multiply by the counter.
@@ -12,7 +12,7 @@ export const malta: Country = {
     }
 
     // Establish check digits by getting modulus 37.
-    total = 37 - total % 37;
+    total = 37 - (total % 37);
 
     // Compare it with the last character of the VAT number. If it's the same, then it's valid.
     const expect = Number(vat.slice(6, 8));

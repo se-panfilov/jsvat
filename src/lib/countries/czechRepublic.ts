@@ -8,10 +8,12 @@ export const czechRepublic: Country = {
     const { multipliers, additional, lookup } = rules;
     if (!additional) return false;
 
-    return isLegalEntities(vat, multipliers.common, additional)
-      || isIndividualType2(vat, multipliers.common, additional, lookup)
-      || isIndividualType3(vat, additional)
-      || isIndividualType1(vat, additional);
+    return (
+      isLegalEntities(vat, multipliers.common, additional) ||
+      isIndividualType2(vat, multipliers.common, additional, lookup) ||
+      isIndividualType3(vat, additional) ||
+      isIndividualType1(vat, additional)
+    );
   },
   rules: {
     multipliers: {
@@ -19,12 +21,7 @@ export const czechRepublic: Country = {
     },
     lookup: [8, 7, 6, 5, 4, 3, 2, 1, 0, 9, 10],
     regex: [/^(CZ)(\d{8,10})(\d{3})?$/],
-    additional: [
-      /^\d{8}$/,
-      /^[0-5][0-9][0|1|5|6]\d[0-3]\d\d{3}$/,
-      /^6\d{8}$/,
-      /^\d{2}[0-3|5-8]\d[0-3]\d\d{4}$/
-    ]
+    additional: [/^\d{8}$/, /^[0-5][0-9][0|1|5|6]\d[0-3]\d\d{3}$/, /^6\d{8}$/, /^\d{2}[0-3|5-8]\d[0-3]\d\d{4}$/]
   }
 };
 
@@ -37,7 +34,7 @@ function isLegalEntities(vat: string, multipliers: ReadonlyArray<number>, additi
     }
 
     // Establish check digit.
-    total = 11 - total % 11;
+    total = 11 - (total % 11);
     if (total === 10) total = 0;
     if (total === 11) total = 1;
 
@@ -57,7 +54,12 @@ function isIndividualType1(vat: string, additional: ReadonlyArray<RegExp>): bool
   return false;
 }
 
-function isIndividualType2(vat: string, multipliers: ReadonlyArray<number>, additional: ReadonlyArray<RegExp>, lookup?: ReadonlyArray<number>): boolean {
+function isIndividualType2(
+  vat: string,
+  multipliers: ReadonlyArray<number>,
+  additional: ReadonlyArray<RegExp>,
+  lookup?: ReadonlyArray<number>
+): boolean {
   let total = 0;
 
   if (additional[2].test(vat)) {
@@ -67,7 +69,7 @@ function isIndividualType2(vat: string, multipliers: ReadonlyArray<number>, addi
     }
 
     // Establish check digit.
-    total = 11 - total % 11;
+    total = 11 - (total % 11);
     if (total === 10) total = 0;
     if (total === 11) total = 1;
 
@@ -82,7 +84,12 @@ function isIndividualType2(vat: string, multipliers: ReadonlyArray<number>, addi
 
 function isIndividualType3(vat: string, additional: ReadonlyArray<RegExp>): boolean {
   if (additional[3].test(vat)) {
-    const temp: number = Number(vat.slice(0, 2)) + Number(vat.slice(2, 4)) + Number(vat.slice(4, 6)) + Number(vat.slice(6, 8)) + Number(vat.slice(8));
+    const temp: number =
+      Number(vat.slice(0, 2)) +
+      Number(vat.slice(2, 4)) +
+      Number(vat.slice(4, 6)) +
+      Number(vat.slice(6, 8)) +
+      Number(vat.slice(8));
     const expect: boolean = Number(vat) % 11 === 0;
     return !!(temp % 11 === 0 && expect);
   }

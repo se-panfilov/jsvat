@@ -7,7 +7,11 @@ export const bulgaria: Country = {
     if (vat.length === 9) return _checkNineLengthVat(vat);
 
     const { multipliers } = bulgaria.rules;
-    return _isPhysicalPerson(vat, multipliers.physical) || _isForeigner(vat, multipliers) || _miscellaneousVAT(vat, multipliers);
+    return (
+      _isPhysicalPerson(vat, multipliers.physical) ||
+      _isForeigner(vat, multipliers) ||
+      _miscellaneousVAT(vat, multipliers)
+    );
   },
   rules: {
     multipliers: {
@@ -53,7 +57,7 @@ function _checkNineLengthVat(vat: string): boolean {
 
 function _isPhysicalPerson(vat: string, physicalMultipliers: ReadonlyArray<number>): boolean {
   // 10 digit VAT code - see if it relates to a standard physical person
-  if ((/^\d\d[0-5]\d[0-3]\d\d{4}$/).test(vat)) {
+  if (/^\d\d[0-5]\d[0-3]\d\d{4}$/.test(vat)) {
     // Check month
     const month = Number(vat.slice(2, 4));
     if ((month > 0 && month < 13) || (month > 20 && month < 33) || (month > 40 && month < 53)) {
@@ -82,7 +86,7 @@ function _miscellaneousVAT(vat: string, multipliers: { readonly [key: string]: R
   let total = _increase2(0, vat, 0, 9, multipliers.miscellaneous);
 
   // Establish check digit.
-  total = 11 - total % 11;
+  total = 11 - (total % 11);
   if (total === 10) return false;
   if (total === 11) total = 0;
 

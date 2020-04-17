@@ -3,14 +3,14 @@ import { Country } from '../jsvat';
 export const switzerland: Country = {
   name: 'Switzerland',
   codes: ['CH', 'CHE', '756'],
-  calcFn: (vat: string): boolean  => {
+  calcFn: (vat: string): boolean => {
     let total = 0;
     for (let i = 0; i < 8; i++) {
       total += Number(vat.charAt(i)) * switzerland.rules.multipliers.common[i];
     }
 
     // Establish check digit.s
-    total = 11 - total % 11;
+    total = 11 - (total % 11);
     if (total === 10) return false;
     if (total === 11) total = 0;
 

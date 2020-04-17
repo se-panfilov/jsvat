@@ -3,7 +3,7 @@ import { Country } from '../jsvat';
 export const sweden: Country = {
   name: 'Sweden',
   codes: ['SE', 'SWE', '752'],
-  calcFn: (vat: string): boolean  => {
+  calcFn: (vat: string): boolean => {
     let expect;
 
     // Calculate R where R = R1 + R3 + R5 + R7 + R9, and Ri = INT(Ci/5) + (Ci*2) modulo 10
@@ -19,7 +19,7 @@ export const sweden: Country = {
       S += Number(vat.charAt(j));
     }
 
-    const checkDigit = (10 - (R + S) % 10) % 10;
+    const checkDigit = (10 - ((R + S) % 10)) % 10;
 
     // Compare it with the last character of the VAT number. If it's the same, then it's valid.
     expect = Number(vat.slice(9, 10));

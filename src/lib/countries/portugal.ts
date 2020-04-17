@@ -3,7 +3,7 @@ import { Country } from '../jsvat';
 export const portugal: Country = {
   name: 'Portugal',
   codes: ['PT', 'PRT', '620'],
-  calcFn: (vat: string): boolean  => {
+  calcFn: (vat: string): boolean => {
     let total = 0;
 
     // Extract the next digit and multiply by the counter.
@@ -12,7 +12,7 @@ export const portugal: Country = {
     }
 
     // Establish check digits subtracting modulus 11 from 11.
-    total = 11 - total % 11;
+    total = 11 - (total % 11);
     if (total > 9) {
       total = 0;
     }

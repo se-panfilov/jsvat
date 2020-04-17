@@ -13,7 +13,7 @@ export const norway: Country = {
     }
 
     // Establish check digits by getting modulus 11. Check digits > 9 are invalid
-    total = 11 - total % 11;
+    total = 11 - (total % 11);
 
     if (total === 11) {
       total = 0;

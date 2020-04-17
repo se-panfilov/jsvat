@@ -3,7 +3,7 @@ import { Country } from '../jsvat';
 export const romania: Country = {
   name: 'Romania',
   codes: ['RO', 'ROU', '642'],
-  calcFn: (vat: string): boolean  => {
+  calcFn: (vat: string): boolean => {
     let total = 0;
 
     // Extract the next digit and multiply by the counter.

@@ -24,7 +24,6 @@ export const cyprus: Country = {
   }
 };
 
-
 function extractAndMultiplyByCounter(vat: string, total: number): number {
   let result = total;
   for (let i = 0; i < 8; i++) {

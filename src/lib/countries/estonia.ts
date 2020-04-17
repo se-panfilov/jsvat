@@ -3,7 +3,7 @@ import { Country } from '../jsvat';
 export const estonia: Country = {
   name: 'Estonia',
   codes: ['EE', 'EST', '233'],
-  calcFn: (vat: string): boolean  => {
+  calcFn: (vat: string): boolean => {
     let total = 0;
     let expect;
 
@@ -13,7 +13,7 @@ export const estonia: Country = {
     }
 
     // Establish check digits using modulus 10.
-    total = 10 - total % 10;
+    total = 10 - (total % 10);
     if (total === 10) total = 0;
 
     // Compare it with the last character of the VAT number. If it's the same, then it's valid.
