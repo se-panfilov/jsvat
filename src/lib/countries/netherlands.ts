@@ -36,11 +36,11 @@ export const netherlands: Country = {
   },
   rules: {
     multipliers: {
-      common: [9, 8, 7, 6, 5, 4, 3, 2]
+      common: [9, 8, 7, 6, 5, 4, 3, 2],
     },
     regex: [/^(NL)(\d{9}B\d{2})$/],
-    additional: [/^(\d{9})B\d{2}$/]
-  }
+    additional: [/^(\d{9})B\d{2}$/],
+  },
 };
 
 function getCharValue(char: string): number {
@@ -56,5 +56,18 @@ function getCharValue(char: string): number {
 }
 
 function isNinetySevenMod(value: string): boolean {
-  return BigInt(value) % BigInt(97) === BigInt(1);
+  const remainder = mod(value, 97);
+  return remainder === 1;
+}
+
+// custom module function, to check module on values above Number limit
+function mod(value: string, divisor: number): number {
+  // Initialize result
+  let res: number = 0;
+
+  for (const char of value.split('')) {
+    res = (res * 10 + +char) % divisor;
+  }
+
+  return res;
 }
