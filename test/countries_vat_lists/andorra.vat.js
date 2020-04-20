@@ -19,6 +19,6 @@ export const valid = [
 export const invalid = [
   'AD00000000',
   'ADM000000M',
-  'ADP000000',
+  'ADP000000'
 ]
 
