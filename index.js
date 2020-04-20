@@ -1,3 +1,4 @@
+export { andorra } from './lib/es6/lib/countries/andorra';
 export { austria } from './lib/es6/lib/countries/austria';
 export { belgium } from './lib/es6/lib/countries/belgium';
 export { bulgaria } from './lib/es6/lib/countries/bulgaria';
