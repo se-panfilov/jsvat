@@ -7,6 +7,7 @@ export const andorra: Country = {
     return vat.length === 8;
   },
   rules: {
+    multipliers: {},
     regex: [/^(AD)([fealecdgopuFEALECDGOPU]{1}\d{6}[fealecdgopuFEALECDGOPU]{1})$/]
   }
 };
