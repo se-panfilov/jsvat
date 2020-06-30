@@ -1,5 +1,5 @@
 import { andorra } from '../index';
-import { codes, invalid, name, valid } from './countries_vat_lists/andorra.vat';
+import { codes, invalid, name, valid, validOnlyByFormat } from './countries_vat_lists/andorra.vat';
 import { addCharsToString, checkInvalidVat, checkOnlyValidFormatVat, checkValidVat } from './utils';
 
 describe('Andorra', () => {
