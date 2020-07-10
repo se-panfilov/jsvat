@@ -52,7 +52,7 @@ function removeExtraChars(vat: string = ''): string {
   return vat
     .toString()
     .toUpperCase()
-    .replace(/(\s|-|\.)+/g, '');
+    .replace(/(\s|-|\.|\/)+/g, '');
 }
 
 function getCountryCodes(country: Country): ReadonlyArray<string> {
