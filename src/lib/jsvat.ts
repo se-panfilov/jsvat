@@ -1,3 +1,5 @@
+import { brazil } from './countries';
+
 export interface Multipliers {
   readonly [key: string]: ReadonlyArray<number>;
 }
@@ -59,9 +61,16 @@ function getCountryCodes(country: Country): ReadonlyArray<string> {
   return [...country.codes, country.name === 'Greece' ? 'EL' : undefined].filter(Boolean) as ReadonlyArray<string>;
 }
 
+const countriesVATDoesNotStartWithCountryCode: ReadonlyArray<string> = [brazil.name];
+function isVATStartWithCountryCode(countryName: string): boolean {
+  return !countriesVATDoesNotStartWithCountryCode.includes(countryName);
+}
+
 function getCountry(vat: string, countriesList: ReadonlyArray<Country>): Country | undefined {
   for (const country of countriesList) {
-    if (startsWithCode(vat, country)) return { ...country };
+    if (!isVATStartWithCountryCode(country.name) || startsWithCode(vat, country)) {
+      return { ...country };
+    }
   }
   return undefined;
 }
