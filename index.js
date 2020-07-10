@@ -1,6 +1,7 @@
 export { andorra } from './lib/es6/lib/countries/andorra';
 export { austria } from './lib/es6/lib/countries/austria';
 export { belgium } from './lib/es6/lib/countries/belgium';
+export { brazil } from './lib/es6/lib/countries/brazil';
 export { bulgaria } from './lib/es6/lib/countries/bulgaria';
 export { croatia } from './lib/es6/lib/countries/croatiat';
 export { cyprus } from './lib/es6/lib/countries/cyprus';
