@@ -1,6 +1,6 @@
-export const name = 'Norway'
+export const name = 'Norway';
 
-export const codes = ['NO', 'NOR', '578']
+export const codes = ['NO', 'NOR', '578'];
 
 export const valid = [
   'NO864234232',
@@ -52,16 +52,8 @@ export const valid = [
   'NO996707415',
   'NO996840506',
   'NO999600476'
-]
+];
 
-export const validOnlyByFormat = [
-  'NO962209011',
-  'NO962209012',
-  'NO962209013',
-  'NO962209014'
-]
+export const validOnlyByFormat = ['NO962209011', 'NO962209012', 'NO962209013', 'NO962209014'];
 
-export const invalid = [
-  'NO96220901',
-  'NO962209018'
-]
+export const invalid = ['NO96220901', 'NO962209018'];

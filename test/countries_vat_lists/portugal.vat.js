@@ -1,6 +1,6 @@
-export const name = 'Portugal'
+export const name = 'Portugal';
 
-export const codes = ['PT', 'PRT', '620']
+export const codes = ['PT', 'PRT', '620'];
 
 export const valid = [
   'PT100000010',
@@ -49,20 +49,8 @@ export const valid = [
   'PT509626416',
   'PT510765009',
   'PT980405319'
-]
+];
 
-export const validOnlyByFormat = [
-  'PT100000012',
-  'PT100000013',
-  'PT100000014',
-  'PT100000015'
-]
+export const validOnlyByFormat = ['PT100000012', 'PT100000013', 'PT100000014', 'PT100000015'];
 
-export const invalid = [
-  'PT502757192',
-  'PT100000012',
-  'PT100000022',
-  'PT100000032',
-  'PT100000192',
-  'PT100000052'
-]
+export const invalid = ['PT502757192', 'PT100000012', 'PT100000022', 'PT100000032', 'PT100000192', 'PT100000052'];

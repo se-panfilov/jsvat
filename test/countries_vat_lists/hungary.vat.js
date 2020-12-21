@@ -1,6 +1,6 @@
-export const name = 'Hungary'
+export const name = 'Hungary';
 
-export const codes = ['HU', 'HUN', '348']
+export const codes = ['HU', 'HUN', '348'];
 
 export const valid = [
   'HU10672101',
@@ -53,16 +53,8 @@ export const valid = [
   'HU23474178',
   'HU63731758',
   'HU65730980'
-]
+];
 
-export const validOnlyByFormat = [
-  'HU00000001',
-  'HU00000002',
-  'HU00000003',
-  'HU00000004'
-]
+export const validOnlyByFormat = ['HU00000001', 'HU00000002', 'HU00000003', 'HU00000004'];
 
-export const invalid = [
-  'HU65730981',
-  'HU65731980'
-]
+export const invalid = ['HU65730981', 'HU65731980'];

@@ -1,6 +1,6 @@
-export const name = 'Sweden'
+export const name = 'Sweden';
 
-export const codes = ['SE', 'SWE', '752']
+export const codes = ['SE', 'SWE', '752'];
 
 export const valid = [
   'SE000000002601',
@@ -47,19 +47,8 @@ export const valid = [
   'SE556576895801',
   'SE556654042201',
   'SE556785615701'
-]
+];
 
-export const validOnlyByFormat = [
-  'SE000000002301',
-  'SE000000022301',
-  'SE000000052301',
-  'SE000000042301'
-]
+export const validOnlyByFormat = ['SE000000002301', 'SE000000022301', 'SE000000052301', 'SE000000042301'];
 
-export const invalid = [
-  'SE556188840301',
-  'SE000000002301',
-  'SE000000003301',
-  'SE000000004301',
-  'SE000000006301'
-]
+export const invalid = ['SE556188840301', 'SE000000002301', 'SE000000003301', 'SE000000004301', 'SE000000006301'];

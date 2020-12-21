@@ -1,6 +1,6 @@
-export const name = 'Germany'
+export const name = 'Germany';
 
-export const codes = ['DE', 'DEU', '276']
+export const codes = ['DE', 'DEU', '276'];
 
 export const valid = [
   'DE111111125',
@@ -43,14 +43,9 @@ export const valid = [
   'DE813232162',
   'DE813261484',
   'DE813495425'
-]
+];
 
-export const validOnlyByFormat = [
-  'DE200000001',
-  'DE200000002',
-  'DE200000003',
-  'DE200000004'
-]
+export const validOnlyByFormat = ['DE200000001', 'DE200000002', 'DE200000003', 'DE200000004'];
 
 export const invalid = [
   'DE111111126',
@@ -75,4 +70,4 @@ export const invalid = [
   'DE000000183',
   'DE000000191',
   'DE000000206'
-]
+];

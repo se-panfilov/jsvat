@@ -1,6 +1,6 @@
-export const name = 'Austria'
+export const name = 'Austria';
 
-export const codes = ['AT', 'AUT', '040']
+export const codes = ['AT', 'AUT', '040'];
 
 export const valid = [
   'ATU00000024',
@@ -64,14 +64,9 @@ export const valid = [
   'ATU64938189',
   'ATU66664013',
   'ATU66889218'
-]
+];
 
-export const validOnlyByFormat = [
-  'ATU00000000',
-  'ATU00000001',
-  'ATU00000002',
-  'ATU00000003'
-]
+export const validOnlyByFormat = ['ATU00000000', 'ATU00000001', 'ATU00000002', 'ATU00000003'];
 
 export const invalid = [
   'ATV66889218',
@@ -81,5 +76,4 @@ export const invalid = [
   'ATU10223004',
   'ATU10223005',
   'ATU10223007'
-]
-
+];

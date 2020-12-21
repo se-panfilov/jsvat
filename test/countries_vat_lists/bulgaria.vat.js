@@ -1,6 +1,6 @@
-export const name = 'Bulgaria'
+export const name = 'Bulgaria';
 
-export const codes = ['BG', 'BGR', '100']
+export const codes = ['BG', 'BGR', '100'];
 
 export const valid = [
   'BG0000100153',
@@ -56,14 +56,9 @@ export const valid = [
   'BG831144533',
   'BG837107196',
   'BG9902280002'
-]
+];
 
-export const validOnlyByFormat = [
-  'BG800000000',
-  'BG800000001',
-  'BG800000002',
-  'BG800000003'
-]
+export const validOnlyByFormat = ['BG800000000', 'BG800000001', 'BG800000002', 'BG800000003'];
 
 export const invalid = [
   'BG101004509',
@@ -96,4 +91,4 @@ export const invalid = [
   'BG4234567895',
   'BG4234567897',
   'BG4234567898'
-]
+];

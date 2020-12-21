@@ -1,6 +1,6 @@
-export const name = 'Lithuania'
+export const name = 'Lithuania';
 
-export const codes = ['LT', 'LTU', '440']
+export const codes = ['LT', 'LTU', '440'];
 
 export const valid = [
   'LT100000009017',
@@ -60,18 +60,8 @@ export const valid = [
   'LT530091413',
   'LT852320917',
   'LT907560811'
-]
+];
 
-export const validOnlyByFormat = [
-  'LT000000000',
-  'LT000000001',
-  'LT000000002',
-  'LT000000003'
-]
+export const validOnlyByFormat = ['LT000000000', 'LT000000001', 'LT000000002', 'LT000000003'];
 
-export const invalid = [
-  'LT123456789',
-  'LT1234567890',
-  'LT530091413111',
-  'LT0123'
-]
+export const invalid = ['LT123456789', 'LT1234567890', 'LT530091413111', 'LT0123'];

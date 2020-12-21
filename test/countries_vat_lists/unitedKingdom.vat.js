@@ -1,6 +1,6 @@
-export const name = 'United Kingdom'
+export const name = 'United Kingdom';
 
-export const codes = ['GB', 'GBR', '826']
+export const codes = ['GB', 'GBR', '826'];
 
 export const valid = [
   'GB000472631',
@@ -62,14 +62,9 @@ export const valid = [
   'GB999000005',
   'GB999000047',
   'GBGD103'
-]
+];
 
-export const validOnlyByFormat = [
-  'GB000000000',
-  'GB000000001',
-  'GB000000002',
-  'GB000000003'
-]
+export const validOnlyByFormat = ['GB000000000', 'GB000000001', 'GB000000002', 'GB000000003'];
 
 export const invalid = [
   'GB999000103',
@@ -124,4 +119,4 @@ export const invalid = [
   'GB999999973',
   'GB000000140',
   'GB100000034'
-]
+];

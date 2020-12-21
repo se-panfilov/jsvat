@@ -1,6 +1,6 @@
-export const name = 'Netherlands'
+export const name = 'Netherlands';
 
-export const codes = ['NL', 'NLD', '528']
+export const codes = ['NL', 'NLD', '528'];
 
 export const valid = [
   'NL010000446B01',
@@ -50,14 +50,9 @@ export const valid = [
   'NL822754812B01',
   'NL823363247B01',
   'NL123456789B13'
-]
+];
 
-export const validOnlyByFormat = [
-  'NL010000445B01',
-  'NL010000445B02',
-  'NL010000445B03',
-  'NL010000445B04'
-]
+export const validOnlyByFormat = ['NL010000445B01', 'NL010000445B02', 'NL010000445B03', 'NL010000445B04'];
 
 export const invalid = [
   'NL010000445B01',
@@ -66,4 +61,4 @@ export const invalid = [
   'NL000000045B01',
   'NL000000205B01',
   'NL123456789B14'
-]
+];

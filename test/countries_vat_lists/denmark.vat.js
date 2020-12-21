@@ -1,8 +1,6 @@
-export const name = 'Denmark'
+export const name = 'Denmark';
 
-export const codes = ['DK', 'DNK', '208'
-
-]
+export const codes = ['DK', 'DNK', '208'];
 
 export const valid = [
   'DK10000009',
@@ -50,19 +48,8 @@ export const valid = [
   'DK71186911',
   'DK75142412',
   'DK78805218'
-]
+];
 
-export const validOnlyByFormat = [
-  'DK10000000',
-  'DK10000001',
-  'DK10000002',
-  'DK10000003'
-]
+export const validOnlyByFormat = ['DK10000000', 'DK10000001', 'DK10000002', 'DK10000003'];
 
-export const invalid = [
-  'DK10000000',
-  'DK10000010',
-  'DK10000020',
-  'DK10000150',
-  'DK10000030'
-]
+export const invalid = ['DK10000000', 'DK10000010', 'DK10000020', 'DK10000150', 'DK10000030'];

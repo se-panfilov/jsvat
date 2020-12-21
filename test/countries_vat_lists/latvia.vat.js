@@ -1,6 +1,6 @@
-export const name = 'Latvia'
+export const name = 'Latvia';
 
-export const codes = ['LV', 'LVA', '428']
+export const codes = ['LV', 'LVA', '428'];
 
 export const valid = [
   'LV07091910933',
@@ -50,18 +50,8 @@ export const valid = [
   'LV90000022399',
   'LV90000136794',
   'LV90002573483'
-]
+];
 
-export const validOnlyByFormat = [
-  'LV50000000000',
-  'LV50000000001',
-  'LV50000000003',
-  'LV50000000004'
-]
+export const validOnlyByFormat = ['LV50000000000', 'LV50000000001', 'LV50000000003', 'LV50000000004'];
 
-export const invalid = [
-  'LV90001234567',
-  'LV12345234567',
-  'LV123452345672',
-  'LV0123'
-]
+export const invalid = ['LV90001234567', 'LV12345234567', 'LV123452345672', 'LV0123'];
