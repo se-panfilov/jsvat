@@ -1,6 +1,6 @@
-export const name = 'Malta'
+export const name = 'Malta';
 
-export const codes = ['MT', 'MLT', '470']
+export const codes = ['MT', 'MLT', '470'];
 
 export const valid = [
   'MT10126313',
@@ -47,16 +47,8 @@ export const valid = [
   'MT20250021',
   'MT20390516',
   'MT20973507'
-]
+];
 
-export const validOnlyByFormat = [
-  'MT10000001',
-  'MT10000002',
-  'MT10000003',
-  'MT20000004'
-]
+export const validOnlyByFormat = ['MT10000001', 'MT10000002', 'MT10000003', 'MT20000004'];
 
-export const invalid = [
-  'MT2039051',
-  'MT20390515'
-]
+export const invalid = ['MT2039051', 'MT20390515'];

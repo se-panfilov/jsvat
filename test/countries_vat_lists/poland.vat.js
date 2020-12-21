@@ -1,6 +1,6 @@
-export const name = 'Poland'
+export const name = 'Poland';
 
-export const codes = ['PL', 'POL', '616']
+export const codes = ['PL', 'POL', '616'];
 
 export const valid = [
   'PL1132191233',
@@ -47,16 +47,8 @@ export const valid = [
   'PL9512293636',
   'PL9562180153',
   'PL9691068493'
-]
+];
 
-export const validOnlyByFormat = [
-  'PL7000000000',
-  'PL7000000001',
-  'PL7000000002',
-  'PL7000000003'
-]
+export const validOnlyByFormat = ['PL7000000000', 'PL7000000001', 'PL7000000002', 'PL7000000003'];
 
-export const invalid = [
-  'PL7122913628',
-  'PL7122913427'
-]
+export const invalid = ['PL7122913628', 'PL7122913427'];

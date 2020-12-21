@@ -1,6 +1,6 @@
-export const name = 'Romania'
+export const name = 'Romania';
 
-export const codes = ['RO', 'ROU', '642']
+export const codes = ['RO', 'ROU', '642'];
 
 export const valid = [
   'RO11198699',
@@ -61,14 +61,9 @@ export const valid = [
   'RO6727475',
   'RO4594917',
   'RO13499400'
-]
+];
 
-export const validOnlyByFormat = [
-  'RO1000000',
-  'RO1000001',
-  'RO1000002',
-  'RO1000003'
-]
+export const validOnlyByFormat = ['RO1000000', 'RO1000001', 'RO1000002', 'RO1000003'];
 
 export const invalid = [
   'RO11198698',
@@ -85,4 +80,4 @@ export const invalid = [
   'RO00099908',
   'RO000099908',
   'RO0000099908'
-]
+];

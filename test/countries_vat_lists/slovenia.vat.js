@@ -1,6 +1,6 @@
-export const name = 'Slovenia'
+export const name = 'Slovenia';
 
-export const codes = ['SI', 'SVN', '705']
+export const codes = ['SI', 'SVN', '705'];
 
 export const valid = [
   'SI10693661',
@@ -46,15 +46,8 @@ export const valid = [
   'SI92351069',
   'SI94314527',
   'SI98511734'
-]
+];
 
-export const validOnlyByFormat = [
-  'SI90000000',
-  'SI90000001',
-  'SI90000002',
-  'SI90000003'
-]
+export const validOnlyByFormat = ['SI90000000', 'SI90000001', 'SI90000002', 'SI90000003'];
 
-export const invalid = [
-  'SI05936241'
-]
+export const invalid = ['SI05936241'];

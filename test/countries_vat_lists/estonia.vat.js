@@ -1,6 +1,6 @@
-export const name = 'Estonia'
+export const name = 'Estonia';
 
-export const codes = ['EE', 'EST', '233']
+export const codes = ['EE', 'EST', '233'];
 
 export const valid = [
   'EE100007796',
@@ -50,16 +50,8 @@ export const valid = [
   'EE101482239',
   'EE101560290',
   'EE101589064'
-]
+];
 
-export const validOnlyByFormat = [
-  'EE100000000',
-  'EE100000001',
-  'EE100000002',
-  'EE100000003'
-]
+export const validOnlyByFormat = ['EE100000000', 'EE100000001', 'EE100000002', 'EE100000003'];
 
-export const invalid = [
-  'EE000207418',
-  'EE110207418'
-]
+export const invalid = ['EE000207418', 'EE110207418'];

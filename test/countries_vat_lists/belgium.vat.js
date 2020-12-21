@@ -1,6 +1,6 @@
-export const name = 'Belgium'
+export const name = 'Belgium';
 
-export const codes = ['BE', 'BEL', '056']
+export const codes = ['BE', 'BEL', '056'];
 
 export const valid = [
   'BE0411905847',
@@ -209,14 +209,9 @@ export const valid = [
   'BE897231786',
   'BE897231885',
   'BE897231984'
-]
+];
 
-export const validOnlyByFormat = [
-  'BE000000000',
-  'BE000000001',
-  'BE000000002',
-  'BE000000003'
-]
+export const validOnlyByFormat = ['BE000000000', 'BE000000001', 'BE000000002', 'BE000000003'];
 
 export const invalid = [
   'BE897221791',
@@ -248,4 +243,4 @@ export const invalid = [
   'BE0603601206',
   'BE603601206',
   'BE60260262'
-]
+];

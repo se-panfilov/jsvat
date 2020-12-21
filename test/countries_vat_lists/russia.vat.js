@@ -1,6 +1,6 @@
-export const name = 'Russian Federation'
+export const name = 'Russian Federation';
 
-export const codes = ['RU', 'RUS', '643']
+export const codes = ['RU', 'RUS', '643'];
 
 export const valid = [
   'RU0274051582',
@@ -33,17 +33,8 @@ export const valid = [
   'RU9909161308',
   'RU9909235581',
   'RU9909310782'
-]
+];
 
-export const validOnlyByFormat = [
-  'RU7700000001',
-  'RU7700000002',
-  'RU7700000003',
-  'RU7700000004'
-]
+export const validOnlyByFormat = ['RU7700000001', 'RU7700000002', 'RU7700000003', 'RU7700000004'];
 
-export const invalid = [
-  'RU5027187067',
-  'RU524911659',
-  'RU77013692931'
-]
+export const invalid = ['RU5027187067', 'RU524911659', 'RU77013692931'];

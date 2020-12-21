@@ -1,6 +1,6 @@
-export const name = 'Luxembourg'
+export const name = 'Luxembourg';
 
-export const codes = ['LU', 'LUX', '442']
+export const codes = ['LU', 'LUX', '442'];
 
 export const valid = [
   'LU00000000',
@@ -48,14 +48,9 @@ export const valid = [
   'LU24184936',
   'LU24496840',
   'LU25318872'
-]
+];
 
-export const validOnlyByFormat = [
-  'LU20000000',
-  'LU20000001',
-  'LU20000002',
-  'LU20000003'
-]
+export const validOnlyByFormat = ['LU20000000', 'LU20000001', 'LU20000002', 'LU20000003'];
 
 export const invalid = [
   'LU10000350',
@@ -66,4 +61,4 @@ export const invalid = [
   'LU00000600',
   'LU00000700',
   'LU00000800'
-]
+];

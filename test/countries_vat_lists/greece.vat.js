@@ -1,6 +1,6 @@
-export const name = 'Greece'
+export const name = 'Greece';
 
-export const codes = ['GR', 'GRC', '300']
+export const codes = ['GR', 'GRC', '300'];
 
 export const valid = [
   'EL000000024',
@@ -49,14 +49,9 @@ export const valid = [
   'EL998180212',
   'EL998789236',
   'EL998920231'
-]
+];
 
-export const validOnlyByFormat = [
-  'EL000000022',
-  'EL000000023',
-  'EL000000026',
-  'EL000000025'
-]
+export const validOnlyByFormat = ['EL000000022', 'EL000000023', 'EL000000026', 'EL000000025'];
 
 export const invalid = [
   'EL000000022',
@@ -66,4 +61,4 @@ export const invalid = [
   'EL000000062',
   'EL000000072',
   'EL000000082'
-]
+];

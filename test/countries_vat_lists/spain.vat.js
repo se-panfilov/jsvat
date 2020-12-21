@@ -1,6 +1,6 @@
-export const name = 'Spain'
+export const name = 'Spain';
 
-export const codes = ['ES', 'ESP', '724']
+export const codes = ['ES', 'ESP', '724'];
 
 export const valid = [
   'ESA0011012B',
@@ -67,14 +67,9 @@ export const valid = [
   'ESB61979175',
   'ESN8261290D',
   'ESA81626905'
-]
+];
 
-export const validOnlyByFormat = [
-  'ESA0000002A',
-  'ESA0000003A',
-  'ESA0000004A',
-  'ESA0000005A'
-]
+export const validOnlyByFormat = ['ESA0000002A', 'ESA0000003A', 'ESA0000004A', 'ESA0000005A'];
 
 export const invalid = [
   'ESA0011012A',
@@ -98,4 +93,4 @@ export const invalid = [
   'ES00000002E',
   'ES00000003F',
   'ES00000019G'
-]
+];

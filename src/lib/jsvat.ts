@@ -62,6 +62,7 @@ function getCountryCodes(country: Country): ReadonlyArray<string> {
 }
 
 const countriesVATDoesNotStartWithCountryCode: ReadonlyArray<string> = [brazil.name];
+
 function isVATStartWithCountryCode(countryName: string): boolean {
   return !countriesVATDoesNotStartWithCountryCode.includes(countryName);
 }
