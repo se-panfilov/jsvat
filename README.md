@@ -89,6 +89,7 @@ export interface VatCheckResult {
 - Andorra
 - Austria
 - Belgium
+- Brazil
 - Bulgaria
 - Switzerland
 - Cyprus

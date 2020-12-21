@@ -1,3 +1,5 @@
+import { brazil } from './countries';
+
 export interface Multipliers {
   readonly [key: string]: ReadonlyArray<number>;
 }
@@ -52,16 +54,23 @@ function removeExtraChars(vat: string = ''): string {
   return vat
     .toString()
     .toUpperCase()
-    .replace(/(\s|-|\.)+/g, '');
+    .replace(/(\s|-|\.|\/)+/g, '');
 }
 
 function getCountryCodes(country: Country): ReadonlyArray<string> {
   return [...country.codes, country.name === 'Greece' ? 'EL' : undefined].filter(Boolean) as ReadonlyArray<string>;
 }
 
+const countriesVATDoesNotStartWithCountryCode: ReadonlyArray<string> = [brazil.name];
+function isVATStartWithCountryCode(countryName: string): boolean {
+  return !countriesVATDoesNotStartWithCountryCode.includes(countryName);
+}
+
 function getCountry(vat: string, countriesList: ReadonlyArray<Country>): Country | undefined {
   for (const country of countriesList) {
-    if (startsWithCode(vat, country)) return { ...country };
+    if (!isVATStartWithCountryCode(country.name) || startsWithCode(vat, country)) {
+      return { ...country };
+    }
   }
   return undefined;
 }
@@ -85,7 +94,8 @@ function isVatValid(vat: string, country: Country): boolean {
   if (!regexpValidRes.isValid || !regexpValidRes.regex) return false;
   const regexResult = regexpValidRes.regex.exec(vat);
   if (!regexResult) return false;
-  return country.calcFn(regexResult[2]);
+  const normalizedVat = isVATStartWithCountryCode(country.name) ? regexResult[2] : regexResult[1];
+  return country.calcFn(normalizedVat);
 }
 
 export function checkVAT(vat: string, countriesList: ReadonlyArray<Country> = []): VatCheckResult {
