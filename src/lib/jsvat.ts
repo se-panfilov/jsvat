@@ -67,9 +67,13 @@ function isVATStartWithCountryCode(countryName: string): boolean {
   return !countriesVATDoesNotStartWithCountryCode.includes(countryName);
 }
 
+function isVATStartWithNumber(vat: string) {
+  return !!vat.match(/^\d{2}/);
+}
+
 function getCountry(vat: string, countriesList: ReadonlyArray<Country>): Country | undefined {
   for (const country of countriesList) {
-    if (!isVATStartWithCountryCode(country.name) || startsWithCode(vat, country)) {
+    if (startsWithCode(vat, country) || (!isVATStartWithCountryCode(country.name) && isVATStartWithNumber(vat))) {
       return { ...country };
     }
   }
