@@ -95,8 +95,7 @@ function isVatValid(vat: string, country: Country): boolean {
   if (!regexpValidRes.isValid || !regexpValidRes.regex) return false;
   const regexResult = regexpValidRes.regex.exec(vat);
   if (!regexResult) return false;
-  const normalizedVat = isVATStartWithCountryCode(country.name) ? regexResult[2] : regexResult[1];
-  return country.calcFn(normalizedVat);
+  return country.calcFn(regexResult[2]);
 }
 
 export function checkVAT(vat: string, countriesList: ReadonlyArray<Country> = []): VatCheckResult {
