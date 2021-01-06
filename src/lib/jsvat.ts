@@ -67,9 +67,13 @@ function isVATStartWithCountryCode(countryName: string): boolean {
   return !countriesVATDoesNotStartWithCountryCode.includes(countryName);
 }
 
+function isVATStartWithNumber(vat: string) {
+  return !!vat.match(/^\d{2}/);
+}
+
 function getCountry(vat: string, countriesList: ReadonlyArray<Country>): Country | undefined {
   for (const country of countriesList) {
-    if (!isVATStartWithCountryCode(country.name) || startsWithCode(vat, country)) {
+    if (startsWithCode(vat, country) || (!isVATStartWithCountryCode(country.name) && isVATStartWithNumber(vat))) {
       return { ...country };
     }
   }
@@ -95,8 +99,7 @@ function isVatValid(vat: string, country: Country): boolean {
   if (!regexpValidRes.isValid || !regexpValidRes.regex) return false;
   const regexResult = regexpValidRes.regex.exec(vat);
   if (!regexResult) return false;
-  const normalizedVat = isVATStartWithCountryCode(country.name) ? regexResult[2] : regexResult[1];
-  return country.calcFn(normalizedVat);
+  return country.calcFn(regexResult[2]);
 }
 
 export function checkVAT(vat: string, countriesList: ReadonlyArray<Country> = []): VatCheckResult {

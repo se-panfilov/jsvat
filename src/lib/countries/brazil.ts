@@ -44,6 +44,6 @@ export const brazil: Country = {
   },
   rules: {
     multipliers: {},
-    regex: [/^(\d{14}|\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2})$/]
+    regex: [/^(BR)?(\d{14}|\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2})$/]
   }
 };
