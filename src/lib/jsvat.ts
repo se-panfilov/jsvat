@@ -67,7 +67,7 @@ function isVATStartWithCountryCode(countryName: string): boolean {
   return !countriesVATDoesNotStartWithCountryCode.includes(countryName);
 }
 
-function isVATStartWithNumber(vat: string) {
+function isVATStartWithNumber(vat: string): boolean {
   return !!vat.match(/^\d{2}/);
 }
 
