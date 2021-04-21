@@ -31,6 +31,6 @@ export const norway: Country = {
     multipliers: {
       common: [3, 2, 7, 6, 5, 4, 3, 2]
     },
-    regex: [/^(NO)(\d{9})$/]
+    regex: [/^(NO)(\d{9})(MVA)?$/]
   }
 };
