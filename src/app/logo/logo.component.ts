@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core'
-import { version } from '../../../package.json'
+import { dependencies } from '../../../package.json'
 
 @Component({
   selector: 'jsvat-logo',
@@ -8,5 +8,5 @@ import { version } from '../../../package.json'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LogoComponent {
-  public version = version
+  public version = dependencies.jsvat
 }
