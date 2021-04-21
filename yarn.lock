@@ -3783,10 +3783,10 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
-jsvat@2.5.1:
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/jsvat/-/jsvat-2.5.1.tgz#307eab86bdca1d7e6eba6213c0eb2af0648fa2a2"
-  integrity sha512-cKEmgR3ZFHRWIRql3FDJkVC9MC/OrG6yjzC2YDgKhwkriRX/DCDzMf+YCVSakKtF3p3omQuWxNTLXA+a77duUw==
+jsvat@2.5.2:
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/jsvat/-/jsvat-2.5.2.tgz#e3a5fa10021f979602313c9e0ad2fb0c76b9b5d4"
+  integrity sha512-8zSHyNVl4rxYQjUK21R2qMuce+GWXY5shKh6N2SLurJE6ubQSpn5Lqwzj5DPhxp0nNM94It35jO2cfw1MhOwVA==
 
 karma-source-map-support@1.3.0:
   version "1.3.0"
