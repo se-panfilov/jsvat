@@ -4,13 +4,26 @@
   font-weight: bold;
   font-style: italic;
   font-size: 6.2em;
-  text-decoration: underline;
   color: $primary_color;
   text-align: center;
   padding: 1.1em;
   background-color: $bg_darker_color;
 
+  &__js {
+    text-decoration: underline;
+  }
+
   &__vat {
     color: $secondary_color;
+    transition: color 0.35s ease;
+
+    &:hover {
+      color: $primary_color
+    }
+  }
+
+  &__version {
+    font-size: 0.2em;
+    vertical-align: text-top;
   }
 }

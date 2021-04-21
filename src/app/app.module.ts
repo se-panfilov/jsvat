@@ -7,10 +7,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { AppComponent } from './app.component'
 import { CommonPlaygroundComponent } from './common-playground/common-playground.component'
 import { CountriesPlaygroundComponent } from './countries-playground/countries-playground.component'
+import { GettingStartedComponent } from './getting-started/getting-started.component'
 import { LogoComponent } from './logo/logo.component'
-import { NavbarComponent } from './navbar/navbar.component'
-import { GettingStartedComponent } from './getting-started/getting-started.component';
 import { MiscComponent } from './misc/misc.component'
+import { NavbarComponent } from './navbar/navbar.component'
 
 @NgModule({
   declarations: [
