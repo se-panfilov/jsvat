@@ -1,6 +1,6 @@
 {
   "name": "jsvat-demo",
-  "version": "2.5.2",
+  "version": "2.5.3",
   "scripts": {
     "start": "ng serve --hmr",
     "build:prod": "ng build --prod --aot --output-hashing=all --build-optimizer --outputPath static && yarn move:index && yarn replace",
@@ -24,7 +24,7 @@
     "@angular/platform-browser-dynamic": "7.1.4",
     "@angular/router": "7.1.4",
     "core-js": "2.5.7",
-    "jsvat": "2.5.2",
+    "jsvat": "2.5.3",
     "prismjs": "1.16.0",
     "rxjs": "6.3.3",
     "zone.js": "0.8.26"
