@@ -13,7 +13,8 @@ export const valid = [
   'ADG000000G',
   'ADO000000O',
   'ADP000000P',
-  'ADU000000U'
+  'ADU000000U',
+  'ADF041141T'
 ]
 
 export const invalid = [
