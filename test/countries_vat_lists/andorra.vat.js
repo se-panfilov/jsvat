@@ -15,7 +15,15 @@ export const valid = [
   'ADG000000G',
   'ADO000000O',
   'ADP000000P',
-  'ADU000000U'
-];
+  'ADU000000U',
+  'ADF000000T'
+]
+
+export const invalid = [
+  'AD00000000',
+  'ADM000000M',
+  'ADP000000'
+]
+
 
 export const invalid = ['AD00000000', 'ADM000000M', 'ADP000000'];
