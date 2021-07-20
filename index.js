@@ -1,6 +1,7 @@
 export { andorra } from './lib/es6/lib/countries/andorra';
 export { austria } from './lib/es6/lib/countries/austria';
 export { belgium } from './lib/es6/lib/countries/belgium';
+export { brazil } from './lib/es6/lib/countries/brazil';
 export { bulgaria } from './lib/es6/lib/countries/bulgaria';
 export { croatia } from './lib/es6/lib/countries/croatiat';
 export { cyprus } from './lib/es6/lib/countries/cyprus';
@@ -32,5 +33,6 @@ export { spain } from './lib/es6/lib/countries/spain';
 export { sweden } from './lib/es6/lib/countries/sweden';
 export { switzerland } from './lib/es6/lib/countries/switzerland';
 export { unitedKingdom } from './lib/es6/lib/countries/unitedKingdom';
+export { countries } from './lib/es6';
 
 export { checkVAT } from './lib/es6';

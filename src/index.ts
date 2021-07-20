@@ -1,6 +1,8 @@
 import {
+  andorra,
   austria,
   belgium,
+  brazil,
   bulgaria,
   croatia,
   cyprus,
@@ -35,9 +37,11 @@ import {
 } from './lib/countries';
 import { Country } from './lib/jsvat';
 
-const countries: ReadonlyArray<Country> = [
+export const countries: ReadonlyArray<Country> = [
+  andorra,
   austria,
   belgium,
+  brazil,
   bulgaria,
   croatia,
   cyprus,
@@ -71,11 +75,11 @@ const countries: ReadonlyArray<Country> = [
   unitedKingdom
 ];
 
-export { countries };
-
 export {
+  andorra,
   austria,
   belgium,
+  brazil,
   bulgaria,
   croatia,
   cyprus,

@@ -1,6 +1,6 @@
-export const name = 'Croatia'
+export const name = 'Croatia';
 
-export const codes = ['HR', 'HRV', '191']
+export const codes = ['HR', 'HRV', '191'];
 
 export const valid = [
   'HR02574432339',
@@ -46,17 +46,8 @@ export const valid = [
   'HR95976200516',
   'HR96151551854',
   'HR97405527203'
-]
+];
 
-export const validOnlyByFormat = [
-  'HR90000000000',
-  'HR90000000001',
-  'HR90000000003',
-  'HR90000000004'
-]
+export const validOnlyByFormat = ['HR90000000000', 'HR90000000001', 'HR90000000003', 'HR90000000004'];
 
-export const invalid = [
-  'HR9363442948',
-  'HR93634429488',
-  'HR936344294871'
-]
+export const invalid = ['HR9363442948', 'HR93634429488', 'HR936344294871'];

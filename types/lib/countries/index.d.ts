@@ -1,6 +1,7 @@
 export { andorra } from './andorra';
 export { austria } from './austria';
 export { belgium } from './belgium';
+export { brazil } from './brazil';
 export { bulgaria } from './bulgaria';
 export { croatia } from './croatiat';
 export { cyprus } from './cyprus';

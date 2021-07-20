@@ -1,6 +1,6 @@
-export const name = 'Italy'
+export const name = 'Italy';
 
-export const codes = ['IT', 'ITA', '380']
+export const codes = ['IT', 'ITA', '380'];
 
 export const valid = [
   'IT00000010215',
@@ -61,14 +61,9 @@ export const valid = [
   'IT13378520152',
   'IT05142860484',
   'IT01709820995'
-]
+];
 
-export const validOnlyByFormat = [
-  'IT00000000000',
-  'IT00000000001',
-  'IT00000000002',
-  'IT00000000003'
-]
+export const validOnlyByFormat = ['IT00000000000', 'IT00000000001', 'IT00000000002', 'IT00000000003'];
 
 export const invalid = [
   'IT00000010210',
@@ -82,4 +77,4 @@ export const invalid = [
   'IT10001701202',
   'IT10001701216',
   'IT10001709997'
-]
+];

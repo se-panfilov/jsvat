@@ -24,5 +24,6 @@ export const andorra: Country = {
   rules: {
     multipliers:{},
     regex: [/^(AD)([fealecdgopuFEALECDGOPU]{1}\d{6}[fealecdgoputFEALECDGOPUT]{1})$/]
+
   }
 };

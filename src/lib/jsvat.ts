@@ -1,3 +1,5 @@
+import { brazil } from './countries';
+
 export interface Multipliers {
   readonly [key: string]: ReadonlyArray<number>;
 }
@@ -52,16 +54,28 @@ function removeExtraChars(vat: string = ''): string {
   return vat
     .toString()
     .toUpperCase()
-    .replace(/(\s|-|\.)+/g, '');
+    .replace(/(\s|-|\.|\/)+/g, '');
 }
 
 function getCountryCodes(country: Country): ReadonlyArray<string> {
   return [...country.codes, country.name === 'Greece' ? 'EL' : undefined].filter(Boolean) as ReadonlyArray<string>;
 }
 
+const countriesVATDoesNotStartWithCountryCode: ReadonlyArray<string> = [brazil.name];
+
+function isVATStartWithCountryCode(countryName: string): boolean {
+  return !countriesVATDoesNotStartWithCountryCode.includes(countryName);
+}
+
+function isVATStartWithNumber(vat: string): boolean {
+  return !!vat.match(/^\d{2}/);
+}
+
 function getCountry(vat: string, countriesList: ReadonlyArray<Country>): Country | undefined {
   for (const country of countriesList) {
-    if (startsWithCode(vat, country)) return { ...country };
+    if (startsWithCode(vat, country) || (!isVATStartWithCountryCode(country.name) && isVATStartWithNumber(vat))) {
+      return { ...country };
+    }
   }
   return undefined;
 }

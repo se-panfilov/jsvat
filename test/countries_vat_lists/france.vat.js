@@ -1,6 +1,6 @@
-export const name = 'France'
+export const name = 'France';
 
-export const codes = ['FR', 'FRA', '250']
+export const codes = ['FR', 'FRA', '250'];
 
 export const valid = [
   'FR00000000190',
@@ -71,14 +71,9 @@ export const valid = [
   'FRA0123456789',
   'FR0A012345678',
   'FRAB012345678'
-]
+];
 
-export const validOnlyByFormat = [
-  'FR00000000000',
-  'FR00000000001',
-  'FR00000000002',
-  'FR00000000003'
-]
+export const validOnlyByFormat = ['FR00000000000', 'FR00000000001', 'FR00000000002', 'FR00000000003'];
 
 export const invalid = [
   'FR00300076967',
@@ -87,4 +82,4 @@ export const invalid = [
   'FR41000000047',
   'FR01000000157',
   'FR19000000068'
-]
+];

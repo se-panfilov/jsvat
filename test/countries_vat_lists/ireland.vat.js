@@ -1,6 +1,6 @@
-export const name = 'Ireland'
+export const name = 'Ireland';
 
-export const codes = ['IE', 'IRL', '372']
+export const codes = ['IE', 'IRL', '372'];
 
 export const valid = [
   'IE0000002D',
@@ -76,14 +76,9 @@ export const valid = [
   'IE3206791MH',
   'IE3208913KH',
   'IE3214048CH'
-]
+];
 
-export const validOnlyByFormat = [
-  'IE0000000H',
-  'IE0000001H',
-  'IE0000002H',
-  'IE0000003H'
-]
+export const validOnlyByFormat = ['IE0000000H', 'IE0000001H', 'IE0000002H', 'IE0000003H'];
 
 export const invalid = [
   'IE87654321SA',
@@ -94,4 +89,4 @@ export const invalid = [
   'IE0000020A',
   'IE0000006A',
   'IE0000007A'
-]
+];

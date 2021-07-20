@@ -1,6 +1,6 @@
-export const name = 'Czech Republic'
+export const name = 'Czech Republic';
 
-export const codes = ['CZ', 'CZE', '203']
+export const codes = ['CZ', 'CZE', '203'];
 
 export const valid = [
   'CZ00008702',
@@ -102,20 +102,11 @@ export const valid = [
   'CZ7006190675',
   'CZ6803150277',
   'CZ8654200005',
-  'CZ6353050473'
-]
+  'CZ6353050473',
+  'CZ699004029',
+  'CZ699000899'
+];
 
-export const validOnlyByFormat = [
-  'CZ0000000001',
-  'CZ0000000002',
-  'CZ0000000003',
-  'CZ0000000004'
-]
+export const validOnlyByFormat = ['CZ0000000001', 'CZ0000000002', 'CZ0000000003', 'CZ0000000004'];
 
-export const invalid = [
-  'CZ699001237',
-  'CZ2758975',
-  'CZ600001234',
-  'CZ60000123456',
-  'CZ0123'
-]
+export const invalid = ['CZ699001237', 'CZ2758975', 'CZ600001234', 'CZ60000123456', 'CZ0123'];

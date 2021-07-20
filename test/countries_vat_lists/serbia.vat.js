@@ -1,6 +1,6 @@
-export const name = 'Serbia'
+export const name = 'Serbia';
 
-export const codes = ['RS', 'SRB', '688']
+export const codes = ['RS', 'SRB', '688'];
 
 export const valid = [
   'RS100010812',
@@ -24,17 +24,8 @@ export const valid = [
   'RS106963932',
   'RS107382147',
   'RS129391320'
-]
+];
 
-export const validOnlyByFormat = [
-  'RS100000000',
-  'RS100000001',
-  'RS100000002',
-  'RS100000003'
-]
+export const validOnlyByFormat = ['RS100000000', 'RS100000001', 'RS100000002', 'RS100000003'];
 
-export const invalid = [
-  'RS12939132',
-  'RS1293913201',
-  'RS129391321'
-]
+export const invalid = ['RS12939132', 'RS1293913201', 'RS129391321'];
