@@ -1,4 +1,4 @@
-import { czechRepublic } from '../index';
+import { czechRepublic, getVATExample, checkVAT } from '../index';
 import { codes, invalid, name, valid, validOnlyByFormat } from './countries_vat_lists/czechRepublic.vat';
 import { addCharsToString, checkInvalidVat, checkOnlyValidFormatVat, checkValidVat } from './utils';
 
@@ -21,5 +21,11 @@ describe('Czech Republic', () => {
 
   it('should return "false" result for invalid VATs', () => {
     invalid.forEach((vat) => checkInvalidVat(vat, [czechRepublic]));
+  });
+
+  it('should example be a valid format', () => {
+    const example = getVATExample(czechRepublic);
+
+    expect(checkVAT(example, [czechRepublic]).isValidFormat).toBe(true);
   });
 });

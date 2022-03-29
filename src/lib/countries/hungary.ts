@@ -24,5 +24,6 @@ export const hungary: Country = {
       common: [9, 7, 3, 1, 9, 7, 3]
     },
     regex: [/^(HU)(\d{8})$/]
-  }
+  },
+  example: 'HU12345678912'
 };

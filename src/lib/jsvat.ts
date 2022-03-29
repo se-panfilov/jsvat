@@ -18,6 +18,7 @@ export interface Country {
   codes: ReadonlyArray<string>;
   calcFn: (vat: string, options?: { readonly [key: string]: any }) => boolean;
   rules: Rules;
+  example?: string;
 }
 
 export interface VatCheckResult {
@@ -108,4 +109,8 @@ export function checkVAT(vat: string, countriesList: ReadonlyArray<Country> = []
   const country = getCountry(cleanVAT, countriesList);
   const isValid = country ? isVatValid(cleanVAT, country) : false;
   return makeResult(cleanVAT, isValid, country);
+}
+
+export function getVATExample(country: Country): string | undefined {
+  return country.example || undefined;
 }
