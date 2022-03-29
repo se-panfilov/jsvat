@@ -26,5 +26,6 @@ export const poland: Country = {
       common: [6, 5, 7, 2, 3, 4, 5, 6, 7]
     },
     regex: [/^(PL)(\d{10})$/]
-  }
+  },
+  example: 'PL1234567890'
 };

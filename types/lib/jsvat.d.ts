@@ -18,6 +18,7 @@ export interface Country {
         readonly [key: string]: any;
     }) => boolean;
     rules: Rules;
+    example?: string;
 }
 export interface VatCheckResult {
     value?: string;
@@ -34,3 +35,4 @@ export interface VatCheckResult {
     };
 }
 export declare function checkVAT(vat: string, countriesList?: ReadonlyArray<Country>): VatCheckResult;
+export declare function getVATExample(country: Country): string | undefined;

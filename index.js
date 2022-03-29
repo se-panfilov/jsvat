@@ -35,4 +35,4 @@ export { switzerland } from './lib/es6/lib/countries/switzerland';
 export { unitedKingdom } from './lib/es6/lib/countries/unitedKingdom';
 export { countries } from './lib/es6';
 
-export { checkVAT } from './lib/es6';
+export { checkVAT, getVATExample } from './lib/es6';

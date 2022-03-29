@@ -39,5 +39,6 @@ export const italy: Country = {
       common: [1, 2, 1, 2, 1, 2, 1, 2, 1, 2]
     },
     regex: [/^(IT)(\d{11})$/]
-  }
+  },
+  example: 'IT12345678912'
 };

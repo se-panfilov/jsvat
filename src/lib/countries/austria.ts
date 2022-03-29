@@ -26,5 +26,6 @@ export const austria: Country = {
       common: [1, 2, 1, 2, 1, 2, 1]
     },
     regex: [/^(AT)U(\d{8})$/]
-  }
+  },
+  example: 'ATU12345678'
 };

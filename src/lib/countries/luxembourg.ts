@@ -13,5 +13,6 @@ export const luxembourg: Country = {
   rules: {
     multipliers: {},
     regex: [/^(LU)(\d{8})$/]
-  }
+  },
+  example: 'LU12345678'
 };

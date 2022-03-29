@@ -42,5 +42,6 @@ export const ireland: Country = {
       third: /^\d{7}[A-Z][AH]$/
     },
     regex: [/^(IE)(\d{7}[A-W])$/, /^(IE)([7-9][A-Z*+)]\d{5}[A-W])$/, /^(IE)(\d{7}[A-W][AH])$/]
-  }
+  },
+  example: 'IE1234567AB'
 };

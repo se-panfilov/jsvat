@@ -23,5 +23,6 @@ export const malta: Country = {
       common: [3, 4, 6, 7, 8, 9]
     },
     regex: [/^(MT)([1-9]\d{7})$/]
-  }
+  },
+  example: 'MT12345678'
 };

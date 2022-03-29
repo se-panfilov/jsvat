@@ -24,5 +24,6 @@ export const finland: Country = {
       common: [7, 9, 10, 5, 8, 4, 2]
     },
     regex: [/^(FI)(\d{8})$/]
-  }
+  },
+  example: 'FI12345678'
 };

@@ -17,5 +17,6 @@ export const denmark: Country = {
       common: [2, 7, 6, 5, 4, 3, 2, 1]
     },
     regex: [/^(DK)(\d{8})$/]
-  }
+  },
+  example: 'DK12345678'
 };
