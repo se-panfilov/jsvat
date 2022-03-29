@@ -5,7 +5,7 @@ export const norway: Country = {
   codes: ['NO', 'NOR', '578'],
   calcFn: (vat: string): boolean => {
     let total = 0;
-    // See http://www.brreg.no/english/coordination/number.html
+    // See https://www.brreg.no/en/about-us-2/our-tasks/all-our-registers/about-the-central-coordinating-register-for-legal-entities-ccr/about-the-organisation-number/
 
     // Extract the next digit and multiply by the counter.
     for (let i = 0; i < 8; i++) {
@@ -31,6 +31,6 @@ export const norway: Country = {
     multipliers: {
       common: [3, 2, 7, 6, 5, 4, 3, 2]
     },
-    regex: [/^(NO)(\d{9})(MVA)?$/]
+    regex: [/^()(\d{9})MVA$/]
   }
 };
