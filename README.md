@@ -261,3 +261,7 @@ SOFTWARE.
 
 [1]: https://en.wikipedia.org/wiki/VAT_identification_number
 [2]: https://se-panfilov.github.io/jsvat
+
+## For AngularJS:
+
+https://github.com/se-panfilov/angular-jsvat
