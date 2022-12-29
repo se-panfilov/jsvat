@@ -105,7 +105,7 @@ function isVatValid(vat: string, country: Country): boolean {
 export function checkVAT(
   vat: string,
   countriesList: ReadonlyArray<Country> = [],
-  shouldCleanVat?: boolean
+  shouldCleanVat: boolean = true
 ): VatCheckResult {
   if (!vat) return makeResult(vat, false);
   const cleanVAT = removeExtraChars(vat);
