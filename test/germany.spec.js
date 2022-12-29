@@ -1,4 +1,4 @@
-import { checkVAT, germany } from '../index';
+import { germany } from '../index';
 import { codes, invalid, name, valid, validOnlyByFormat } from './countries_vat_lists/germany.vat';
 import {
   addCharsToString,
