@@ -1,6 +1,12 @@
-import { germany } from '../index';
+import { checkVAT, germany } from '../index';
 import { codes, invalid, name, valid, validOnlyByFormat } from './countries_vat_lists/germany.vat';
-import { addCharsToString, checkInvalidVat, checkOnlyValidFormatVat, checkValidVat } from './utils';
+import {
+  addCharsToString,
+  checkInvalidVat,
+  checkOnlyValidFormatVat,
+  checkValidVat,
+  checkValidVatWithoutRemovingExtraChars
+} from './utils';
 
 describe('Germany', () => {
   it('should return "true" result for valid VATs', () => {
@@ -15,8 +21,20 @@ describe('Germany', () => {
     valid.map((vat) => addCharsToString(vat, '-')).forEach((vat) => checkValidVat(vat, [germany], codes, name));
   });
 
+  it('should return "false" result for valid VATs with extra dash characters when shouldRemoveExtraChars is set to false', () => {
+    valid
+      .map((vat) => addCharsToString(vat, '-'))
+      .forEach((vat) => checkValidVatWithoutRemovingExtraChars(vat, [germany], codes, name));
+  });
+
   it('should return "true" result for valid VATs with extra space characters', () => {
     valid.map((vat) => addCharsToString(vat, ' ')).forEach((vat) => checkValidVat(vat, [germany], codes, name));
+  });
+
+  it('should return "false" result for valid VATs with extra space characters when shouldRemoveExtraChars is set to false', () => {
+    valid
+      .map((vat) => addCharsToString(vat, '  '))
+      .forEach((vat) => checkValidVatWithoutRemovingExtraChars(vat, [germany], codes, name));
   });
 
   it('should return "false" result for invalid VATs', () => {

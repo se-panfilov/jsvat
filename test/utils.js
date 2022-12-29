@@ -14,6 +14,13 @@ export function checkValidVat(vat, countriesList, codes, name) {
   expect(result.country.isoCode.numeric).toBe(codes[2]);
 }
 
+export function checkValidVatWithoutRemovingExtraChars(vat, countriesList, codes, name) {
+  const result = checkVAT(vat, countriesList, false);
+
+  if (result.isValid) console.info('Following VAT should be invalid:', vat);
+  expect(result.isValid).toBe(false);
+}
+
 export function checkInvalidVat(vat, countriesList) {
   const result = checkVAT(vat, countriesList);
   if (result.isValid) console.info('Following VAT should be invalid:', vat);
