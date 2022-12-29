@@ -105,11 +105,12 @@ function isVatValid(vat: string, country: Country): boolean {
 export function checkVAT(
   vat: string,
   countriesList: ReadonlyArray<Country> = [],
-  shouldCleanVat: boolean = true
+  shouldRemoveExtraChars: boolean = true
 ): VatCheckResult {
   if (!vat) return makeResult(vat, false);
   const cleanVAT = removeExtraChars(vat);
-  const country = getCountry(shouldCleanVat ? cleanVAT : vat, countriesList);
-  const isValid = country ? isVatValid(shouldCleanVat ? cleanVAT : vat, country) : false;
-  return makeResult(shouldCleanVat ? cleanVAT : vat, isValid, country);
+  const vatId = shouldRemoveExtraChars ? cleanVAT : vat;
+  const country = getCountry(vatId, countriesList);
+  const isValid = country ? isVatValid(vatId, country) : false;
+  return makeResult(vatId, isValid, country);
 }
