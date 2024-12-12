@@ -259,5 +259,16 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+## Legal Disclaimer
+
+This project is provided "as is", without warranty of any kind. The authors and contributors disclaim all liability for any damages arising from its use, inability to use, or performance. Users are responsible for ensuring compliance with applicable laws and regulations in their jurisdiction, including but not limited to:
+
+- European Union: Cyber Resilience Act (CRA) and Artificial Intelligence Act (AI Act)
+- United States: Uniform Commercial Code (UCC) and Export Administration Regulations (EAR)
+- China: Cybersecurity Law
+- India: Information Technology Act
+
+For details, see the full [DISCLAIMER.md](DISCLAIMER.md) file.
+
 [1]: https://en.wikipedia.org/wiki/VAT_identification_number
 [2]: https://se-panfilov.github.io/jsvat
