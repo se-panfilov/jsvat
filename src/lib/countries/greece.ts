@@ -27,5 +27,6 @@ export const greece: Country = {
       common: [256, 128, 64, 32, 16, 8, 4, 2]
     },
     regex: [/^(EL)(\d{9})$/]
-  }
+  },
+  example: 'EL123456789'
 };

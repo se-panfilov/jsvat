@@ -14,7 +14,8 @@ export const lithuania: Country = {
     },
     check: /^\d{10}1/,
     regex: [/^(LT)(\d{9}|\d{12})$/]
-  }
+  },
+  example: 'LT123456789123'
 };
 
 function _extractDigit(vat: string, multiplierList: ReadonlyArray<number>, key: number): number {

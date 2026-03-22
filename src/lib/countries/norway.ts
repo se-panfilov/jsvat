@@ -32,5 +32,6 @@ export const norway: Country = {
       common: [3, 2, 7, 6, 5, 4, 3, 2]
     },
     regex: [/^(NO)(\d{9})(MVA)?$/]
-  }
+  },
+  example: '123456789MVA'
 };

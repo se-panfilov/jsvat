@@ -21,7 +21,8 @@ export const cyprus: Country = {
   rules: {
     multipliers: {},
     regex: [/^(CY)([0-59]\d{7}[A-Z])$/]
-  }
+  },
+  example: 'CY12345678Z'
 };
 
 function extractAndMultiplyByCounter(vat: string, total: number): number {

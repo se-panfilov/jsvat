@@ -11,5 +11,6 @@ export const slovakiaRepublic: Country = {
   rules: {
     multipliers: {},
     regex: [/^(SK)([1-9]\d[2346-9]\d{7})$/]
-  }
+  },
+  example: 'SK1234567891'
 };

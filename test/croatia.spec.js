@@ -1,4 +1,4 @@
-import { croatia } from '../index';
+import { croatia, getVATExample, checkVAT } from '../index';
 import { codes, invalid, name, valid, validOnlyByFormat } from './countries_vat_lists/croatia.vat';
 import { addCharsToString, checkInvalidVat, checkOnlyValidFormatVat, checkValidVat } from './utils';
 
@@ -21,5 +21,11 @@ describe('Croatia', () => {
 
   it('should return "false" result for invalid VATs', () => {
     invalid.forEach((vat) => checkInvalidVat(vat, [croatia]));
+  });
+
+  it('should example be a valid format', () => {
+    const example = getVATExample(croatia);
+
+    expect(checkVAT(example, [croatia]).isValidFormat).toBe(true);
   });
 });

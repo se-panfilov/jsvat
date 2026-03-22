@@ -1,4 +1,4 @@
-import { switzerland } from '../index';
+import { switzerland, getVATExample, checkVAT } from '../index';
 import { codes, invalid, name, valid, validOnlyByFormat } from './countries_vat_lists/switzerland.vat';
 import { addCharsToString, checkInvalidVat, checkOnlyValidFormatVat, checkValidVat } from './utils';
 

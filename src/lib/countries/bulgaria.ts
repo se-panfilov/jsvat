@@ -20,7 +20,8 @@ export const bulgaria: Country = {
       miscellaneous: [4, 3, 2, 7, 6, 5, 4, 3, 2]
     },
     regex: [/^(BG)(\d{9,10})$/]
-  }
+  },
+  example: 'BG0123456789'
 };
 
 function _increase(value: number, vat: string, from: number, to: number, incr: number): number {

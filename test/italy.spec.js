@@ -1,4 +1,4 @@
-import { italy } from '../index';
+import { italy, getVATExample, checkVAT } from '../index';
 import { codes, invalid, name, valid, validOnlyByFormat } from './countries_vat_lists/italy.vat';
 import { addCharsToString, checkInvalidVat, checkOnlyValidFormatVat, checkValidVat } from './utils';
 
@@ -21,5 +21,11 @@ describe('Italy', () => {
 
   it('should return "false" result for invalid VATs', () => {
     invalid.forEach((vat) => checkInvalidVat(vat, [italy]));
+  });
+
+  it('should example be a valid format', () => {
+    const example = getVATExample(italy);
+
+    expect(checkVAT(example, [italy]).isValidFormat).toBe(true);
   });
 });

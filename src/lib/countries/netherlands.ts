@@ -40,7 +40,8 @@ export const netherlands: Country = {
     },
     regex: [/^(NL)(\d{9}B\d{2})$/],
     additional: [/^(\d{9})B\d{2}$/]
-  }
+  },
+  example: 'NL123456789B12'
 };
 
 function getCharValue(char: string): number {

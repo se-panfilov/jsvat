@@ -13,5 +13,6 @@ export const belgium: Country = {
   rules: {
     multipliers: {},
     regex: [/^(BE)(0?\d{9})$/]
-  }
+  },
+  example: 'BE0123456789'
 };

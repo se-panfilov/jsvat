@@ -1,4 +1,4 @@
-import { romania } from '../index';
+import { romania, getVATExample, checkVAT } from '../index';
 import { codes, invalid, name, valid, validOnlyByFormat } from './countries_vat_lists/romania.vat';
 import { addCharsToString, checkInvalidVat, checkOnlyValidFormatVat, checkValidVat } from './utils';
 
@@ -21,5 +21,11 @@ describe('Romania', () => {
 
   it('should return "false" result for invalid VATs', () => {
     invalid.forEach((vat) => checkInvalidVat(vat, [romania]));
+  });
+
+  it('should example be a valid format', () => {
+    const example = getVATExample(romania);
+
+    expect(checkVAT(example, [romania]).isValidFormat).toBe(true);
   });
 });

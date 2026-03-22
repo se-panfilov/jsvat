@@ -27,5 +27,6 @@ export const romania: Country = {
       common: [7, 5, 3, 2, 1, 7, 5, 3, 2]
     },
     regex: [/^(RO)([1-9]\d{1,9})$/]
-  }
+  },
+  example: 'RO1234567891'
 };

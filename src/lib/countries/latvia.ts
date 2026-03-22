@@ -37,5 +37,6 @@ export const latvia: Country = {
       common: [9, 1, 4, 8, 3, 10, 2, 5, 7, 6]
     },
     regex: [/^(LV)(\d{11})$/]
-  }
+  },
+  example: 'LV12345678912'
 };

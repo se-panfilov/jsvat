@@ -25,5 +25,6 @@ export const croatia: Country = {
   rules: {
     multipliers: {},
     regex: [/^(HR)(\d{11})$/]
-  }
+  },
+  example: 'HR12345678912'
 };

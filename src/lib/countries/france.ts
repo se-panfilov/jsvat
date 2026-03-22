@@ -22,5 +22,6 @@ export const france: Country = {
   rules: {
     multipliers: {},
     regex: [/^(FR)(\d{11})$/, /^(FR)([A-HJ-NP-Z]\d{10})$/, /^(FR)(\d[A-HJ-NP-Z]\d{9})$/, /^(FR)([A-HJ-NP-Z]{2}\d{9})$/]
-  }
+  },
+  example: 'FRAB123456789'
 };

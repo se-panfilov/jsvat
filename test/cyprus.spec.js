@@ -1,4 +1,4 @@
-import { cyprus } from '../index';
+import { cyprus, getVATExample, checkVAT } from '../index';
 import { codes, invalid, name, valid, validOnlyByFormat } from './countries_vat_lists/cyprus.vat';
 import { addCharsToString, checkInvalidVat, checkOnlyValidFormatVat, checkValidVat } from './utils';
 
@@ -21,5 +21,11 @@ describe('Cyprus', () => {
 
   it('should return "false" result for invalid VATs', () => {
     invalid.forEach((vat) => checkInvalidVat(vat, [cyprus]));
+  });
+
+  it('should example be a valid format', () => {
+    const example = getVATExample(cyprus);
+
+    expect(checkVAT(example, [cyprus]).isValidFormat).toBe(true);
   });
 });

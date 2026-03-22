@@ -29,5 +29,6 @@ export const sweden: Country = {
   rules: {
     multipliers: {},
     regex: [/^(SE)(\d{10}01)$/]
-  }
+  },
+  example: 'SE123456789123'
 };

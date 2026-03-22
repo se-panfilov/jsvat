@@ -27,5 +27,6 @@ export const slovenia: Country = {
       common: [8, 7, 6, 5, 4, 3, 2]
     },
     regex: [/^(SI)([1-9]\d{7})$/]
-  }
+  },
+  example: 'SI12345678'
 };

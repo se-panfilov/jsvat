@@ -113,4 +113,4 @@ export {
   unitedKingdom
 } from './lib/countries';
 
-export { checkVAT, Rules, Country, Multipliers, VatCheckResult } from './lib/jsvat';
+export { checkVAT, Rules, Country, Multipliers, VatCheckResult, getVATExample } from './lib/jsvat';
