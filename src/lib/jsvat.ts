@@ -1,4 +1,4 @@
-import { brazil } from './countries';
+import { brazil, norway } from './countries';
 
 export interface Multipliers {
   readonly [key: string]: ReadonlyArray<number>;
@@ -61,7 +61,7 @@ function getCountryCodes(country: Country): ReadonlyArray<string> {
   return [...country.codes, country.name === 'Greece' ? 'EL' : undefined].filter(Boolean) as ReadonlyArray<string>;
 }
 
-const countriesVATDoesNotStartWithCountryCode: ReadonlyArray<string> = [brazil.name];
+const countriesVATDoesNotStartWithCountryCode: ReadonlyArray<string> = [brazil.name, norway.name];
 
 function isVATStartWithCountryCode(countryName: string): boolean {
   return !countriesVATDoesNotStartWithCountryCode.includes(countryName);
